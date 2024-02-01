@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import './App.css'
+
 import NotFound from './components/NotFound'
 import DefaultLayout from './layout/DefaultLayout'
 import Home from './pages/Home'
@@ -18,9 +18,9 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <>
+    <div dir='rtl'>
       <RouterProvider router={router} />
-    </>
+    </div>
   )
 }
 
