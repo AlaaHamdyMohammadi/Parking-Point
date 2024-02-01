@@ -1,0 +1,9 @@
+.background {
+  background-color: rgb(138, 26, 119);
+  height: 1200px;
+  /* width: 100%; */
+}
+.img {
+  background-image: url("/src/assets/Rectangle\ 4.png");
+  width: 50%;
+}
