@@ -5,6 +5,7 @@ import DefaultLayout from "./layout/DefaultLayout";
 import Home from "./pages/Home";
 import Register from "./pages/register";
 import Test from "./pages/test";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
@@ -22,9 +23,9 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <>
+    <div dir="rtl">
       <RouterProvider router={router} />
-    </>
+    </div>
   );
 }
 
