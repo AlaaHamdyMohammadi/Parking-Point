@@ -27,6 +27,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div dir="rtl">
+      
       <RouterProvider router={router} />
     </div>
   );

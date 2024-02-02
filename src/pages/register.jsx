@@ -5,6 +5,8 @@ import "./register.css";
 import classes from "./../styles/register.module.css";
 
 import { useSpring, animated } from "react-spring";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Register() {
 
@@ -22,7 +24,11 @@ function Register() {
   const registerBtnProps = useSpring({
     borderBottom: registrationFormStatus ? "solid 3px #5e065f" : "solid 0px transparent", //Animate bottom border of register button
   });
-
+  const isLog = useSelector((state) => state.isLog.isLog)
+  useEffect(() => {
+    setRegistartionFormStatus(isLog);
+  }, [])
+  
   function registerClicked() {
     setRegistartionFormStatus(true);
   }
@@ -56,7 +62,7 @@ function Register() {
               </animated.form>
             </div>
             <animated.div className="forgot-panel" style={loginProps}>
-              <a herf="#">نسيت كلمه السر ؟</a>
+              <Link to={``}>نسيت كلمه السر ؟</Link>
             </animated.div>
           </div>
 
@@ -126,13 +132,13 @@ const displayIsOwner=(event)=>{
         <input type="password" id="confirmpassword" />
         <label htmlFor="nummob">رقم الهاتف </label>
         <input type="number" id="nummob" />
-        <label>
-          نوع الحساب
-          <input type="radio" name="acctype" value="driver" onChange={(eve)=>{displayIsDriver(eve)}}/>
+        <div> نوع الحساب</div>
+          <input type="radio" name="acctype" id="driver" value="driver" onChange={(eve)=>{displayIsDriver(eve)}} className={`me-2 inputFilter`}/>
+        <label htmlFor="driver">
           سائق
         </label>
-        <label>
-          <input type="radio" name="acctype" value="owner" onChange={(eve)=>{displayIsOwner(eve)}}/>
+        <input type="radio" id="owner" name="acctype" value="owner" onChange={(eve)=>{displayIsOwner(eve)}} className={`me-2 inputFilter`}/>
+        <label htmlFor="owner">
           صاحب موقف
         </label>
         <br />
