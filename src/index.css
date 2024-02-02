@@ -3,8 +3,9 @@
 }
 /*  */
 :root {
-  --background: #5e065f;
-  --navcolor: #350d36;
+  --background: #331C41;
+  --navcolor: #291336;
   --inputcolor: rgba(238, 233, 237, 0.5);
   --yellow: #f1a525;
+  --iconColor: #422852 ;
 }
