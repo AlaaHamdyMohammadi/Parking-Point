@@ -1,13 +1,11 @@
-
-
-
 .bgColor {
-  background-color: var(--background) !important;
+    background-color: var(--background) !important;
 }
+
 .iconColor {
     color: var(--iconColor) !important;
 }
 
 .navColor {
-  background-color: var(--navcolor) !important;
+    background-color: var(--navcolor) !important;
 }

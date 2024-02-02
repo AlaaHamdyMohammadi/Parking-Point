@@ -4,7 +4,6 @@ import NotFound from "./components/NotFound";
 import DefaultLayout from "./layout/DefaultLayout";
 import Home from "./pages/Home";
 import Register from "./pages/register";
-// import Test from "./pages/test";
 import Layout from "./layout/Layout";
 
 const router = createBrowserRouter([
@@ -20,7 +19,6 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: "/register", element: <Register /> },
-      // { path: "/test", element: <Test /> },
     ],
   },
 ]);
