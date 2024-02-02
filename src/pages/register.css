@@ -65,7 +65,6 @@ select {
 }
 .form-group label {
   text-transform: uppercase;
-  /* padding-bottom: 5px; */
 }
 input.submit {
   font-weight: 750;
@@ -82,7 +81,6 @@ input.submit {
   /* background: linear-gradient(to right, var(--yellow), var(--background)); */
   background: var(--background);
 }
-
 /*Form positioning and animation */
 
 form#registerform {
