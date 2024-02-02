@@ -19,7 +19,7 @@ const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
-      { path: "/register", element: <Register />, errorElement:<HandelErorr/> },
+      { path: "/التسجيل", element: <Register />, errorElement:<HandelErorr/> },
     ],
   },
 ]);

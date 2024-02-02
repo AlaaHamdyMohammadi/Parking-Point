@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./register.css";
 // import Lottie from "lottie-react";
 // import park from "./../../public/animation/Animation - 1706863019563.json";
@@ -7,6 +7,7 @@ import classes from "./../styles/register.module.css";
 import { useSpring, animated } from "react-spring";
 
 function Register() {
+
   const [registrationFormStatus, setRegistartionFormStatus] = useState(false);
   const loginProps = useSpring({
     left: registrationFormStatus ? -600 : 0, // Login form sliding positions
@@ -95,6 +96,20 @@ function LoginForm() {
 }
 
 function RegisterForm() {
+  const [isDriver, setIsDriver] = useState(false)
+  const [isOwner, setIsOwner] = useState(false)
+const displayIsDriver=(event)=>{
+  if(event.target.checked==true){
+    setIsDriver(true)
+    setIsOwner(false)
+  }
+}
+const displayIsOwner=(event)=>{
+  if(event.target.checked==true){
+    setIsDriver(false)
+    setIsOwner(true)
+  }
+}
   return (
     <React.Fragment>
       <div className="fs-4 fw-semibold">
@@ -113,23 +128,35 @@ function RegisterForm() {
         <input type="number" id="nummob" />
         <label>
           نوع الحساب
-          <input type="radio" name="acctype" value="driver" />
+          <input type="radio" name="acctype" value="driver" onChange={(eve)=>{displayIsDriver(eve)}}/>
           سائق
         </label>
         <label>
-          <input type="radio" name="acctype" value="owner" />
+          <input type="radio" name="acctype" value="owner" onChange={(eve)=>{displayIsOwner(eve)}}/>
           صاحب موقف
         </label>
         <br />
-
-        <label htmlFor="numboard">رقم اللوحة</label>
-        <input type="number" id="numboard" />
-        <label htmlFor="cars">نوع المركبة</label>
-
-        <select id="cars" name="cars">
-          <option value="volvo">سيارة</option>
-        </select>
-        <input type="submit" value="submit" className="submit" />
+{
+  isDriver&&
+  <>
+  <label htmlFor="numboard">رقم اللوحة</label>
+  <input type="number" id="numboard" />
+  <label htmlFor="cars">نوع المركبة</label>
+  <select id="cars" name="cars">
+    <option value="volvo">سيارة</option>
+  </select>
+  <input type="submit" value="submit" className="submit" />
+  </>
+}
+{
+  isOwner&&
+  <>
+  <select id="cars" name="cars">
+    <option value="volvo">id</option>
+  </select>
+  <input type="submit" value="submit" className="submit" />
+  </>
+}
       </div>
     </React.Fragment>
   );

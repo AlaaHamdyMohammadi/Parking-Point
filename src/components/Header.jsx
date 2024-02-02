@@ -13,10 +13,10 @@ export default function Header() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 col-4 flex justify-content-between">
               <li className="nav-item">
-                <Link to={``} className="nav-link active text-white" aria-current="page" href="#">تسجيل الدخول</Link>
+                <Link to={`/التسجيل`} className="nav-link active text-white" aria-current="page" href="#">تسجيل الدخول</Link>
               </li>
               <li className="nav-item">
-                <Link to={``} className="nav-link active text-white" aria-current="page" href="#">التسجيل</Link>
+                <Link to={`/التسجيل`} className="nav-link active text-white" aria-current="page" href="#">التسجيل</Link>
               </li>
               <li className="nav-item">
                 <Link to={``} className="nav-link active text-white" aria-current="page" href="#">الدعم الفني</Link>
