@@ -1,15 +1,13 @@
-.bgColor{
-    background-color: #331C41 !important;
+
+
+
+.bgColor {
+  background-color: var(--background) !important;
 }
-.iconColor{
-    color: #5D3B70 !important;
-    /* color: #422852 !important; */
+.iconColor {
+    color: var(--iconColor) !important;
 }
 
-.navColor{
-    background-color: #291336 !important;
-}
-
-.yellowColor{
-    background-color: #F1A525 !important;
+.navColor {
+  background-color: var(--navcolor) !important;
 }

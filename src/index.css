@@ -1,3 +1,10 @@
-.currentColor{
-    background-color: rgb(53, 28, 76) !important;
+.currentColor {
+  background-color: rgb(53, 28, 76) !important;
+}
+/*  */
+:root {
+  --background: #5e065f;
+  --navcolor: #350d36;
+  --inputcolor: rgba(238, 233, 237, 0.5);
+  --yellow: #f1a525;
 }
