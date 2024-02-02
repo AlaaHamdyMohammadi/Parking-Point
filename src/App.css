@@ -1,10 +1,10 @@
 .bgColor {
-  background-color: #470848 !important;
+  background-color: var(--background) !important;
 }
 .iconColor {
   color: #bb21bf !important;
 }
 
 .navColor {
-  background-color: #350d36 !important;
+  background-color: var(--navcolor) !important;
 }

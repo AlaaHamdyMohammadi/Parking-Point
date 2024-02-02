@@ -1,119 +1,98 @@
-/* Reset styles */
-html,
-body,
-body * {
-  /* box-sizing: border-box; */
-  font-family: "Open Sans", sans-serif;
-  margin: 0;
-  padding: 0;
-  color: red;
-  /* background-color: rgb(146, 90, 90); */
-  /* border:2px solid orange; */
+.lottipark {
+  height: 200px !important;
+  width: 200px;
+  /* color: red !important; */
+  /* background-color: aquamarine !important; */
 }
-
-.background {
-  /* background-image: url(pic.jpg); */
-  background-size: cover;
-  background-position: center center;
-  background-color: aqua;
-  /* background-repeat: no-repeat; */
-  /* -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
-  /* filter: blur(5px); */
+.imgregister {
+  position: absolute;
+  /* right: 1100px; */
+  left: 100px;
+  top: 450px;
+  height: 600px;
 }
-.container {
-  width: 100%;
-  padding-top: 60px;
-  padding-bottom: 100px;
-}
-
 .login-register-wrapper {
   background-color: rgba(0, 0, 0, 0); /* Adjust the last value (alpha) to change transparency */
-
-  /* height: 560px; */
-  width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 2em;
+  width: 600px;
+  margin-right: 4rem;
+  /* margin-top: -150px; */
+  top: 0;
+  padding: 0 10px;
   border-radius: 5px;
-  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  color: #ffffff;
-  /* background: linear-gradient(180deg, rgb(50, 6, 54, 1) 0%, rgb(185, 57, 211) 52%, rgba(255, 255, 255, 0) 82%); */
+  color: var(--background);
 }
 
-/* Nav buttons */
-.nav-buttons {
-  width: 100%;
-  height: 100px;
-  padding-top: 40px;
-  opacity: 1;
-  margin-bottom: 3em;
-}
-button {
-  font-size: 1.5em;
-  margin-right: 1em;
+.btnregister {
+  padding: 5px;
+  font-size: 1em;
   border: 0px;
   cursor: pointer;
+  border-radius: 10px !important;
 }
 button:focus {
   outline: 0px;
 }
-button.active {
-  padding-bottom: 10px;
-  border-bottom: solid 2px #1059ff;
+.btnregister:active {
+  /* padding-bottom: 10px; */
+  /* border-bottom: solid 2px #1059ff; */
+  scale: 1.2;
 }
 
 /* footer: forgot section */
 .forgot-panel {
-  position: relative;
+  /* position: relative; */
   height: 100px;
   /* color: red; */
-  margin-left: auto;
-  margin-right: auto;
+  /* margin-left: auto; */
+  /* margin-right: auto; */
   text-align: center;
-  padding-top: 24px;
-  border-top: solid 1px rgba(255, 255, 255, 0.3);
-}
+  padding-top: 10px;
+  cursor: pointer;
 
+  border-top: solid 1px rgba(110, 105, 105, 0.3);
+}
 /* form styling */
-.form-group input {
+.form-group input,
+select {
   width: 100%;
-  height: 35px;
-  padding-left: 15px;
+  height: 60px;
+  /* padding-left: 15px; */
   border: none;
   border-radius: 5px;
   margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--inputcolor);
 }
 .form-group label {
   text-transform: uppercase;
+  /* padding-bottom: 5px; */
 }
 input.submit {
-  font-weight: 700;
+  font-weight: 750;
   text-transform: uppercase;
   font-size: 1em;
   text-align: center;
-  color: rgba(255, 255, 255, 1);
+  color: var(--yellow);
   padding: 8px 0px;
   width: 100%;
-  height: 35px;
+  height: 40px;
   border: none;
   border-radius: 20px;
   margin-top: 23px;
-  background-color: rgba(16, 89, 255, 1);
+  /* background: linear-gradient(to right, var(--yellow), var(--background)); */
+  background: var(--background);
 }
 
 /*Form positioning and animation */
 
 form#registerform {
-  left: 500px;
-  top: -230px;
+  top: -350px;
   position: relative;
 }
 
 .forgot-panel {
-  margin-top: -300px;
-  color: gray;
+  top: -600px;
+  color: rgb(120, 122, 111);
 }
 
 form,

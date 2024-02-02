@@ -4,9 +4,9 @@ function Test() {
     <>
       {/* <div className="test"></div> */}
 
-      <div className="d-flex  background flex-row ">
-        <div className=" img w-50"></div>
-        <div className="w-50"></div>
+      <div className="d-flex  bgColor flex-row ">
+        <div className=" img "></div>
+        <div className=""></div>
       </div>
     </>
   );
