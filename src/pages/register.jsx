@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./register.css";
 // import Lottie from "lottie-react";
 // import park from "./../../public/animation/Animation - 1706863019563.json";
 import classes from "./../styles/register.module.css";
 
 import { useSpring, animated } from "react-spring";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Register() {
+
   const [registrationFormStatus, setRegistartionFormStatus] = useState(false);
   const loginProps = useSpring({
     left: registrationFormStatus ? -600 : 0, // Login form sliding positions
@@ -21,7 +24,11 @@ function Register() {
   const registerBtnProps = useSpring({
     borderBottom: registrationFormStatus ? "solid 3px #5e065f" : "solid 0px transparent", //Animate bottom border of register button
   });
-
+  const isLog = useSelector((state) => state.isLog.isLog)
+  useEffect(() => {
+    setRegistartionFormStatus(isLog);
+  }, [])
+  
   function registerClicked() {
     setRegistartionFormStatus(true);
   }
@@ -55,7 +62,7 @@ function Register() {
               </animated.form>
             </div>
             <animated.div className="forgot-panel" style={loginProps}>
-              <a herf="#">نسيت كلمه السر ؟</a>
+              <Link to={``}>نسيت كلمه السر ؟</Link>
             </animated.div>
           </div>
 
@@ -95,6 +102,20 @@ function LoginForm() {
 }
 
 function RegisterForm() {
+  const [isDriver, setIsDriver] = useState(false)
+  const [isOwner, setIsOwner] = useState(false)
+const displayIsDriver=(event)=>{
+  if(event.target.checked==true){
+    setIsDriver(true)
+    setIsOwner(false)
+  }
+}
+const displayIsOwner=(event)=>{
+  if(event.target.checked==true){
+    setIsDriver(false)
+    setIsOwner(true)
+  }
+}
   return (
     <React.Fragment>
       <div className="fs-4 fw-semibold">
@@ -111,25 +132,37 @@ function RegisterForm() {
         <input type="password" id="confirmpassword" />
         <label htmlFor="nummob">رقم الهاتف </label>
         <input type="number" id="nummob" />
-        <label>
-          نوع الحساب
-          <input type="radio" name="acctype" value="driver" />
+        <div> نوع الحساب</div>
+          <input type="radio" name="acctype" id="driver" value="driver" onChange={(eve)=>{displayIsDriver(eve)}} className={`me-2 inputFilter`}/>
+        <label htmlFor="driver">
           سائق
         </label>
-        <label>
-          <input type="radio" name="acctype" value="owner" />
+        <input type="radio" id="owner" name="acctype" value="owner" onChange={(eve)=>{displayIsOwner(eve)}} className={`me-2 inputFilter`}/>
+        <label htmlFor="owner">
           صاحب موقف
         </label>
         <br />
-
-        <label htmlFor="numboard">رقم اللوحة</label>
-        <input type="number" id="numboard" />
-        <label htmlFor="cars">نوع المركبة</label>
-
-        <select id="cars" name="cars">
-          <option value="volvo">سيارة</option>
-        </select>
-        <input type="submit" value="submit" className="submit" />
+{
+  isDriver&&
+  <>
+  <label htmlFor="numboard">رقم اللوحة</label>
+  <input type="number" id="numboard" />
+  <label htmlFor="cars">نوع المركبة</label>
+  <select id="cars" name="cars">
+    <option value="volvo">سيارة</option>
+  </select>
+  <input type="submit" value="submit" className="submit" />
+  </>
+}
+{
+  isOwner&&
+  <>
+  <select id="cars" name="cars">
+    <option value="volvo">id</option>
+  </select>
+  <input type="submit" value="submit" className="submit" />
+  </>
+}
       </div>
     </React.Fragment>
   );

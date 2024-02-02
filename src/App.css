@@ -1,6 +1,9 @@
 .bgColor {
     background-color: var(--background) !important;
 }
+.btn-yellow {
+    background-color: var(--yellow) !important;
+}
 
 .iconColor {
     color: var(--iconColor) !important;

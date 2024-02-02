@@ -6,7 +6,7 @@ export default function SearchInput() {
                 <FaLocationArrow className="fs-4 mt-2 ms-1 start-0 position-absolute iconColor" />
                 <input type="text" className={`form-control w-100`} placeholder="ادخل موقعك" />
             </div>
-            <button className={`btn mt-5 btn-light`}>اعرض المواقف</button>
+            <button className={`btn mt-5 text-light navColor shadow`}>اعرض المواقف</button>
         </div>
     )
 }

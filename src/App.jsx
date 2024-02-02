@@ -19,7 +19,7 @@ const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
-      { path: "/register", element: <Register />, errorElement:<HandelErorr/> },
+      { path: "/التسجيل", element: <Register />, errorElement:<HandelErorr/> },
     ],
   },
 ]);
@@ -27,6 +27,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div dir="rtl">
+      
       <RouterProvider router={router} />
     </div>
   );
