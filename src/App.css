@@ -1,10 +1,15 @@
 .bgColor{
-    background-color: #5e065f !important;
+    background-color: #331C41 !important;
 }
 .iconColor{
-    color: #bb21bf !important;
+    color: #5D3B70 !important;
+    /* color: #422852 !important; */
 }
 
 .navColor{
-    background-color: #350d36 !important;
+    background-color: #291336 !important;
+}
+
+.yellowColor{
+    background-color: #F1A525 !important;
 }
