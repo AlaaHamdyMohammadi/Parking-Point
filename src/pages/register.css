@@ -44,8 +44,6 @@ button:focus {
   /* position: relative; */
   height: 100px;
   /* color: red; */
-  /* margin-left: auto; */
-  /* margin-right: auto; */
   text-align: center;
   padding-top: 10px;
   cursor: pointer;
@@ -54,7 +52,8 @@ button:focus {
 }
 /* form styling */
 .form-group input[type="text"],
-input[type="password"],input[type="email"],
+input[type="password"],
+input[type="email"],
 input[type="number"],
 select {
   width: 100%;
