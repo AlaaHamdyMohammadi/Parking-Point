@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./register.css";
 // import Lottie from "lottie-react";
 // import park from "./../../public/animation/Animation - 1706863019563.json";
 import classes from "./../styles/register.module.css";
@@ -36,18 +35,18 @@ function Register() {
   }
 
   return (
-    <div className="d-flex  bgColor flex-row ">
+    <div className={`d-flex bgColor flex-row`}>
       <div className={`col-12 `}>
         <div className={`col-9 ${classes.img} `}>
           <img className="w-100 " style={{ height: "80vw" }} src="./images/Rectangle4.png" alt="" />
         </div>
-        <div className="login-register-wrapper ">
+        <div className={`${classes.loginRegisterWrapper}`}>
           {/* <Lottie className="lottipark" animationData={park} loop={true} /> */}
           <div className=" mb-5 d-flex gap-4 fs-1 ">
-            <animated.div className={`btnregister my-5`} onClick={registerClicked} id="registerBtn" style={registerBtnProps}>
+            <animated.div className={`${classes.btnregister} my-5`} onClick={registerClicked} id="registerBtn" style={registerBtnProps}>
               إنشاء حساب
             </animated.div>
-            <animated.div className={`btnregister my-5`} onClick={loginClicked} id="loginBtn" style={loginBtnProps}>
+            <animated.div className={`${classes.btnregister} my-5`} onClick={loginClicked} id="loginBtn" style={loginBtnProps}>
               تسجيل الدخول
             </animated.div>
           </div>
@@ -60,7 +59,7 @@ function Register() {
                 <RegisterForm />
               </animated.form>
             </div>
-            <animated.div className="forgot-panel" style={loginProps}>
+            <animated.div className={`${classes.forgotPanel}`} style={loginProps}>
               <Link to={``}>نسيت كلمه السر ؟</Link>
             </animated.div>
           </div>
@@ -68,11 +67,11 @@ function Register() {
           {/* </div> */}
         </div>
 
-        <div className="imgregister ">
-          <div className="d-flex flex-column   row-gap-3 ">
+        <div className={`${classes.imgregister}`}>
+          <div className="d-flex flex-column row-gap-3 ">
             <div className="align-self-end">
               <Link to={`/`} href="#">
-                <img style={{ height: "8rem", width: "8rem" }} src="/images/logo3.png" alt="" />
+                <img className={`${classes.logo}`} src="/images/logo3.png" alt="" />
               </Link>
             </div>
             <div className="align-self-end">{/* <h2>اركن ف اقرب موقف لك الان....</h2> */}</div>
@@ -91,10 +90,10 @@ function LoginForm() {
     <React.Fragment>
       <div className="fs-4 fw-semibold">
         <label htmlFor="username">اسم المستخدم</label>
-        <input type="text" id="username" />
+        <input type="text" id="username"/>
         <label htmlFor="password">كلمة السر</label>
         <input type="text" id="password" />
-        <input type="submit" value="submit" className="submit" />
+        <input type="submit" value="submit" className={`${classes.submit}`} />
       </div>
     </React.Fragment>
   );
@@ -121,11 +120,11 @@ function RegisterForm() {
         <div className={`d-flex gap-4`}>
           <div className="d-flex  flex-column">
             <label htmlFor="fullname ">الأسم الاول </label>
-            <input type="text" className="inputcolor" id="fullname" />
+            <input type="text" className={`${classes.inputcolor}`} id="fullname" />
           </div>
-          <div className="d-flex   flex-column">
+          <div className="d-flex flex-column">
             <label htmlFor="lastlname">الأسم الاخير</label>
-            <input className="inputcolor" type="text" id="lastname" />
+            <input className={`${classes.inputcolor}`} type="text" id="lastname" />
           </div>
         </div>
 
@@ -148,7 +147,7 @@ function RegisterForm() {
           onChange={(eve) => {
             displayIsDriver(eve);
           }}
-          className={`  inputFilter`}
+          className={`${classes.inputFilter}`}
         />
         <label className={`m-2 `} htmlFor="driver">
           سائق
@@ -161,7 +160,7 @@ function RegisterForm() {
           onChange={(eve) => {
             displayIsOwner(eve);
           }}
-          className={` mt-4 inputFilter`}
+          className={` mt-4 ${classes.inputFilter}`}
         />
         <label className={`m-2 `} htmlFor="owner">
           صاحب موقف
@@ -175,7 +174,7 @@ function RegisterForm() {
               <select id="cars" name="cars">
                 <option value="car">سيارة</option>
               </select>
-              <input type="submit" value="submit" className="submit" />
+              <input type="submit" value="submit" className={`${classes.submit}`} />
             </div>
           </>
         )}
@@ -206,7 +205,7 @@ function RegisterForm() {
               المنطقه{" "}
             </label>
             <input type="text" id="area" />
-            <input type="submit" value="submit" className="submit" />
+            <input type="submit" value="submit" className={`${classes.submit}`} />
           </>
         )}
       </div>
