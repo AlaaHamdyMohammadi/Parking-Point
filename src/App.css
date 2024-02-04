@@ -21,12 +21,14 @@ select {
   border: none;
 }
 
-.form-group input[type="text"]:focus,
+input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="email"]:focus,
 input[type="number"]:focus,
 select :focus {
-  border: 1px solid red !important;
+  outline: none; /* Remove default outline */
+
+  border: 1px solid var(--bordercolor) !important;
 }
 
 label {

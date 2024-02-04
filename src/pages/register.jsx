@@ -39,7 +39,7 @@ function Register() {
     <div className="d-flex  bgColor flex-row ">
       <div className={`col-12 `}>
         <div className={`col-9 ${classes.img} `}>
-          <img className="w-100 " style={{ height: "80vw" }} src="./../../public/images/Rectangle4.png" alt="" />
+          <img className="w-100 " style={{ height: "80vw" }} src="/images/Rectangle4.png" alt="" />
         </div>
         <div className="login-register-wrapper ">
           {/* <Lottie className="lottipark" animationData={park} loop={true} /> */}
