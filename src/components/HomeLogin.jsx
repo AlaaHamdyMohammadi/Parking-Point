@@ -1,6 +1,6 @@
 import ParkingCard from "./ParkingCard";
 import SearchInput from "./SearchInput";
-import SelectLocation from "./selectlocation";
+// import SelectLocation from "./selectlocation";
 
 export default function HomeLogin() {
   return (
@@ -8,10 +8,10 @@ export default function HomeLogin() {
       <div className={`row`}>
         <div className={`col-12 col-md-3 d-flex m-5  border border-secondary rounded justify-content-center`}>
           <div className={`w-100`}>
-            <div className={` fs-2 mb-5`}>ابحث عن اقرب موقف</div>
+            <div className={` fs-2 my-5`}>ابحث عن اقرب موقف</div>
             <div className={`d-flex flex-column `}>
               <SearchInput />
-              <SelectLocation />
+              {/* <SelectLocation /> */}
             </div>
 
             <button className={`btn mt-5 text-light navColor shadow`}>اعرض المواقف</button>
