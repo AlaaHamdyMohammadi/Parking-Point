@@ -4,10 +4,12 @@ import Header from "../components/Header";
 
 export default function DefaultLayout() {
   return (
-    <div>
+    <>
       <Header />
+      <div className={`m-5`}>
       <Outlet />
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }

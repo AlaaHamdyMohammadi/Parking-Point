@@ -11,7 +11,7 @@ html {
 :root {
   --background: #331c41;
   --navcolor: #291336;
-  --inputcolor: rgba(238, 233, 237, 0.5);
+  --inputcolor: #f7f7f7;
   --yellow: #f1a525;
   --iconColor: #422852;
   --bordercolor: rgba(97, 17, 104, 0.5);

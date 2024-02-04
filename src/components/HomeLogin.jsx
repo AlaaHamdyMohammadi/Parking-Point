@@ -1,23 +1,22 @@
 import ParkingCard from "./ParkingCard";
 import SearchInput from "./SearchInput";
-import SelectLocation from "./selectlocation";
+// import SelectLocation from "./selectlocation";
 
 export default function HomeLogin() {
   return (
     <div className={`container-fluid`}>
       <div className={`row`}>
-        <div className={`col-12 col-md-3 d-flex m-5  border border-secondary rounded justify-content-center`}>
+        <div className={`card col-12 col-md-3 m-2 py-2 `}>
           <div className={`w-100`}>
-            <div className={` fs-2 mb-5`}>ابحث عن اقرب موقف</div>
-            <div className={`d-flex flex-column `}>
+            <div className={` fs-2 my-5`}>ابحث عن اقرب موقف</div>
+            <div className={`mb-4`}>
               <SearchInput />
-              <SelectLocation />
+              {/* <SelectLocation /> */}
             </div>
-
-            <button className={`btn mt-5 text-light navColor shadow`}>اعرض المواقف</button>
+            <button className={`btn text-light navColor shadow`}>اعرض المواقف</button>
           </div>
         </div>
-        <div className={`col-12  col-md-8 mt-4 pe-5`}>
+        <div className={`col-12 col-md-8`}>
           <div className={`row`}>
             <ParkingCard />
           </div>
