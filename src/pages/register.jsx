@@ -17,10 +17,12 @@ function Register() {
   });
 
   const loginBtnProps = useSpring({
-    borderBottom: registrationFormStatus ? "solid 0px transparent" : "solid 3px #5e065f", //Animate bottom border of login button
+    backgroundColor: registrationFormStatus ? "#fff" : "#5e065f", //Animate bottom border of login button
+    color: registrationFormStatus ? "#000" : "#fff", //Animate bottom border of register button
   });
   const registerBtnProps = useSpring({
-    borderBottom: registrationFormStatus ? "solid 3px #5e065f" : "solid 0px transparent", //Animate bottom border of register button
+    backgroundColor: registrationFormStatus ? "#5e065f" : "#fff", //Animate bottom border of register button
+    color: registrationFormStatus ? "#fff" : "#000", //Animate bottom border of register button
   });
   const isLog = useSelector((state) => state.isLog.isLog);
   useEffect(() => {
@@ -52,16 +54,17 @@ function Register() {
           </div>
           <div className="d-flex flex-column ">
             <div className="form-group">
+              {registrationFormStatus?"":
               <animated.form action="" id="loginform" style={loginProps}>
                 <LoginForm />
               </animated.form>
+              }
               <animated.form action="" id="registerform" style={registerProps}>
                 <RegisterForm />
               </animated.form>
             </div>
-            <animated.div className={`${classes.forgotPanel}`} style={loginProps}>
-              <Link to={``}>نسيت كلمه السر ؟</Link>
-            </animated.div>
+            {/* <animated.div className={`${classes.forgotPanel}`} style={loginProps}>
+            </animated.div> */}
           </div>
 
           {/* </div> */}
@@ -87,15 +90,16 @@ function Register() {
 
 function LoginForm() {
   return (
-    <React.Fragment>
-      <div className="fs-4 fw-semibold">
+    <>
+      <div className="fs-4 fw-semibold mb-5">
         <label htmlFor="username">اسم المستخدم</label>
         <input type="text" id="username"/>
         <label htmlFor="password">كلمة السر</label>
         <input type="text" id="password" />
         <input type="submit" value="submit" className={`${classes.submit}`} />
       </div>
-    </React.Fragment>
+      <Link to={``} className={`mt-5`}>نسيت كلمه السر ؟</Link>
+    </>
   );
 }
 
