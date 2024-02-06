@@ -5,9 +5,9 @@ import ParkingCard from './ParkingCard';
 export default function HomeLogin() {
   return (
     <div className={`container-fluid`}>
-      <div className={` d-flex flex-row gap-4`}>
+      <div className={`d-flex flex-row gap-4`}>
         {/* sec1 */}
-        <div className={` card  border-0 col-3  py-2  `}>
+        <div className={`card border-0 col-3 my-5`}>
           <div className={` shadow height border-secondary-subtle px-2 rounded-3 w-100 height`}>
             <div className={` fs-2 my-4 fw-bolder`}>ابحث عن اقرب موقف</div>
             <div className={`mb-4`}>

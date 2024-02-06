@@ -9,8 +9,8 @@ import HandelErorr from "./pages/handelErorr";
 import AddParking from "./pages/parking/AddParking";
 import ParkingDashboard from "./pages/parking/ParkingDashboard";
 import Profile from "./pages/profile";
-import Myaccount from "./components/Myaccount";
-import Editaccount from "./components/Editaccount";
+import Myaccount from './pages/driver/Myaccount';
+import Editaccount from './pages/driver/Editaccount';
 
 const router = createBrowserRouter([
   {
