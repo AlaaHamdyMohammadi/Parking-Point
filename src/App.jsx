@@ -8,15 +8,18 @@ import Layout from "./layout/Layout";
 import HandelErorr from "./pages/handelErorr";
 import AddParking from "./pages/parking/AddParking";
 import ParkingDashboard from "./pages/parking/ParkingDashboard";
+import Profile from "./pages/profile";
+import Myaccount from "./components/Myaccount";
+import Editaccount from "./components/Editaccount";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <DefaultLayout />,
     children: [
-      {index: true, element: <Home />, errorElement:<HandelErorr/>},
-      {path:"*", element: <NotFound/>}
-    ]
+      { index: true, element: <Home />, errorElement: <HandelErorr /> },
+      { path: "*", element: <NotFound /> },
+    ],
   },
   {
     element: <Layout />,
@@ -24,6 +27,16 @@ const router = createBrowserRouter([
       { path: "/التسجيل", element: <Register />, errorElement:<HandelErorr/> },
       { path: "/add_parking", element: <AddParking />, errorElement:<HandelErorr/> },
       { path: "/dashboard", element: <ParkingDashboard />, errorElement:<HandelErorr/> },
+      { path: "/التسجيل", element: <Register />, errorElement: <HandelErorr /> },
+      {
+        path: "/حسابي/:_id",
+        element: <Profile />,
+        errorElement: <HandelErorr />,
+        children: [
+          { index: true, element: <Myaccount /> },
+          { path: "تعديل", element: <Editaccount />, errorElement: <HandelErorr /> },
+        ],
+      },
     ],
   },
 ]);

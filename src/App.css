@@ -4,9 +4,22 @@
 .btn-yellow {
   background-color: var(--yellow) !important;
 }
-
+.height {
+  height: 35% !important;
+}
 .iconColor {
   color: var(--iconColor) !important;
+}
+
+.submit {
+  color: var(--yellow);
+  padding: 5px 0px;
+  height: 3.5rem;
+  background: var(--background);
+}
+.submit:hover {
+  color: var(--background);
+  background: linear-gradient(to right, var(--yellow), var(--background));
 }
 /* form styling */
 input,
@@ -21,7 +34,7 @@ select {
 input:focus,
 select:focus {
   outline: none;
-  border: 1px solid var(--iconColor) !important;
+  border: 1px solid var(--bordercolor) !important;
 }
 
 label {
@@ -32,4 +45,23 @@ label {
 
 .navColor {
   background-color: var(--navcolor) !important;
+}
+
+/* sidebar */
+.whiteSpace {
+  white-space: nowrap;
+}
+.transition {
+  transition: 0.5s;
+}
+.editIcon {
+  height: 6vh;
+  width: 6vh;
+}
+.editIcon2 {
+  height: 2vh;
+  width: 2vh;
+}
+.Gray {
+  color: var(gray) !important;
 }

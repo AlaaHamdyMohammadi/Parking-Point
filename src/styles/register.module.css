@@ -1,9 +1,9 @@
 .img {
   height: 7vw;
 }
-.logo{
-height: 6rem;
-width: 6rem;
+.logo {
+  height: 6rem;
+  width: 6rem;
 }
 .imgregister {
   position: absolute;
@@ -59,7 +59,10 @@ button:focus {
 }
 .submit:hover {
   color: var(--background);
-  background: linear-gradient(to right, var(--yellow), var(--background));
+  background: linear-gradient(to right, var(--yellow), var(--background));}
+form#registerform {
+  /* top: -350px; */
+  position: relative;
 }
 
 .forgotPanel {
