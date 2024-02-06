@@ -43,10 +43,20 @@ function Register() {
         <div className={`${classes.loginRegisterWrapper}`}>
           {/* <Lottie className="lottipark" animationData={park} loop={true} /> */}
           <div className=" mb-5 d-flex gap-4 fs-1 ">
-            <animated.div className={`${classes.btnregister} my-5`} onClick={registerClicked} id="registerBtn" style={registerBtnProps}>
+            <animated.div
+              className={`${classes.btnregister} my-5`}
+              onClick={registerClicked}
+              id="registerBtn"
+              style={registerBtnProps}
+            >
               إنشاء حساب
             </animated.div>
-            <animated.div className={`${classes.btnregister} my-5`} onClick={loginClicked} id="loginBtn" style={loginBtnProps}>
+            <animated.div
+              className={`${classes.btnregister} my-5`}
+              onClick={loginClicked}
+              id="loginBtn"
+              style={loginBtnProps}
+            >
               تسجيل الدخول
             </animated.div>
           </div>
@@ -90,10 +100,10 @@ function LoginForm() {
     <React.Fragment>
       <div className="fs-4 fw-semibold">
         <label htmlFor="username">اسم المستخدم</label>
-        <input type="text" id="username"/>
+        <input type="text" id="username" />
         <label htmlFor="password">كلمة السر</label>
         <input type="text" id="password" />
-        <input type="submit" value="submit" className={`${classes.submit}`} />
+        <input type="submit" value="submit" className={`submit text-center  rounded-2 fs-5 fw-bold mt-5`} />
       </div>
     </React.Fragment>
   );
@@ -174,7 +184,7 @@ function RegisterForm() {
               <select id="cars" name="cars">
                 <option value="car">سيارة</option>
               </select>
-              <input type="submit" value="submit" className={`${classes.submit}`} />
+              <input type="submit" value="submit" className={`submit text-center rounded-2 fs-5 fw-bold mt-5`} />
             </div>
           </>
         )}
@@ -205,7 +215,7 @@ function RegisterForm() {
               المنطقه{" "}
             </label>
             <input type="text" id="area" />
-            <input type="submit" value="submit" className={`${classes.submit}`} />
+            <input type="submit" value="submit" className={`submit text-center rounded-2 fs-5 fw-bold mt-5`} />
           </>
         )}
       </div>

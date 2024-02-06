@@ -15,6 +15,7 @@ html {
   --yellow: #f1a525;
   --iconColor: #422852;
   --bordercolor: rgba(97, 17, 104, 0.5);
+  --gray: #aaa5a5;
 }
 
 ::-webkit-scrollbar {

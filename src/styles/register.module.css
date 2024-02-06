@@ -1,9 +1,9 @@
 .img {
   height: 1.5vw;
 }
-.logo{
-height: 6rem;
-width: 6rem;
+.logo {
+  height: 6rem;
+  width: 6rem;
 }
 .lottipark {
   height: 200px !important;
@@ -49,26 +49,8 @@ button:focus {
   border-top: solid 1px rgba(110, 105, 105, 0.3);
 }
 
-.submit {
-  font-weight: 750;
-  text-transform: uppercase;
-  font-size: 1em;
-  text-align: center;
-  color: var(--yellow);
-  padding: 5px 0px;
-  width: 50%;
-  border: none;
-  border-radius: 20px;
-  margin-top: 23px;
-  background: var(--background);
-}
-.submit:hover {
-  color: var(--background);
-  background: linear-gradient(to right, var(--yellow), var(--background));
-}
-
 form#registerform {
-  top: -350px;
+  /* top: -350px; */
   position: relative;
 }
 
