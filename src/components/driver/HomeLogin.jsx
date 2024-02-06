@@ -1,5 +1,5 @@
-import ParkingCard from "./ParkingCard";
-import SearchInput from "./SearchInput";
+import SearchInput from './SearchInput';
+import ParkingCard from './ParkingCard';
 // import SelectLocation from "./selectlocation";
 
 export default function HomeLogin() {
