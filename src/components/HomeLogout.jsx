@@ -1,5 +1,5 @@
-import SearchInput from './SearchInput';
 import classes from './../styles/header.module.css';
+import SearchInput from './driver/SearchInput';
 export default function HomeLogout() {
   return (
     <div className={`container-fluid`}>
