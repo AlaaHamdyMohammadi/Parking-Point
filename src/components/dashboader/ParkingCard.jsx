@@ -26,7 +26,7 @@ export default function ParkingCard() {
                             </div>
                         </div>
                         <div className="col-4 d-flex justify-content-between align-items-center">
-                            <div className={`badge px-4 rounded-pill bg-success bg-opacity-75`}>نشط</div>
+                            <div className={`badge px-4 rounded-pill bgColor bg-opacity-75`}>نشط</div>
                             <div className="dropdown">
                                 <Link className="btn btn-outline-warning dropdown-toggle text-black" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     أجراءات
