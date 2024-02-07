@@ -1,6 +1,10 @@
 import React from "react";
 
-export default function InputEdit({ label, placeholder, type }) {
+export default function InputEdit({ label, placeholder, type ,setState }) {
+  const inputChang = (event) => {
+    setState(event.target.value)
+}; 
+
   return (
     <>
       <div className="form-group mb-3 w-100 ">
@@ -8,6 +12,7 @@ export default function InputEdit({ label, placeholder, type }) {
           <small className="fw-bold">{label}</small>
         </label>
         <input
+        onChange={inputChang}
           type={type}
           // value={email}
           // onChange={(e) => setEmail(e.target.value)}

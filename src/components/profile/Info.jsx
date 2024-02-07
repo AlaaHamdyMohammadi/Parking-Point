@@ -6,7 +6,7 @@ export default function Info({ lable, info, icon }) {
           <span className="p-2">{icon}</span>
           <span>{lable}</span>
         </p>
-        <p className="fs-5   ">{info}</p>
+        <p className="fs-5">{info}</p>
       </div>
     </>
   );
