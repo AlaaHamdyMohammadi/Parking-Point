@@ -18,8 +18,8 @@ export default function Photoprofile({ photo, time }) {
   return (
     <>
       <div className="d-flex flex-column position-relative border rounded-3  ">
-        <div className="row" style={{ height: "40vh" }}>
-          {/* <img src="./images/homeimg.jpg" className="w-100  " style={{ height: "40vh" }} /> */}
+        <div className="row" style={{ height: "50vh" }}>
+          <img src="./../.../../../../public/images/bg2.gif" className="w-100  " style={{ height: "50vh" }} />
         </div>
         {/* <div className=""> */}
         <div className="position-absolute  top-100 start-50 translate-middle  ">
