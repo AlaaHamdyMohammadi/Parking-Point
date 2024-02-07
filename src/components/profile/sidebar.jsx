@@ -5,6 +5,7 @@ import { CgProfile } from "react-icons/cg";
 import { MdEditNote } from "react-icons/md";
 import { Link } from "react-router-dom";
 import SideBareLink from "./SideBareLink";
+// import SideBareLink from "./SideBareLink";
 
 export default function Sidebar() {
   const [mini, setMini] = useState(true);
@@ -34,8 +35,8 @@ export default function Sidebar() {
         <Link to={`/`} href="#">
           <img style={{ height: "8vh", width: "8vh" }} className="mb-5" src="../images/logo3.png" alt="" />
         </Link>
-        <SideBareLink href={`/حسابي/:_id`} icon={<CgProfile className=" editIcon pe-2" />} text='الملف الشخصي'/>
-        <SideBareLink href={`/حسابي/:_id/تعديل`} icon={<MdEditNote className=" editIcon " />} text='تعديل الملف'/>
+        <SideBareLink href={`/حسابي/:_id`} icon={<CgProfile className=" editIcon pe-2" />} text="الملف الشخصي" />
+        <SideBareLink href={`/حسابي/:_id/تعديل`} icon={<MdEditNote className=" editIcon " />} text="تعديل الملف" />
       </div>
       <div id="main" className="d-flex"></div>
     </>

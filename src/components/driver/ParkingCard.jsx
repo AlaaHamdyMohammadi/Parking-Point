@@ -3,7 +3,7 @@
 // import Carousel from "./carousel";
 
 // import { Link } from "react-router-dom";
-import { parkingplaces } from './../parkingplaces';
+import { parkingplaces } from "../home/parkingplaces";
 
 export default function ParkingCard() {
   return (

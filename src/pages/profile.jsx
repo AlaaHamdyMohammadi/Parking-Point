@@ -1,5 +1,5 @@
-import Photoprofile from "../components/photoprofile";
-import Sidebar from "../components/sidebar";
+import Photoprofile from "../components/profile/photoprofile";
+import Sidebar from "../components/profile/sidebar";
 import { Outlet } from "react-router-dom";
 export default function Profile() {
   return (

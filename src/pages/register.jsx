@@ -6,8 +6,8 @@ import classes from "./../styles/register.module.css";
 import { useSpring, animated } from "react-spring";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import LoginForm from "../components/LoginForm";
-import RegisterForm from "../components/RegisterForm";
+import LoginForm from "../components/login-register/LoginForm";
+import RegisterForm from "../components/login-register/RegisterForm";
 
 function Register() {
   const [registrationFormStatus, setRegistartionFormStatus] = useState(false);
@@ -39,7 +39,7 @@ function Register() {
   }
 
   return (
-      <form action="" className={`d-flex bgColor flex-row`} style={{ height: "67vw" }}>
+    <form action="" className={`d-flex bgColor flex-row`} style={{ height: "67vw" }}>
       <div className={`col-12 `}>
         <div className={`col-9 ${classes.img}`}>
           <img className="w-100 " style={{ height: "67vw" }} src="./images/Rectangle4.png" alt="" />
@@ -47,25 +47,39 @@ function Register() {
         <div className={`${classes.loginRegisterWrapper}`}>
           {/* <Lottie className="lottipark" animationData={park} loop={true} /> */}
           <div className=" mb-5 d-flex gap-4 fs-1 ">
-            <animated.div className={`${classes.btnregister} mt-5`} onClick={registerClicked} id="registerBtn" style={registerBtnProps}>
+            <animated.div
+              className={`${classes.btnregister} mt-5`}
+              onClick={registerClicked}
+              id="registerBtn"
+              style={registerBtnProps}
+            >
               إنشاء حساب
             </animated.div>
-            <animated.div className={`${classes.btnregister} mt-5`} onClick={loginClicked} id="loginBtn" style={loginBtnProps}>
+            <animated.div
+              className={`${classes.btnregister} mt-5`}
+              onClick={loginClicked}
+              id="loginBtn"
+              style={loginBtnProps}
+            >
               تسجيل الدخول
             </animated.div>
           </div>
           <div className="d-flex flex-column ">
             <div className="form-group row">
-              {registrationFormStatus?"":
-              <animated.form action="" id="loginform" className={`col-12`} style={loginProps}>
-                <LoginForm />
-              </animated.form>
-              }
-              {registrationFormStatus?
-              <animated.form action="" id="registerform" className={`col-12`} style={registerProps}>
-              <RegisterForm />
-            </animated.form>:""
-              }
+              {registrationFormStatus ? (
+                ""
+              ) : (
+                <animated.form action="" id="loginform" className={`col-12`} style={loginProps}>
+                  <LoginForm />
+                </animated.form>
+              )}
+              {registrationFormStatus ? (
+                <animated.form action="" id="registerform" className={`col-12`} style={registerProps}>
+                  <RegisterForm />
+                </animated.form>
+              ) : (
+                ""
+              )}
             </div>
             {/* <animated.div className={`${classes.forgotPanel}`} style={loginProps}>
             </animated.div> */}
@@ -88,16 +102,13 @@ function Register() {
           </div>
         </div>
       </div>
-      </form>
+    </form>
   );
 }
 export default Register;
 
-
-
-
-
-{/* function RegisterForm() {
+{
+  /* function RegisterForm() {
   const [isDriver, setIsDriver] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
   const displayIsDriver = (event) => {
@@ -207,4 +218,5 @@ export default Register;
       </div>
     </React.Fragment>
   );
-} */}
+} */
+}
