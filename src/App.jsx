@@ -16,6 +16,7 @@ import EditProfile from "./pages/parking/EditProfile";
 import Dashboard from "./pages/parking/Dashboard";
 import RegistLayout from "./layout/RegistLayout";
 import Sales from "./pages/parking/Sales";
+import ViewProfile from "./pages/parking/ViewProfile";
 
 const router = createBrowserRouter([
   {
@@ -41,14 +42,18 @@ const router = createBrowserRouter([
           { index: true, element: <ParkingHome />, errorElement: <HandelErorr /> },
           { path: "اضافة_موقف", element: <AddParking />, errorElement: <HandelErorr /> },
           { path: "تعديل_موقف/:ParkingId", element: <AddParking />, errorElement: <HandelErorr /> },
-          { path: "صاحب_موقف/:id", element: <OwnerProfile />, errorElement: <HandelErorr /> },
-          { path: "تعديل_حسابي", element: <EditProfile />, errorElement: <HandelErorr /> },
+          { path: "حسابي/", element: <OwnerProfile />,
+          children: [
+            { path: "صاحب_موقف/:id", element: <ViewProfile />, errorElement: <HandelErorr /> },
+            { path: "تعديل", element: <EditProfile />, errorElement: <HandelErorr /> },
+          ]
+        },
           { path: "مبيعاتك", element: <Sales />, errorElement: <HandelErorr /> },
         ]
       },
       // { path: "/التسجيل", element: <Register />, errorElement: <HandelErorr /> },
       {
-        path: "/حسابي/:_id",
+        path: "/حسابي/:id/",
         element: <Profile />,
         errorElement: <HandelErorr />,
         children: [

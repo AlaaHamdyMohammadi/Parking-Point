@@ -28,13 +28,13 @@ export default function ParkingCard() {
                         <div className="col-4 d-flex justify-content-between align-items-center">
                             <div className={`badge px-4 rounded-pill bg-success bg-opacity-75`}>نشط</div>
                             <div className="dropdown">
-                                <Link className="btn btn-outline-warning dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <Link className="btn btn-outline-warning dropdown-toggle text-black" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     أجراءات
                                 </Link>
                                 <ul className="dropdown-menu">
                                     <li><Link className="dropdown-item" to="#">تحرير</Link></li>
                                     <li className="dropdown-item">إلغاء تنشيط</li>
-                                    <li onClick={handleShow} className="dropdown-item">حذف</li>
+                                    <li onClick={handleShow} className="dropdown-item" role="button">حذف</li>
                                 </ul>
                             </div>
                         </div>

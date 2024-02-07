@@ -12,6 +12,9 @@ export default function ParkingHome() {
         <ParkingFilter value={'inactive'} text='غير نشط' count={3} />
       </div>
       <ParkingCard/>
+      <ParkingCard/>
+      <ParkingCard/>
+      <ParkingCard/>
     </div>
   )
 }

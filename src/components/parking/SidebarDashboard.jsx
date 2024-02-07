@@ -31,7 +31,7 @@ export default function SidebarDashboard() {
                 onMouseLeave={toggleSidebar}
                 className={`${classes.sidebar} w-10 position-fixed pt-2 top-0 end-0 z-1 transition whiteSpace h-100 overflow-x-hidden bgColor`}
             >
-                <Link to={`صاحب_موقف/:id`}>
+                <Link to={`حسابي/صاحب_موقف/:id`}>
                 <div className={`d-flex mt-md-2`}>
                     <div className={`ms-4 p-2 ${classes.userName}`}>MM</div>
                     <div>Marim Mohmed</div>
@@ -41,7 +41,7 @@ export default function SidebarDashboard() {
                 <SideBareLink href={`/لوحة_التحكم/:id/اضافة_موقف`} icon={<MdOutlineAddHomeWork className=" editIcon" />} text="اضافة موقف " />
                 <SideBareLink href={`/لوحة_التحكم/:id`} icon={<LuParkingSquareOff className=" editIcon " />} text="المواقف" />
                 <SideBareLink href={`/لوحة_التحكم/:id/مبيعاتك`} icon={<IoBagCheckOutline className=" editIcon " />} text="حجوزاتي" />
-                <SideBareLink href={`/لوحة_التحكم/:id/تعديل_حسابي`} icon={<MdEditNote className=" editIcon " />} text="تعديل حسابي" />
+                <SideBareLink href={`/لوحة_التحكم/:id/حسابي/تعديل`} icon={<MdEditNote className=" editIcon " />} text="تعديل حسابي" />
                 <SideBareLink href={`/`} icon={<IoIosLogOut className=" editIcon " />} text="تسجيل خروج" />
                 </div>
             </div>
