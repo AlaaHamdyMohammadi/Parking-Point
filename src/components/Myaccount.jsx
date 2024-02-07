@@ -15,7 +15,7 @@ export default function Myaccount() {
               <span className="p-2">
                 <FaUserPen />
               </span>
-              الاسم{" "}
+              الاسم
             </p>
             <p className="fs-5   ">اسراء فتحي احمد</p>
             <div className=" border-bottom w-50 "></div>
@@ -25,7 +25,7 @@ export default function Myaccount() {
               <span className="p-2">
                 <MdEmail />
               </span>
-              الايميل{" "}
+              الايميل
             </p>
             <p className="fs-5   ">esraa@gmail.com</p>
             <div className=" border-bottom w-50 "></div>
@@ -35,7 +35,7 @@ export default function Myaccount() {
               <span className="p-2">
                 <FaPhone />
               </span>
-              الهاتف{" "}
+              الهاتف
             </p>
             <p className="fs-5 fw-bold ">01023456789</p>
             <div className=" border-bottom w-50 "></div>

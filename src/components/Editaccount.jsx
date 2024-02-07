@@ -5,10 +5,18 @@ export default function Editaccount() {
     <>
       {/* تعديل الملف الشخصي */}
       <div className="row align-self-start w-100">
-        <div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus ullam fugiat explicabo provident mollitia
-          sunt tempore doloribus ipsum consequatur eligendi, quaerat tenetur ipsam a perspiciatis nihil placeat temporibus,
-          quod totam!
+        <div className="form-group mb-3 ms-3">
+          <label htmlFor="exampleInputSecondName" className="mb-1">
+            <small className="fw-bold">Email</small>
+          </label>
+          <input
+            type="email"
+            // value={email}
+            // onChange={(e) => setEmail(e.target.value)}
+            className="form-control border-dark rounded-0 me-5 shadow-none "
+            id="exampleInputSecondName"
+            placeholder="Email *"
+          />
         </div>
       </div>
     </>
