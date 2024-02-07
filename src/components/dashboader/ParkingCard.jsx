@@ -32,7 +32,7 @@ export default function ParkingCard() {
                                     أجراءات
                                 </Link>
                                 <ul className="dropdown-menu">
-                                    <li><Link className="dropdown-item" to="#">تحرير</Link></li>
+                                    <li><Link className="dropdown-item" to={`/لوحة_التحكم/:id/تعديل_موقف/:ParkingId`}>تحرير</Link></li>
                                     <li className="dropdown-item">إلغاء تنشيط</li>
                                     <li onClick={handleShow} className="dropdown-item" role="button">حذف</li>
                                 </ul>

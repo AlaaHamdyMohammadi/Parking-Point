@@ -38,11 +38,11 @@ export default function SidebarDashboard() {
                 </div>
                 </Link>
                 <div className="">
-                <SideBareLink href={`/لوحة_التحكم/:id/اضافة_موقف`} icon={<MdOutlineAddHomeWork className=" editIcon" />} text="اضافة موقف " />
-                <SideBareLink href={`/لوحة_التحكم/:id`} icon={<LuParkingSquareOff className=" editIcon " />} text="المواقف" />
-                <SideBareLink href={`/لوحة_التحكم/:id/مبيعاتك`} icon={<IoBagCheckOutline className=" editIcon " />} text="حجوزاتي" />
-                <SideBareLink href={`/لوحة_التحكم/:id/حسابي/تعديل`} icon={<MdEditNote className=" editIcon " />} text="تعديل حسابي" />
-                <SideBareLink href={`/`} icon={<IoIosLogOut className=" editIcon " />} text="تسجيل خروج" />
+                <SideBareLink href={`/لوحة_التحكم/:id/اضافة_موقف`} icon={<MdOutlineAddHomeWork className=" editIcon p-2" />} text="اضافة موقف " />
+                <SideBareLink href={`/لوحة_التحكم/:id`} icon={<LuParkingSquareOff className="editIcon p-2" />} text="المواقف" />
+                <SideBareLink href={`/لوحة_التحكم/:id/مبيعاتك`} icon={<IoBagCheckOutline className=" editIcon p-2" />} text="حجوزاتي" />
+                <SideBareLink href={`/لوحة_التحكم/:id/حسابي/تعديل`} icon={<MdEditNote className=" editIcon p-2" />} text="تعديل حسابي" />
+                <SideBareLink href={`/`} icon={<IoIosLogOut className=" editIcon p-2" />} text="تسجيل خروج" />
                 </div>
             </div>
             <div id="main" className="d-flex"></div>
