@@ -7,7 +7,6 @@ export default function Home() {
   const [auth, setAuth] = useState(false);
   return (
     <>
-      <HomeLogin />
       {auth && <HomeLogin />}
       {auth && <HomeLogout />}
       <ParkingHome />
