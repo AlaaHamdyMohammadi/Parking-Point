@@ -8,7 +8,7 @@ import Layout from "./layout/Layout";
 import HandelErorr from "./pages/handelErorr";
 import AddParking from "./pages/parking/AddParking";
 import OwnerProfile from "./pages/parking/OwnerProfile";
-import Profile from "./pages/profile";
+// import Profile from "./pages/profile";
 import Myaccount from "./pages/driver/Myaccount";
 import Editaccount from "./pages/driver/Editaccount";
 import ParkingHome from "./pages/parking/ParkingHome";
@@ -17,6 +17,7 @@ import Dashboard from "./pages/parking/Dashboard";
 import RegistLayout from "./layout/RegistLayout";
 import Sales from "./pages/parking/Sales";
 import ViewProfile from "./pages/parking/ViewProfile";
+import Profile from "./pages/driver/profile";
 
 const router = createBrowserRouter([
   {

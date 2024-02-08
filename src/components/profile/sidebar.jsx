@@ -1,4 +1,5 @@
 import { useState } from "react";
+import classes from "./../../styles/sidebarDashboader.module.css";
 
 import { CgProfile } from "react-icons/cg";
 import { MdEditNote } from "react-icons/md";
@@ -30,9 +31,11 @@ export default function Sidebar() {
         onMouseLeave={toggleSidebar}
         className="sidebar w-10 position-fixed pt-2 top-0 end-0 z-1 transition whiteSpace h-100 overflow-x-hidden bgColor"
       >
-        <Link to={`/`} href="#">
-          <img style={{ height: "8vh", width: "8vh" }} className="mb-5 mt-2" src="../images/logo3.png" alt="" />
-        </Link>
+        <div className={`d-flex mt-md-2 fs-3 px-2 fw-bolder my-4`}>
+          <div className={` ms-4 p-2 yellowcolor ${classes.userName}`}>EF</div>
+          <div className="yellowcolor">Esraa Fathy</div>
+        </div>
+
         <SideBareLink
           href={`/Driveraccount/:DriverId`}
           icon={<CgProfile className=" editIcon pe-2 mx-2 mb-4" />}
@@ -41,7 +44,7 @@ export default function Sidebar() {
         <SideBareLink
           href={`/Driveraccount/:DriverId/editDriverProfile`}
           icon={<MdEditNote className=" editIcon mx-2" />}
-          text="تعديل الملف"
+          text="تعديل حسابي"
         />
       </div>
       <div id="main" className="d-flex"></div>

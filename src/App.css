@@ -10,7 +10,9 @@
 .iconColor {
   color: var(--iconColor) !important;
 }
-
+.yellowcolor {
+  color: var(--yellow);
+}
 .submit {
   color: var(--yellow);
   padding: 5px 0px;
@@ -69,6 +71,17 @@ label {
 .editIcon2 {
   height: 2vh;
   width: 2vh;
+}
+.editIcon3 {
+  height: 5vh;
+  width: 5vh;
+  color: var(--background);
+}
+.editIcon3:hover {
+  height: 5vh;
+  width: 5vh;
+  color: var(--bordercolor);
+  cursor: pointer;
 }
 .Gray {
   color: var(gray) !important;

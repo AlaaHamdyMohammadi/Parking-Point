@@ -32,9 +32,9 @@ export default function SidebarDashboard() {
         className={`${classes.sidebar} w-10 position-fixed pt-2 top-0 end-0 z-1 transition whiteSpace h-100 overflow-x-hidden bgColor`}
       >
         <Link to={`/dashboard/:ownerId/Owneraccount/ownerProfile`}>
-          <div className={`d-flex mt-md-2`}>
-            <div className={`ms-4 p-2 ${classes.userName}`}>MM</div>
-            <div>Marim Mohmed</div>
+          <div className={`d-flex mt-md-2 fs-3 fw-bolder my-4`}>
+            <div className={`ms-4 p-2 yellowcolor  ${classes.userName}`}>MM</div>
+            <div className="yellowcolor">Marim Mohmed</div>
           </div>
         </Link>
         <div className="">
