@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function InputEdit({ label, placeholder, type ,setState }) {
   const inputChang = (event) => {
     setState(event.target.value)
