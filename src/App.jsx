@@ -35,21 +35,21 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "/لوحة_التحكم/:id",
+        path: "/dashboard",
         element: <Dashboard />,
         children: [
-          { index: true, element: <ParkingHome />, errorElement: <HandelErorr /> },
-          { path: "اضافة_موقف", element: <AddParking />, errorElement: <HandelErorr /> },
-          { path: "تعديل_موقف/:ParkingId", element: <AddParking />, errorElement: <HandelErorr /> },
+          { path: ":ownerId", index: true, element: <ParkingHome />, errorElement: <HandelErorr /> },
+          { path: "add_parking", element: <AddParking />, errorElement: <HandelErorr /> },
+          { path: "edit_parking/:ParkingId", element: <AddParking />, errorElement: <HandelErorr /> },
           {
-            path: "حسابي/",
+            path: "myaccount/",
             element: <OwnerProfile />,
             children: [
-              { path: "صاحب_موقف/:id", element: <ViewProfile />, errorElement: <HandelErorr /> },
-              { path: "تعديل", element: <EditProfile />, errorElement: <HandelErorr /> },
+              { path: "parking_owner/:ownerId", element: <ViewProfile />, errorElement: <HandelErorr /> },
+              { path: "edit/:ownerId", element: <EditProfile />, errorElement: <HandelErorr /> },
             ],
           },
-          { path: "مبيعاتك", element: <Sales />, errorElement: <HandelErorr /> },
+          { path: "sales/:ownerId", element: <Sales />, errorElement: <HandelErorr /> },
         ],
       },
 
