@@ -1,6 +1,17 @@
 import { useState } from "react";
 import classes from "./../../styles/register.module.css";
 export default function RegisterForm() {
+    const [fristName, setFristName] = useState("");
+    const [lastName, setILastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPasswrd, setConfirmPassword] = useState("");
+    const [phone, setPhone] = useState("");
+    const [accountType, setAccountType] = useState("");
+    const [governorate, setGovernorate] = useState("");
+    const [state, setState] = useState("");
+    const [region, setRegion] = useState("");
+    
     const [isDriver, setIsDriver] = useState(false);
     const [isOwner, setIsOwner] = useState(false);
     const displayIsDriver = (event) => {
