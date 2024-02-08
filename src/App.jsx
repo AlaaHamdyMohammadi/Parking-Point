@@ -35,31 +35,32 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "/dashboard",
+        path: "dashboard/:ownerId",
         element: <Dashboard />,
         children: [
-          { path: ":ownerId", index: true, element: <ParkingHome />, errorElement: <HandelErorr /> },
+          { index: true, element: <ParkingHome />, errorElement: <HandelErorr /> },
           { path: "add_parking", element: <AddParking />, errorElement: <HandelErorr /> },
           { path: "edit_parking/:ParkingId", element: <AddParking />, errorElement: <HandelErorr /> },
+
           {
-            path: "myaccount/",
+            path: "Owneraccount/",
             element: <OwnerProfile />,
             children: [
-              { path: "parking_owner/:ownerId", element: <ViewProfile />, errorElement: <HandelErorr /> },
-              { path: "edit/:ownerId", element: <EditProfile />, errorElement: <HandelErorr /> },
+              { path: "ownerProfile", element: <ViewProfile />, errorElement: <HandelErorr /> },
+              { path: "editOwnerProfile", element: <EditProfile />, errorElement: <HandelErorr /> },
             ],
           },
-          { path: "sales/:ownerId", element: <Sales />, errorElement: <HandelErorr /> },
+          { path: "sales", element: <Sales />, errorElement: <HandelErorr /> },
         ],
       },
 
       {
-        path: "/حسابي/:id/",
+        path: "/Driveraccount/:DriverId/",
         element: <Profile />,
         errorElement: <HandelErorr />,
         children: [
           { index: true, element: <Myaccount /> },
-          { path: "تعديل", element: <Editaccount />, errorElement: <HandelErorr /> },
+          { path: "editDriverProfile", element: <Editaccount />, errorElement: <HandelErorr /> },
         ],
       },
     ],

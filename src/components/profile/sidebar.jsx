@@ -33,8 +33,16 @@ export default function Sidebar() {
         <Link to={`/`} href="#">
           <img style={{ height: "8vh", width: "8vh" }} className="mb-5 mt-2" src="../images/logo3.png" alt="" />
         </Link>
-        <SideBareLink href={`/حسابي/:_id`} icon={<CgProfile className=" editIcon pe-2 mx-2 mb-4" />} text="الملف الشخصي" />
-        <SideBareLink href={`/حسابي/:_id/تعديل`} icon={<MdEditNote className=" editIcon mx-2" />} text="تعديل الملف" />
+        <SideBareLink
+          href={`/Driveraccount/:DriverId`}
+          icon={<CgProfile className=" editIcon pe-2 mx-2 mb-4" />}
+          text="الملف الشخصي"
+        />
+        <SideBareLink
+          href={`/Driveraccount/:DriverId/editDriverProfile`}
+          icon={<MdEditNote className=" editIcon mx-2" />}
+          text="تعديل الملف"
+        />
       </div>
       <div id="main" className="d-flex"></div>
     </>
