@@ -25,7 +25,7 @@ console.log(userInfo);
       {/* تعديل الملف الشخصي */}
       <div className="d-flex flex-column  mt-5 align-self-center  gap-6 align-self-start w-75">
         <div className="row">
-          <div className="col-6  col-md-6 col-sm-12">
+          <div className="col-6 col-md-6 col-sm-12">
             <div className="row">
               <InputEdit label="الأسم الأول" placeholder="...............*" type="text" setState={setFristNam}/>
               <InputEdit label="الأسم الثاني" placeholder="...............*" type="text" setState={setLastNam}/>
