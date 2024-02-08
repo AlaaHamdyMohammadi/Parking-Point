@@ -3,22 +3,22 @@ import InputEdit from "../../components/profile/InputEdit";
 import SelectEdit from "../../components/profile/selectEdit";
 
 export default function Editaccount() {
-  const [fristName, setFristNam]=useState('')
-  const [lastName, setLastNam]=useState('')
-  const [phone, setPhone]=useState('')
-  const [email, setEmail]=useState('')
-  const [carNumber, setCarNumber]=useState('')
-  const [carType, setCarType]=useState('')
-  const userInfo={
-    fristName:fristName,
-    lastName:lastName,
-    phone:phone,
-    email:email,
-    carNumber:carNumber,
-    carType:carType
-  }
+  const [fristName, setFristNam] = useState("");
+  const [lastName, setLastNam] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [carNumber, setCarNumber] = useState("");
+  const [carType, setCarType] = useState("");
+  const userInfo = {
+    fristName: fristName,
+    lastName: lastName,
+    phone: phone,
+    email: email,
+    carNumber: carNumber,
+    carType: carType,
+  };
 
-console.log(userInfo);
+  console.log(userInfo);
 
   return (
     <>
@@ -26,19 +26,22 @@ console.log(userInfo);
       <div className="d-flex flex-column  mt-5 align-self-center  gap-6 align-self-start w-75">
         <div className="row">
           <div className="col-6  col-md-6 col-sm-12">
-            <div className="row">
-              <InputEdit label="الأسم الأول" placeholder="...............*" type="text" setState={setFristNam}/>
-              <InputEdit label="الأسم الثاني" placeholder="...............*" type="text" setState={setLastNam}/>
-              <InputEdit label="رقم الهاتف" placeholder="01023456789 *" type="number" setState={setPhone}/>
-            </div>
+            <InputEdit label="الأسم الأول" placeholder="...............*" type="text" setState={setFristNam} />
           </div>
-
+          <div className="col-6  col-md-6 col-sm-12">
+            <InputEdit label="الأسم الثاني" placeholder="...............*" type="text" setState={setLastNam} />
+          </div>
+          <div className="col-6  col-md-6 col-sm-12">
+            <InputEdit label="رقم الهاتف" placeholder="01023456789 *" type="number" setState={setPhone} />
+          </div>
           <div className="col-6 col-md-6 col-sm-12">
-            <div className="row">
-              <InputEdit label="الأيميل" placeholder="اللأيميل *" type="email" setState={setEmail}/>
-              <SelectEdit label="نوع المركبة" option1="سيارة" setState={setCarType}/>
-              <InputEdit label="رقم اللوحة" placeholder="142536 *" type="number" setState={setCarNumber}/>
-            </div>
+            <InputEdit label="الأيميل" placeholder="اللأيميل *" type="email" setState={setEmail} />
+          </div>
+          <div className="col-6 col-md-6 col-sm-12">
+            <SelectEdit label="نوع المركبة" option1="سيارة" setState={setCarType} />
+          </div>
+          <div className="col-6 col-md-6 col-sm-12">
+            <InputEdit label="رقم اللوحة" placeholder="142536 *" type="number" setState={setCarNumber} />
           </div>
         </div>
 

@@ -5,11 +5,11 @@ export default function Dashboard() {
   let { id } = useParams();
   return (
     <>
-      <div className="d-flex">
+      <div className="d-flex ">
         <div className="col-2">
           <SidebarDashboard />
         </div>
-        <div className="col-9  d-flex flex-column">
+        <div className="col-9 gap-5 d-flex flex-column">
           <Outlet />
         </div>
       </div>

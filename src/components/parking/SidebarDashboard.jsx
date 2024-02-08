@@ -40,21 +40,21 @@ export default function SidebarDashboard() {
         <div className="">
           <SideBareLink
             href={`/dashboard/:ownerId/add_parking`}
-            icon={<MdOutlineAddHomeWork className=" editIcon p-2" />}
+            icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
             text="اضافة موقف "
           />
           <SideBareLink href={`/dashboard/:ownerId`} icon={<LuParkingSquareOff className="editIcon p-2" />} text="المواقف" />
           <SideBareLink
             href={`/dashboard/:ownerId/sales`}
-            icon={<IoBagCheckOutline className=" editIcon p-2" />}
+            icon={<IoBagCheckOutline className=" editIcon p-1" />}
             text="حجوزاتي"
           />
           <SideBareLink
             href={`/dashboard/:ownerId/Owneraccount/editOwnerProfile`}
-            icon={<MdEditNote className=" editIcon p-2" />}
+            icon={<MdEditNote className=" editIcon p-1" />}
             text="تعديل حسابي"
           />
-          <SideBareLink href={`/`} icon={<IoIosLogOut className=" editIcon p-2" />} text="تسجيل خروج" />
+          <SideBareLink href={`/`} icon={<IoIosLogOut className=" editIcon p-1" />} text="تسجيل خروج" />
         </div>
       </div>
       <div id="main" className="d-flex"></div>

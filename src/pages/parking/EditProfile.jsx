@@ -20,24 +20,27 @@ export default function EditProfile() {
 
   console.log(userInfo);
   return (
-    <div>
+    <>
       {/* تعديل الملف الشخصي */}
       <div className="d-flex flex-column  mt-5 align-self-center  gap-6 align-self-start w-75">
         <div className="row">
           <div className="col-6  col-md-6 col-sm-12">
-            <div className="row">
-              <InputEdit label="الأسم الأول" placeholder="...............*" type="text" setState={setFristNam} />
-              <InputEdit label="الأسم الثاني" placeholder="...............*" type="text" setState={setLastNam} />
-              <InputEdit label="رقم الهاتف" placeholder="01023456789 *" type="number" setState={setPhone} />
-            </div>
+            <InputEdit label="الأسم الأول" placeholder="...............*" type="text" setState={setFristNam} />
           </div>
-
+          <div className="col-6  col-md-6 col-sm-12">
+            <InputEdit label="الأسم الثاني" placeholder="...............*" type="text" setState={setLastNam} />
+          </div>
+          <div className="col-6  col-md-6 col-sm-12">
+            <InputEdit label="رقم الهاتف" placeholder="01023456789 *" type="number" setState={setPhone} />
+          </div>
           <div className="col-6 col-md-6 col-sm-12">
-            <div className="row">
-              <InputEdit label="الأيميل" placeholder="اللأيميل *" type="email" setState={setEmail} />
-              <SelectEdit label="نوع المركبة" option1="سيارة" setState={setCarType} />
-              <InputEdit label="رقم اللوحة" placeholder="142536 *" type="number" setState={setCarNumber} />
-            </div>
+            <InputEdit label="الأيميل" placeholder="اللأيميل *" type="email" setState={setEmail} />
+          </div>
+          <div className="col-6 col-md-6 col-sm-12">
+            <SelectEdit label="نوع المركبة" option1="سيارة" setState={setCarType} />
+          </div>
+          <div className="col-6 col-md-6 col-sm-12">
+            <InputEdit label="رقم اللوحة" placeholder="142536 *" type="number" setState={setCarNumber} />
           </div>
         </div>
 
@@ -45,6 +48,6 @@ export default function EditProfile() {
           <input type="submit" value="تحديث" className={`submit w-50 text-center rounded-3 fs-4 fw-bolder mt-3`} />
         </div>
       </div>
-    </div>
+    </>
   );
 }

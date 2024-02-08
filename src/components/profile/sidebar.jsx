@@ -1,5 +1,6 @@
 import { useState } from "react";
 import classes from "./../../styles/sidebarDashboader.module.css";
+import { IoIosLogOut } from "react-icons/io";
 
 import { CgProfile } from "react-icons/cg";
 import { MdEditNote } from "react-icons/md";
@@ -29,7 +30,7 @@ export default function Sidebar() {
         id="mySidebar"
         onMouseEnter={toggleSidebar}
         onMouseLeave={toggleSidebar}
-        className="sidebar w-10 position-fixed pt-2 top-0 end-0 z-1 transition whiteSpace h-100 overflow-x-hidden bgColor"
+        className="sidebar w-10 position-fixed fw- semibold pt-2 top-0 end-0 z-1 transition whiteSpace h-100 overflow-x-hidden bgColor"
       >
         <div className={`d-flex mt-md-2 fs-3 px-2 fw-bolder my-4`}>
           <div className={` ms-4 p-2 yellowcolor ${classes.userName}`}>EF</div>
@@ -46,6 +47,7 @@ export default function Sidebar() {
           icon={<MdEditNote className=" editIcon mx-2" />}
           text="تعديل حسابي"
         />
+        <SideBareLink href={`/`} icon={<IoIosLogOut className=" editIcon m-2 p-1 mt-3" />} text="تسجيل خروج" />
       </div>
       <div id="main" className="d-flex"></div>
     </>
