@@ -98,5 +98,5 @@ label {
 
 .slide-in-right {
   animation-name: slideInRight;
-  animation-duration: 1s; /* Adjust animation duration as needed */
+  animation-duration: 2s; /* Adjust animation duration as needed */
 }
