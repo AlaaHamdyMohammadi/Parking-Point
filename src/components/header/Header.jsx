@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import classes from "./../../styles/header.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { changLog } from "../../store/slices/login";
 export default function Header() {
   const dispatch = useDispatch();
@@ -15,8 +15,8 @@ export default function Header() {
     <div>
       <nav className={`navColor navbar navbar-expand-lg shadow`}>
         <div className="container">
-          <Link to={`/`} className="navbar-brand" href="#">
-            <img src="./images/logo3.png" className={`${classes.logo}`} />
+          <Link to={`/`} className="navbar-brand">
+            <img src="./../../../images/logo3.png" className={`${classes.logo}`} />
           </Link>
           <button
             className="navbar-toggler"

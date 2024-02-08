@@ -10,9 +10,9 @@ export default function Profile() {
         </div>
         <div className="col-9 gap-5 d-flex flex-column">
           <div className={`  `}>
-            <Photoprofile />
+          <Photoprofile photo={`./../../../../images/defaultpersonjpg.jpg`} time={`عضو منذ 5 اسابيع`}/>
           </div>
-          <div className={`row  `}></div>
+          <div className={`row`}></div>
           <Outlet />
         </div>
       </div>

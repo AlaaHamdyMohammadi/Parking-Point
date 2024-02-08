@@ -1,0 +1,8 @@
+.filterBtn {
+    color: #000000 !important;
+}
+
+.filterBtn:focus {
+    background-color: var(--yellow) ;
+    color:#fff !important;
+}

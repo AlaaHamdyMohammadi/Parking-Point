@@ -1,8 +1,20 @@
-import React from "react";
 // import Accordion from "./Accordion";
+import { useRef, useState } from "react";
 import { BsPersonFillCheck } from "react-icons/bs";
+import { TbCameraPlus } from "react-icons/tb";
 
-export default function Photoprofile() {
+export default function Photoprofile({ photo, time }) {
+  const [image, setImage] = useState();
+  const profileImgRef = useRef(null);
+  function clickImgInput() {
+      profileImgRef.current.click()
+  }
+  function ImgInput(event) {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      setImage(selectedFile);
+    }
+  }
   return (
     <>
       <div className="d-flex flex-column position-relative border rounded-3  ">
@@ -11,16 +23,22 @@ export default function Photoprofile() {
         </div>
         {/* <div className=""> */}
         <div className="position-absolute  top-100 start-50 translate-middle  ">
-          <img
-            src="./../.../../../../public/images/defaultpersonjpg.jpg"
-            className="rounded-circle "
-            style={{ height: "20vh", width: "20vh" }}
-            alt="..."
-          />
+          <div >
+            <img
+              src={image ? URL.createObjectURL(image) : photo}
+              className="rounded-circle position-relative"
+              style={{ height: "20vh", width: "20vh" }}
+              alt="..."
+            />
 
+            <input type="file" name='profileImage' className='hidden' ref={profileImgRef} onChange={ImgInput} hidden/>
+            <div role="button">
+            <TbCameraPlus className={`position-absolute top-50 start-0 fs-1 bgColor text-light rounded-circle p-1`} onClick={clickImgInput}/>
+            </div>
+          </div>
           <p className="mt-2 Gray">
             <BsPersonFillCheck className="editIcon2 " />
-            <span className=""> عضو منذ 5 اسابيع</span>
+            <span className=""> {time}</span>
           </p>
         </div>
       </div>
