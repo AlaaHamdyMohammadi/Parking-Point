@@ -9,8 +9,8 @@ import HandelErorr from "./pages/handelErorr";
 import AddParking from "./pages/parking/AddParking";
 import OwnerProfile from "./pages/parking/OwnerProfile";
 import Profile from "./pages/profile";
-import Myaccount from './pages/driver/Myaccount';
-import Editaccount from './pages/driver/Editaccount';
+import Myaccount from "./pages/driver/Myaccount";
+import Editaccount from "./pages/driver/Editaccount";
 import ParkingHome from "./pages/parking/ParkingHome";
 import EditProfile from "./pages/parking/EditProfile";
 import Dashboard from "./pages/parking/Dashboard";
@@ -29,29 +29,30 @@ const router = createBrowserRouter([
   },
   {
     element: <RegistLayout />,
-    children: [
-      { path: "/التسجيل", element: <Register />, errorElement: <HandelErorr /> },
-    ],
+    children: [{ path: "/التسجيل", element: <Register />, errorElement: <HandelErorr /> }],
   },
   {
     element: <Layout />,
     children: [
       {
-        path: "/لوحة_التحكم/:id", element: <Dashboard />,
+        path: "/لوحة_التحكم/:id",
+        element: <Dashboard />,
         children: [
           { index: true, element: <ParkingHome />, errorElement: <HandelErorr /> },
           { path: "اضافة_موقف", element: <AddParking />, errorElement: <HandelErorr /> },
           { path: "تعديل_موقف/:ParkingId", element: <AddParking />, errorElement: <HandelErorr /> },
-          { path: "حسابي/", element: <OwnerProfile />,
-          children: [
-            { path: "صاحب_موقف/:id", element: <ViewProfile />, errorElement: <HandelErorr /> },
-            { path: "تعديل", element: <EditProfile />, errorElement: <HandelErorr /> },
-          ]
-        },
+          {
+            path: "حسابي/",
+            element: <OwnerProfile />,
+            children: [
+              { path: "صاحب_موقف/:id", element: <ViewProfile />, errorElement: <HandelErorr /> },
+              { path: "تعديل", element: <EditProfile />, errorElement: <HandelErorr /> },
+            ],
+          },
           { path: "مبيعاتك", element: <Sales />, errorElement: <HandelErorr /> },
-        ]
+        ],
       },
-      // { path: "/التسجيل", element: <Register />, errorElement: <HandelErorr /> },
+
       {
         path: "/حسابي/:id/",
         element: <Profile />,
