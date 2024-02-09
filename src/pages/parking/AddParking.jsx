@@ -7,19 +7,6 @@ export default function AddParking() {
     profileImgRef.current.click()
   }
   const [imgArr, setImgArr] = useState([]);
-  // const [parkigName, setParkingName] = useState("");
-  // const [city, setCity] = useState("");
-  // const [state, setState] = useState("");
-  // const [address, setaddress] = useState("");
-  // const [capacity, setCapacity] = useState("");
-  // const [location, setLocation] = useState("");
-  // const [imageErrors, setImageErrors] = useState("");
-  // const [parkigNameErrors, setParkingNameErrors] = useState("");
-  // const [cityErrors, setCityErrors] = useState("");
-  // const [stateErrors, setStateErrors] = useState("");
-  // const [addressErrors, setaddressErorrs] = useState("");
-  // const [capacityErrors, ErrorssetCapacity] = useState("");
-  // const [locationErrors, ErrorssetLocation] = useState("");
   const [parking, setParking] = useState({
     photos: [],
     city: '',
@@ -139,7 +126,7 @@ export default function AddParking() {
                   <small className="fw-bold">المحافظه</small>
                 </label>
                 <select id="address" name="address" value={parking.address}
-                onChange={validation} onBlur={validation}>
+                  onChange={validation} onBlur={validation}>
                   <option value="masqt" hidden>حدد المحافظة</option>
                   <option value="masqt">مسقط</option>
                 </select>
@@ -150,7 +137,7 @@ export default function AddParking() {
                   <small className="fw-bold">الولاية</small>
                 </label>
                 <select id="city" name="city" value={parking.city}
-                onChange={validation} onBlur={validation}>
+                  onChange={validation} onBlur={validation}>
                   <option value="masqt" hidden>حدد الولاية</option>
                   <option value="masqt">مسقط</option>
                   <option value="mtrh">مطرح</option>
@@ -167,7 +154,7 @@ export default function AddParking() {
                 </label>
                 <input
                   onChange={validation} onBlur={validation} type="text" className="form-control rounded-3 border border-secondary  shadow-none "
-                  id="state" placeholder='' name="state" value={parking.state}/>
+                  id="state" placeholder='' name="state" value={parking.state} />
                 <p className="text-danger text-center">{errors.stateErrors}</p>
               </div>
               <div className="form-group mb-3 col-12 col-md-6 ">
@@ -182,13 +169,13 @@ export default function AddParking() {
             </div>
             <div className="d-flex justify-content-center" >
               <input type="submit" value={`إضافة موقف`}
-              //  className={`btn bgColor text-white col-4`} 
-              className={
-                Object.values(errors).some((error) => error !== "")
-                  ? "btn bgColor text-white col-4 disabled"
-                  : "btn bgColor text-white col-4 "
-              }
-              disabled={Object.values(parking).some((parking) => parking == "")}
+                //  className={`btn bgColor text-white col-4`} 
+                className={
+                  Object.values(errors).some((error) => error !== "")
+                    ? "btn bgColor text-white col-4 disabled"
+                    : "btn bgColor text-white col-4 "
+                }
+                disabled={Object.values(parking).some((parking) => parking == "")}
               />
             </div>
           </form>
