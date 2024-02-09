@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { MdOutlineAddBusiness } from "react-icons/md";
 import { MdClose } from "react-icons/md";
-
 export default function AddParking() {
   const profileImgRef = useRef(null);
   function clickImgInput() {
@@ -9,41 +8,39 @@ export default function AddParking() {
   }
   const [imgArr, setImgArr] = useState([]);
   // const [parkigName, setParkingName] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [address, setaddress] = useState("");
-  const [capacity, setCapacity] = useState("");
-  const [location, setLocation] = useState("");
-
-  const [imageErrors, setImageErrors] = useState("");
+  // const [city, setCity] = useState("");
+  // const [state, setState] = useState("");
+  // const [address, setaddress] = useState("");
+  // const [capacity, setCapacity] = useState("");
+  // const [location, setLocation] = useState("");
+  // const [imageErrors, setImageErrors] = useState("");
   // const [parkigNameErrors, setParkingNameErrors] = useState("");
-  const [cityErrors, setCityErrors] = useState("");
-  const [stateErrors, setStateErrors] = useState("");
-  const [addressErrors, setaddressErorrs] = useState("");
-  const [capacityErrors, ErrorssetCapacity] = useState("");
-  const [locationErrors, ErrorssetLocation] = useState("");
+  // const [cityErrors, setCityErrors] = useState("");
+  // const [stateErrors, setStateErrors] = useState("");
+  // const [addressErrors, setaddressErorrs] = useState("");
+  // const [capacityErrors, ErrorssetCapacity] = useState("");
+  // const [locationErrors, ErrorssetLocation] = useState("");
   const [parking, setParking] = useState({
-    photos: imgArr,
-    city: city,
-    state: state,
-    address: address,
-    capacity: capacity,
-    location: location
+    photos: [],
+    city: '',
+    state: '',
+    address: '',
+    capacity: 0,
+    // location: '',
   });
 
-  const errors = useState({
-    photosError: imageErrors,
-    cityError: cityErrors,
-    stateError: stateErrors,
-    addressError: addressErrors,
-    capacityError: capacityErrors,
-    locationError: locationErrors,
+  const [errors, setErrors] = useState({
+    photosErrors: '',
+    cityErrors: '',
+    stateErrors: '',
+    addressErrors: '',
+    capacityErrors: '',
+    // locationErrors: '',
   });
 
-  console.log(errors);
   function saveImageArr(eve) {
     setImgArr((i) => [...i, ...Array.from(eve.target.files)]);
-    setParking({ ...parking, images: [...imgArr, ...Array.from(eve.target.files)] });
+    setParking({ ...parking, photos: [...imgArr, ...Array.from(eve.target.files)] });
   }
   function showImages(image) {
     try {
@@ -64,27 +61,34 @@ export default function AddParking() {
   console.log(parking);
   function validation(event) {
     if (event.target.name === "photos") {
-      setImageErrors(event.target.value.length === 0 ? "يجب إضافة صورة بحد ادني" : "",)
+      setErrors({ ...errors, photosErrors: event.target.value.length === 0 ? "يجب إضافة صورة بحد ادني" : "" })
     }
     if (event.target.name === "city") {
-      setCityErrors(event.target.value.length === 0 ? "يجب ادخال المدينة" : "",)
-      setCity(event.target.value)
+      setErrors({ ...errors, cityErrors: event.target.value.length === 0 ? "يجب ادخال المدينة" : "" })
+      setParking({ ...parking, city: event.target.value });
     }
     if (event.target.name === "state") {
-      setStateErrors(event.target.value.length === 0 ? "يجب ادخال المطقة" : "",)
-      setState(event.target.value)
+      setErrors({ ...errors, stateErrors: event.target.value.length === 0 ? "يجب ادخال المطقة" : "" })
+      setErrors({
+        ...errors,
+        stateErrors:
+          event.target.value.length === 0 ? "يجب ادخال المطقة"
+            : /^[A-Za-z0-9\u0600-\u06FF]{3,}$/.test(event.target.value)
+              ? "" : "يجب ادخال ثلاثة احرف بحد ادني",
+      });
+      setParking({ ...parking, state: event.target.value });
     }
     if (event.target.name === "address") {
-      setaddressErorrs(event.target.value.length === 0 ? "يجب ادخال العنوان" : "",)
-      setaddress(event.target.value)
+      setErrors({ ...errors, addressErrors: event.target.value.length === 0 ? "يجب ادخال العنوان" : "" })
+      setParking({ ...parking, address: event.target.value });
     }
-    if (event.target.name === "location") {
-      ErrorssetLocation(event.target.value.length === 0 ? "يجب ادخال نص" : "",)
-      setLocation(event.target.value)
-    }
+    // if (event.target.name === "location") {
+    //   setErrors({ ...errors, locationErrors: event.target.value.length === 0 ? "يجب ادخال نص" : "" })
+    //   setParking({ ...parking, location: event.target.value });
+    // }
     if (event.target.name === "capacity") {
-      ErrorssetCapacity(event.target.value.length === 0 ? "يجب ادخال السعة" : "",)
-      setCapacity(event.target.value)
+      setErrors({ ...errors, capacityErrors: event.target.value.length === 0 ? "يجب ادخال السعة" : "" })
+      setParking({ ...parking, capacity: event.target.value });
     }
   }
 
@@ -102,6 +106,7 @@ export default function AddParking() {
       formData.append("capacity", parking.capacity);
       formData.append("location", parking.location);
       event.preventDefault();
+      console.log(formData);
     }
   }
   return (
@@ -111,7 +116,7 @@ export default function AddParking() {
         <div className={`p-5`}>
           <h5 className={`text-secondary text-center`}>يمكن إضافة ثلاث صور فقط</h5>
           <form encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
-            <div className={` p-2 d-flex justify-content-between`}>
+            <div className={` p-2 d-flex justify-content-center`}>
               {imgArr.map((image, index) => (
                 <div className={`col-4 mx-2 border d-flex d-flex align-items-center justify-content-center position-relative`} key={index}>
                   <div onClick={() => removeImage(index)} className={`position-absolute top-0 end-0`} role="button">
@@ -126,48 +131,65 @@ export default function AddParking() {
                   <input type="file" name="photos" multiple id="images" accept="image/*" hidden ref={profileImgRef} onChange={(e) => saveImageArr(e)} />
                 </div>
               )}
-              <p className="text-danger text-center">{imageErrors}</p>
+              <p className="text-danger text-center">{errors.imageErrors}</p>
             </div>
             <div className="row">
               <div className="form-group mb-3 col-12 col-md-6 ">
-                <label htmlFor="exampleInputSecondName" className="mb-1 fs-3">
+                <label htmlFor="address" className="mb-1 fs-3">
                   <small className="fw-bold">المحافظه</small>
                 </label>
-                <input
-                  onChange={validation} onBlur={validation} type="text" className="form-control rounded-3 border border-secondary  shadow-none "
-                  id="exampleInputSecondName" placeholder='' name="address" />
-                <p className="text-danger text-center">{addressErrors}</p>
+                <select id="address" name="address" value={parking.address}
+                onChange={validation} onBlur={validation}>
+                  <option value="masqt" hidden>حدد المحافظة</option>
+                  <option value="masqt">مسقط</option>
+                </select>
+                <p className="text-danger text-center">{errors.addressErrors}</p>
               </div>
               <div className="form-group mb-3 col-12 col-md-6">
-                <label htmlFor="exampleInputSecondName" className="mb-1 fs-3">
+                <label htmlFor="city" className="mb-1 fs-3">
                   <small className="fw-bold">الولاية</small>
                 </label>
-                <input
-                  onChange={validation} onBlur={validation} type="text" className="form-control rounded-3 border border-secondary shadow-none "
-                  id="exampleInputSecondName" placeholder='' name="city" />
-                <p className="text-danger text-center">{cityErrors}</p>
+                <select id="city" name="city" value={parking.city}
+                onChange={validation} onBlur={validation}>
+                  <option value="masqt" hidden>حدد الولاية</option>
+                  <option value="masqt">مسقط</option>
+                  <option value="mtrh">مطرح</option>
+                  <option value="seeb">السيب</option>
+                  <option value="boshr">بوشر</option>
+                  <option value="amrat">العامرات</option>
+                  <option value="qryat">قريات</option>
+                </select>
+                <p className="text-danger text-center">{errors.cityErrors}</p>
               </div>
               <div className="form-group mb-3 col-12 col-md-6 ">
-                <label htmlFor="exampleInputSecondName" className="mb-1 fs-3">
+                <label htmlFor="state" className="mb-1 fs-3">
                   <small className="fw-bold">المنطقه</small>
                 </label>
                 <input
                   onChange={validation} onBlur={validation} type="text" className="form-control rounded-3 border border-secondary  shadow-none "
-                  id="exampleInputSecondName" placeholder='' name="state" />
-                <p className="text-danger text-center">{stateErrors}</p>
+                  id="state" placeholder='' name="state" value={parking.state}/>
+                <p className="text-danger text-center">{errors.stateErrors}</p>
               </div>
               <div className="form-group mb-3 col-12 col-md-6 ">
-                <label htmlFor="exampleInputSecondName" className="mb-1 fs-3">
+                <label htmlFor="capacity" className="mb-1 fs-3">
                   <small className="fw-bold">السعة</small>
                 </label>
-                <input
-                  onChange={validation} onBlur={validation} type="number" className="form-control rounded-3 border border-secondary  shadow-none "
-                  id="exampleInputSecondName" placeholder='' name="capacity" />
-                <p className="text-danger text-center">{capacityErrors}</p>
+                <input type="number" min={1} value={parking.capacity}
+                  onChange={validation} onBlur={validation} className="form-control rounded-3 border border-secondary  shadow-none "
+                  id="capacity" placeholder='' name="capacity" />
+                <p className="text-danger text-center">{errors.capacityErrors}</p>
               </div>
             </div>
             <div className="d-flex justify-content-center" >
-              <input type="submit" value={`إضافة موقف`} className={`btn bgColor text-white col-4`} />
+              <input type="submit" value={`إضافة موقف`}
+              //  className={`btn bgColor text-white col-4`} 
+              className={
+                Object.values(errors).some((error) => error !== "")
+                  ? "btn bgColor text-white col-4 disabled"
+                  : "btn bgColor text-white col-4 "
+              }
+              disabled={Object.values(parking).some((parking) => parking == "")}
+              />
             </div>
           </form>
         </div>

@@ -14,11 +14,9 @@ export default function SidebarDashboard() {
 
   function toggleSidebar() {
     if (mini) {
-      console.log("opening sidebar");
       document.getElementById("mySidebar").style.width = "300px";
       setMini(false);
     } else {
-      console.log("closing sidebar");
       document.getElementById("mySidebar").style.width = "85px";
       setMini(true);
     }

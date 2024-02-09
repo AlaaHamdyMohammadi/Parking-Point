@@ -100,3 +100,6 @@ label {
   animation-name: slideInRight;
   animation-duration: 2s; /* Adjust animation duration as needed */
 }
+.cursor-not-allowed{
+  cursor: not-allowed;
+}
