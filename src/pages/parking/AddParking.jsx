@@ -41,6 +41,7 @@ export default function AddParking() {
     setImgArr((prevImgArr) => {
       const updatedImgArr = [...prevImgArr];
       updatedImgArr.splice(index, 1);
+      setParking({...parking, photos: [...updatedImgArr] });
       return updatedImgArr;
     });
   };
@@ -51,22 +52,17 @@ export default function AddParking() {
       setErrors({ ...errors, photosErrors: event.target.value.length === 0 ? "يجب إضافة صورة بحد ادني" : "" })
     }
     if (event.target.name === "city") {
-      setErrors({ ...errors, cityErrors: event.target.value.length === 0 ? "يجب ادخال المدينة" : "" })
+      setErrors({ ...errors, cityErrors: event.target.value.length === 0 ? "يجب ادخال الولاية" : "" })
       setParking({ ...parking, city: event.target.value });
     }
     if (event.target.name === "state") {
-      setErrors({ ...errors, stateErrors: event.target.value.length === 0 ? "يجب ادخال المطقة" : "" })
-      setErrors({
-        ...errors,
-        stateErrors:
-          event.target.value.length === 0 ? "يجب ادخال المطقة"
-            : /^[A-Za-z0-9\u0600-\u06FF]{3,}$/.test(event.target.value)
-              ? "" : "يجب ادخال ثلاثة احرف بحد ادني",
-      });
+      setErrors({...errors,
+        stateErrors: event.target.value.length === 0 ? "يجب ادخال المنطقه"
+            : /^[A-Za-z0-9\u0600-\u06FF]{3,}$/.test(event.target.value)? "" : "يجب ادخال ثلاثة احرف بحد ادني"});
       setParking({ ...parking, state: event.target.value });
     }
     if (event.target.name === "address") {
-      setErrors({ ...errors, addressErrors: event.target.value.length === 0 ? "يجب ادخال العنوان" : "" })
+      setErrors({ ...errors, addressErrors: event.target.value.length === 0 ? "يجب ادخال المحافظة" : "" })
       setParking({ ...parking, address: event.target.value });
     }
     // if (event.target.name === "location") {
@@ -93,19 +89,19 @@ export default function AddParking() {
       formData.append("capacity", parking.capacity);
       formData.append("location", parking.location);
       event.preventDefault();
-      console.log(formData);
     }
+    console.log(formData);
   }
   return (
     <>
       <h3>لإضافة موقف يرجي ادخال البيانات الصحيحة</h3>
-      <div className={`card w-75 p-2`}>
+      <div className={`card w-100 p-2`}>
         <div className={`p-5`}>
           <h5 className={`text-secondary text-center`}>يمكن إضافة ثلاث صور فقط</h5>
           <form encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
             <div className={` p-2 d-flex justify-content-center`}>
               {imgArr.map((image, index) => (
-                <div className={`col-4 mx-2 border d-flex d-flex align-items-center justify-content-center position-relative`} key={index}>
+                <div className={`col-3 mx-2 border d-flex d-flex align-items-center justify-content-center position-relative`} key={index}>
                   <div onClick={() => removeImage(index)} className={`position-absolute top-0 end-0`} role="button">
                     <MdClose className="fs-3 bgColor text-white" />
                   </div>
@@ -127,7 +123,7 @@ export default function AddParking() {
                 </label>
                 <select id="address" name="address" value={parking.address}
                   onChange={validation} onBlur={validation}>
-                  <option value="masqt" hidden>حدد المحافظة</option>
+                  <option value={``} selected disabled>حدد المحافظة</option>
                   <option value="masqt">مسقط</option>
                 </select>
                 <p className="text-danger text-center">{errors.addressErrors}</p>
@@ -138,7 +134,7 @@ export default function AddParking() {
                 </label>
                 <select id="city" name="city" value={parking.city}
                   onChange={validation} onBlur={validation}>
-                  <option value="masqt" hidden>حدد الولاية</option>
+                  <option value={``} selected hidden>حدد الولاية</option>
                   <option value="masqt">مسقط</option>
                   <option value="mtrh">مطرح</option>
                   <option value="seeb">السيب</option>
