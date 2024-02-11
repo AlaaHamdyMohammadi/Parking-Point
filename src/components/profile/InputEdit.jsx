@@ -1,16 +1,16 @@
-export default function InputEdit({ label, placeholder, type ,setState }) {
+export default function InputEdit({ label, placeholder, type, setState }) {
   const inputChang = (event) => {
-    setState(event.target.value)
-}; 
+    setState(event.target.value);
+  };
 
   return (
     <>
       <div className="form-group mb-3 w-100 ">
-        <label htmlFor="exampleInputSecondName" className="mb-1 fs-3">
+        <label htmlFor="exampleInputSecondName" className="mb-1 fs-5">
           <small className="fw-bold">{label}</small>
         </label>
         <input
-        onChange={inputChang}
+          onChange={inputChang}
           type={type}
           // value={email}
           // onChange={(e) => setEmail(e.target.value)}

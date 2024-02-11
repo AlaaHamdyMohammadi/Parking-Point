@@ -1,6 +1,7 @@
 import { useState } from "react";
 import InputEdit from "../../components/profile/InputEdit";
 import SelectEdit from "../../components/profile/selectEdit";
+import Photoprofile from "../../components/profile/photoprofile";
 
 export default function Editaccount() {
   const [fristName, setFristNam] = useState("");
@@ -23,7 +24,10 @@ export default function Editaccount() {
   return (
     <>
       {/* تعديل الملف الشخصي */}
-      <div className="d-flex flex-column  mt-5 align-self-center  gap-6 align-self-start w-75">
+      <div className={`  `}>
+        <Photoprofile photo={`/images/defaultpersonjpg.jpg`} time={`عضو منذ 5 اسابيع`} />
+      </div>
+      <div className="d-flex flex-column  mt-2 align-self-center  gap-6 align-self-start w-75">
         <div className="row">
           <div className="col-6  col-md-6 col-sm-12">
             <InputEdit label="الأسم الأول" placeholder="...............*" type="text" setState={setFristNam} />
@@ -46,7 +50,7 @@ export default function Editaccount() {
         </div>
 
         <div className="row d-flex justify-content-center">
-          <input type="submit" value="تحديث" className={`submit w-50 text-center rounded-3 fs-4 fw-bolder mt-3`} />
+          <input type="submit" value="تحديث" className={`submit w-50 text-center rounded-3 fs-5 fw-bolder mt-3`} />
         </div>
       </div>
     </>

@@ -18,8 +18,8 @@ export default function Photoprofile({ photo, time }) {
   return (
     <>
       <div className="d-flex flex-column position-relative border rounded-3  ">
-        <div className="row" style={{ height: "50vh" }}>
-          <img src="./../.../../../../public/images/bg2.gif" className="w-100  " style={{ height: "50vh" }} />
+        <div className="row" style={{ height: "45vh" }}>
+          <img src="/images/bg2.gif" className="w-100  " style={{ height: "45vh" }} />
         </div>
         {/* <div className=""> */}
         <div className="position-absolute  top-100 start-50 translate-middle  ">
@@ -34,7 +34,7 @@ export default function Photoprofile({ photo, time }) {
             <input type="file" name="profileImage" className="hidden" ref={profileImgRef} onChange={ImgInput} hidden />
             <div role="button">
               <TbCameraPlus
-                className={`position-absolute top-50 start-0 fs-1 bgColor text-light rounded-circle p-1`}
+                className={`position-absolute top-50 start-0 fs-3  btn-yellow text-light rounded-circle p-1`}
                 onClick={clickImgInput}
               />
             </div>

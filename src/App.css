@@ -7,6 +7,9 @@
 .height {
   height: 35% !important;
 }
+.navcolor {
+  background-color: var(--navcolor);
+}
 .iconColor {
   color: var(--iconColor) !important;
 }
@@ -15,13 +18,17 @@
 }
 .submit {
   color: var(--yellow);
-  padding: 5px 0px;
-  height: 3.5rem;
+  padding: 3px 0px;
+  height: 2.5rem;
   background: var(--background);
 }
 .submit:hover {
   color: var(--background);
   background: linear-gradient(to right, var(--yellow), var(--background));
+  cursor: pointer;
+}
+.backgroundColor {
+  color: var(--background);
 }
 /* form styling */
 input,
@@ -84,7 +91,7 @@ label {
   cursor: pointer;
 }
 .Gray {
-  color: var(gray) !important;
+  color: var(--gray) !important;
 }
 .animate:hover {
   scale: 1.2;
@@ -113,6 +120,6 @@ label {
   animation-name: slideInRight;
   animation-duration: 2s; /* Adjust animation duration as needed */
 }
-.cursor-not-allowed{
+.cursor-not-allowed {
   cursor: not-allowed;
 }

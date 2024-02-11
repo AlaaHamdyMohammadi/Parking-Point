@@ -8,7 +8,7 @@ import Layout from "./layout/Layout";
 import HandelErorr from "./pages/handelErorr";
 import AddParking from "./pages/parking/AddParking";
 import OwnerProfile from "./pages/parking/OwnerProfile";
-// import Profile from "./pages/profile";
+
 import Myaccount from "./pages/driver/Myaccount";
 import Editaccount from "./pages/driver/Editaccount";
 import ParkingHome from "./pages/parking/ParkingHome";
@@ -18,6 +18,7 @@ import RegistLayout from "./layout/RegistLayout";
 import Sales from "./pages/parking/Sales";
 import ViewProfile from "./pages/parking/ViewProfile";
 import Profile from "./pages/driver/profile";
+import MyTrips from "./pages/driver/mytrips";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,7 @@ const router = createBrowserRouter([
         element: <Profile />,
         errorElement: <HandelErorr />,
         children: [
+          { path: "MyTrips", element: <MyTrips />, errorElement: <HandelErorr /> },
           { index: true, element: <Myaccount /> },
           { path: "editDriverProfile", element: <Editaccount />, errorElement: <HandelErorr /> },
         ],

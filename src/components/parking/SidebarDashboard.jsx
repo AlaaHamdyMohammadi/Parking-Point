@@ -14,10 +14,10 @@ export default function SidebarDashboard() {
 
   function toggleSidebar() {
     if (mini) {
-      document.getElementById("mySidebar").style.width = "300px";
+      document.getElementById("mySidebar").style.width = "220px";
       setMini(false);
     } else {
-      document.getElementById("mySidebar").style.width = "85px";
+      document.getElementById("mySidebar").style.width = "60px";
       setMini(true);
     }
   }
@@ -30,8 +30,8 @@ export default function SidebarDashboard() {
         className={`${classes.sidebar} w-10 position-fixed pt-2 top-0 end-0 z-1 transition whiteSpace h-100 overflow-x-hidden bgColor`}
       >
         <Link to={`/dashboard/:ownerId/Owneraccount/ownerProfile`}>
-          <div className={`d-flex mt-md-2 fs-3 fw-bolder my-4`}>
-            <div className={`ms-4 p-2 yellowcolor  ${classes.userName}`}>MM</div>
+          <div className={`d-flex mt-md-2 fs-5 fw-bold my-4`}>
+            <div className={`ms-3 p-2 yellowcolor  ${classes.userName}`}>M</div>
             <div className="yellowcolor">Marim Mohmed</div>
           </div>
         </Link>
@@ -54,6 +54,7 @@ export default function SidebarDashboard() {
           />
           <SideBareLink href={`/`} icon={<IoIosLogOut className=" editIcon p-1" />} text="تسجيل خروج" />
         </div>
+        {/* <div className="Gray border-top border-secondary">promisify@2023</div> */}
       </div>
       <div id="main" className="d-flex"></div>
     </>

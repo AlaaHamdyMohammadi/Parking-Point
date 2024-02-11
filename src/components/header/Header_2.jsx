@@ -12,7 +12,7 @@ export default function Header_2() {
       </div>
       <div className="">
         <Link to={`/`}>
-          <img src="../../../../public/parkingpointlogo2.png" className={`${classes.logo} p-1 mx-4`} />
+          <img src="/parkingpointlogo2.png" className={`${classes.logo} p-1 mx-4`} />
         </Link>
       </div>
     </nav>

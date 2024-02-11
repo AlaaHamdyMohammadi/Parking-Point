@@ -65,23 +65,21 @@ export default function ParkingCard() {
               </div>
               <div className="col-md-8 d-flex flex-row  align-items-center">
                 <div className="card-body ">
-                  <div className="card-title fw-bolder fs-3">{item.title}</div>
+                  <div className="card-title fw-bolder fs-5">{item.title}</div>
                   {/* <p className="card-text">{item.subtitle}</p> */}
                   <div className="mb-0">
                     <div>
-                      <span className="fw-bolder fs-5">السعة: </span>
+                      <span className="fw-bold ">السعة: </span>
                       {item.capacity} أماكن
                     </div>
                     <div>
-                      <span className="fw-bolder fs-5 ">عدد الأماكن المتاحه: </span>
+                      <span className="fw-bold  ">عدد الأماكن المتاحه: </span>
                       {item.avaliable} أماكن
                     </div>
                   </div>
                 </div>
                 <div className="ms-2">
-                  <button className={`text-center submit w-100 px-3 border rounded-3 fs-5 fw-bold text-white `}>
-                    احجز المواقف
-                  </button>
+                  <button className={`text-center submit w-100 px-3 border rounded-3  fw-bold text-white `}>احجز</button>
                 </div>
               </div>
             </div>

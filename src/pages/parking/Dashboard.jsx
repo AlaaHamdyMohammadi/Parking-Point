@@ -9,7 +9,7 @@ export default function Dashboard() {
         <div className="col-2">
           <SidebarDashboard />
         </div>
-        <div className="col-9 gap-5 d-flex flex-column">
+        <div className="col-9  gap-5 d-flex justify-content-center flex-column">
           <Outlet />
         </div>
       </div>

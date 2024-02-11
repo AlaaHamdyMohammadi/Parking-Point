@@ -4,24 +4,24 @@ import { MdClose } from "react-icons/md";
 export default function AddParking() {
   const profileImgRef = useRef(null);
   function clickImgInput() {
-    profileImgRef.current.click()
+    profileImgRef.current.click();
   }
   const [imgArr, setImgArr] = useState([]);
   const [parking, setParking] = useState({
     photos: [],
-    city: '',
-    state: '',
-    address: '',
+    city: "",
+    state: "",
+    address: "",
     capacity: 0,
     // location: '',
   });
 
   const [errors, setErrors] = useState({
-    photosErrors: '',
-    cityErrors: '',
-    stateErrors: '',
-    addressErrors: '',
-    capacityErrors: '',
+    photosErrors: "",
+    cityErrors: "",
+    stateErrors: "",
+    addressErrors: "",
+    capacityErrors: "",
     // locationErrors: '',
   });
 
@@ -41,7 +41,7 @@ export default function AddParking() {
     setImgArr((prevImgArr) => {
       const updatedImgArr = [...prevImgArr];
       updatedImgArr.splice(index, 1);
-      setParking({...parking, photos: [...updatedImgArr] });
+      setParking({ ...parking, photos: [...updatedImgArr] });
       return updatedImgArr;
     });
   };
@@ -49,20 +49,26 @@ export default function AddParking() {
   console.log(parking);
   function validation(event) {
     if (event.target.name === "photos") {
-      setErrors({ ...errors, photosErrors: event.target.value.length === 0 ? "يجب إضافة صورة بحد ادني" : "" })
+      setErrors({ ...errors, photosErrors: event.target.value.length === 0 ? "يجب إضافة صورة بحد ادني" : "" });
     }
     if (event.target.name === "city") {
-      setErrors({ ...errors, cityErrors: event.target.value.length === 0 ? "يجب ادخال الولاية" : "" })
+      setErrors({ ...errors, cityErrors: event.target.value.length === 0 ? "يجب ادخال الولاية" : "" });
       setParking({ ...parking, city: event.target.value });
     }
     if (event.target.name === "state") {
-      setErrors({...errors,
-        stateErrors: event.target.value.length === 0 ? "يجب ادخال المنطقه"
-            : /^[A-Za-z0-9\u0600-\u06FF]{3,}$/.test(event.target.value)? "" : "يجب ادخال ثلاثة احرف بحد ادني"});
+      setErrors({
+        ...errors,
+        stateErrors:
+          event.target.value.length === 0
+            ? "يجب ادخال المنطقه"
+            : /^[A-Za-z0-9\u0600-\u06FF]{3,}$/.test(event.target.value)
+            ? ""
+            : "يجب ادخال ثلاثة احرف بحد ادني",
+      });
       setParking({ ...parking, state: event.target.value });
     }
     if (event.target.name === "address") {
-      setErrors({ ...errors, addressErrors: event.target.value.length === 0 ? "يجب ادخال المحافظة" : "" })
+      setErrors({ ...errors, addressErrors: event.target.value.length === 0 ? "يجب ادخال المحافظة" : "" });
       setParking({ ...parking, address: event.target.value });
     }
     // if (event.target.name === "location") {
@@ -70,7 +76,7 @@ export default function AddParking() {
     //   setParking({ ...parking, location: event.target.value });
     // }
     if (event.target.name === "capacity") {
-      setErrors({ ...errors, capacityErrors: event.target.value.length === 0 ? "يجب ادخال السعة" : "" })
+      setErrors({ ...errors, capacityErrors: event.target.value.length === 0 ? "يجب ادخال السعة" : "" });
       setParking({ ...parking, capacity: event.target.value });
     }
   }
@@ -80,7 +86,7 @@ export default function AddParking() {
     const isEmpty = Object.values(parking).some((parking) => parking === "");
     const formData = new FormData();
     if (hasErrors || isEmpty) {
-      event.preventDefault()
+      event.preventDefault();
     } else {
       formData.append("photos", parking.photos);
       formData.append("city", parking.city);
@@ -95,13 +101,16 @@ export default function AddParking() {
   return (
     <>
       <h3>لإضافة موقف يرجي ادخال البيانات الصحيحة</h3>
-      <div className={`card w-100 p-2`}>
+      <div className={`card w-75 align-self-center p-2`}>
         <div className={`p-5`}>
           <h5 className={`text-secondary text-center`}>يمكن إضافة ثلاث صور فقط</h5>
           <form encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
             <div className={` p-2 d-flex justify-content-center`}>
               {imgArr.map((image, index) => (
-                <div className={`col-3 mx-2 border d-flex d-flex align-items-center justify-content-center position-relative`} key={index}>
+                <div
+                  className={`col-3 mx-2 border d-flex d-flex align-items-center justify-content-center position-relative`}
+                  key={index}
+                >
                   <div onClick={() => removeImage(index)} className={`position-absolute top-0 end-0`} role="button">
                     <MdClose className="fs-3 bgColor text-white" />
                   </div>
@@ -109,9 +118,22 @@ export default function AddParking() {
                 </div>
               ))}
               {imgArr.length < 3 && (
-                <div className={`col-4 mx-2 border d-flex p-5 d-flex align-items-center justify-content-center`} role="button" onClick={clickImgInput}>
+                <div
+                  className={`col-4 mx-2 border d-flex p-5 d-flex align-items-center justify-content-center`}
+                  role="button"
+                  onClick={clickImgInput}
+                >
                   <MdOutlineAddBusiness className={`fs-1 `} />
-                  <input type="file" name="photos" multiple id="images" accept="image/*" hidden ref={profileImgRef} onChange={(e) => saveImageArr(e)} />
+                  <input
+                    type="file"
+                    name="photos"
+                    multiple
+                    id="images"
+                    accept="image/*"
+                    hidden
+                    ref={profileImgRef}
+                    onChange={(e) => saveImageArr(e)}
+                  />
                 </div>
               )}
               <p className="text-danger text-center">{errors.imageErrors}</p>
@@ -121,9 +143,10 @@ export default function AddParking() {
                 <label htmlFor="address" className="mb-1 fs-3">
                   <small className="fw-bold">المحافظه</small>
                 </label>
-                <select id="address" name="address" value={parking.address}
-                  onChange={validation} onBlur={validation}>
-                  <option value={``} selected disabled>حدد المحافظة</option>
+                <select id="address" name="address" value={parking.address} onChange={validation} onBlur={validation}>
+                  <option value={``} selected disabled>
+                    حدد المحافظة
+                  </option>
                   <option value="masqt">مسقط</option>
                 </select>
                 <p className="text-danger text-center">{errors.addressErrors}</p>
@@ -132,9 +155,10 @@ export default function AddParking() {
                 <label htmlFor="city" className="mb-1 fs-3">
                   <small className="fw-bold">الولاية</small>
                 </label>
-                <select id="city" name="city" value={parking.city}
-                  onChange={validation} onBlur={validation}>
-                  <option value={``} selected hidden>حدد الولاية</option>
+                <select id="city" name="city" value={parking.city} onChange={validation} onBlur={validation}>
+                  <option value={``} selected hidden>
+                    حدد الولاية
+                  </option>
                   <option value="masqt">مسقط</option>
                   <option value="mtrh">مطرح</option>
                   <option value="seeb">السيب</option>
@@ -149,23 +173,40 @@ export default function AddParking() {
                   <small className="fw-bold">المنطقه</small>
                 </label>
                 <input
-                  onChange={validation} onBlur={validation} type="text" className="form-control rounded-3 border border-secondary  shadow-none "
-                  id="state" placeholder='' name="state" value={parking.state} />
+                  onChange={validation}
+                  onBlur={validation}
+                  type="text"
+                  className="form-control rounded-3 border border-secondary  shadow-none "
+                  id="state"
+                  placeholder=""
+                  name="state"
+                  value={parking.state}
+                />
                 <p className="text-danger text-center">{errors.stateErrors}</p>
               </div>
               <div className="form-group mb-3 col-12 col-md-6 ">
                 <label htmlFor="capacity" className="mb-1 fs-3">
                   <small className="fw-bold">السعة</small>
                 </label>
-                <input type="number" min={1} value={parking.capacity}
-                  onChange={validation} onBlur={validation} className="form-control rounded-3 border border-secondary  shadow-none "
-                  id="capacity" placeholder='' name="capacity" />
+                <input
+                  type="number"
+                  min={1}
+                  value={parking.capacity}
+                  onChange={validation}
+                  onBlur={validation}
+                  className="form-control rounded-3 border border-secondary  shadow-none "
+                  id="capacity"
+                  placeholder=""
+                  name="capacity"
+                />
                 <p className="text-danger text-center">{errors.capacityErrors}</p>
               </div>
             </div>
-            <div className="d-flex justify-content-center" >
-              <input type="submit" value={`إضافة موقف`}
-                //  className={`btn bgColor text-white col-4`} 
+            <div className="d-flex justify-content-center">
+              <input
+                type="submit"
+                value={`إضافة موقف`}
+                //  className={`btn bgColor text-white col-4`}
                 className={
                   Object.values(errors).some((error) => error !== "")
                     ? "btn bgColor text-white col-4 disabled"
@@ -178,5 +219,5 @@ export default function AddParking() {
         </div>
       </div>
     </>
-  )
+  );
 }

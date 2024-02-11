@@ -6,7 +6,7 @@ export const parkingplaces = [
     avaliable: 2,
 
     // subtitle: "الموقف الاوالموقف الاوالموقف الاوالموقف الاوالموقف الاو ",
-    imgpath: ["./images/backgroundjpg.jpg", "./images/park.jpg", "./images/homeimg.jpg"],
+    imgpath: ["/images/backgroundjpg.jpg", "/images/park.jpg", "/images/homeimg.jpg"],
   },
   {
     id: "2",
