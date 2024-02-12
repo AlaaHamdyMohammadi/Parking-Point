@@ -1,6 +1,8 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdOutlineAddBusiness } from "react-icons/md";
 import { MdClose } from "react-icons/md";
+import axiosInstanceParking from "../../axiosConfig/instanc";
+import axios from "axios";
 export default function AddParking() {
   const profileImgRef = useRef(null);
   function clickImgInput() {
@@ -8,14 +10,23 @@ export default function AddParking() {
   }
   const [imgArr, setImgArr] = useState([]);
   const [parking, setParking] = useState({
-    photos: [],
+    // photos: [],
+    photos: "",
+    owner: "1245624784",
     city: "",
     state: "",
     address: "",
-    capacity: 0,
+    capacity: 1,
     // location: '',
   });
-
+useEffect(() => {
+  axiosInstanceParking.get(`/parking`).then((res) => {
+console.log("Post request successful", res.data);
+})
+.catch((err) => {
+  console.error("Error during POST request:", err);
+});
+}, []);
   const [errors, setErrors] = useState({
     photosErrors: "",
     cityErrors: "",
@@ -46,10 +57,12 @@ export default function AddParking() {
     });
   };
 
-  console.log(parking);
+ 
   function validation(event) {
     if (event.target.name === "photos") {
       setErrors({ ...errors, photosErrors: event.target.value.length === 0 ? "يجب إضافة صورة بحد ادني" : "" });
+      setParking({ ...parking, photos: event.target.value });
+
     }
     if (event.target.name === "city") {
       setErrors({ ...errors, cityErrors: event.target.value.length === 0 ? "يجب ادخال الولاية" : "" });
@@ -84,28 +97,37 @@ export default function AddParking() {
   function handleSubmit(event) {
     const hasErrors = Object.values(errors).some((error) => error !== "");
     const isEmpty = Object.values(parking).some((parking) => parking === "");
-    const formData = new FormData();
+    // const formData = new FormData();
     if (hasErrors || isEmpty) {
       event.preventDefault();
     } else {
-      formData.append("photos", parking.photos);
-      formData.append("city", parking.city);
-      formData.append("state", parking.state);
-      formData.append("address", parking.address);
-      formData.append("capacity", parking.capacity);
-      formData.append("location", parking.location);
+      // formData.append("photos", parking.photos);
+      // formData.append("city", parking.city);
+      // formData.append("state", parking.state);
+      // formData.append("address", parking.address);
+      // formData.append("capacity", parking.capacity);
+      // formData.append("location", parking.location);
       event.preventDefault();
+
+      axiosInstanceParking.post(`/parking`, parking).then((res) => {
+        console.log("Post request successful", res.data);
+        // navigate("/myads");
+      })
+      .catch((err) => {
+        console.error("Error during POST request:", err);
+      });
     }
-    console.log(formData);
+    // console.log(formData);
+    console.log(parking);
   }
   return (
     <>
-      <h3>لإضافة موقف يرجي ادخال البيانات الصحيحة</h3>
+      <h3 className={`mt-4 text-center`}>لإضافة موقف يرجي ادخال البيانات الصحيحة</h3>
       <div className={`card w-75 align-self-center p-2`}>
         <div className={`p-5`}>
           <h5 className={`text-secondary text-center`}>يمكن إضافة ثلاث صور فقط</h5>
           <form encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
-            <div className={` p-2 d-flex justify-content-center`}>
+            {/* <div className={` p-2 d-flex justify-content-center`}>
               {imgArr.map((image, index) => (
                 <div
                   className={`col-3 mx-2 border d-flex d-flex align-items-center justify-content-center position-relative`}
@@ -137,13 +159,15 @@ export default function AddParking() {
                 </div>
               )}
               <p className="text-danger text-center">{errors.imageErrors}</p>
-            </div>
+            </div> */}
+            <input type="text"  onChange={validation} onBlur={validation} name='photos'/>
             <div className="row">
               <div className="form-group mb-3 col-12 col-md-6 ">
                 <label htmlFor="address" className="mb-1 fs-3">
                   <small className="fw-bold">المحافظه</small>
                 </label>
-                <select id="address" name="address" value={parking.address} onChange={validation} onBlur={validation}>
+                <select id="address" name="address" value={parking.address} onChange={validation} onBlur={validation}
+                className={`form-control border border-secondary shadow-none`}>
                   <option value={``} selected disabled>
                     حدد المحافظة
                   </option>
@@ -155,7 +179,8 @@ export default function AddParking() {
                 <label htmlFor="city" className="mb-1 fs-3">
                   <small className="fw-bold">الولاية</small>
                 </label>
-                <select id="city" name="city" value={parking.city} onChange={validation} onBlur={validation}>
+                <select id="city" name="city" value={parking.city} onChange={validation} onBlur={validation}
+                className={`form-control border border-secondary shadow-none`}>
                   <option value={``} selected hidden>
                     حدد الولاية
                   </option>

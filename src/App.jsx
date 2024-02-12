@@ -19,6 +19,7 @@ import Sales from "./pages/parking/Sales";
 import ViewProfile from "./pages/parking/ViewProfile";
 import Profile from "./pages/driver/profile";
 import MyTrips from "./pages/driver/mytrips";
+import Support from "./pages/driver/Support";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
     element: <DefaultLayout />,
     children: [
       { index: true, element: <Home />, errorElement: <HandelErorr /> },
+      { path: "support", element: <Support />, errorElement: <HandelErorr /> },
       { path: "*", element: <NotFound /> },
     ],
   },

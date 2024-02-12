@@ -1,21 +1,21 @@
 import axios from "axios"
 
-const axiosInstanceProducts= axios.create({
-baseURL:'',
+const axiosInstanceParking= axios.create({
+baseURL:'http://localhost:3000',
 })
 
-axiosInstanceProducts.interceptors.request.use((req)=>{
+axiosInstanceParking.interceptors.request.use((req)=>{
 
         return req
     },(err)=>{
         return Promise.reject(err)
     })
 
-    axiosInstanceProducts.interceptors.response.use((res)=>{
+    axiosInstanceParking.interceptors.response.use((res)=>{
     
         return res
     },(err)=>{
         return Promise.reject(err)
     })
 
-export default axiosInstanceProducts;
+export default axiosInstanceParking;

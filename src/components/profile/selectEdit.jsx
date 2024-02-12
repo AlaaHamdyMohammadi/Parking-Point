@@ -14,7 +14,7 @@ export default function SelectEdit({ label, option1, setState }) {
           className="form-control border border-secondary rounded-3 shadow-none"
           onChange={inputChang}
         >
-          <option value="car" name="car" hidden>
+          <option value="" name="car" selected hidden>
             اختر المركبة
           </option>
           <option value="car" name="car">
