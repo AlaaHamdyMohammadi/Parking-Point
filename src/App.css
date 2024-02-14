@@ -16,40 +16,11 @@
 .yellowcolor {
   color: var(--yellow);
 }
-.submit {
-  color: var(--yellow);
-  padding: 3px 0px;
-  height: 2.5rem;
-  background: var(--background);
-}
-.submit:hover {
-  color: var(--background);
-  background: linear-gradient(to right, var(--yellow), var(--background));
-  cursor: pointer;
-}
+
 .backgroundColor {
   color: var(--background);
 }
 /* form styling */
-input,
-select {
-  /* width: 100%; */
-  height: 6vh;
-  /* border-radius: 0.5rem; */
-  /* background: var(--inputcolor); */
-  /* border: none; */
-}
-
-input:focus,
-select:focus {
-  outline: none;
-  border: 1px solid var(--bordercolor) !important;
-}
-
-label {
-  margin-bottom: 0.5rem;
-  margin-top: 1rem;
-}
 
 .navColor {
   background-color: var(--navcolor) !important;
@@ -58,7 +29,6 @@ label {
 /* sidebar */
 .sidebar {
   text-decoration: none;
-
   color: #818181;
 }
 
