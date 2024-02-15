@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import SearchInput from "./SearchInput";
-import RangeDate from "./Range";
-import EndTime from "./EndTime";
+
 import classes from "./../../styles/formStyles.module.css";
+import EndDateTime from "./EndDT";
+import EndDateTimeNow from "./EndDTnow";
 
 export default function SearchSec() {
   const [BookNow, setBookNow] = useState(true);
@@ -48,11 +49,11 @@ export default function SearchSec() {
             </div>
             {!BookNow ? (
               <div className={`mb-2`}>
-                <RangeDate />
+                <EndDateTime />
               </div>
             ) : (
               <div className={`mb-2`}>
-                <EndTime />
+                <EndDateTimeNow />
               </div>
             )}
 

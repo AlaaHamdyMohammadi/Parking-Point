@@ -10,7 +10,7 @@ export default function SearchInput() {
         <input
           type="text"
           className={` my-1  p-2 border border-secondary  shadow-none rounded-2  w-100`}
-          placeholder="ابحث عن اقرب موقف لك"
+          placeholder="منطة الركن...."
         />
       </div>
     </div>

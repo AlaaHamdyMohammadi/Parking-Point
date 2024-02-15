@@ -24,10 +24,10 @@ export default function RangeDate() {
   return (
     <>
       <DatePicker
-        showTimeSelect
-        minTime={setHours(setMinutes(new Date(), 0), 17)}
-        maxTime={setHours(setMinutes(new Date(), 30), 20)}
-        dateFormat="MMMM d, yyyy h:mm aa"
+        // showTimeSelect
+        // minTime={setHours(setMinutes(new Date(), 0), 17)}
+        // maxTime={setHours(setMinutes(new Date(), 30), 20)}
+        // dateFormat="MMMM d, yyyy h:mm aa"
         //
         selectsRange={true}
         startDate={startDate}
