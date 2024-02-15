@@ -103,3 +103,9 @@
 .cursor-not-allowed {
   cursor: not-allowed;
 }
+
+
+/* StarRating */
+input[type="radio"] {
+  display: none;
+}
