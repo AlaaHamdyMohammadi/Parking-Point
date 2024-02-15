@@ -1,10 +1,5 @@
-// import { Link } from "react-router-dom";
-
-// import Carousel from "./carousel";
-
-// import { Link } from "react-router-dom";
 import { parkingplaces } from "../home/parkingplaces";
-
+import StarRating from "../driver/StarRating";
 export default function ParkingCard() {
   return (
     <>
@@ -15,10 +10,17 @@ export default function ParkingCard() {
             <div className="row g-0">
               <div className="col-md-4">
                 {/* <img src="./images/park.jpg" className="img-fluid rounded-start" alt="parking" /> */}
-                <div id={`carouselExampleInterval${index}`} className="carousel slide" data-bs-ride="carousel">
+                <div
+                  id={`carouselExampleInterval${index}`}
+                  className="carousel slide"
+                  data-bs-ride="carousel"
+                >
                   {/* <Carousel imgpath={item.imgpath} /> */}
                   <div className="carousel-inner">
-                    <div className="carousel-item active" data-bs-interval="10000">
+                    <div
+                      className="carousel-item active"
+                      data-bs-interval="10000"
+                    >
                       <img
                         style={{ width: "2vh", height: "18vh" }}
                         src={item.imgpath[0]}
@@ -49,7 +51,10 @@ export default function ParkingCard() {
                     data-bs-target={`#carouselExampleInterval${index}`}
                     data-bs-slide="prev"
                   >
-                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span
+                      className="carousel-control-prev-icon"
+                      aria-hidden="true"
+                    ></span>
                     <span className="visually-hidden">Previous</span>
                   </button>
                   <button
@@ -58,7 +63,10 @@ export default function ParkingCard() {
                     data-bs-target={`#carouselExampleInterval${index}`}
                     data-bs-slide="next"
                   >
-                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span
+                      className="carousel-control-next-icon"
+                      aria-hidden="true"
+                    ></span>
                     <span className="visually-hidden">Next</span>
                   </button>
                 </div>
@@ -69,17 +77,20 @@ export default function ParkingCard() {
                   {/* <p className="card-text">{item.subtitle}</p> */}
                   <div className="mb-0">
                     <div>
-                      <span className="fw-bold ">السعة: </span>
-                      {item.capacity} أماكن
-                    </div>
-                    <div>
-                      <span className="fw-bold  ">عدد الأماكن المتاحه: </span>
-                      {item.avaliable} أماكن
+                      <span className="fw-bold  "> الأماكن المتاحه: </span>
+                      {item.avaliable}
                     </div>
                   </div>
                 </div>
                 <div className="ms-2">
-                  <button className={`text-center submit w-100 px-3 border rounded-3  fw-bold text-white `}>احجز</button>
+                  <button
+                    className={`text-center submit w-100 px-3 border rounded-3  fw-bold text-white `}
+                  >
+                    احجز
+                  </button>
+                  <div>
+                    <StarRating />
+                  </div>
                 </div>
               </div>
             </div>
