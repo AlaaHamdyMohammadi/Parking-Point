@@ -7,6 +7,16 @@
 .height {
   height: 35% !important;
 }
+.customborder {
+  border-color: var(--background);
+}
+
+.customRange {
+  background: var(--lightgray);
+}
+.pointer {
+  cursor: pointer;
+}
 .navcolor {
   background-color: var(--navcolor);
 }
@@ -34,10 +44,10 @@
 input,
 select {
   /* width: 100%; */
-  height: 6vh;
-  /* border-radius: 0.5rem; */
-  /* background: var(--inputcolor); */
-  /* border: none; */
+  /* height: 6vh;
+  border-radius: 0.5rem;
+  background: var(--inputcolor);
+  border: none; */
 }
 
 input:focus,
