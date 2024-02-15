@@ -1,6 +1,7 @@
 // import { Link } from "react-router-dom";
 
 // import Carousel from "./carousel";
+import classes from "./../../styles/formStyles.module.css";
 
 // import { Link } from "react-router-dom";
 import { parkingplaces } from "../home/parkingplaces";
@@ -12,8 +13,8 @@ export default function ParkingCard() {
         // return (
         <>
           <div key={item.id} className="card mb-3">
-            <div className="row g-0">
-              <div className="col-md-4">
+            <div className="d-flex g-0">
+              <div className="col-lg-4 col-md-4">
                 {/* <img src="./images/park.jpg" className="img-fluid rounded-start" alt="parking" /> */}
                 <div id={`carouselExampleInterval${index}`} className="carousel slide" data-bs-ride="carousel">
                   {/* <Carousel imgpath={item.imgpath} /> */}
@@ -63,8 +64,8 @@ export default function ParkingCard() {
                   </button>
                 </div>
               </div>
-              <div className="col-md-8 d-flex flex-row  align-items-center">
-                <div className="card-body ">
+              <div className="col-lg-8 d-lg-flex  flex-row  align-items-center">
+                <div className="card-body col-lg-8 col-md-12 col-sm-12 ">
                   <div className="card-title fw-bolder fs-5">{item.title}</div>
                   {/* <p className="card-text">{item.subtitle}</p> */}
                   <div className="mb-0">
@@ -78,8 +79,8 @@ export default function ParkingCard() {
                     </div>
                   </div>
                 </div>
-                <div className="ms-2">
-                  <button className={`text-center submit w-100 px-3 border rounded-3  fw-bold text-white `}>احجز</button>
+                <div className="ms-2 col-lg-4 col-md-12 col-sm-12 text-center">
+                  <div className={`text-center w-75 bgColor text-white  p-0 btn mb-2 ${classes.formBtn}`}>احجز</div>
                 </div>
               </div>
             </div>

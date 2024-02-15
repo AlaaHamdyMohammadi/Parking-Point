@@ -8,7 +8,7 @@ import { FcOvertime } from "react-icons/fc";
 export default function EndTime() {
   const [startDate, setStartDate] = useState(null);
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
-    <div className=" customRange  Gray border pointer text-center w-100 m-2 p-1  rounded-2" onClick={onClick} ref={ref}>
+    <div className=" customRange  Gray border pointer text-center w-100 m-2 ms-3 p-1  rounded-2" onClick={onClick} ref={ref}>
       <FcOvertime className="fs-3 px-1" />
       {value ? value : "  ادخل موعد نهاية الركن اليوم"}
     </div>

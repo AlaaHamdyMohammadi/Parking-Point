@@ -6,11 +6,11 @@ import SearchSec from "./searchSec";
 export default function HomeLogin() {
   return (
     <div className={`container-fluid`}>
-      <div className={`d-flex flex-row gap-4`}>
+      <div className={`d-lg-flex flex-row gap-4`}>
         {/* sec1 */}
         <SearchSec />
         {/* sec2 */}
-        <div className={`col-4 px-2 `} id="navbar-example2">
+        <div className={`col-lg-4 col-md-12 col-sm-12 px-2 `} id="navbar-example2">
           <div className="d-flex  flex-column gap-4 my-5">
             <div className="fs-5 fw-bolder">اختر الموقف المناسب</div>
             <div className=" fw-bold">المواقف الأقرب لك ....</div>

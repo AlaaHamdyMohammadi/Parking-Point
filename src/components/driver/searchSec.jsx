@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SearchInput from "./SearchInput";
 import RangeDate from "./Range";
 import EndTime from "./EndTime";
+import classes from "./../../styles/formStyles.module.css";
 
 export default function SearchSec() {
   const [BookNow, setBookNow] = useState(true);
@@ -14,20 +15,7 @@ export default function SearchSec() {
 
   return (
     <>
-      {/* <div className={`card border-0 col-3 my-5`}>
-            <div className={` shadow height border-secondary-subtlepx-2 rounded-3 w-100 height`}>
-              <div className={` fs-4 my-2  fw-bolder`}>ابحث عن اقرب موقف</div>
-              <div className={`mb-2`}>
-                <SearchInput />
-                <SelectLocation />
-              </div>
-
-              <button className={`text-center submit w-50  border rounded-3  fw-bold text-white shadow`}>
-                اعرض المواقف
-              </button>
-            </div>
-          </div> */}
-      <div className="  col-3">
+      <div className="  col-lg-3  col-md-12 col-sm-12">
         <div className="d-flex mt-4 gap-4 ">
           <div
             onClick={handelBookNow}
@@ -68,9 +56,7 @@ export default function SearchSec() {
               </div>
             )}
 
-            <button className={`text-center submit w-50  border rounded-3 m-2 mb-4 fw-bold text-white `}>
-              اعرض المواقف
-            </button>
+            <button className={`text-center bgColor text-white btn mt-2 ${classes.formBtn} `}>اعرض المواقف</button>
           </div>
         </div>
       </div>
