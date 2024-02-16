@@ -20,6 +20,7 @@ import ViewProfile from "./pages/parking/ViewProfile";
 import Profile from "./pages/driver/profile";
 import MyTrips from "./pages/driver/mytrips";
 import Support from "./pages/driver/Support";
+import Map from "./pages/Map";
 
 const router = createBrowserRouter([
   {
@@ -33,7 +34,13 @@ const router = createBrowserRouter([
   },
   {
     element: <RegistLayout />,
-    children: [{ path: "/التسجيل", element: <Register />, errorElement: <HandelErorr /> }],
+    children: [
+      {
+        path: "/التسجيل",
+        element: <Register />,
+        errorElement: <HandelErorr />,
+      },
+    ],
   },
   {
     element: <Layout />,
@@ -42,16 +49,36 @@ const router = createBrowserRouter([
         path: "dashboard/:ownerId",
         element: <Dashboard />,
         children: [
-          { index: true, element: <ParkingHome />, errorElement: <HandelErorr /> },
-          { path: "add_parking", element: <AddParking />, errorElement: <HandelErorr /> },
-          { path: "edit_parking/:ParkingId", element: <AddParking />, errorElement: <HandelErorr /> },
+          {
+            index: true,
+            element: <ParkingHome />,
+            errorElement: <HandelErorr />,
+          },
+          {
+            path: "add_parking",
+            element: <AddParking />,
+            errorElement: <HandelErorr />,
+          },
+          {
+            path: "edit_parking/:ParkingId",
+            element: <AddParking />,
+            errorElement: <HandelErorr />,
+          },
 
           {
             path: "Owneraccount/",
             element: <OwnerProfile />,
             children: [
-              { path: "ownerProfile", element: <ViewProfile />, errorElement: <HandelErorr /> },
-              { path: "editOwnerProfile", element: <EditProfile />, errorElement: <HandelErorr /> },
+              {
+                path: "ownerProfile",
+                element: <ViewProfile />,
+                errorElement: <HandelErorr />,
+              },
+              {
+                path: "editOwnerProfile",
+                element: <EditProfile />,
+                errorElement: <HandelErorr />,
+              },
             ],
           },
           { path: "sales", element: <Sales />, errorElement: <HandelErorr /> },
@@ -63,13 +90,22 @@ const router = createBrowserRouter([
         element: <Profile />,
         errorElement: <HandelErorr />,
         children: [
-          { path: "MyTrips", element: <MyTrips />, errorElement: <HandelErorr /> },
+          {
+            path: "MyTrips",
+            element: <MyTrips />,
+            errorElement: <HandelErorr />,
+          },
           { index: true, element: <Myaccount /> },
-          { path: "editDriverProfile", element: <Editaccount />, errorElement: <HandelErorr /> },
+          {
+            path: "editDriverProfile",
+            element: <Editaccount />,
+            errorElement: <HandelErorr />,
+          },
         ],
       },
     ],
   },
+  { path: "map", element: <Map /> },
 ]);
 
 function App() {

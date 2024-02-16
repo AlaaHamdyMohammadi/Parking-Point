@@ -1,6 +1,7 @@
 import ParkingCard from "./ParkingCard";
 
 import SearchSec from "./searchSec";
+import Map from "./Map";
 // import SelectLocation from "./selectlocation";
 
 export default function HomeLogin() {
@@ -29,8 +30,7 @@ export default function HomeLogin() {
         </div>
         {/* sec3 */}
         <div className={`col-4`}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi minus sunt nisi aut assumenda, corporis quod
-          perspiciatis nemo commodi, quibusdam eos, earum vitae deleniti optio animi facere iste laboriosam. Molestias?
+          <Map />
         </div>
       </div>
     </div>
