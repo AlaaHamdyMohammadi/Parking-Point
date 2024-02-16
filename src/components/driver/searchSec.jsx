@@ -47,15 +47,9 @@ export default function SearchSec() {
             <div className={`mb-2`}>
               <SearchInput />
             </div>
-            {!BookNow ? (
-              <div className={`mb-2`}>
-                <EndDateTime />
-              </div>
-            ) : (
-              <div className={`mb-2`}>
-                <EndDateTimeNow />
-              </div>
-            )}
+            <div className={`mb-2`}>
+              <EndDateTime BookNow={BookNow} />
+            </div>
 
             <button className={`text-center bgColor text-white btn mt-2 ${classes.formBtn} `}>اعرض المواقف</button>
           </div>

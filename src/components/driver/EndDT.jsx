@@ -4,10 +4,10 @@ import React, { forwardRef } from "react";
 const { useState } = React;
 import { FcOvertime } from "react-icons/fc";
 
-export default function EndDateTime() {
+export default function EndDateTime({ BookNow }) {
   //   const [startTime, setStartTime] = useState();
   const [dateInputs, setDateInputs] = useState({
-    startDate: "",
+    startDate: BookNow ? Date.now() : "",
     endDate: "",
   });
 
@@ -33,11 +33,13 @@ export default function EndDateTime() {
     }
 
     const timeDifference = Math.abs(endTime - startTime);
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
     const hours = Math.floor(timeDifference / (1000 * 60 * 60));
     const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
     console.log(startTime);
+    console.log(endTime);
 
-    setTimeDifference({ hours, minutes });
+    setTimeDifference({ hours, minutes, days });
   };
 
   const handleInputChange = (event) => {
@@ -50,7 +52,7 @@ export default function EndDateTime() {
 
   return (
     <div className="container">
-      <div>
+      <div className={BookNow ? "  d-none " : " "}>
         <label className="Gray">بداية من :</label>
 
         <input
@@ -63,7 +65,7 @@ export default function EndDateTime() {
         />
       </div>
       <div>
-        <label className="Gray">إلي :</label>
+        <label className="Gray">{BookNow ? "موعد نهاية الحجز :" : "إلي :"}</label>
         <input
           className=" customRange  Gray border pointer text-center w-100 m-2 ms-3 p-1  rounded-2"
           type="datetime-local"
@@ -76,7 +78,9 @@ export default function EndDateTime() {
         className=" customRange  Gray border pointer text-center w-100 m-2 ms-3 p-1  rounded-2"
         onClick={calculateTimeDifference}
       >
-        {timeDifference.hours > 0 ? `${timeDifference.hours}  ساعة, ${timeDifference.minutes} دقيقة` : " معرفة مدة الركن "}
+        {timeDifference.hours > 0
+          ? `${timeDifference.days} يوم, ${timeDifference.hours}  ساعة, ${timeDifference.minutes} دقيقة`
+          : " معرفة مدة الركن "}
       </button>
     </div>
   );

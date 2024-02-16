@@ -5,7 +5,7 @@ import { FcOvertime } from "react-icons/fc";
 export default function EndDateTimeNow() {
   const [startTime, setStartTime] = useState();
   const [dateInputs, setDateInputs] = useState({
-    startDate: "",
+    startDate: Date.now(),
     endDate: "",
   });
 
@@ -45,7 +45,10 @@ export default function EndDateTimeNow() {
 
   return (
     <div className="container">
-      {/* <div>
+      <div
+        className="d-none
+"
+      >
         <label>بداية من :</label>
 
         <input
@@ -56,7 +59,7 @@ export default function EndDateTimeNow() {
           value={dateInputs.startDate}
           onChange={handleInputChange}
         />
-      </div> */}
+      </div>
       <div>
         <label className="Gray">حدد موعد نهاية الركن :</label>
         <input
