@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import HomeLogout from "../components/home/HomeLogout";
 import HomeLogin from "./../components/driver/HomeLogin";
@@ -7,7 +8,7 @@ export default function Home() {
   return (
     <>
       <HomeLogin />
-      {auth && <HomeLogout />}
+      {<HomeLogout /> && auth}
     </>
   );
 }
