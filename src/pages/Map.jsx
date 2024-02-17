@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import ReactMapGL, { Marker, NavigationControl } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-
+//
 //const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 //mapStyle="mapbox://styles/alaahamdy2/clsoqyy67004801pk549pcyc4"
 function Map() {
