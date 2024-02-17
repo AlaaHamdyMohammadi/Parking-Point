@@ -28,24 +28,24 @@ export default function Editaccount() {
       <div className={`  `}>
         <Photoprofile photo={`/images/defaultpersonjpg.jpg`} time={`عضو منذ 5 اسابيع`} />
       </div>
-      <div className="d-flex flex-column mt-5 align-self-center gap-6 align-self-start w-75">
-        <div className="row">
-          <div className="col-6 col-md-6 col-sm-12">
+      <div className="d-flex flex-column mt-5  align-self-center gap-6 align-self-start w-75">
+        <div className="row flex-column flex-sm-row ">
+          <div className="col-lg-6 col-md-6 col-sm-12">
             <InputEdit label="الأسم الأول" placeholder="...............*" type="text" setState={setFristNam} />
           </div>
-          <div className="col-6 col-md-6 col-sm-12">
+          <div className="col-lg-6 col-md-6 col-sm-12">
             <InputEdit label="الأسم الثاني" placeholder="...............*" type="text" setState={setLastNam} />
           </div>
-          <div className="col-6 col-md-6 col-sm-12">
+          <div className="col-lg-6 col-md-6 col-sm-12">
             <InputEdit label="رقم الهاتف" placeholder="01023456789 *" type="number" setState={setPhone} />
           </div>
-          <div className="col-6 col-md-6 col-sm-12">
+          <div className="col-lg-6 col-md-6 col-sm-12">
             <InputEdit label="الأيميل" placeholder="اللأيميل *" type="email" setState={setEmail} />
           </div>
-          <div className="col-6 col-md-6 col-sm-12">
+          <div className="col-lg-6 col-md-6 col-sm-12">
             <SelectEdit label="نوع المركبة" option1="سيارة" setState={setCarType} />
           </div>
-          <div className="col-6 col-md-6 col-sm-12">
+          <div className="col-lg-6 col-md-6 col-sm-12">
             <InputEdit label="رقم اللوحة" placeholder="142536 *" type="number" setState={setCarNumber} />
           </div>
         </div>
