@@ -1,13 +1,16 @@
-import { useState } from "react";
 import HomeLogout from "../components/home/HomeLogout";
 import HomeLogin from "./../components/driver/HomeLogin";
+import { useSelector } from "react-redux";
 
 export default function Home() {
-  const [auth, setAuth] = useState(false);
+  const isLoggedIn =useSelector ((state) => state.loggedIn.loggedIn);
+
   return (
     <>
-      <HomeLogin />
-      {auth && <HomeLogout />}
+    {isLoggedIn?
+      <HomeLogin />:
+   <HomeLogout />
+    }
     </>
   );
 }
