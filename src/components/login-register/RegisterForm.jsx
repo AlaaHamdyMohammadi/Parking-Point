@@ -1,24 +1,71 @@
 import { useState } from "react";
 import classes from "./../../styles/formStyles.module.css";
+import axiosInstanceParking from "../../axiosConfig/instanc";
 export default function RegisterForm() {
     const [registeUser, setRegisteUser] = useState({
-        fristName: "",
+        firstName: "",
         lastName: "",
         email: "",
         password: "",
-        phone: "",
-        accountType: 1,
-        governorate: '',
+        confirmPassword: "",
+        role: "",
     })
     const [errors, setErrors] = useState({
         fristNameErrors: "",
         lastNameErrors: "",
         emailErrors: "",
         passwordErrors: "",
-        phoneErrors: "",
-        accountTypeErrors: 1,
-        governorateErrors: '',
+        confirmPasswordErrors: "",
+        roleErrors: "",
     })
+    // let nameRegx = /[a-z0-9]{2,}@[a-z]{5,}(\.)[a-z]+/
+    // let emailRegx = /[a-z0-9]{2,}@[a-z]{5,}(\.)[a-z]+/
+    // let passwordRegx = /[a-z0-9]{2,}@[a-z]{5,}(\.)[a-z]+/
+
+    const registeValidation = (event) => {
+        if (event.target.name === "firstName") {
+            setErrors({ ...errors, fristNameErrors: event.target.value.length === 0 ? "Plesse, Enter Your firstName" : "" });
+            setRegisteUser({ ...registeUser, firstName: event.target.value });
+        }
+        if (event.target.name === "lastName") {
+            setErrors({ ...errors, lastNameErrors: event.target.value.length === 0 ? "Plesse, Enter Your lastName" : "" });
+            setRegisteUser({ ...registeUser, lastName: event.target.value });
+        }
+        if (event.target.name === "email") {
+            setErrors({ ...errors, emailErrors: event.target.value.length === 0 ? "Plesse, Enter Your email" : "" });
+            setRegisteUser({ ...registeUser, email: event.target.value });
+        }
+        if (event.target.name === "password") {
+            setErrors({ ...errors, passwordErrors: event.target.value.length === 0 ? "Plesse, Enter Your Password" : "" });
+            setRegisteUser({ ...registeUser, password: event.target.value });
+        }
+        if (event.target.name === "confirmPassword") {
+            setErrors({ ...errors, confirmPasswordErrors: event.target.value.length === 0 ? "password not match" : "" });
+            setRegisteUser({ ...registeUser, confirmPassword: event.target.value });
+        }
+        if (event.target.name === "role") {
+            setErrors({ ...errors, roleErrors: event.target.value.length === 0 ? "Plesse, chouse Your role" : "" });
+            setRegisteUser({ ...registeUser, role: event.target.value });
+        }
+    }
+    console.log(errors);
+    const handleSubmit = async (event) => {
+        const hasErrors = Object.values(errors).some((error) => error !== "");
+        const isEmpty = Object.values(registeUser).some((registeUser) => registeUser === "");
+        if (hasErrors || isEmpty) {
+            event.preventDefault();
+        } else {
+            event.preventDefault();
+            try {
+                const res = await axiosInstanceParking.post(`/users/signup`, registeUser);
+                console.log("signup request successful", res.data);
+            } catch (error) {
+                console.log("signup request not successful", error);
+            }
+        }
+    }
+    console.log(registeUser);
+
     const [isDriver, setIsDriver] = useState(false);
     const [isOwner, setIsOwner] = useState(false);
     const displayIsDriver = (event) => {
@@ -35,29 +82,34 @@ export default function RegisterForm() {
     };
     return (
         <>
-            <form action="" className="my-5">
+            <form action="" method="post" onSubmit={handleSubmit}  className="my-5">
                 <div className="fs-4">
                     <div className={`row`}>
                         <div className="col-md-5 col-12 ms-md-5 ">
-                            <label className="fs-5" htmlFor="fullname">الأسم الاول </label>
-                            <input type="text" className={`${classes.input} form-control border-secondary shadow-none`} id="fullname" />
+                            <label className="fs-5" htmlFor="firstName">الأسم الاول </label>
+                            <input type="text" name="firstName" className={`${classes.input} form-control border-secondary shadow-none`} id="firstName" 
+                            onChange={registeValidation} onBlur={registeValidation}/>
                         </div>
                         <div className="col-md-5 col-12 me-md-4">
-                            <label className="fs-5" htmlFor="lastlname">الأسم الاخير</label>
-                            <input className={`${classes.input} form-control border-secondary shadow-none`} type="text" id="lastname" />
+                            <label className="fs-5" htmlFor="lastName">الأسم الاخير</label>
+                            <input className={`${classes.input} form-control border-secondary shadow-none`} type="text" name="lastName" id="lastName" 
+                            onChange={registeValidation} onBlur={registeValidation}/>
                         </div>
                     </div>
                     <div className="mt-4">
                         <label className="fs-5" htmlFor="email">الايميل</label>
-                        <input type="email" id="email" className={`${classes.input} form-control border-secondary shadow-none`} />
+                        <input type="email" id="email" name="email" className={`${classes.input} form-control border-secondary shadow-none`} 
+                        onChange={registeValidation} onBlur={registeValidation}/>
                     </div>
                     <div className="mt-4">
                         <label className="fs-5" htmlFor="password">كلمة السر</label>
-                        <input type="password" id="password" className={`${classes.input} form-control border-secondary shadow-none`} />
+                        <input type="password" id="password" name="password" className={`${classes.input} form-control border-secondary shadow-none`} 
+                        onChange={registeValidation} onBlur={registeValidation}/>
                     </div>
                     <div className="mt-4">
-                        <label className="fs-5" htmlFor="confirmpassword">تأكيد كلمه السر</label>
-                        <input type="password" id="confirmpassword" className={`${classes.input} form-control border-secondary shadow-none`} />
+                        <label className="fs-5" htmlFor="confirmPassword">تأكيد كلمه السر</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" className={`${classes.input} form-control border-secondary shadow-none`} 
+                        onChange={registeValidation} onBlur={registeValidation}/>
                     </div>
                     <div className="mt-4">
                         <label className="fs-5" htmlFor="nummob">رقم الهاتف </label>
@@ -66,32 +118,18 @@ export default function RegisterForm() {
                     <label className="mt-4 fs-5 col-md-4 col-12"> نوع الحساب</label>
                     <div className="mt-2 row">
                         <div className="col-md-6 col-12 mt-3 mt-md-0">
-                            <input
-                                type="radio"
-                                name="acctype"
-                                id="driver"
-                                value="driver"
-                                onChange={(eve) => { displayIsDriver(eve); }}
-                                className={`${classes.inputFilter} ms-2`}
-                            />
-                            <label className="fs-5 ms-md-1" htmlFor="driver">
+                            <input type="radio" name="role" id="renter" value="renter"
+                                onClick={ displayIsDriver} className={`${classes.inputFilter} ms-2`}
+                                onChange={registeValidation} onBlur={registeValidation}/>
+                            <label className="fs-5 ms-md-1" htmlFor="renter">
                                 سائق
                             </label>
                         </div>
                         <div className="col-md-6 col-12 mt-3 mt-md-0">
-                            <input
-                                type="radio"
-                                id="owner"
-                                name="acctype"
-                                value="owner"
-                                onChange={(eve) => {
-                                    displayIsOwner(eve);
-                                }}
-                                className={`ms-1 ${classes.inputFilter}`}
-                            />
-                            <label className="fs-5" htmlFor="owner">
-                                صاحب موقف
-                            </label>
+                            <input type="radio" id="parker" name="role" value="parker"
+                                onClick={displayIsOwner} className={`ms-1 ${classes.inputFilter}`}
+                                onChange={registeValidation} onBlur={registeValidation}/>
+                            <label className="fs-5" htmlFor="parker"> صاحب موقف </label>
                         </div>
                     </div>
 

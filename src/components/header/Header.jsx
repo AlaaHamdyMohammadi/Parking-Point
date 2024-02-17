@@ -1,23 +1,26 @@
 import { Link } from "react-router-dom";
 import classes from "./../../styles/header.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changLog } from "../../store/slices/login";
-import { useState } from "react";
 import { IoPerson } from "react-icons/io5";
-// import { IoBagCheckOutline } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
 import { MdContactSupport } from "react-icons/md";
 import { IoBagCheckSharp } from "react-icons/io5";
+import { logout } from "../../store/slices/authSlice";
 
 export default function Header() {
   const dispatch = useDispatch();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isLoggedIn =useSelector ((state) => state.loggedIn.loggedIn);
   const displayRegester = () => {
     dispatch(changLog(true));
   };
   const displayLogin = () => {
     dispatch(changLog(false));
   };
+  const logdedout = () => {
+    dispatch(logout());
+  };
+  
   return (
     <>
       <nav className={`navColor p-2 d-flex w-100 justify-content-between navbar-expand-lg shadow`}>
@@ -57,12 +60,12 @@ export default function Header() {
                     </Link>
                   </li>
                   <li>
-                    <Link to={`/`} className="dropdown-item  text-danger border-top">
+                    <div role="button" className="dropdown-item  text-danger border-top" onClick={logdedout}>
                       <span className="ps-2 text-danger">
                         <IoIosLogOut />
                       </span>
                       تسجيل الخروج
-                    </Link>
+                    </div>
                   </li>
                 </div>
               </ul>

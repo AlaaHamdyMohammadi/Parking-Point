@@ -1,7 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link , useHistory} from "react-router-dom";
 import classes from "./../../styles/formStyles.module.css";
 import { useState } from "react";
+import axiosInstanceParking from "../../axiosConfig/instanc";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../store/slices/authSlice";
 export default function LoginForm() {
+    const isLoggedIn =useSelector ((state) => state.loggedIn.loggedIn);
+    const dispatch = useDispatch();
+    const history = useHistory(); 
     const [logInUser, setLogInUser] = useState({
         email: "",
         password: "",
@@ -10,18 +16,59 @@ export default function LoginForm() {
         emailErrors: "",
         passwordErrors: "",
     })
+    // let emailRegx = /[a-z0-9]{2,}@[a-z]{5,}(\.)[a-z]+/
+
+    const loginValidation = (event) => {
+        const { name, value } = event.target;
+        if (event.target.name === "email") {
+            setErrors({ ...errors, emailErrors: value.length === 0 ? "Plesse, Enter Your email" : "" });
+            // setLogInUser({ ...logInUser, email: event.target.value });
+        }
+        if (event.target.name === "password") {
+            setErrors({ ...errors, passwordErrors: event.target.value.length === 0 ? "Plesse, Enter Your Password" : "" });
+            // setLogInUser({ ...logInUser, password: event.target.value });
+        }
+        setLogInUser({ ...logInUser, [name]: value });
+    }
+    console.log(errors);
+    const handleSubmit = async (event) => {
+        const hasErrors = Object.values(errors).some((error) => error !== "");
+        const isEmpty = Object.values(logInUser).some((logInUser) => logInUser === "");
+        if (hasErrors || isEmpty) {
+            event.preventDefault();
+        } else {
+            event.preventDefault();
+            try {
+                const res = await axiosInstanceParking.post(`/users/signin`, logInUser);
+                const userData = res.data;
+                dispatch(login(userData));
+                history.push("/");
+                console.log("login")
+            } catch (error) {
+                console.error("not login", error);
+            }
+        }
+    }
+    console.log(logInUser);
     return (
         <>
-            <form action="" className="fs-4 mb-5">
+            <form method="post" onSubmit={handleSubmit} className="fs-4 mb-5">
                 <div>
-                    <label htmlFor="username" className="fs-5">اسم المستخدم</label>
-                    <input type="text" id="username" className={`${classes.input} form-control border-secondary shadow-none`}/>
+                    <label htmlFor="email" className="fs-5">اسم المستخدم</label>
+                    <input type="email" id="email" name="email" className={`${classes.input} form-control border-secondary shadow-none`}
+                        onChange={loginValidation} onBlur={loginValidation} />
                 </div>
                 <div className="mt-4">
                     <label htmlFor="password" className="fs-5">كلمة السر</label>
-                    <input type="text" id="password" className={`${classes.input} form-control border-secondary shadow-none`}/>
+                    <input type="password" name="password" id="password" className={`${classes.input} form-control border-secondary shadow-none`}
+                        onChange={loginValidation} onBlur={loginValidation} />
                 </div>
-                <input type="submit" value="submit" className={`${classes.formBtn} text-center bgColor text-white btn mt-5`}/>
+                <input type="submit" value="submit"
+                    className={
+                        Object.values(errors).some((error) => error !== "")
+                            ? "btn bgColor text-white col-4 disabled"
+                            : "text-center bgColor text-white btn mt-5 "}
+                    disabled={Object.values(logInUser).some((logInUser) => logInUser == "")} />
             </form>
             <Link to={``} className={`mt-5`}>نسيت كلمه السر ؟</Link>
         </>
