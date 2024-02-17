@@ -1,1 +1,129 @@
-*{}
+.bgColor {
+  background-color: var(--background) !important;
+}
+.btn-yellow {
+  background-color: var(--yellow) !important;
+}
+.height {
+  height: 35% !important;
+}
+.customborder {
+  border-color: var(--background);
+}
+
+.customRange {
+  background: var(--lightgray);
+}
+.pointer {
+  cursor: pointer;
+}
+.navcolor {
+  background-color: var(--navcolor);
+}
+.iconColor {
+  color: var(--iconColor) !important;
+}
+.yellowcolor {
+  color: var(--yellow);
+}
+
+.backgroundColor {
+  color: var(--background);
+}
+/* form styling */
+
+.navColor {
+  background-color: var(--navcolor) !important;
+}
+
+/* sidebar */
+/* .sidebar {
+  text-decoration: none;
+  color: #818181;
+} */
+
+.sidebar:hover {
+  color: #f1f1f1;
+}
+.whiteSpace {
+  white-space: nowrap;
+}
+.transition {
+  transition: 0.5s;
+}
+.editIcon {
+  height: 6vh;
+  width: 6vh;
+}
+.editIcon2 {
+  height: 2vh;
+  width: 2vh;
+}
+.editIcon3 {
+  height: 5vh;
+  width: 5vh;
+  color: var(--background);
+}
+.editIcon3:hover {
+  height: 5vh;
+  width: 5vh;
+  color: var(--bordercolor);
+  cursor: pointer;
+}
+.Gray {
+  color: var(--gray) !important;
+}
+.animate:hover {
+  scale: 1.2;
+  /* background-color: var(--gray); */
+}
+/* @media screen and (max-height: 450px) {
+  .sidebar {
+    padding-top: 15px;
+  }
+  .sidebar a {
+    font-size: 18px;
+  }
+} */
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.sidebar {
+  text-decoration: none;
+  color: #818181;
+  width: 220px;
+  transition: all 0.3s ease;
+}
+
+.showSidebar {
+  width: 60px;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+  }
+  .showSidebar {
+    width: 220px;
+  }
+}
+
+.slide-in-right {
+  animation-name: slideInRight;
+  animation-duration: 2s; /* Adjust animation duration as needed */
+}
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+/* StarRating */
+input[type="radio"] {
+  display: none;
+}
