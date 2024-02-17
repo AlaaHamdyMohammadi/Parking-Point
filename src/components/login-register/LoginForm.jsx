@@ -2,10 +2,9 @@ import { Link , useNavigate} from "react-router-dom";
 import classes from "./../../styles/formStyles.module.css";
 import { useState } from "react";
 import axiosInstanceParking from "../../axiosConfig/instanc";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { login } from "../../store/slices/authSlice";
 export default function LoginForm() {
-    const isLoggedIn =useSelector ((state) => state.loggedIn.loggedIn);
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
     const [logInUser, setLogInUser] = useState({
