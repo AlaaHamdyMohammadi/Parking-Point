@@ -24,14 +24,14 @@
     background: var(--background);
   } */
 .formBtn:hover {
-  scale: 1.2;
+  scale: 1.1;
 }
 
 .formBtn {
   transition: all 0.5s ease;
 }
 
-.input:focus {
+input:focus {
   outline: none;
   border: 1px solid var(--bordercolor) !important;
 }

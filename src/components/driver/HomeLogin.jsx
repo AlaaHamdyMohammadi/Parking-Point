@@ -29,7 +29,7 @@ export default function HomeLogin() {
           </div>
         </div>
         {/* sec3 */}
-        <div className={`col-4`}>
+        <div className={`col-8`}>
           <Map />
         </div>
       </div>

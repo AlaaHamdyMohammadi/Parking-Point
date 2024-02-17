@@ -10,23 +10,30 @@ import SideBareLink from "./SideBareLink";
 
 export default function Sidebar() {
   const [mini, setMini] = useState(true);
+  const [showSidebar, setShowSidebar] = useState(true);
+
+  // function toggleSidebar() {
+  //   setShowSidebar(!showSidebar);
+  // }
 
   function toggleSidebar() {
     if (mini) {
       console.log("opening sidebar");
       document.getElementById("mySidebar").style.width = "220px";
-      // document.getElementById("main").style.marginRight = "300px";
+      document.getElementById("main").style.marginRight = "300px";
       setMini(false);
     } else {
       console.log("closing sidebar");
       document.getElementById("mySidebar").style.width = "60px";
-      // document.getElementById("main").style.marginRight = "85px";
+      document.getElementById("main").style.marginRight = "85px";
       setMini(true);
     }
   }
 
   return (
     <>
+      {/* <div id="mySidebar" className={`${classes.sidebar} ${showSidebar ? classes.showSidebar : ""}`}>
+        </div> */}
       <div
         id="mySidebar"
         onMouseEnter={toggleSidebar}

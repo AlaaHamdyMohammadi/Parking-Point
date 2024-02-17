@@ -37,10 +37,10 @@
 }
 
 /* sidebar */
-.sidebar {
+/* .sidebar {
   text-decoration: none;
   color: #818181;
-}
+} */
 
 .sidebar:hover {
   color: #f1f1f1;
@@ -77,15 +77,14 @@
   scale: 1.2;
   /* background-color: var(--gray); */
 }
-@media screen and (max-height: 450px) {
+/* @media screen and (max-height: 450px) {
   .sidebar {
     padding-top: 15px;
-    /* display: none; */
   }
   .sidebar a {
     font-size: 18px;
   }
-}
+} */
 
 @keyframes slideInRight {
   from {
@@ -96,6 +95,26 @@
   }
 }
 
+.sidebar {
+  text-decoration: none;
+  color: #818181;
+  width: 220px;
+  transition: all 0.3s ease;
+}
+
+.showSidebar {
+  width: 60px;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+  }
+  .showSidebar {
+    width: 220px;
+  }
+}
+
 .slide-in-right {
   animation-name: slideInRight;
   animation-duration: 2s; /* Adjust animation duration as needed */
@@ -103,7 +122,6 @@
 .cursor-not-allowed {
   cursor: not-allowed;
 }
-
 
 /* StarRating */
 input[type="radio"] {

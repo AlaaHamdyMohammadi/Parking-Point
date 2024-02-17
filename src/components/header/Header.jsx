@@ -11,7 +11,7 @@ import { IoBagCheckSharp } from "react-icons/io5";
 
 export default function Header() {
   const dispatch = useDispatch();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const displayRegester = () => {
     dispatch(changLog(true));
   };

@@ -76,7 +76,7 @@ export default function ParkingCard() {
               </div>
               <div className="ms-2 col-lg-4 d-flex flex-column col-md-12 col-sm-12 text-center">
                 <div className={`text-center w-75 bgColor text-white  p-0 btn mb-2 ${classes.formBtn}`}>احجز</div>
-                <div className="d-flex flex-row">
+                <div className="d-flex flex-row text-center">
                   <StarRating />
                 </div>
               </div>
