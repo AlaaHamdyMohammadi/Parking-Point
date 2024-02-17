@@ -1,4 +1,4 @@
-import { Link , useHistory} from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import classes from "./../../styles/formStyles.module.css";
 import { useState } from "react";
 import axiosInstanceParking from "../../axiosConfig/instanc";
@@ -7,7 +7,7 @@ import { login } from "../../store/slices/authSlice";
 export default function LoginForm() {
     const isLoggedIn =useSelector ((state) => state.loggedIn.loggedIn);
     const dispatch = useDispatch();
-    const history = useHistory(); 
+    const navigate = useNavigate(); 
     const [logInUser, setLogInUser] = useState({
         email: "",
         password: "",
@@ -42,7 +42,7 @@ export default function LoginForm() {
                 const res = await axiosInstanceParking.post(`/users/signin`, logInUser);
                 const userData = res.data;
                 dispatch(login(userData));
-                history.push("/");
+                navigate("/");
                 console.log("login")
             } catch (error) {
                 console.error("not login", error);
