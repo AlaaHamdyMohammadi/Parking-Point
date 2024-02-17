@@ -1,7 +1,13 @@
 import { useState } from "react";
 import classes from "./../../styles/formStyles.module.css";
 import axiosInstanceParking from "../../axiosConfig/instanc";
-export default function RegisterForm() {
+import { changLog } from "../../store/slices/login";
+import { useDispatch } from "react-redux";
+export default function RegisterForm({setShowFormStatus}) {
+  const dispatch= useDispatch()
+  const displayLogin = () => {
+    dispatch(changLog(false));
+  };
     const [registeUser, setRegisteUser] = useState({
         firstName: "",
         lastName: "",
@@ -23,30 +29,26 @@ export default function RegisterForm() {
     // let passwordRegx = /[a-z0-9]{2,}@[a-z]{5,}(\.)[a-z]+/
 
     const registeValidation = (event) => {
-        if (event.target.name === "firstName") {
-            setErrors({ ...errors, fristNameErrors: event.target.value.length === 0 ? "Plesse, Enter Your firstName" : "" });
-            setRegisteUser({ ...registeUser, firstName: event.target.value });
+        const { name, value } = event.target;
+        if (name === "firstName") {
+            setErrors({ ...errors, fristNameErrors: value.length === 0 ? "Plesse, Enter Your firstName" : "" });
         }
-        if (event.target.name === "lastName") {
-            setErrors({ ...errors, lastNameErrors: event.target.value.length === 0 ? "Plesse, Enter Your lastName" : "" });
-            setRegisteUser({ ...registeUser, lastName: event.target.value });
+        if (name === "lastName") {
+            setErrors({ ...errors, lastNameErrors: value.length === 0 ? "Plesse, Enter Your lastName" : "" });
         }
-        if (event.target.name === "email") {
-            setErrors({ ...errors, emailErrors: event.target.value.length === 0 ? "Plesse, Enter Your email" : "" });
-            setRegisteUser({ ...registeUser, email: event.target.value });
+        if (name === "email") {
+            setErrors({ ...errors, emailErrors: value.length === 0 ? "Plesse, Enter Your email" : "" });
         }
-        if (event.target.name === "password") {
-            setErrors({ ...errors, passwordErrors: event.target.value.length === 0 ? "Plesse, Enter Your Password" : "" });
-            setRegisteUser({ ...registeUser, password: event.target.value });
+        if (name === "password") {
+            setErrors({ ...errors, passwordErrors: value.length === 0 ? "Plesse, Enter Your Password" : "" });
         }
-        if (event.target.name === "confirmPassword") {
-            setErrors({ ...errors, confirmPasswordErrors: event.target.value.length === 0 ? "password not match" : "" });
-            setRegisteUser({ ...registeUser, confirmPassword: event.target.value });
+        if (name === "confirmPassword") {
+            setErrors({ ...errors, confirmPasswordErrors: value.length === 0 ? "password not match" : "" });
         }
-        if (event.target.name === "role") {
-            setErrors({ ...errors, roleErrors: event.target.value.length === 0 ? "Plesse, chouse Your role" : "" });
-            setRegisteUser({ ...registeUser, role: event.target.value });
+        if (name === "role") {
+            setErrors({ ...errors, roleErrors: value.length === 0 ? "Plesse, chouse Your role" : "" });
         }
+        setRegisteUser({ ...registeUser, [name]: value });
     }
     console.log(errors);
     const handleSubmit = async (event) => {
@@ -59,6 +61,7 @@ export default function RegisterForm() {
             try {
                 const res = await axiosInstanceParking.post(`/users/signup`, registeUser);
                 console.log("signup request successful", res.data);
+                setShowFormStatus(false)
             } catch (error) {
                 console.log("signup request not successful", error);
             }

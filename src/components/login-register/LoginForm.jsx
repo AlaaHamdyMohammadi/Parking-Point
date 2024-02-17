@@ -19,13 +19,11 @@ export default function LoginForm() {
 
     const loginValidation = (event) => {
         const { name, value } = event.target;
-        if (event.target.name === "email") {
+        if (name === "email") {
             setErrors({ ...errors, emailErrors: value.length === 0 ? "Plesse, Enter Your email" : "" });
-            // setLogInUser({ ...logInUser, email: event.target.value });
         }
-        if (event.target.name === "password") {
-            setErrors({ ...errors, passwordErrors: event.target.value.length === 0 ? "Plesse, Enter Your Password" : "" });
-            // setLogInUser({ ...logInUser, password: event.target.value });
+        if (name === "password") {
+            setErrors({ ...errors, passwordErrors: value.length === 0 ? "Plesse, Enter Your Password" : "" });
         }
         setLogInUser({ ...logInUser, [name]: value });
     }

@@ -43,7 +43,7 @@ function Register() {
             <div className="col-md-7 col-12">
               {showFormStatus ? (
                 <div className={`w-100`}>
-                  <RegisterForm />
+                  <RegisterForm setShowFormStatus={setShowFormStatus}/>
                 </div>) : (
                 <div className={`w-100`}>
                   <LoginForm />

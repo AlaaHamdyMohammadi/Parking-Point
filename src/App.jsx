@@ -20,6 +20,7 @@ import ViewProfile from "./pages/parking/ViewProfile";
 import Profile from "./pages/driver/profile";
 import MyTrips from "./pages/driver/mytrips";
 import Support from "./pages/driver/Support";
+import Guard from "./components/guard/Guard";
 
 const router = createBrowserRouter([
   {
@@ -40,32 +41,31 @@ const router = createBrowserRouter([
     children: [
       {
         path: "dashboard/:ownerId",
-        element: <Dashboard />,
+        element: <Guard> <Dashboard /></Guard>,
         children: [
-          { index: true, element: <ParkingHome />, errorElement: <HandelErorr /> },
-          { path: "add_parking", element: <AddParking />, errorElement: <HandelErorr /> },
-          { path: "edit_parking/:ParkingId", element: <AddParking />, errorElement: <HandelErorr /> },
+          { index: true, element: <Guard><ParkingHome /></Guard>, errorElement: <HandelErorr /> },
+          { path: "add_parking", element: <Guard><AddParking /></Guard> , errorElement: <HandelErorr /> },
+          { path: "edit_parking/:ParkingId", element: <Guard><AddParking /></Guard>, errorElement: <HandelErorr /> },
 
-          {
-            path: "Owneraccount/",
-            element: <OwnerProfile />,
+          { path: "Owneraccount/",
+            element: <Guard><OwnerProfile /></Guard>,
             children: [
-              { path: "ownerProfile", element: <ViewProfile />, errorElement: <HandelErorr /> },
-              { path: "editOwnerProfile", element: <EditProfile />, errorElement: <HandelErorr /> },
+              { path: "ownerProfile", element: <Guard><ViewProfile /></Guard>, errorElement: <HandelErorr /> },
+              { path: "editOwnerProfile", element: <Guard><EditProfile /></Guard>, errorElement: <HandelErorr /> },
             ],
           },
-          { path: "sales", element: <Sales />, errorElement: <HandelErorr /> },
+          { path: "sales", element: <Guard><Sales /></Guard>, errorElement: <HandelErorr /> },
         ],
       },
 
       {
         path: "/Driveraccount/:DriverId/",
-        element: <Profile />,
+        element: <Guard><Profile /></Guard>,
         errorElement: <HandelErorr />,
         children: [
-          { path: "MyTrips", element: <MyTrips />, errorElement: <HandelErorr /> },
-          { index: true, element: <Myaccount /> },
-          { path: "editDriverProfile", element: <Editaccount />, errorElement: <HandelErorr /> },
+          { path: "MyTrips", element:<Guard><MyTrips /></Guard> , errorElement: <HandelErorr /> },
+          { index: true, element: <Guard><Myaccount /></Guard> },
+          { path: "editDriverProfile", element: <Guard><Editaccount /></Guard>, errorElement: <HandelErorr /> },
         ],
       },
     ],
