@@ -1,103 +1,17 @@
-.img {
-  height: 7vw;
-}
-.logo {
-  height: 6rem;
-  width: 6rem;
-}
-.imgregister {
-  position: absolute;
-  left: 100px;
-  top: 22%;
-}
-.loginRegisterWrapper {
-  background-color: rgba(0, 0, 0, 0);
-  width: 600px;
-  margin-right: 4rem;
-  top: 0;
-  padding: 0 10px;
-  border-radius: 5px;
-  overflow: hidden;
-  color: var(--background);
+.bg {
+  background-image: linear-gradient(to right, #331c41 50%, #fff 50%);
+  min-height: 48vw;
 }
 
-.btnregister {
-  padding: 3px;
-  font-size: 1.5vw;
-  border: 0px;
-  cursor: pointer;
-  border-radius: 10px !important;
-}
-button:focus {
-  outline: 0px;
-}
-.btnregister:active {
+.loginBtn:hover {
   scale: 1.2;
 }
 
-.forgotPanel {
-  height: 100px;
-  text-align: center;
-  padding-top: 10px;
-  cursor: pointer;
-
-  border-top: solid 1px rgba(110, 105, 105, 0.3);
-}
-
-.submit {
-  font-weight: 750;
-  text-transform: uppercase;
-  font-size: 1em;
-  text-align: center;
-  color: var(--yellow);
-  padding: 5px 0px;
-  width: 50%;
-  border: none;
-  border-radius: 20px;
-  margin-top: 23px;
-  background: var(--background);
-}
-.submit:hover {
-  color: var(--background);
-  background: linear-gradient(to right, var(--yellow), var(--background));}
-form#registerform {
-  /* top: -350px; */
-  position: relative;
-}
-
-.forgotPanel {
-  top: -600px;
-  color: rgb(120, 122, 111);
-}
-
-form,
-.forgotPanel {
-  position: relative;
+.loginBtn {
   transition: all 0.5s ease;
 }
-#loginBtn,
-#registerBtn {
-  transition: all 0.5s ease;
-}
-
-.inputFilter {
-  width: 26px;
-  height: 26px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  cursor: pointer;
-  margin-right: 10px;
-  outline: #c2c2c2;
-  -webkit-border: 2px solid #c2c2c2;
-  -moz-border: 2px solid #c2c2c2;
-  border: 2px solid #c2c2c2;
-  border-radius: 20%;
-  display: inline-block;
-}
-
-.inputFilter:checked {
-  background-color: var(--yellow);
-  border: none;
-  outline: none;
-}
+/* @media screen and (max-width: 480px) {
+  .bg {
+    background-color: lightgreen !important;
+  }
+} */

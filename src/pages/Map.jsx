@@ -26,10 +26,6 @@ function Map() {
     }
   }, []);
 
-  
-
-  
-
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <ReactMapGL
@@ -48,9 +44,8 @@ function Map() {
           latitude={viewport.latitude}
           longitude={viewport.longitude}
           offsetLeft={-20}
-          offsetTop={10}
+          offsetTop={-10}
         />
-        
 
         <NavigationControl position="top-right" />
       </ReactMapGL>

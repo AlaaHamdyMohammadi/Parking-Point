@@ -127,7 +127,7 @@ console.log("Post request successful", res.data);
         <div className={`p-5`}>
           <h5 className={`text-secondary text-center`}>يمكن إضافة ثلاث صور فقط</h5>
           <form encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
-            {/* <div className={` p-2 d-flex justify-content-center`}>
+            <div className={` p-2 d-flex justify-content-center`}>
               {imgArr.map((image, index) => (
                 <div
                   className={`col-3 mx-2 border d-flex d-flex align-items-center justify-content-center position-relative`}
@@ -159,7 +159,7 @@ console.log("Post request successful", res.data);
                 </div>
               )}
               <p className="text-danger text-center">{errors.imageErrors}</p>
-            </div> */}
+            </div>
             <input type="text"  onChange={validation} onBlur={validation} name='photos'/>
             <div className="row">
               <div className="form-group mb-3 col-12 col-md-6 ">

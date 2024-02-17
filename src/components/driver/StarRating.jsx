@@ -11,16 +11,12 @@ function StarRating() {
         const ratingValue = i + 1;
         return (
           <label key={i}>
-            <input
-              type="radio"
-              name="rating"
-              value={ratingValue}
-              onClick={() => setRating(ratingValue)}
-            />
+            <input type="radio" name="rating" value={ratingValue} onClick={() => setRating(ratingValue)} />
+
             <FaStar
-              className="cursor-pointer"
-              color={ratingValue <= (hover || rating) ? "#f1a525" : "#331c41"}
-              size={18}
+              className="cursor-pointer pointer "
+              color={ratingValue <= (hover || rating) ? "#f1a525" : "#aaa5a5"}
+              size={12}
               onMouseEnter={() => setHover(ratingValue)}
               onMouseLeave={() => setHover(null)}
             />
