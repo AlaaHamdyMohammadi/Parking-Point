@@ -198,14 +198,14 @@ export default function RegisterForm({ setShowFormStatus }) {
         <>
             <form action="" method="post" onSubmit={handleSubmit} className="my-5">
                 <div className="fs-4">
-                    <div className={`row`}>
-                        <div className="col-md-5 col-12 ms-md-5 ">
+                    <div className={`d-md-flex d-block`}>
+                        <div className="col-md-6 col-12 ms-md-1 ">
                             <label className="fs-5" htmlFor="firstName">الأسم الاول </label>
                             <input type="text" name="firstName" className={`${classes.input} form-control border-secondary shadow-none`} id="firstName"
                                 onChange={registeValidation} onBlur={registeValidation} />
                             <p className={`${classes.error} text-danger`}>{errors.fristNameErrors}</p>
                         </div>
-                        <div className="col-md-5 col-12 me-md-4">
+                        <div className="col-md-6 col-12 me-md-1">
                             <label className="fs-5" htmlFor="lastName">الأسم الاخير</label>
                             <input className={`${classes.input} form-control border-secondary shadow-none`} type="text" name="lastName" id="lastName"
                                 onChange={registeValidation} onBlur={registeValidation} />
