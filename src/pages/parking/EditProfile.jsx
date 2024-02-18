@@ -24,9 +24,9 @@ export default function EditProfile() {
   return (
     <>
       {/* تعديل الملف الشخصي */}
-      <div className={`  `}>
+      {/* <div className={`  `}>
         <Photoprofile photo={`/images/defaultpersonjpg.jpg`} time={`عضو منذ 5 اسابيع`} />
-      </div>
+      </div> */}
       <div className="d-flex flex-column mt-5  align-self-center gap-6 align-self-start w-75">
         <div className="row flex-column flex-sm-row ">
           <div className="col-lg-6 col-md-6 col-sm-12">
