@@ -10,8 +10,5 @@ const isLogSlice=createSlice({
           }
       }
     })
-
-    console.log(isLogSlice.actions);
 export const{changLog}=isLogSlice.actions
-
   export default isLogSlice.reducer;

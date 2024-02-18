@@ -57,3 +57,6 @@ select:focus {
   border: none;
   outline: none;
 }
+.error {
+  font-size: 0.8vw;
+}

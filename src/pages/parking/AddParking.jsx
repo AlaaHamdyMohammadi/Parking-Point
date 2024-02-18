@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { MdOutlineAddBusiness } from "react-icons/md";
 import { MdClose } from "react-icons/md";
 import axiosInstanceParking from "../../axiosConfig/instanc";
-import axios from "axios";
 export default function AddParking() {
   const profileImgRef = useRef(null);
   function clickImgInput() {
@@ -111,7 +110,6 @@ console.log("Post request successful", res.data);
 
       axiosInstanceParking.post(`/parking`, parking).then((res) => {
         console.log("Post request successful", res.data);
-        // navigate("/myads");
       })
       .catch((err) => {
         console.error("Error during POST request:", err);
@@ -231,12 +229,10 @@ console.log("Post request successful", res.data);
               <input
                 type="submit"
                 value={`إضافة موقف`}
-                //  className={`btn bgColor text-white col-4`}
                 className={
                   Object.values(errors).some((error) => error !== "")
                     ? "btn bgColor text-white col-4 disabled"
-                    : "btn bgColor text-white col-4 "
-                }
+                    : "btn bgColor text-white col-4 "}
                 disabled={Object.values(parking).some((parking) => parking == "")}
               />
             </div>

@@ -21,6 +21,7 @@ import Profile from "./pages/driver/profile";
 import MyTrips from "./pages/driver/mytrips";
 import Support from "./pages/driver/Support";
 import Map from "./pages/Map";
+import Guard from "./components/guard/Guard";
 
 const router = createBrowserRouter([
   {
@@ -47,58 +48,114 @@ const router = createBrowserRouter([
     children: [
       {
         path: "dashboard/:ownerId",
-        element: <Dashboard />,
+        element: (
+          <Guard>
+            {" "}
+            <Dashboard />
+          </Guard>
+        ),
         children: [
           {
             index: true,
-            element: <ParkingHome />,
+            element: (
+              <Guard>
+                <ParkingHome />
+              </Guard>
+            ),
             errorElement: <HandelErorr />,
           },
           {
             path: "add_parking",
-            element: <AddParking />,
+            element: (
+              <Guard>
+                <AddParking />
+              </Guard>
+            ),
             errorElement: <HandelErorr />,
           },
           {
             path: "edit_parking/:ParkingId",
-            element: <AddParking />,
+            element: (
+              <Guard>
+                <AddParking />
+              </Guard>
+            ),
             errorElement: <HandelErorr />,
           },
 
           {
             path: "Owneraccount/",
-            element: <OwnerProfile />,
+            element: (
+              <Guard>
+                <OwnerProfile />
+              </Guard>
+            ),
             children: [
               {
                 path: "ownerProfile",
-                element: <ViewProfile />,
+                element: (
+                  <Guard>
+                    <ViewProfile />
+                  </Guard>
+                ),
                 errorElement: <HandelErorr />,
               },
               {
                 path: "editOwnerProfile",
-                element: <EditProfile />,
+                element: (
+                  <Guard>
+                    <EditProfile />
+                  </Guard>
+                ),
                 errorElement: <HandelErorr />,
               },
             ],
           },
-          { path: "sales", element: <Sales />, errorElement: <HandelErorr /> },
+          {
+            path: "sales",
+            element: (
+              <Guard>
+                <Sales />
+              </Guard>
+            ),
+            errorElement: <HandelErorr />,
+          },
         ],
       },
 
       {
         path: "/Driveraccount/:DriverId/",
-        element: <Profile />,
+        element: (
+          <Guard>
+            <Profile />
+          </Guard>
+        ),
         errorElement: <HandelErorr />,
         children: [
           {
             path: "MyTrips",
-            element: <MyTrips />,
+            element: (
+              <Guard>
+                <MyTrips />
+              </Guard>
+            ),
             errorElement: <HandelErorr />,
           },
-          { index: true, element: <Myaccount /> },
+          {
+            index: true,
+            element: (
+              <Guard>
+                <Myaccount />
+              </Guard>
+            ),
+          },
           {
             path: "editDriverProfile",
-            element: <Editaccount />,
+            element: (
+              <Guard>
+                <Editaccount />
+              </Guard>
+            ),
             errorElement: <HandelErorr />,
           },
         ],
