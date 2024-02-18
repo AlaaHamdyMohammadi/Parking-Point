@@ -24,14 +24,15 @@
     background: var(--background);
   } */
 .formBtn:hover {
-  scale: 1.2;
+  scale: 1.1;
 }
 
 .formBtn {
   transition: all 0.5s ease;
 }
 
-.input:focus {
+input:focus,
+select:focus {
   outline: none;
   border: 1px solid var(--bordercolor) !important;
 }
@@ -56,6 +57,6 @@
   border: none;
   outline: none;
 }
-.error{
-  font-size: .8vw;
+.error {
+  font-size: 0.8vw;
 }

@@ -9,29 +9,21 @@ import { Link } from "react-router-dom";
 import SideBareLink from "./SideBareLink";
 
 export default function Sidebar() {
-  const [mini, setMini] = useState(true);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   function toggleSidebar() {
-    if (mini) {
-      console.log("opening sidebar");
-      document.getElementById("mySidebar").style.width = "220px";
-      // document.getElementById("main").style.marginRight = "300px";
-      setMini(false);
-    } else {
-      console.log("closing sidebar");
-      document.getElementById("mySidebar").style.width = "60px";
-      // document.getElementById("main").style.marginRight = "85px";
-      setMini(true);
-    }
+    setShowSidebar(!showSidebar);
   }
 
   return (
     <>
       <div
         id="mySidebar"
+        className={`sidebar  position-fixed  pt-2 top-0 end-0 z-1 transition whiteSpace h-100 overflow-x-hidden bgColor ${
+          showSidebar ? classes.showSidebar : classes.closeSidebar
+        }`}
         onMouseEnter={toggleSidebar}
         onMouseLeave={toggleSidebar}
-        className="sidebar  position-fixed  pt-2 top-0 end-0 z-1 transition whiteSpace h-100 overflow-x-hidden bgColor"
       >
         <div className={`d-flex mt-md-2 fs-5 px-1  fw-bold my-4`}>
           <div className={` ms-3 p-2   yellowcolor ${classes.userName}`}>EF</div>

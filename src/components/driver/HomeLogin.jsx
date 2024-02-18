@@ -1,24 +1,20 @@
-import SearchInput from "./SearchInput";
+import Map from "./Map";
 import ParkingCard from "./ParkingCard";
+
+import SearchSec from "./searchSec";
+// import Map from "./Map";
 // import SelectLocation from "./selectlocation";
 
 export default function HomeLogin() {
   return (
     <div className={`container-fluid`}>
-      <div className={`d-flex flex-row gap-4`}>
+      <div className={`d-lg-flex flex-row gap-4`}>
         {/* sec1 */}
-        <div className={`card border-0 col-3 my-5`}>
-          <div className={` shadow height border-secondary-subtle px-2 rounded-3 w-100 height`}>
-            <div className={` fs-4 my-2 fw-bolder`}>ابحث عن اقرب موقف</div>
-            <div className={`mb-4`}>
-              <SearchInput />
-              {/* <SelectLocation /> */}
-            </div>
-            <button className={`text-center submit w-50  border rounded-3  fw-bold text-white shadow`}>اعرض المواقف</button>
-          </div>
+        <div className="  col-lg-3  col-md-12 col-sm-12">
+          <SearchSec />
         </div>
         {/* sec2 */}
-        <div className={`col-4 px-2 `} id="navbar-example2">
+        {/* <div className={`col-lg-4 col-md-12 col-sm-12 px-2 `} id="navbar-example2">
           <div className="d-flex  flex-column gap-4 my-5">
             <div className="fs-5 fw-bolder">اختر الموقف المناسب</div>
             <div className=" fw-bold">المواقف الأقرب لك ....</div>
@@ -34,11 +30,10 @@ export default function HomeLogin() {
           >
             <ParkingCard />
           </div>
-        </div>
+        </div> */}
         {/* sec3 */}
-        <div className={`col-4`}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi minus sunt nisi aut assumenda, corporis quod
-          perspiciatis nemo commodi, quibusdam eos, earum vitae deleniti optio animi facere iste laboriosam. Molestias?
+        <div className={`col-lg-9 col-md-9 col-sm-12 `}>
+          <Map />
         </div>
       </div>
     </div>
