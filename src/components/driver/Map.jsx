@@ -2,6 +2,9 @@
 import { useEffect, useState } from "react";
 import ReactMapGL, { Marker, NavigationControl } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+// import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css"; // Add this line to import the necessary CSS styles
+import "mapbox-gl/dist/mapbox-gl.css";
+import mapboxgl from "mapbox-gl";
 
 //const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 //mapStyle="mapbox://styles/alaahamdy2/clsoqyy67004801pk549pcyc4"
@@ -38,8 +41,8 @@ function Map() {
         onViewportChange={(viewport) => setViewport(viewport)}
       >
         <Marker draggable latitude={viewport.latitude} longitude={viewport.longitude} offsetLeft={-20} offsetTop={-10} />
-
-        <NavigationControl position="bottom-right" />
+        {/* // Add zoom and rotation controls to the map. */}
+        {/* <NavigationControl position="bottom-right" /> */}
       </ReactMapGL>
     </div>
   );

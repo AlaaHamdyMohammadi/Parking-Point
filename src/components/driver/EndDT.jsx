@@ -52,22 +52,22 @@ export default function EndDateTime({ BookNow }) {
 
   return (
     <div className="container">
-      <div className={BookNow ? "  d-none " : " "}>
-        <label className="Gray">بداية من :</label>
+      <div className={BookNow ? "  d-none text-end  " : " text-end "}>
+        <label className="Gray pe-2 ">بداية من :</label>
 
         <input
           icon={<FcOvertime />}
-          className=" customRange  Gray border pointer text-center w-100 m-2 ms-3 p-1  rounded-2"
+          className=" customRange  Gray border-0 pointer text-center w-100 m-2 ms-3 p-1  rounded-2"
           type="datetime-local"
           name="startDate"
           value={dateInputs.startDate}
           onChange={handleInputChange}
         />
       </div>
-      <div>
-        <label className="Gray">{BookNow ? "موعد نهاية الحجز :" : "إلي :"}</label>
+      <div className="text-end ">
+        <label className="Gray pe-2">{BookNow ? "موعد نهاية الحجز :" : "إلي :"}</label>
         <input
-          className=" customRange  Gray border pointer text-center w-100 m-2 ms-3 p-1  rounded-2"
+          className=" customRange  Gray  border border-0 pointer text-center w-100 m-2 ms-3 p-1  rounded-2"
           type="datetime-local"
           name="endDate"
           value={dateInputs.endDate}
@@ -75,7 +75,7 @@ export default function EndDateTime({ BookNow }) {
         />
       </div>
       <button
-        className=" customRange  Gray border pointer text-center w-100 m-2 ms-3 p-1  rounded-2"
+        className=" customRange mt-4 Gray border border-0 pointer text-center w-100 m-2 ms-3 p-1 fw-bold animate  rounded-2"
         onClick={calculateTimeDifference}
       >
         {timeDifference.hours > 0

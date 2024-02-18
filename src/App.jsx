@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     element: <RegistLayout />,
     children: [
       {
-        path: "/التسجيل",
+        path: "/register",
         element: <Register />,
         errorElement: <HandelErorr />,
       },
