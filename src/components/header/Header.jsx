@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
 import classes from "./../../styles/header.module.css";
 import { useDispatch } from "react-redux";
