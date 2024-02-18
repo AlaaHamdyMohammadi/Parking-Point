@@ -56,3 +56,6 @@
   border: none;
   outline: none;
 }
+.error{
+  font-size: .8vw;
+}
