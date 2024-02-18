@@ -68,62 +68,77 @@ export default function RegisterForm({ setShowFormStatus }) {
         }
         if (name === "password") {
             setErrors({
-                ...errors, passwordErrors: value.length === 0 ? "يجب ادخال رقم سري":
-                value.length<=7 ? 
-                "يحب ادخال 8 احرف بحد ادني"
-                    : passwordRegx.test(value) ? ""
-                        : "يجب ادخال حرف كبير وحرف صغير ورقم ورمز بحد ادني",
+                ...errors, passwordErrors: value.length === 0 ? "يجب ادخال رقم سري" :
+                    value.length <= 7 ?
+                        "يحب ادخال 8 احرف بحد ادني"
+                        : passwordRegx.test(value) ? ""
+                            : "يجب ادخال حرف كبير وحرف صغير ورقم ورمز بحد ادني",
             });
         }
         if (name === "confirmPassword") {
-            setErrors({ ...errors, confirmPasswordErrors: value.length === 0 ? "يجب تاكيد الرقم السري" : 
-            (value==registeUser.password)?'':'الرقم غير صحيح'
-        });
+            setErrors({
+                ...errors, confirmPasswordErrors: value.length === 0 ? "يجب تاكيد الرقم السري" :
+                    (value == registeUser.password) ? '' : 'الرقم غير صحيح'
+            });
         }
         if (name === "phoneNumber") {
-            setErrors({ ...errors, phoneNumberErrors: value.length === 0 ? "يجب ادخال رقم الجوال"
-            : phoneRegx.test(value)
-                ? ""
-                : "يجب ادخال رقم جوال صحيح"});
+            setErrors({
+                ...errors, phoneNumberErrors: value.length === 0 ? "يجب ادخال رقم الجوال"
+                    : phoneRegx.test(value)
+                        ? ""
+                        : "يجب ادخال رقم جوال صحيح"
+            });
         }
         if (name === "role") {
-            setErrors({ ...errors, roleErrors: value.length === 0 ? "يجب اختيار النوع"
-            : roleRegx.test(value)
-                ? ""
-                : "يجب اختيار من واحد من الاختيارات المقدمة"});
+            setErrors({
+                ...errors, roleErrors: value.length === 0 ? "يجب اختيار النوع"
+                    : roleRegx.test(value)
+                        ? ""
+                        : "يجب اختيار من واحد من الاختيارات المقدمة"
+            });
         }
         if (registeUser.role === 'driver') {
             if (name === "carType") {
-                setErrors({ ...errors, carTypeErrors: value === "" ? "يجب اختيار نوع السيارة"
-                : carTypeRegx.test(value)
-                    ? ""
-                    : "النوع سيارة فقط"});
+                setErrors({
+                    ...errors, carTypeErrors: value === "" ? "يجب اختيار نوع السيارة"
+                        : carTypeRegx.test(value)
+                            ? ""
+                            : "النوع سيارة فقط"
+                });
             }
             if (name === "plateNumber") {
-                setErrors({ ...errors, plateNumberErrors: value.length === 0 ? "يجب رقم لوحة السيارة"
-                : plateNumberRegx.test(value)
-                    ? ""
-                    : "يجب ادخال رقم لوحة صحيح" });
+                setErrors({
+                    ...errors, plateNumberErrors: value.length === 0 ? "يجب رقم لوحة السيارة"
+                        : plateNumberRegx.test(value)
+                            ? ""
+                            : "يجب ادخال رقم لوحة صحيح"
+                });
             }
         }
         if (registeUser.role === 'renter') {
             if (name === "city") {
-                setErrors({ ...errors, cityErrors: value.length === 0 ? "يجب اختيار الولاية"
-                : cityRegx.test(value)
-                    ? ""
-                    : "يجب اختيار من واحد من الاختيارات المقدمة"});
+                setErrors({
+                    ...errors, cityErrors: value.length === 0 ? "يجب اختيار الولاية"
+                        : cityRegx.test(value)
+                            ? ""
+                            : "يجب اختيار من واحد من الاختيارات المقدمة"
+                });
             }
             if (name === "state") {
-                setErrors({ ...errors, stateErrors: value.length === 0 ? "يجب اختيار المحافظه"
-                : stateRegx.test(value)
-                    ? ""
-                    : "المحافظه المتاحة مسقط قفط", });
+                setErrors({
+                    ...errors, stateErrors: value.length === 0 ? "يجب اختيار المحافظه"
+                        : stateRegx.test(value)
+                            ? ""
+                            : "المحافظه المتاحة مسقط قفط",
+                });
             }
             if (name === "region") {
-                setErrors({ ...errors, regionErrors: value.length === 0 ? "يجب ادخال المنطقه"
-                : regionRegx.test(value)
-                    ? ""
-                    : "يجب ادخال ثلاثة احرف بحد ادني",});
+                setErrors({
+                    ...errors, regionErrors: value.length === 0 ? "يجب ادخال المنطقه"
+                        : regionRegx.test(value)
+                            ? ""
+                            : "يجب ادخال ثلاثة احرف بحد ادني",
+                });
             }
         }
         setRegisteUser({ ...registeUser, [name]: value });
@@ -256,7 +271,14 @@ export default function RegisterForm({ setShowFormStatus }) {
                                 </select>
                                 <p className={`${classes.error} text-danger`}>{errors.carTypeErrors}</p>
                             </div>
-                            <input type="submit" value="submit" className={`${classes.formBtn} text-center bgColor text-white btn mt-5`} />
+                            <input type="submit" value="submit"
+                                //  className={`${classes.formBtn} text-center bgColor text-white btn mt-5`}
+                                className={
+                                    Object.values(errors).some((error) => error !== "")
+                                        ? `btn bgColor text-white col-4 disabled`
+                                        : `${classes.formBtn} text-center bgColor text-white btn mt-5`}
+                                disabled={Object.values(errors).some((registerUser) => registerUser !== "")}
+                            />
                         </>
                     )}
                     {isOwner && (
@@ -300,9 +322,9 @@ export default function RegisterForm({ setShowFormStatus }) {
                                 //  className={`${classes.formBtn} text-center bgColor text-white btn mt-5`} 
                                 className={
                                     Object.values(errors).some((error) => error !== "")
-                                        ? "btn bgColor text-white col-4 disabled"
-                                        : "text-center bgColor text-white btn mt-5 "}
-                                disabled={Object.values(errors).some((logInUser) => logInUser !== "")}
+                                        ? `btn bgColor text-white col-4 disabled`
+                                        : `${classes.formBtn} text-center bgColor text-white btn mt-5`}
+                                disabled={Object.values(errors).some((registerUser) => registerUser !== "")}
                             />
                         </>
                     )}
