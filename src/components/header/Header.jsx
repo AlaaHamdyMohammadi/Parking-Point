@@ -105,7 +105,7 @@ export default function Header() {
             <ul className="navbar-nav  mb-2 mb-lg-0 w-100 d-flex flex-row gap-4">
               <li className="nav-item fw-bold">
                 <Link
-                  to={`/التسجيل`}
+                  to={`/register`}
                   className="nav-link active text-white"
                   aria-current="page"
                   href="#"
@@ -118,7 +118,7 @@ export default function Header() {
               </li>
               <li className="nav-item fw-bold">
                 <Link
-                  to={`/التسجيل`}
+                  to={`/register`}
                   className="nav-link active text-white"
                   aria-current="page"
                   href="#"
