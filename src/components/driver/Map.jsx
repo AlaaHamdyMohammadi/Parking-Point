@@ -1,19 +1,22 @@
-// import React from "react"; 
+/* eslint-disable no-unused-vars */
+// import React from "react";
 import { useEffect, useState } from "react";
-import ReactMapGL, { Marker, NavigationControl } from "react-map-gl";
+import ReactMapGL, { FullscreenControl, GeolocateControl, Layer, Marker, NavigationControl, Source } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-// import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css"; // Add this line to import the necessary CSS styles
-import "mapbox-gl/dist/mapbox-gl.css";
-import mapboxgl from "mapbox-gl";
 
 //const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
-//mapStyle="mapbox://styles/alaahamdy2/clsoqyy67004801pk549pcyc4"
+
+const mapStyle = "mapbox://styles/alaahamdy2/clsp701hd005a01pkhrmygybf";
+
 function Map() {
   const [viewport, setViewport] = useState({
     latitude: 0,
     longitude: 0,
     zoom: 10,
   });
+
+  const [destination, setDestination] = useState(null);
+  const [directions, setDirections] = useState(null);
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -29,6 +32,31 @@ function Map() {
     }
   }, []);
 
+  const handleMarkerDrag = (event) => {
+    setDestination({
+      latitude: event.lngLat[1],
+      longitude: event.lngLat[0],
+    });
+  };
+
+  useEffect(() => {
+    if (!destination) return;
+
+    const getRoute = async () => {
+      const response = await fetch(
+        `https://api.mapbox.com/directions/v5/mapbox/driving/${viewport.longitude},${viewport.latitude};${
+          destination.longitude
+        },${
+          destination.latitude
+        }?steps=true&geometries=geojson&access_token=${"pk.eyJ1IjoiYWxhYWhhbWR5MiIsImEiOiJjbHNvcmJsZ2kwaHFlMm1rNXJkMWYxZjhkIn0.JKB_JwB_XSgRR2OJsjd5eA"}`
+      );
+      const data = await response.json();
+
+      setDirections(data);
+    };
+    getRoute();
+  }, [destination, viewport.latitude, viewport.longitude]);
+
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <ReactMapGL
@@ -37,20 +65,40 @@ function Map() {
         width="100%"
         height="100%"
         transitionDuration="200"
-        mapStyle={"mapbox://styles/alaahamdy2/clsp701hd005a01pkhrmygybf"}
+        mapStyle={mapStyle}
         onViewportChange={(viewport) => setViewport(viewport)}
       >
+        <GeolocateControl />
+        <FullscreenControl />
+        <NavigationControl />
         <Marker draggable latitude={viewport.latitude} longitude={viewport.longitude} offsetLeft={-20} offsetTop={-10} />
-        {/* // Add zoom and rotation controls to the map. */}
-        {/* <NavigationControl position="bottom-right" /> */}
+
+        {destination && (
+          <Marker
+            latitude={destination.latitude}
+            longitude={destination.longitude}
+            offsetLeft={-20}
+            offsetTop={-10}
+            draggable
+            onDragEnd={handleMarkerDrag}
+          />
+        )}
+
+        {directions && directions.routes && directions.routes[0] && (
+          <Source type="geojson" data={directions.routes[0].geometry}>
+            <Layer
+              id="route"
+              type="line"
+              paint={{
+                "line-color": "#008cbf",
+                "line-width": 5,
+              }}
+            />
+          </Source>
+        )}
       </ReactMapGL>
     </div>
   );
 }
 
 export default Map;
-
-////////////////////////////////////////////////////
-
-
-

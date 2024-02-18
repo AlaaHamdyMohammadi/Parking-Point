@@ -12,7 +12,7 @@ import { IoBagCheckSharp } from "react-icons/io5";
 
 export default function Header() {
   const dispatch = useDispatch();
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const displayRegester = () => {
     dispatch(changLog(true));
   };
@@ -21,9 +21,7 @@ export default function Header() {
   };
   return (
     <>
-      <nav
-        className={`navColor p-2 d-flex w-100 justify-content-between navbar-expand-lg shadow`}
-      >
+      <nav className={`navColor p-2 d-flex w-100 justify-content-between navbar-expand-lg shadow`}>
         {isLoggedIn ? (
           <div className="position-relative">
             <div className="btn-group border-0">
@@ -36,10 +34,7 @@ export default function Header() {
               <ul className="dropdown-menu">
                 <div className="  text-end">
                   <li>
-                    <Link
-                      to={`Driveraccount/:DriverId/MyTrips`}
-                      className="dropdown-item"
-                    >
+                    <Link to={`Driveraccount/:DriverId/MyTrips`} className="dropdown-item">
                       <span className="ps-2">
                         <IoBagCheckSharp />
                       </span>
@@ -47,10 +42,7 @@ export default function Header() {
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      to={`Driveraccount/:DriverId`}
-                      className="dropdown-item"
-                    >
+                    <Link to={`Driveraccount/:DriverId`} className="dropdown-item">
                       <span className="ps-2">
                         <IoPerson />
                       </span>
@@ -66,10 +58,7 @@ export default function Header() {
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      to={`/`}
-                      className="dropdown-item  text-danger border-top"
-                    >
+                    <Link to={`/`} className="dropdown-item  text-danger border-top">
                       <span className="ps-2 text-danger">
                         <IoIosLogOut />
                       </span>
@@ -90,18 +79,12 @@ export default function Header() {
           </div>
         ) : (
           <Link to={`/`} className="navbar-brand">
-            <img
-              src="./../../../images/logo3.png"
-              className={`${classes.logo} mx-4`}
-            />
+            <img src="./../../../images/logo3.png" className={`${classes.logo} mx-4`} />
           </Link>
         )}
 
         {isLoggedIn ? (
-          <div
-            className="collapse navbar-collapse flex-grow-0 mx-4 "
-            id="navbarSupportedContent"
-          >
+          <div className="collapse navbar-collapse flex-grow-0 mx-4 " id="navbarSupportedContent">
             <ul className="navbar-nav  mb-2 mb-lg-0 col-4 flex justify-content-between">
               <li className="nav-item">
                 <Link to={`/`} className="navbar-brand text-end">
