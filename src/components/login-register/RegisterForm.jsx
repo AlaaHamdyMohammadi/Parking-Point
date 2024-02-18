@@ -70,7 +70,7 @@ export default function RegisterForm({ setShowFormStatus }) {
         }
         if (name === "confirmPassword") {
             setErrors({ ...errors, confirmPasswordErrors: value.length === 0 ? "يجب تاكيد الرقم السري" : 
-            (registeUser.password==registeUser.confirmPassword)?'':'الرقم غير صحيح'
+            (value==registeUser.password)?'':'الرقم غير صحيح'
         });
         }
         if (name === "phoneNumber") {
