@@ -17,22 +17,29 @@ export default function RegisterForm({ setShowFormStatus }) {
         plateNumber: "",
     })
     const [errors, setErrors] = useState({
-        fristNameErrors: "",
-        lastNameErrors: "",
-        emailErrors: "",
-        passwordErrors: "",
-        confirmPasswordErrors: "",
-        phoneNumberErrors: "",
-        roleErrors: "",
-        carTypeErrors: "",
-        cityErrors: "",
-        stateErrors: "",
+        fristNameErrors: "*",
+        lastNameErrors: "*",
+        emailErrors: "*",
+        passwordErrors: "*",
+        confirmPasswordErrors: "*",
+        phoneNumberErrors: "*",
+        roleErrors: "*",
+        carTypeErrors: "*",
+        cityErrors: "*",
+        stateErrors: "*",
         regionErrors: "",
         plateNumberErrors: "",
     })
     let nameRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/
     let emailRegx = /^[a-zA-Z0-9]{4,15}(@)(gmail|yahoo|outlook)(.com)$/
-    let passwordRegx = /^[a-zA-Z0-9]{1,}[*:!#&^$.?#@]{1,}[a-zA-Z0-9*:!#&^$.?#@]{6,}$/
+    let passwordRegx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d])(?=.*[*:!#&^$.?#@])[a-zA-Z\d*:!#&^$.?#@]{8,}$/
+    let phoneRegx = /^(?:(?:\+|00)968)?(9[1-9]\d{6})$/
+    let roleRegx = /^(?:(?:\+|00)968)?(9[1-9]\d{6})$/
+    let carTypeRegx = /^(?:(?:\+|00)968)?(9[1-9]\d{6})$/
+    let plateNumberRegx = /^(?:(?:\+|00)968)?(9[1-9]\d{6})$/
+    let cityRegx = /^(?:(?:\+|00)968)?(9[1-9]\d{6})$/
+    let stateRegx = /^(?:(?:\+|00)968)?(9[1-9]\d{6})$/
+    let regionRegx = /^(?:(?:\+|00)968)?(9[1-9]\d{6})$/
     const registeValidation = (event) => {
         const { name, value } = event.target;
         if (name === "firstName") {
@@ -90,6 +97,7 @@ export default function RegisterForm({ setShowFormStatus }) {
         if (registeUser.role === 'renter') {
             if (name === "city") {
                 setErrors({ ...errors, cityErrors: value.length === 0 ? "cityErrors" : "" });
+                // setErrors({ ...errors, cityErrors:"*" })
             }
             if (name === "state") {
                 setErrors({ ...errors, stateErrors: value.length === 0 ? "stateErrors" : "" });
