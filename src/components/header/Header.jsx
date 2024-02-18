@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classes from "./../../styles/header.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { changLog } from "../../store/slices/login";
@@ -10,6 +10,7 @@ import { IoBagCheckSharp } from "react-icons/io5";
 import { logout } from "../../store/slices/authSlice";
 
 export default function Header() {
+  const navigate=useNavigate()
   const dispatch = useDispatch();
   const isLoggedIn =useSelector ((state) => state.loggedIn.loggedIn);
   const displayRegester = () => {
@@ -20,6 +21,7 @@ export default function Header() {
   };
   const logdedout = () => {
     dispatch(logout());
+    navigate("/")
   };
   
   return (

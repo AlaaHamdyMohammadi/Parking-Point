@@ -50,7 +50,6 @@ const router = createBrowserRouter([
         path: "dashboard/:ownerId",
         element: (
           <Guard>
-            {" "}
             <Dashboard />
           </Guard>
         ),
