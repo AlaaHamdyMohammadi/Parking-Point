@@ -41,17 +41,18 @@ export default function SearchSec() {
         </div>
       </div>
       <div className={`card border-0  my-3`}>
-        <div className={` shadow height p-2 border-secondary-subtlepx-2 rounded-3 w-100 height`}>
-          <div className={` fs-4 my-2  fw-bolder`}>ابحث عن اقرب موقف</div>
-          <div className={`mb-2`}>
+        <div className={` shadow height text-center p-2 border-secondary-subtlepx-2 rounded-2 w-100 height`}>
+          <div className={` fs-5 pe-4 my-4  text-end  fw-bolder`}>ابحث عن اقرب موقف</div>
+          <div className={``}>
             <SearchInput />
-            <SelectLocation />
+            {/* <SelectLocation /> */}
           </div>
           <div className={`mb-2`}>
             <EndDateTime BookNow={BookNow} />
           </div>
-
-          <button className={`text-center bgColor text-white btn mt-2 ${classes.formBtn} `}>اعرض المواقف</button>
+          <div className={`text-end`}>
+            <button className={`text-center bgColor text-white btn m-2 mx-3 ${classes.formBtn} `}>اعرض المواقف</button>
+          </div>
         </div>
       </div>
     </>
