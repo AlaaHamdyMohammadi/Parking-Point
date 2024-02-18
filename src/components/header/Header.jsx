@@ -11,7 +11,7 @@ import { logout } from "../../store/slices/authSlice";
 
 export default function Header() {
   const dispatch = useDispatch();
-  const isLoggedIn =useSelector ((state) => state.loggedIn.loggedIn);
+  const isLoggedIn = useSelector((state) => state.loggedIn.loggedIn);
   const displayRegester = () => {
     dispatch(changLog(true));
   };
@@ -21,7 +21,7 @@ export default function Header() {
   const logdedout = () => {
     dispatch(logout());
   };
-  
+
   return (
     <>
       <nav className={`navColor p-2 d-flex w-100 justify-content-between navbar-expand-lg shadow`}>
@@ -136,3 +136,5 @@ export default function Header() {
     </>
   );
 }
+
+// ess
