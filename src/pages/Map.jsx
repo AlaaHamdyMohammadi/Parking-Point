@@ -1,12 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
-import ReactMapGL, {
-  Marker,
-  Popup,
-  NavigationControl,
-  Layer,
-  Source,
-} from "react-map-gl";
+import ReactMapGL, { Marker, Popup, NavigationControl, Layer, Source } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 const mapStyle = "mapbox://styles/alaahamdy2/clsp701hd005a01pkhrmygybf";
@@ -26,14 +20,14 @@ const Map = () => {
   // });
 
   const [destination, setDestination] = useState({
-    first:{
+    first: {
       latitude: 30.4659284,
       longitude: 30.9305801,
     },
-    second:{
+    second: {
       latitude: 31.106999572,
       longitude: 30.94082957,
-    }
+    },
   });
 
   // useEffect(() => {
@@ -49,11 +43,6 @@ const Map = () => {
 
   //   return () => navigator.geolocation.clearWatch(watchId);
   // }, []);
-
-  // const handleMapClick = (event) => {
-  //   const [longitude, latitude] = event.lngLat;
-  //   setDestination({ latitude, longitude });
-  // };
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -75,17 +64,10 @@ const Map = () => {
       <ReactMapGL
         {...viewport}
         mapStyle={mapStyle}
-        mapboxAccessToken={
-          "pk.eyJ1IjoiYWxhYWhhbWR5MiIsImEiOiJjbHNvcmJsZ2kwaHFlMm1rNXJkMWYxZjhkIn0.JKB_JwB_XSgRR2OJsjd5eA"
-        }
+        mapboxAccessToken={"pk.eyJ1IjoiYWxhYWhhbWR5MiIsImEiOiJjbHNvcmJsZ2kwaHFlMm1rNXJkMWYxZjhkIn0.JKB_JwB_XSgRR2OJsjd5eA"}
         onViewportChange={setViewport}
       >
-        <Marker
-          latitude={viewport.latitude}
-          longitude={viewport.longitude}
-          offsetLeft={-20}
-          offsetTop={-10}
-        >
+        <Marker latitude={viewport.latitude} longitude={viewport.longitude} offsetLeft={-20} offsetTop={-10}>
           <div>You are here</div>
         </Marker>
 
@@ -111,19 +93,10 @@ const Map = () => {
           </>
         )}
 
-        {viewport && (
-          <NavigationControl
-            style={{ position: "absolute", top: 10, left: 10 }}
-          />
-        )}
+        {viewport && <NavigationControl style={{ position: "absolute", top: 10, left: 10 }} />}
 
         {viewport && destination && (
-          <Popup
-            latitude={destination.latitude}
-            longitude={destination.longitude}
-            closeButton={false}
-            closeOnClick={false}
-          >
+          <Popup latitude={destination.latitude} longitude={destination.longitude} closeButton={false} closeOnClick={false}>
             <div>Destination</div>
           </Popup>
         )}
@@ -153,7 +126,7 @@ const Map = () => {
               />
             </Source>
           </div>
-              )}
+        )}
       </ReactMapGL>
     </div>
   );
