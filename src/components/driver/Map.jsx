@@ -15,6 +15,7 @@ import ReactMapGL, {
 } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { FaLocationPin } from "react-icons/fa6";
+import { FaPlus, FaMinus } from "react-icons/fa";
 
 const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 const mapStyle = "mapbox://styles/alaahamdy2/clsp701hd005a01pkhrmygybf";
@@ -57,6 +58,20 @@ const Map = () => {
       console.error("Geolocation is not supported by this browser.");
     }
   }, [viewport]);
+
+  const handleZoomIn = () => {
+    setViewport((prevViewport) => ({
+      ...prevViewport,
+      zoom: Math.min(prevViewport.zoom + 1, 20), // Limit max zoom to 20
+    }));
+  };
+
+  const handleZoomOut = () => {
+    setViewport((prevViewport) => ({
+      ...prevViewport,
+      zoom: Math.max(prevViewport.zoom - 1, 1), // Limit min zoom to 1
+    }));
+  };
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
@@ -110,9 +125,47 @@ const Map = () => {
           </>
         )}
 
-        <GeolocateControl />
-        <FullscreenControl />
-        <NavigationControl position="top-right" />
+        <div
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 10,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <button
+            onClick={handleZoomIn}
+            style={{
+              padding: "8px",
+              background: "#fff",
+              borderRadius: "4px",
+              border: "1px solid #ccc",
+              marginBottom: "4px",
+              cursor: "pointer",
+            }}
+          >
+            <FaPlus style={{ color: "#333" }} />
+          </button>
+          <button
+            onClick={handleZoomOut}
+            style={{
+              padding: "8px",
+              background: "#fff",
+              borderRadius: "4px",
+              border: "1px solid #ccc",
+              cursor: "pointer",
+            }}
+          >
+            <FaMinus style={{ color: "#333" }} />
+          </button>
+        </div>
+
+        {/* <div>
+          <GeolocateControl />
+          <FullscreenControl />
+       </div>*/}
 
         {viewport && destination && (
           <>
