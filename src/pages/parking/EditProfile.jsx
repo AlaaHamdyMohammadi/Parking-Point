@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputEdit from "../../components/profile/InputEdit";
 import SelectEdit from "../../components/profile/selectEdit";
 import Photoprofile from "./../../components/profile/photoprofile";
 import classes from "./../../styles/formStyles.module.css";
 import axiosInstanceParking from "../../axiosConfig/instanc";
+import { useSelector } from "react-redux";
 
 export default function EditProfile() {
-  const [userRole, setUserRole] = useState("owner");
+  const [Role, setRole] = useState("");
 
+  //
+  const UserRole = useSelector((state) => state.UserRole.UserRole);
+
+  useEffect(() => {
+    setRole(UserRole);
+  }, []);
   const [fristName, setFristNam] = useState("");
   const [lastName, setLastNam] = useState("");
   const [phone, setPhone] = useState("");
@@ -199,20 +206,6 @@ export default function EditProfile() {
   // };
   console.log(registeUser);
 
-  // const [isDriver, setIsDriver] = useState(false);
-  // const [isOwner, setIsOwner] = useState(false);
-  // const displayIsDriver = (event) => {
-  //   if (event.target.checked == true) {
-  //     setIsDriver(true);
-  //     setIsOwner(false);
-  //   }
-  // };
-  // const displayIsOwner = (event) => {
-  //   if (event.target.checked == true) {
-  //     setIsDriver(false);
-  //     setIsOwner(true);
-  //   }
-  // };
   console.log(userInfo);
   return (
     <>
@@ -230,7 +223,7 @@ export default function EditProfile() {
           <div className="col-lg-6 col-md-6 col-sm-12">
             <InputEdit label="الأيميل" placeholder="اللأيميل *" type="email" setState={setEmail} />
           </div>
-          {userRole === "driver" && (
+          {Role === "driver" && (
             <>
               <div className="col-lg-6 col-md-6 col-sm-12">
                 <SelectEdit label="نوع المركبة" option1="سيارة" setState={setCarType} />
@@ -240,9 +233,9 @@ export default function EditProfile() {
               </div>
             </>
           )}
-          {userRole == "owner" && (
+          {Role == "renter" && (
             <>
-              <div className={`col-md-5 col-12`}>
+              <div className={`col-lg-6 col-md-5 col-12`}>
                 <label className="fs-5" htmlFor="state">
                   المحافظه
                 </label>
@@ -254,13 +247,13 @@ export default function EditProfile() {
                   onBlur={registeValidation}
                 >
                   <option value="" hidden>
-                    اختر المحافظه
+                    **********{" "}
                   </option>
                   <option value="مسقط">مسقط</option>
                 </select>
                 <p className={`${classes.error} text-danger`}>{errors.stateErrors}</p>
               </div>
-              <div className={`col-md-5 col-12`}>
+              <div className={` col-lg-6 col-md-5 col-12`}>
                 <label className="fs-5" htmlFor="city">
                   الولاية
                 </label>
@@ -272,7 +265,7 @@ export default function EditProfile() {
                   onBlur={registeValidation}
                 >
                   <option value="" hidden>
-                    اختر الولاية
+                    **********
                   </option>
                   <option value="masqt">مسقط</option>
                   <option value="mtrh">مطرح</option>
@@ -284,7 +277,7 @@ export default function EditProfile() {
                 <p className={`${classes.error} text-danger`}>{errors.cityErrors}</p>
               </div>
               {/* </div> */}
-              <div className="mt-4">
+              <div className=" col-lg-6 col-md-5 col-12">
                 <label className="fs-5" htmlFor="region">
                   المنطقه
                 </label>
@@ -296,7 +289,8 @@ export default function EditProfile() {
                   //  onChange={registeValidation}
                   //  onBlur={registeValidation}
                 />
-                <p className={`${classes.error} text-danger`}>{errors.regionErrors}</p>
+
+                <p className={`${classes.error} text-danger`}>{errors.regionErrors} </p>
               </div>
             </>
           )}

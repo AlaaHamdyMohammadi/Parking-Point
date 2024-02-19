@@ -14,7 +14,7 @@ export default function HomeLogin() {
           <SearchSec />
         </div>
         {/* sec2 */}
-        {/* <div className={`col-lg-4 col-md-12 col-sm-12 px-2 `} id="navbar-example2">
+        <div className={`col-lg-3 col-md-12 col-sm-12 px-2 `} id="navbar-example2">
           <div className="d-flex  flex-column gap-4 my-5">
             <div className="fs-5 fw-bolder">اختر الموقف المناسب</div>
             <div className=" fw-bold">المواقف الأقرب لك ....</div>
@@ -30,7 +30,7 @@ export default function HomeLogin() {
           >
             <ParkingCard />
           </div>
-        </div> */}
+        </div>
         {/* sec3 */}
         <div className={`col-lg-9 col-md-9 col-sm-12 `}>
           <Map />
