@@ -62,14 +62,14 @@ const Map = () => {
   const handleZoomIn = () => {
     setViewport((prevViewport) => ({
       ...prevViewport,
-      zoom: Math.min(prevViewport.zoom + 1, 20), // Limit max zoom to 20
+      zoom: Math.min(prevViewport.zoom + 1, 20), 
     }));
   };
 
   const handleZoomOut = () => {
     setViewport((prevViewport) => ({
       ...prevViewport,
-      zoom: Math.max(prevViewport.zoom - 1, 1), // Limit min zoom to 1
+      zoom: Math.max(prevViewport.zoom - 1, 1), 
     }));
   };
 
@@ -80,6 +80,7 @@ const Map = () => {
         mapStyle={mapStyle}
         mapboxAccessToken={TOKEN}
         onViewportChange={setViewport}
+        dragPan={true}
       >
         <Marker
           draggable
