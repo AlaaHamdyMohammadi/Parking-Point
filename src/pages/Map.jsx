@@ -26,14 +26,18 @@ const Map = () => {
   // });
 
   const [destination, setDestination] = useState({
-    first:{
+    first: {
       latitude: 30.4659284,
       longitude: 30.9305801,
     },
-    second:{
+    second: {
       latitude: 31.106999572,
       longitude: 30.94082957,
-    }
+    },
+    third: {
+      latitude: 30.58768,
+      longitude: 31.502,
+    },
   });
 
   // useEffect(() => {
@@ -108,6 +112,14 @@ const Map = () => {
             >
               <div style={{ color: "green" }}>Destination</div>
             </Marker>
+            <Marker
+              latitude={destination.third.latitude}
+              longitude={destination.third.longitude}
+              offsetLeft={-20}
+              offsetTop={-10}
+            >
+              <div style={{ color: "blue" }}>Destination</div>
+            </Marker>
           </>
         )}
 
@@ -118,14 +130,32 @@ const Map = () => {
         )}
 
         {viewport && destination && (
-          <Popup
-            latitude={destination.latitude}
-            longitude={destination.longitude}
-            closeButton={false}
-            closeOnClick={false}
-          >
-            <div>Destination</div>
-          </Popup>
+          <>
+            <Popup
+              latitude={destination.first.latitude}
+              longitude={destination.first.longitude}
+              closeButton={false}
+              closeOnClick={false}
+            >
+              <div>Destination</div>
+            </Popup>
+            <Popup
+              latitude={destination.second.latitude}
+              longitude={destination.second.longitude}
+              closeButton={false}
+              closeOnClick={false}
+            >
+              <div>Destination</div>
+            </Popup>
+            <Popup
+              latitude={destination.third.latitude}
+              longitude={destination.third.longitude}
+              closeButton={false}
+              closeOnClick={false}
+            >
+              <div>Destination</div>
+            </Popup>
+          </>
         )}
 
         {viewport && destination && (
@@ -138,8 +168,11 @@ const Map = () => {
                 geometry: {
                   type: "LineString",
                   coordinates: [
+                    [destination.first.longitude, destination.first.latitude],
                     [viewport.longitude, viewport.latitude],
-                    [destination.longitude, destination.latitude],
+                    [destination.second.longitude, destination.second.latitude],
+                    [viewport.longitude, viewport.latitude],
+                    [destination.third.longitude, destination.third.latitude],
                   ],
                 },
               }}
@@ -148,12 +181,12 @@ const Map = () => {
                 type="line"
                 paint={{
                   "line-color": "#FF5733",
-                  "line-width": 2,
+                  "line-width": 10,
                 }}
               />
             </Source>
           </div>
-              )}
+        )}
       </ReactMapGL>
     </div>
   );
