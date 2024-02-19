@@ -1,29 +1,59 @@
 /* eslint-disable no-unused-vars */
-// import React from "react";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import ReactMapGL, {
-  FullscreenControl,
-  GeolocateControl,
-  Layer,
   Marker,
+  Popup,
   NavigationControl,
+  Layer,
   Source,
 } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-//const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
-
 const mapStyle = "mapbox://styles/alaahamdy2/clsp701hd005a01pkhrmygybf";
 
-function Map() {
+const Map = () => {
   const [viewport, setViewport] = useState({
+    width: "100%",
+    height: "100%",
     latitude: 0,
     longitude: 0,
     zoom: 10,
   });
 
-  const [destination, setDestination] = useState(null);
-  const [directions, setDirections] = useState(null);
+  // const [userLocation, setUserLocation] = useState({
+  //   latitude: 0,
+  //   longitude: 0,
+  // });
+
+  const [destination, setDestination] = useState({
+    first:{
+      latitude: 30.4659284,
+      longitude: 30.9305801,
+    },
+    second:{
+      latitude: 31.106999572,
+      longitude: 30.94082957,
+    }
+  });
+
+  // useEffect(() => {
+  //   const watchId = navigator.geolocation.watchPosition(
+  //     (position) => {
+  //       const { latitude, longitude } = position.coords;
+  //       setUserLocation({ latitude, longitude });
+  //       console.log(userLocation)
+  //     },
+  //     (error) => console.error(error),
+  //     { enableHighAccuracy: true }
+  //   );
+
+  //   return () => navigator.geolocation.clearWatch(watchId);
+  // }, []);
+
+  // const handleMapClick = (event) => {
+  //   const [longitude, latitude] = event.lngLat;
+  //   setDestination({ latitude, longitude });
+  // };
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -34,88 +64,99 @@ function Map() {
           longitude: position.coords.longitude,
         }));
       });
+      console.log(viewport);
     } else {
       console.error("Geolocation is not supported by this browser.");
     }
   }, []);
 
-  const handleMarkerDrag = (event) => {
-    setDestination({
-      latitude: event.lngLat[1],
-      longitude: event.lngLat[0],
-    });
-  };
-
-  useEffect(() => {
-    if (!destination) return;
-
-    const getRoute = async () => {
-      const response = await fetch(
-        `https://api.mapbox.com/directions/v5/mapbox/driving/${
-          viewport.longitude
-        },${viewport.latitude};${destination.longitude},${
-          destination.latitude
-        }?steps=true&geometries=geojson&access_token=${"pk.eyJ1IjoiYWxhYWhhbWR5MiIsImEiOiJjbHNvcmJsZ2kwaHFlMm1rNXJkMWYxZjhkIn0.JKB_JwB_XSgRR2OJsjd5eA"}`
-      );
-      const data = await response.json();
-
-      setDirections(data);
-    };
-    getRoute();
-  }, [destination, viewport.latitude, viewport.longitude]);
-
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <ReactMapGL
         {...viewport}
+        mapStyle={mapStyle}
         mapboxAccessToken={
           "pk.eyJ1IjoiYWxhYWhhbWR5MiIsImEiOiJjbHNvcmJsZ2kwaHFlMm1rNXJkMWYxZjhkIn0.JKB_JwB_XSgRR2OJsjd5eA"
         }
-        width="100%"
-        height="100%"
-        transitionDuration="200"
-        mapStyle={mapStyle}
-        onViewportChange={(viewport) => setViewport(viewport)}
+        onViewportChange={setViewport}
       >
-        <GeolocateControl />
-        <FullscreenControl />
-        <NavigationControl />
         <Marker
-          draggable
           latitude={viewport.latitude}
           longitude={viewport.longitude}
           offsetLeft={-20}
           offsetTop={-10}
-        />
-         
+        >
+          <div>You are here</div>
+        </Marker>
 
         {destination && (
-          <Marker
-            latitude={destination.latitude}
-            longitude={destination.longitude}
-            offsetLeft={-20}
-            offsetTop={-10}
-            draggable
-            onDragEnd={handleMarkerDrag}
-          />
-           
+          <>
+            <Marker
+              latitude={destination.first.latitude}
+              longitude={destination.first.longitude}
+              offsetLeft={-20}
+              offsetTop={-10}
+            >
+              <div style={{ color: "red" }}>Destination</div>
+            </Marker>
+
+            <Marker
+              latitude={destination.second.latitude}
+              longitude={destination.second.longitude}
+              offsetLeft={-20}
+              offsetTop={-10}
+            >
+              <div style={{ color: "green" }}>Destination</div>
+            </Marker>
+          </>
         )}
 
-        {directions && directions.routes && directions.routes[0] && (
-          <Source type="geojson" data={directions.routes[0].geometry}>
-            <Layer
-              id="route"
-              type="line"
-              paint={{
-                "line-color": "#008cbf",
-                "line-width": 5,
-              }}
-            />
-          </Source>
+        {viewport && (
+          <NavigationControl
+            style={{ position: "absolute", top: 10, left: 10 }}
+          />
         )}
+
+        {viewport && destination && (
+          <Popup
+            latitude={destination.latitude}
+            longitude={destination.longitude}
+            closeButton={false}
+            closeOnClick={false}
+          >
+            <div>Destination</div>
+          </Popup>
+        )}
+
+        {viewport && destination && (
+          <div>
+            <Source
+              type="geojson"
+              data={{
+                type: "Feature",
+                properties: {},
+                geometry: {
+                  type: "LineString",
+                  coordinates: [
+                    [viewport.longitude, viewport.latitude],
+                    [destination.longitude, destination.latitude],
+                  ],
+                },
+              }}
+            >
+              <Layer
+                type="line"
+                paint={{
+                  "line-color": "#FF5733",
+                  "line-width": 2,
+                }}
+              />
+            </Source>
+          </div>
+              )}
       </ReactMapGL>
     </div>
   );
-}
+};
 
 export default Map;
