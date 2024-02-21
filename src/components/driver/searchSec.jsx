@@ -13,7 +13,7 @@ export default function SearchSec({ setIsSearch }) {
   function handelBookLater() {
     setBookNow(false);
   }
-  // console.log(reserveTime);
+  console.log(reserveTime);
 
   return (
     <>
