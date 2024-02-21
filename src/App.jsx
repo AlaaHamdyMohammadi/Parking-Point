@@ -22,6 +22,7 @@ import ViewProfile from "./pages/parking/ViewProfile";
 import Support from "./pages/driver/Support";
 import Map from "./pages/Map";
 import Guard from "./components/guard/Guard";
+import LoginGuard from "./components/guard/LoginGuard";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/register",
-        element: <Register />,
+        element: <LoginGuard><Register /></LoginGuard>,
         errorElement: <HandelErorr />,
       },
     ],
@@ -50,7 +51,6 @@ const router = createBrowserRouter([
         path: "dashboard/:ownerId",
         element: (
           <Guard>
-            {" "}
             <Dashboard />
           </Guard>
         ),

@@ -38,7 +38,7 @@ export default function LoginForm() {
             try {
                 const res = await axiosInstanceParking.post(`/users/signin`, logInUser);
                 const userData = res.data;
-                dispatch(login(userData.user , userData.token));
+                dispatch(login(userData.user));
                 dispatch(token( userData.token));
                 navigate("/");
                 console.log("login")
