@@ -272,7 +272,6 @@ export default function RegisterForm({ setShowFormStatus }) {
                                 <p className={`${classes.error} text-danger`}>{errors.carTypeErrors}</p>
                             </div>
                             <input type="submit" value="submit"
-                                //  className={`${classes.formBtn} text-center bgColor text-white btn mt-5`}
                                 className={
                                     Object.values(errors).some((error) => error !== "")
                                         ? `btn bgColor text-white col-4 disabled`
