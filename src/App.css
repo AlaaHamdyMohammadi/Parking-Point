@@ -122,8 +122,13 @@
 .cursor-not-allowed {
   cursor: not-allowed;
 }
-
 /* StarRating */
-/* input[type="radio"] {
+
+.RadioNone {
   display: none;
-} */
+}
+
+.customfs {
+  font-size: 0.8rem;
+  /* font-weight: 500; */
+}

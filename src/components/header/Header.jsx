@@ -12,7 +12,7 @@ import { logout } from "../../store/slices/authSlice";
 export default function Header() {
   const navigate=useNavigate()
   const dispatch = useDispatch();
-  const isLoggedIn =useSelector ((state) => state.loggedIn.loggedIn);
+  const isLoggedIn = useSelector((state) => state.loggedIn.loggedIn);
   const displayRegester = () => {
     dispatch(changLog(true));
   };
@@ -23,7 +23,7 @@ export default function Header() {
     dispatch(logout());
     navigate("/")
   };
-  
+
   return (
     <>
       <nav className={`navColor p-2 d-flex w-100 justify-content-between navbar-expand-lg shadow`}>

@@ -43,7 +43,8 @@ export default function Sales() {
               التاريخ
             </th>
             <th className="p-1 px-2 fw-bolder " onClick={generatePDF}>
-              <FaRegFilePdf className="me-1 mb-1 text-center   text-white fs-1 bgColor" /> تحميل
+              <FaRegFilePdf className="me-1 mb-1 text-center   text-white fs-1 bgColor" />{" "}
+              تحميل
             </th>
             {/* <td onClick={generatePDF} className="py-1">
               {/* <button className=" btn-yellow rounded-3">تحميل الملف PDF</button> */}
