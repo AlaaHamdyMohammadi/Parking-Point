@@ -36,9 +36,9 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     });
 
     // Call calculateTimeDifference whenever from or to inputs change
-    if (name === "from" || name === "to") {
-      calculateTimeDifference();
-    }
+    // if (name === "from" || name === "to") {
+    //   calculateTimeDifference();
+    // }
   };
 
   // if (name === "From" || name === "To") {
@@ -87,12 +87,12 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
             <option value="" hidden className="text-danger">
               اختر الولاية
             </option>
-            <option value="masqt">مسقط</option>
-            <option value="mtrh">مطرح</option>
-            <option value="seeb">السيب</option>
-            <option value="boshr">بوشر</option>
-            <option value="amrat">العامرات</option>
-            <option value="qryat">قريات</option>
+            <option value="مسقط">مسقط</option>
+            <option value="مطرح">مطرح</option>
+            <option value="السيب">السيب</option>
+            <option value="بوشر">بوشر</option>
+            <option value="العامرات">العامرات</option>
+            <option value="قريات">قريات</option>
           </select>
         </div>
         <div className="container">
