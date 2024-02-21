@@ -75,20 +75,8 @@ const Map = () => {
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-      <ReactMapGL
-        {...viewport}
-        mapStyle={mapStyle}
-        mapboxAccessToken={TOKEN}
-        onViewportChange={setViewport}
-        dragPan={true}
-      >
-        <Marker
-          draggable
-          latitude={viewport.latitude}
-          longitude={viewport.longitude}
-          offsetLeft={-20}
-          offsetTop={-10}
-        />
+      <ReactMapGL {...viewport} mapStyle={mapStyle} mapboxAccessToken={TOKEN} onViewportChange={setViewport} dragPan={true}>
+        <Marker draggable latitude={viewport.latitude} longitude={viewport.longitude} offsetLeft={-20} offsetTop={-10} />
 
         {destination && (
           <>

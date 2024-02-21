@@ -71,22 +71,35 @@ const Map = () => {
     }));
   };
 
+  const handleMarkerDrag = (event) => {
+    setDestination({
+      latitude: event.lngLat[1],
+      longitude: event.lngLat[0],
+    });
+  };
+
+  useEffect(() => {
+    if (!destination) return;
+
+    const getRoute = async () => {
+      const response = await fetch(
+        `https://api.mapbox.com/directions/v5/mapbox/driving/${viewport.longitude},${viewport.latitude};${
+          destination.longitude
+        },${
+          destination.latitude
+        }?steps=true&geometries=geojson&access_token=${"pk.eyJ1IjoiYWxhYWhhbWR5MiIsImEiOiJjbHNvcmJsZ2kwaHFlMm1rNXJkMWYxZjhkIn0.JKB_JwB_XSgRR2OJsjd5eA"}`
+      );
+      const data = await response.json();
+
+      setDirections(data);
+    };
+    getRoute();
+  }, [destination, viewport.latitude, viewport.longitude]);
+
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
-      <ReactMapGL
-        {...viewport}
-        mapStyle={mapStyle}
-        mapboxAccessToken={TOKEN}
-        onViewportChange={setViewport}
-        dragPan={true}
-      >
-        <Marker
-          draggable
-          latitude={viewport.latitude}
-          longitude={viewport.longitude}
-          offsetLeft={-20}
-          offsetTop={-10}
-        />
+    <div className="text-center w-100 p-3 pe-lg-0" style={{ height: "93vh" }}>
+      <ReactMapGL {...viewport} mapStyle={mapStyle} mapboxAccessToken={TOKEN} onViewportChange={setViewport} dragPan={true}>
+        <Marker draggable latitude={viewport.latitude} longitude={viewport.longitude} offsetLeft={-20} offsetTop={-10} />
 
         {destination && (
           <>

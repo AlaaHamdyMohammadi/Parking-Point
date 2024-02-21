@@ -74,7 +74,7 @@
   color: var(--gray) !important;
 }
 .animate:hover {
-  scale: 1.2;
+  scale: 0.9;
   /* background-color: var(--gray); */
 }
 /* @media screen and (max-height: 450px) {
@@ -122,8 +122,13 @@
 .cursor-not-allowed {
   cursor: not-allowed;
 }
-
 /* StarRating */
-input[type="radio"] {
+
+.RadioNone {
   display: none;
+}
+
+.customfs {
+  font-size: 0.8rem;
+  /* font-weight: 500; */
 }

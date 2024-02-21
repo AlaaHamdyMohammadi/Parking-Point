@@ -1,29 +1,30 @@
 /* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
 import classes from "./../../styles/header.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changLog } from "../../store/slices/login";
-import { useState } from "react";
 import { IoPerson } from "react-icons/io5";
-// import { IoBagCheckOutline } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
 import { MdContactSupport } from "react-icons/md";
 import { IoBagCheckSharp } from "react-icons/io5";
+import { logout } from "../../store/slices/authSlice";
 
 export default function Header() {
   const dispatch = useDispatch();
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const isLoggedIn = useSelector((state) => state.loggedIn.loggedIn);
   const displayRegester = () => {
     dispatch(changLog(true));
   };
   const displayLogin = () => {
     dispatch(changLog(false));
   };
+  const logdedout = () => {
+    dispatch(logout());
+  };
+
   return (
     <>
-      <nav
-        className={`navColor p-2 d-flex w-100 justify-content-between navbar-expand-lg shadow`}
-      >
+      <nav className={`navColor p-2 d-flex w-100 justify-content-between navbar-expand-lg shadow`}>
         {isLoggedIn ? (
           <div className="position-relative">
             <div className="btn-group border-0">
@@ -36,10 +37,7 @@ export default function Header() {
               <ul className="dropdown-menu">
                 <div className="  text-end">
                   <li>
-                    <Link
-                      to={`Driveraccount/:DriverId/MyTrips`}
-                      className="dropdown-item"
-                    >
+                    <Link to={`Driveraccount/:DriverId/MyTrips`} className="dropdown-item">
                       <span className="ps-2">
                         <IoBagCheckSharp />
                       </span>
@@ -47,10 +45,7 @@ export default function Header() {
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      to={`Driveraccount/:DriverId`}
-                      className="dropdown-item"
-                    >
+                    <Link to={`Driveraccount/:DriverId`} className="dropdown-item">
                       <span className="ps-2">
                         <IoPerson />
                       </span>
@@ -66,15 +61,12 @@ export default function Header() {
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      to={`/`}
-                      className="dropdown-item  text-danger border-top"
-                    >
+                    <div role="button" className="dropdown-item  text-danger border-top" onClick={logdedout}>
                       <span className="ps-2 text-danger">
                         <IoIosLogOut />
                       </span>
                       تسجيل الخروج
-                    </Link>
+                    </div>
                   </li>
                 </div>
               </ul>
@@ -90,18 +82,12 @@ export default function Header() {
           </div>
         ) : (
           <Link to={`/`} className="navbar-brand">
-            <img
-              src="./../../../images/logo3.png"
-              className={`${classes.logo} mx-4`}
-            />
+            <img src="./../../../images/logo3.png" className={`${classes.logo} mx-4`} />
           </Link>
         )}
 
         {isLoggedIn ? (
-          <div
-            className="collapse navbar-collapse flex-grow-0 mx-4 "
-            id="navbarSupportedContent"
-          >
+          <div className="collapse navbar-collapse flex-grow-0 mx-4 " id="navbarSupportedContent">
             <ul className="navbar-nav  mb-2 mb-lg-0 col-4 flex justify-content-between">
               <li className="nav-item">
                 <Link to={`/`} className="navbar-brand text-end">
@@ -119,7 +105,7 @@ export default function Header() {
             <ul className="navbar-nav  mb-2 mb-lg-0 w-100 d-flex flex-row gap-4">
               <li className="nav-item fw-bold">
                 <Link
-                  to={`/التسجيل`}
+                  to={`/register`}
                   className="nav-link active text-white"
                   aria-current="page"
                   href="#"
@@ -132,7 +118,7 @@ export default function Header() {
               </li>
               <li className="nav-item fw-bold">
                 <Link
-                  to={`/التسجيل`}
+                  to={`/register`}
                   className="nav-link active text-white"
                   aria-current="page"
                   href="#"

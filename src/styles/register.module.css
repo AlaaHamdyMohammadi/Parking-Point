@@ -1,5 +1,5 @@
 .bg {
-  background-image: linear-gradient(to right, #331c41 50%, #fff 50%);
+  background-image: linear-gradient(to right, #331c41 0%, #dcace2 90%);
   min-height: 48vw;
 }
 
@@ -10,8 +10,3 @@
 .loginBtn {
   transition: all 0.5s ease;
 }
-/* @media screen and (max-width: 480px) {
-  .bg {
-    background-color: lightgreen !important;
-  }
-} */
