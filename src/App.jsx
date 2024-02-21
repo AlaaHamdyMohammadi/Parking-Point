@@ -22,6 +22,7 @@ import MyTrips from "./pages/driver/mytrips";
 import Support from "./pages/driver/Support";
 import Map from "./pages/Map";
 import Guard from "./components/guard/Guard";
+import LoginGuard from "./components/guard/LoginGuard";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/register",
-        element: <Register />,
+        element: <LoginGuard><Register /></LoginGuard>,
         errorElement: <HandelErorr />,
       },
     ],

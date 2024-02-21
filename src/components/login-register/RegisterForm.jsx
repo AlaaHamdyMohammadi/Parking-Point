@@ -37,7 +37,7 @@ export default function RegisterForm({ setShowFormStatus }) {
     let roleRegx = /^(renter|driver)$/
     let carTypeRegx = /^(سيارة)$/
     let plateNumberRegx = /^[0-9]{5,}$/
-    let cityRegx = /^(masqt|mtrh|seeb|boshr|amrat|qryat)$/
+    let cityRegx = /^(مسقط|مطرح|السيب|بوشر|العامرات|قريات)$/
     let stateRegx = /^(مسقط)$/
     let regionRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/
     const registeValidation = (event) => {
