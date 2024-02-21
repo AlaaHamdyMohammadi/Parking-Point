@@ -1,7 +1,5 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-// import dotenv from "dotenv";
-// dotenv.config();
 
 import { useState, useEffect } from "react";
 import ReactMapGL, {
@@ -14,7 +12,7 @@ import ReactMapGL, {
   GeolocateControl,
 } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { FaLocationPin } from "react-icons/fa6";
+import { FaLocationDot } from "react-icons/fa6";
 import { FaPlus, FaMinus } from "react-icons/fa";
 
 const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
@@ -111,8 +109,8 @@ const Map = () => {
               offsetLeft={-20}
               offsetTop={-10}
             >
-              <div style={{ color: "blue", fontSize: "40px" }}>
-                <FaLocationPin />
+              <div style={{ color: "#f1a525", fontSize: "35px" }}>
+                <FaLocationDot />
               </div>
             </Marker>
 
@@ -122,8 +120,8 @@ const Map = () => {
               offsetLeft={-20}
               offsetTop={-10}
             >
-              <div style={{ color: "blue", fontSize: "40px" }}>
-                <FaLocationPin />
+              <div style={{ color: "#f1a525", fontSize: "35px" }}>
+                <FaLocationDot />
               </div>
             </Marker>
             <Marker
@@ -132,8 +130,8 @@ const Map = () => {
               offsetLeft={-20}
               offsetTop={-10}
             >
-              <div style={{ color: "blue", fontSize: "40px" }}>
-                <FaLocationPin />
+              <div style={{ color: "#f1a525", fontSize: "35px" }}>
+                <FaLocationDot />
               </div>
             </Marker>
           </>
@@ -232,7 +230,7 @@ const Map = () => {
               <Layer
                 type="line"
                 paint={{
-                  "line-color": "red",
+                  "line-color": "#331c41",
                   "line-width": 3,
                 }}
               />
