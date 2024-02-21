@@ -99,7 +99,7 @@ const Map = () => {
   }, [destination, viewport.latitude, viewport.longitude]);
 
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
+    <div className="text-center w-100 p-3 pe-lg-0" style={{ height: "93vh" }}>
       <ReactMapGL {...viewport} mapStyle={mapStyle} mapboxAccessToken={TOKEN} onViewportChange={setViewport} dragPan={true}>
         <Marker draggable latitude={viewport.latitude} longitude={viewport.longitude} offsetLeft={-20} offsetTop={-10} />
 

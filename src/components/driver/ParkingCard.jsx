@@ -6,18 +6,18 @@ export default function ParkingCard() {
   return (
     <>
       {parkingplaces.map((item, index) => (
-        <div key={item.id} className="card mb-3">
-          <div className="col-lg-12 col-md-4 col-sm-12">
+        <div key={item.id} className="card d-flex flex-row mb-3">
+          <div className="col-lg-4 col-md-4 col-sm-4">
             <div id={`carouselExampleInterval${index}`} className="carousel slide" data-bs-ride="carousel">
               <div className="carousel-inner">
                 <div className="carousel-item active" data-bs-interval="10000">
-                  <img style={{ width: "2vh", height: "18vh" }} src={item.imgpath[0]} className="d-block  w-100" alt="..." />
+                  <img style={{ width: "3vh", height: "18vh" }} src={item.imgpath[0]} className="d-block  w-100" alt="..." />
                 </div>
                 <div className="carousel-item" data-bs-interval="2000">
-                  <img style={{ width: "2vh", height: "18vh" }} src={item.imgpath[1]} className="d-block  w-100" alt="..." />
+                  <img style={{ width: "3vh", height: "18vh" }} src={item.imgpath[1]} className="d-block  w-100" alt="..." />
                 </div>
                 <div className="carousel-item">
-                  <img style={{ width: "2vh", height: "18vh" }} src={item.imgpath[2]} className="d-block w-100" alt="..." />
+                  <img style={{ width: "3vh", height: "18vh" }} src={item.imgpath[2]} className="d-block w-100" alt="..." />
                 </div>
               </div>
               <button
@@ -40,24 +40,24 @@ export default function ParkingCard() {
               </button>
             </div>
           </div>
-          <div className="col-lg-12 d-flex  flex-row  align-items-center">
+          <div className="col-8 d-lg-flex    align-items-center">
             <div className="card-body col-lg-8 ">
-              <div className="card-title fw-bolder fs-5">{item.title}</div>\{" "}
-              <div className="mb-0">
+              <div className="card-title fw-bolder mb-0">{item.title}</div>
+              <div className="mb-0 customfs  Gray">
                 <div>
-                  <span className=" "> الأماكن المتاحه: </span>
+                  <span className=" fw-semibold"> الأماكن المتاحه: </span>
                   {item.avaliable} 55
                 </div>
               </div>
-              <div className="mb-0">
+              <div className="mb-0 customfs Gray">
                 <div>
-                  <span className=" "> العنوان: </span>
+                  <span className=" fw-semibold"> العنوان: </span>
                   {item.adsress} شارع الف,اديه /مسقط
                 </div>
               </div>
             </div>
-            <div className=" col-lg-3 d-flex flex-column gap-2 text-center ms-2">
-              <div className="d-flex flex-row  text-center">
+            <div className=" col-lg-3 d-lg-flex gap-3 flex-lg-column  text-center ">
+              <div className="d-flex flex-row  text-center justify-content-start ">
                 <StarRating />
               </div>
               <div className={`text-center w-75 bgColor text-white  p-0 btn mb-2 ${classes.formBtn}`}>احجز</div>

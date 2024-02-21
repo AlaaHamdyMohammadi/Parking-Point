@@ -122,10 +122,13 @@
 .cursor-not-allowed {
   cursor: not-allowed;
 }
+/* StarRating */
+
 .RadioNone {
   display: none;
 }
-/* StarRating */
-/* input[type="radio"] {
-  display: none;
-} */
+
+.customfs {
+  font-size: 0.8rem;
+  /* font-weight: 500; */
+}
