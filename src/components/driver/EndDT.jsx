@@ -14,27 +14,39 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     hours: 0,
     minutes: 0,
   });
+  // From: BookNow ? Date.now() : "",
   const [searchData, setSearchData] = useState({
-    // From: BookNow ? Date.now() : "",
     time: {
-      From: BookNow ? new Date().toISOString().slice(0, 16) : "", // Format: "YYYY-MM-DDTHH:mm"
-      To: "",
+      from: BookNow ? new Date().toISOString().slice(0, 16) : "", // Format: "YYYY-MM-DDTHH:mm"
+      to: "",
     },
     city: "",
   });
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+
+    // Update the time object based on the input name
     setSearchData({
       ...searchData,
-      [name]: value,
+      time: {
+        ...searchData.time,
+        [name]: value,
+      },
     });
-    // if (name === "From" || name === "To") {
-    //   calculateTimeDifference();
-    // }
+
+    // Call calculateTimeDifference whenever from or to inputs change
+    if (name === "from" || name === "to") {
+      calculateTimeDifference();
+    }
   };
+
+  // if (name === "From" || name === "To") {
+  //   calculateTimeDifference();
+  // }
   const calculateTimeDifference = () => {
-    const startTime = new Date(searchData.time.From).getTime();
-    const endTime = new Date(searchData.time.To).getTime();
+    const startTime = new Date(searchData.time.from).getTime();
+    const endTime = new Date(searchData.time.to).getTime();
 
     if (isNaN(startTime) || isNaN(endTime)) {
       alert("Please enter valid start and end dates.");
@@ -91,8 +103,8 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
               icon={<FcOvertime />}
               className=" customRange  Gray border-0 pointer text-center w-100 m-2 ms-3 p-1  rounded-2"
               type="datetime-local"
-              name="From"
-              value={searchData.time.From}
+              name="from"
+              value={searchData.time.from}
               onChange={handleInputChange}
             />
           </div>
@@ -101,8 +113,8 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
             <input
               className=" customRange  Gray  border border-0 pointer text-center w-100 m-2 ms-3 p-1  rounded-2"
               type="datetime-local"
-              name="To"
-              value={searchData.time.To}
+              name="to"
+              value={searchData.time.to}
               onChange={handleInputChange}
             />
           </div>
