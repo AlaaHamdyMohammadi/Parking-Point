@@ -87,7 +87,7 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
         // params: {
         //   city: searchData.city,
         //   from: searchData.from,
-        //   to: searchData.to,
+        //   to:// searchData.to,
         // },
       })
       .then((response) => {
