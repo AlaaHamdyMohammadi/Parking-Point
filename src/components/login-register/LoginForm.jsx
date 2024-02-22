@@ -7,6 +7,7 @@ import { login, token } from "../../store/slices/authSlice";
 export default function LoginForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
+    const [isTrueErrors, setIsTrueErrors]=useState("")
     const [logInUser, setLogInUser] = useState({
         email: "",
         password: "",
@@ -15,15 +16,13 @@ export default function LoginForm() {
         emailErrors: "",
         passwordErrors: "",
     })
-    // let emailRegx = /[a-z0-9]{2,}@[a-z]{5,}(\.)[a-z]+/
-
     const loginValidation = (event) => {
         const { name, value } = event.target;
         if (name === "email") {
-            setErrors({ ...errors, emailErrors: value.length === 0 ? "Plesse, Enter Your email" : "" });
+            setErrors({ ...errors, emailErrors: value.length === 0 ? "ادخل البريد الاليكتروني" : "" });
         }
         if (name === "password") {
-            setErrors({ ...errors, passwordErrors: value.length === 0 ? "Plesse, Enter Your Password" : "" });
+            setErrors({ ...errors, passwordErrors: value.length === 0 ? "ادخل رقمك السري" : "" });
         }
         setLogInUser({ ...logInUser, [name]: value });
     }
@@ -43,14 +42,16 @@ export default function LoginForm() {
                 navigate("/");
                 console.log("login")
             } catch (error) {
+                setIsTrueErrors("من فضلك ادخل بيانات صحيحة")
                 console.error("not login", error);
             }
         }
     }
-    console.log(logInUser);
+    console.log(isTrueErrors);
     return (
         <>
             <form method="post" onSubmit={handleSubmit} className="fs-4 mb-5">
+            <p className={`text-danger`}>{isTrueErrors}</p>
                 <div>
                     <label htmlFor="email" className="fs-5">اسم المستخدم</label>
                     <input type="email" id="email" name="email" className={`${classes.input} form-control border-secondary shadow-none`}
