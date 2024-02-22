@@ -2,8 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { MdOutlineAddBusiness } from "react-icons/md";
 import { MdClose } from "react-icons/md";
 import axiosInstanceParking from "../../axiosConfig/instanc";
+import { useSelector } from "react-redux";
 export default function AddParking() {
   const profileImgRef = useRef(null);
+  const token= useSelector((state) => state.token.token)
+  console.log(token);
   function clickImgInput() {
     profileImgRef.current.click();
   }
@@ -11,7 +14,7 @@ export default function AddParking() {
   const [parking, setParking] = useState({
     // photos: [],
     photos: "",
-    owner: "1245624784",
+    owner: "",
     city: "",
     state: "",
     address: "",
@@ -96,19 +99,22 @@ console.log("Post request successful", res.data);
   function handleSubmit(event) {
     const hasErrors = Object.values(errors).some((error) => error !== "");
     const isEmpty = Object.values(parking).some((parking) => parking === "");
-    // const formData = new FormData();
+    const formData = new FormData();
     if (hasErrors || isEmpty) {
       event.preventDefault();
     } else {
-      // formData.append("photos", parking.photos);
-      // formData.append("city", parking.city);
-      // formData.append("state", parking.state);
-      // formData.append("address", parking.address);
-      // formData.append("capacity", parking.capacity);
-      // formData.append("location", parking.location);
+      formData.append("photos", parking.photos);
+      formData.append("city", parking.city);
+      formData.append("state", parking.state);
+      formData.append("address", parking.address);
+      formData.append("capacity", parking.capacity);
+      formData.append("location", parking.location);
       event.preventDefault();
 
-      axiosInstanceParking.post(`/parking`, parking).then((res) => {
+      axiosInstanceParking.post(`/parkings`, parking,{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }}).then((res) => {
         console.log("Post request successful", res.data);
       })
       .catch((err) => {
@@ -158,7 +164,6 @@ console.log("Post request successful", res.data);
               )}
               <p className="text-danger text-center">{errors.imageErrors}</p>
             </div>
-            <input type="text"  onChange={validation} onBlur={validation} name='photos'/>
             <div className="row">
               <div className="form-group mb-3 col-12 col-md-6 ">
                 <label htmlFor="address" className="mb-1 fs-3">
