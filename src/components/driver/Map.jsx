@@ -29,16 +29,16 @@ const Map = () => {
 
   const [destination, setDestination] = useState({
     first: {
-      latitude: 30.4659284,
-      longitude: 30.9305801,
+      latitude: 26.0711,
+      longitude: 32.2778,
     },
     second: {
-      latitude: 30.5476041,
-      longitude: 31.0084369,
+      latitude: 26.0053,
+      longitude: 31.7733,
     },
     third: {
-      latitude: 30.58768,
-      longitude: 31.502,
+      latitude: 26.5569,
+      longitude: 31.4997,
     },
   });
 

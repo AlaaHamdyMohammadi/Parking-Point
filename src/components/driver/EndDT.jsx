@@ -5,44 +5,55 @@ import classes from "./../../styles/register.module.css";
 const { useState } = React;
 import { FcOvertime } from "react-icons/fc";
 import axiosInstanceParking from "../../axiosConfig/instanc";
+import { useSelector } from "react-redux";
 
 export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
+  const token = useSelector((state) => state.token.token);
+  console.log(token);
   const [timeDifference, setTimeDifference] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
   });
-  // From: BookNow ? Date.now() : "",
+  // const [startTime, setStartTime] = useState(null);
+  // const [endTime, setEndTime] = useState(null);
+
   const [searchData, setSearchData] = useState({
-    time: {
-      from: BookNow ? new Date().toISOString().slice(0, 16) : "", // Format: "YYYY-MM-DDTHH:mm"
-      to: "",
-    },
     city: "",
+
+    from: BookNow ? Date.now() : null,
+    to: null,
   });
 
+  // const handleInputChange = (event) => {
+  //   const { name, value } = event.target;
+  //   const timestamp = Date.parse(value);
+
+  //   setSearchData({
+  //     ...searchData,
+  //     [name]: timestamp,
+  //   });
+  // };
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    if (name === "city") {
-      setSearchData({
-        ...searchData,
-        [name]: value,
-      });
+    let updatedData = { ...searchData };
+
+    // Convert only 'from' and 'to' keys to timestamps
+    if (name === "from" || name === "to") {
+      updatedData[name] = Date.parse(value);
     } else {
-      setSearchData((prevSearchData) => ({
-        ...prevSearchData,
-        time: {
-          ...prevSearchData.time,
-          [name]: value,
-        },
-      }));
-      calculateTimeDifference();
+      updatedData[name] = value;
     }
+
+    setSearchData(updatedData);
   };
 
   const calculateTimeDifference = () => {
-    const startTime = new Date(searchData.time.from).getTime();
-    const endTime = new Date(searchData.time.to).getTime();
+    const startTime = new Date(searchData.from).getTime();
+    const endTime = new Date(searchData.to).getTime();
+
+    console.log(startTime);
+    console.log(endTime);
 
     if (isNaN(startTime) || isNaN(endTime)) {
       alert("Please enter valid start and end dates.");
@@ -69,7 +80,16 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     console.log(searchData);
 
     axiosInstanceParking
-      .get("parkings", searchData)
+      .get(`/parkings/?city=${searchData.city}&from=${searchData.from}&to=${searchData.to}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        // params: {
+        //   city: searchData.city,
+        //   from: searchData.from,
+        //   to: searchData.to,
+        // },
+      })
       .then((response) => {
         console.log("Responsessssssssssssssssssssssssssssssssss:", response.data);
       })
@@ -112,7 +132,7 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
               className=" customRange  Gray border-0 pointer text-center w-100 m-2 ms-3 p-1  rounded-2"
               type="datetime-local"
               name="from"
-              value={searchData.time.from}
+              value={searchData.from}
               onChange={handleInputChange}
             />
           </div>
@@ -122,12 +142,12 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
               className=" customRange  Gray  border border-0 pointer text-center w-100 m-2 ms-3 p-1  rounded-2"
               type="datetime-local"
               name="to"
-              value={searchData.time.to}
+              value={searchData.to}
               onChange={handleInputChange}
             />
           </div>
           <div
-            // onClick={calculateTimeDifference}
+            onClick={calculateTimeDifference}
             className=" customRange mt-4 Gray border border-0 pointer text-center w-100 m-2 ms-3 p-1 fw-semibold animate  rounded-2"
           >
             {`${timeDifference.days} يوم, ${timeDifference.hours}  ساعة, ${timeDifference.minutes} دقيقة`}
