@@ -4,11 +4,9 @@ import classes from "./../../styles/register.module.css";
 
 const { useState } = React;
 import { FcOvertime } from "react-icons/fc";
+import axiosInstanceParking from "../../axiosConfig/instanc";
 
 export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
-  function handleSearch() {
-    setIsSearch(true);
-  }
   const [timeDifference, setTimeDifference] = useState({
     days: 0,
     hours: 0,
@@ -25,25 +23,23 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-
-    // Update the time object based on the input name
-    setSearchData({
-      ...searchData,
-      time: {
-        ...searchData.time,
+    if (name === "city") {
+      setSearchData({
+        ...searchData,
         [name]: value,
-      },
-    });
-
-    // Call calculateTimeDifference whenever from or to inputs change
-    // if (name === "from" || name === "to") {
-    //   calculateTimeDifference();
-    // }
+      });
+    } else {
+      setSearchData((prevSearchData) => ({
+        ...prevSearchData,
+        time: {
+          ...prevSearchData.time,
+          [name]: value,
+        },
+      }));
+      calculateTimeDifference();
+    }
   };
 
-  // if (name === "From" || name === "To") {
-  //   calculateTimeDifference();
-  // }
   const calculateTimeDifference = () => {
     const startTime = new Date(searchData.time.from).getTime();
     const endTime = new Date(searchData.time.to).getTime();
@@ -62,21 +58,32 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
     const hours = Math.floor(timeDifference / (1000 * 60 * 60));
     const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-    console.log(startTime);
-    console.log(endTime);
 
     setTimeDifference({ hours, minutes, days });
   };
 
-  const handleSubmit = (e) => {
+  const sendQuery = (e) => {
     e.preventDefault();
-    onReserveChange(searchData);
+    // setIsSearch(true);
+    console.log("ttttttttttttttttttttttttttttttttttt");
     console.log(searchData);
+
+    axiosInstanceParking
+      .get("parkings", searchData)
+      .then((response) => {
+        console.log("Responsessssssssssssssssssssssssssssssssss:", response.data);
+      })
+      .catch((error) => {
+        console.error(
+          "Error:rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+          error
+        );
+      });
   };
-  // es
+
   return (
     <>
-      <form method="post" onSubmit={handleSubmit}>
+      <form method="post" onSubmit={sendQuery}>
         <div className={`${classes.customSelectWrapper} Gray container  text-center w-100 mx-2 mb-2  `}>
           <select
             id="cars"
@@ -119,22 +126,16 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
               onChange={handleInputChange}
             />
           </div>
-          <button
-            onClick={calculateTimeDifference}
+          <div
+            // onClick={calculateTimeDifference}
             className=" customRange mt-4 Gray border border-0 pointer text-center w-100 m-2 ms-3 p-1 fw-semibold animate  rounded-2"
           >
             {`${timeDifference.days} يوم, ${timeDifference.hours}  ساعة, ${timeDifference.minutes} دقيقة`}
-          </button>
+          </div>
           <div className={`text-end`}>
-            {/* {timeDifference.minutes > 10 && ( */}
-            <button
-              type="submit"
-              className={`text-center bgColor text-white btn m-2 mx-3 ${classes.formBtn} `}
-              onClick={handleSearch}
-            >
+            <button type="submit" className={`text-center bgColor text-white btn m-2 mx-3 ${classes.formBtn} `}>
               اعرض المواقف
             </button>
-            {/* )} */}
           </div>
         </div>
       </form>
