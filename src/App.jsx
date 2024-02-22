@@ -21,6 +21,7 @@ import ViewProfile from "./pages/parking/ViewProfile";
 // import MyTrips from "./pages/driver/mytrips";
 import Support from "./pages/driver/Support";
 import Map from "./pages/Map";
+import RatingTest from "./pages/RatingTest";
 import Guard from "./components/guard/Guard";
 
 const router = createBrowserRouter([
@@ -163,6 +164,7 @@ const router = createBrowserRouter([
     ],
   },
   { path: "map", element: <Map /> },
+  { path: "rating", element: <RatingTest /> },
 ]);
 
 function App() {
