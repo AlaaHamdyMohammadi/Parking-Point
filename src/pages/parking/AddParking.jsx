@@ -3,41 +3,71 @@ import { MdOutlineAddBusiness } from "react-icons/md";
 import { MdClose } from "react-icons/md";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 export default function AddParking() {
   const profileImgRef = useRef(null);
   const token= useSelector((state) => state.token.token)
-  console.log(token);
+  const user= useSelector((state) => state.user.user)
+  let { ParkingId } = useParams();
+// console.log(user._id);
+  console.log(ParkingId);
   function clickImgInput() {
     profileImgRef.current.click();
   }
   const [imgArr, setImgArr] = useState([]);
   const [parking, setParking] = useState({
-    // photos: [],
-    photos: "",
-    owner: "",
+    // state: "",
     city: "",
-    state: "",
     address: "",
+    user: user._id,
+    photos: [],
     capacity: 1,
-    // location: '',
+    location:{
+      longitude:"31.22",
+      latitude:"30.22"
+  },
   });
 useEffect(() => {
-  axiosInstanceParking.get(`/parking`).then((res) => {
-console.log("Post request successful", res.data);
+  axiosInstanceParking.get(`/parkings`,{
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }}).then((res) => {
+console.log("get parkings successful", res.data);
 })
 .catch((err) => {
   console.error("Error during POST request:", err);
 });
+
+
+// const editParking = async () => {
+//   const res = await axiosInstanceParking.get(`/parkings/${ParkingId}`,{
+//     headers: {
+//       'Authorization': `Bearer ${token}`
+//     }});
+//   setParking({
+//     city: res.parks.city,
+//     address: res.parks.address,
+//     user: user._id.user,
+//     photos: res.parks.photos,
+//     capacity: res.parks.capacity,
+//   });
+// };
+// if (ParkingId) {
+//   editParking();
+// }
 }, []);
   const [errors, setErrors] = useState({
     photosErrors: "",
     cityErrors: "",
-    stateErrors: "",
+    // stateErrors: "",
     addressErrors: "",
     capacityErrors: "",
-    // locationErrors: '',
+    locationErrors: '',
   });
-
+  const formData = new FormData();
+  function uploadFile(files, formData) {
+    [...files].forEach((file) => formData.append("photos", file));
+  }
   function saveImageArr(eve) {
     setImgArr((i) => [...i, ...Array.from(eve.target.files)]);
     setParking({ ...parking, photos: [...imgArr, ...Array.from(eve.target.files)] });
@@ -63,33 +93,32 @@ console.log("Post request successful", res.data);
   function validation(event) {
     if (event.target.name === "photos") {
       setErrors({ ...errors, photosErrors: event.target.value.length === 0 ? "يجب إضافة صورة بحد ادني" : "" });
-      setParking({ ...parking, photos: event.target.value });
-
+      // setParking({ ...parking, photos: event.target.value });
     }
     if (event.target.name === "city") {
       setErrors({ ...errors, cityErrors: event.target.value.length === 0 ? "يجب ادخال الولاية" : "" });
       setParking({ ...parking, city: event.target.value });
     }
-    if (event.target.name === "state") {
-      setErrors({
-        ...errors,
-        stateErrors:
-          event.target.value.length === 0
-            ? "يجب ادخال المنطقه"
-            : /^[A-Za-z0-9\u0600-\u06FF]{3,}$/.test(event.target.value)
-            ? ""
-            : "يجب ادخال ثلاثة احرف بحد ادني",
-      });
-      setParking({ ...parking, state: event.target.value });
-    }
+    // if (event.target.name === "state") {
+    //   setErrors({
+    //     ...errors,
+    //     stateErrors:
+    //       event.target.value.length === 0
+    //         ? "يجب ادخال المنطقه"
+    //         : /^[A-Za-z0-9\u0600-\u06FF]{3,}$/.test(event.target.value)
+    //         ? ""
+    //         : "يجب ادخال ثلاثة احرف بحد ادني",
+    //   });
+    //   setParking({ ...parking, state: event.target.value });
+    // }
     if (event.target.name === "address") {
       setErrors({ ...errors, addressErrors: event.target.value.length === 0 ? "يجب ادخال المحافظة" : "" });
       setParking({ ...parking, address: event.target.value });
     }
-    // if (event.target.name === "location") {
-    //   setErrors({ ...errors, locationErrors: event.target.value.length === 0 ? "يجب ادخال نص" : "" })
-    //   setParking({ ...parking, location: event.target.value });
-    // }
+    if (event.target.name === "location") {
+      setErrors({ ...errors, locationErrors: event.target.value.length === 0 ? "يجب ادخال نص" : "" })
+      setParking({ ...parking, location: event.target.value });
+    }
     if (event.target.name === "capacity") {
       setErrors({ ...errors, capacityErrors: event.target.value.length === 0 ? "يجب ادخال السعة" : "" });
       setParking({ ...parking, capacity: event.target.value });
@@ -99,19 +128,22 @@ console.log("Post request successful", res.data);
   function handleSubmit(event) {
     const hasErrors = Object.values(errors).some((error) => error !== "");
     const isEmpty = Object.values(parking).some((parking) => parking === "");
-    const formData = new FormData();
+    
     if (hasErrors || isEmpty) {
       event.preventDefault();
     } else {
-      formData.append("photos", parking.photos);
+      formData.append("user", parking.user);
+      // formData.append("photos", parking.photos);
       formData.append("city", parking.city);
-      formData.append("state", parking.state);
+      // formData.append("state", parking.state);
       formData.append("address", parking.address);
       formData.append("capacity", parking.capacity);
-      formData.append("location", parking.location);
+      formData.append("longitude", parking.location.longitude);
+      formData.append("latitude", parking.location.latitude);
+      uploadFile(imgArr, formData)
       event.preventDefault();
 
-      axiosInstanceParking.post(`/parkings`, parking,{
+      axiosInstanceParking.post(`/parkings`, formData,{
         headers: {
           'Authorization': `Bearer ${token}`
         }}).then((res) => {
@@ -121,9 +153,10 @@ console.log("Post request successful", res.data);
         console.error("Error during POST request:", err);
       });
     }
-    // console.log(formData);
-    console.log(parking);
+    console.log(formData);
   }
+  console.log(errors);
+  console.log(parking);
   return (
     <>
       <h3 className={`mt-4 text-center`}>لإضافة موقف يرجي ادخال البيانات الصحيحة</h3>
@@ -174,7 +207,7 @@ console.log("Post request successful", res.data);
                   <option value={``} selected disabled>
                     حدد المحافظة
                   </option>
-                  <option value="masqt">مسقط</option>
+                  <option value="مسقط">مسقط</option>
                 </select>
                 <p className="text-danger text-center">{errors.addressErrors}</p>
               </div>
@@ -187,12 +220,12 @@ console.log("Post request successful", res.data);
                   <option value={``} selected hidden>
                     حدد الولاية
                   </option>
-                  <option value="masqt">مسقط</option>
-                  <option value="mtrh">مطرح</option>
-                  <option value="seeb">السيب</option>
-                  <option value="boshr">بوشر</option>
-                  <option value="amrat">العامرات</option>
-                  <option value="qryat">قريات</option>
+                  <option value="مسقط">مسقط</option>
+                  <option value="مطرح">مطرح</option>
+                  <option value="السيب">السيب</option>
+                  <option value="بوشر">بوشر</option>
+                  <option value="العامرات">العامرات</option>
+                  <option value="قريات">قريات</option>
                 </select>
                 <p className="text-danger text-center">{errors.cityErrors}</p>
               </div>
