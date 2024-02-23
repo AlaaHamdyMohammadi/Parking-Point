@@ -31,7 +31,7 @@ export default function AddParking() {
   useEffect(() => {
     const editParking = async () => {
       const res = await axiosInstanceParking.get(`/parkings/${ParkingId}`, {
-        headers: {'Authorization': `Bearer ${token}`}
+        headers: { 'Authorization': `Bearer ${token}` }
       });
       setParking({
         city: res.data.doc.city,
@@ -116,37 +116,38 @@ export default function AddParking() {
   function handleSubmit(event) {
     const hasErrors = Object.values(errors).some((error) => error !== "");
     const isEmpty = Object.values(parking).some((parking) => parking === "");
-
     if (hasErrors || isEmpty) {
       event.preventDefault();
     } else {
-      formData.append("user", parking.user);
-      formData.append("city", parking.city);
-      // formData.append("state", parking.state);
-      formData.append("address", parking.address);
-      formData.append("capacity", parking.capacity);
-      formData.append("longitude", parking.location.longitude);
-      formData.append("latitude", parking.location.latitude);
-      uploadFile(imgArr, formData)
       if (ParkingId) {
-        axiosInstanceParking.patch(`/parkings/${ParkingId}`, formData, {
-          headers: {'Authorization': `Bearer ${token}`}
+        console.log(ParkingId);
+        axiosInstanceParking.patch(`/parkings/${ParkingId}`, parking, {
+          headers: { 'Authorization': `Bearer ${token}` }
         }).then((res) => {
-          console.log("Post request successful", res.data);
-          navigate("/Profile");
+          console.log("update request successful", res.data);
+          navigate("/Profile/parkingHome");
         }).catch((err) => {
-            console.error("Error during parking request:", err);
-          });
+          console.error("Error during parking request:", err);
+        });
       } else if (!ParkingId) {
+        formData.append("user", parking.user);
+        formData.append("city", parking.city);
+        // formData.append("state", parking.state);
+        formData.append("address", parking.address);
+        formData.append("capacity", parking.capacity);
+        formData.append("longitude", parking.location.longitude);
+        formData.append("latitude", parking.location.latitude);
+        uploadFile(imgArr, formData)
         axiosInstanceParking.post(`/parkings`, formData, {
-          headers: {'Authorization': `Bearer ${token}`}
+          headers: { 'Authorization': `Bearer ${token}` }
         }).then((res) => {
           console.log("Post request successful", res.data);
           navigate("/Profile");
         }).catch((err) => {
-            console.error("Error during parking request:", err);
-          });
-      }}
+          console.error("Error during parking request:", err);
+        });
+      }
+    }
     event.preventDefault();
     // console.log(formData);
   }

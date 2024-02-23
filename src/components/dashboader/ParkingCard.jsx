@@ -9,11 +9,9 @@ export default function ParkingCard() {
   const [userParkings, setUserParkings] = useState([])
   useEffect(() => {
     axiosInstanceParking.get(`/parkings/myparks/${user._id}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
+      headers: {'Authorization': `Bearer ${token}`}
     }).then((res) => {
-      console.log(res.data.doc);
+      // console.log(res.data.doc);
       setUserParkings(res.data.doc);
     })
       .catch((err) => {
@@ -59,11 +57,9 @@ export default function ParkingCard() {
                 </button>
               </div>
             </div>
-
             <div className="col-lg-8 pe-3 col-sm-12 d-lg-flex gap-4">
               <div className="col-lg-6 col-sm-12  align-items-center">
                 <h5>parking name</h5>
-
                 <p className="mb-0 customfs  ">
                   <span className=" fw-semibold">العنوان: </span>
                   {parking.address}
@@ -102,7 +98,7 @@ export default function ParkingCard() {
                   </Link>
                   <ul className="dropdown-menu">
                     <li>
-                      <Link className="dropdown-item" to={`/Profile/edit_parking/${parking._id}`}>
+                      <Link className="dropdown-item" to={`/Profile/parking/${parking._id}`}>
                         تعديل
                       </Link>
                     </li>

@@ -39,19 +39,19 @@ export default function SidebarProfile() {
       >
         <Link to={`/Profile/Owneraccount/ownerProfile`}>
           <div className={`d-flex mt-md-2 fs-5 fw-bold my-4`}>
-            <div className={`ms-3 p-2 yellowcolor  ${classes.userName}`}>{user.firstName[0]}</div>
-            <div className="yellowcolor">{user.firstName} {user.lastName}</div>
+            <div className={`ms-3 p-2 yellowcolor  ${classes.userName}`}>{user?user.firstName[0]:''}</div>
+            <div className="yellowcolor">{user?user.firstName:''} {user?user.lastName:''}</div>
           </div>
         </Link>
         <div className="">
-          {user.role == 'renter' &&
+          {user&&user.role == 'renter' &&
             <>
               <SideBareLink
-                href={`/Profile/add_parking`}
+                href={`/Profile/parking`}
                 icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
                 text="اضافة موقف "
               />
-              <SideBareLink href={`/Profile`} icon={<LuParkingSquareOff className="editIcon p-2" />} text="المواقف" />
+              <SideBareLink href={`/Profile/parkingHome`} icon={<LuParkingSquareOff className="editIcon p-2" />} text="المواقف" />
             </>
           }
           <SideBareLink
@@ -64,7 +64,7 @@ export default function SidebarProfile() {
             icon={<MdEditNote className=" editIcon p-1" />}
             text="تعديل حسابي"
           />
-          <div onClick={logdedout} className="sidebar fs-5">
+          <div onClick={logdedout} className="sidebar fs-5" role="button">
             <span> <IoIosLogOut className=" editIcon p-1" /></span>
             <span className="icon-text pe-2"> تسجيل الخروج</span>
           </div>
@@ -73,3 +73,14 @@ export default function SidebarProfile() {
     </>
   );
 }
+// const user = useSelector((state) => state.user.user)
+// const [userRole, setUserRole] = useState('')
+// const [useLastName, setUselastName] = useState('')
+// const [useFristName, setUseFristName] = useState('')
+// const [frist, setFrist] = useState('')
+// useEffect(() => {
+//   setUseFristName(user.firstName)
+//   setUselastName(user.lasttName)
+//   setUserRole(user.role)
+//   setFrist(user.firstName[0])
+// }, []);

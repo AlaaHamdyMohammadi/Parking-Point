@@ -19,6 +19,7 @@ export const loginSlice = createSlice({
         logout: (state) => {
             state.loggedIn = false;
             state.user = null;
+            state.token = null;
             localStorage.removeItem('user');
             localStorage.removeItem('isLoggedIn')
             localStorage.removeItem('token')
