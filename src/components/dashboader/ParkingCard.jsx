@@ -38,22 +38,6 @@ export default function ParkingCard() {
                       />
                     </div>
                   ))}
-                  {/* <div className="carousel-item " data-bs-interval="2000">
-                    <img
-                      src={parking.imgpath}
-                      style={{ width: "3vh", height: "18vh" }}
-                      className="d-block w-100"
-                      alt="..."
-                    />
-                  </div>
-                  <div className="carousel-item ">
-                    <img
-                      src={parking.imgpath}
-                      style={{ width: "3vh", height: "18vh" }}
-                      className="d-block w-100"
-                      alt="..."
-                    />
-                  </div> */}
                 </div>
                 <button
                   className="carousel-control-prev"
