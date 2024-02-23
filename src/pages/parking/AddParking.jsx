@@ -39,22 +39,24 @@ console.log("get parkings successful", res.data);
 });
 
 
-// const editParking = async () => {
-//   const res = await axiosInstanceParking.get(`/parkings/${ParkingId}`,{
-//     headers: {
-//       'Authorization': `Bearer ${token}`
-//     }});
-//   setParking({
-//     city: res.parks.city,
-//     address: res.parks.address,
-//     user: user._id.user,
-//     photos: res.parks.photos,
-//     capacity: res.parks.capacity,
-//   });
-// };
-// if (ParkingId) {
-//   editParking();
-// }
+const editParking = async () => {
+  const res = await axiosInstanceParking.get(`/parkings/${ParkingId}`,{
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }});
+    // console.log(res.data.doc);
+  setParking({
+    city: res.data.doc.city,
+    address: res.data.doc.address,
+    user: user._id.user,
+    photos: res.data.doc.photos,
+    capacity: res.data.doc.capacity,
+  });
+  setImgArr(res.data.doc.photos)
+};
+if (ParkingId) {
+  editParking();
+}
 }, []);
   const [errors, setErrors] = useState({
     photosErrors: "",
@@ -76,10 +78,9 @@ console.log("get parkings successful", res.data);
     try {
       return URL.createObjectURL(image);
     } catch (err) {
-      console.log(err);
+      return `${axiosInstanceParking.defaults.baseURL}/${image}`;
     }
   }
-
   const removeImage = (index) => {
     setImgArr((prevImgArr) => {
       const updatedImgArr = [...prevImgArr];
