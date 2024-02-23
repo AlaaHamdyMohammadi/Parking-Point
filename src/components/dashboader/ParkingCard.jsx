@@ -28,16 +28,16 @@ export default function ParkingCard() {
             <div className="col-3">
               <div id={`carouselExampleInterval${index}`} className=" w-100 carousel rounded " data-bs-ride="carousel">
                 <div className="carousel-inner  ">
-                {(parking.photos).map((photo, index) => (
-                  <div className="carousel-item  active" data-bs-interval="10000" key={index}>
-                    <img
-                      src={`${axiosInstanceParking.defaults.baseURL}/${photo}`}
-                      style={{ width: "3vh", height: "18vh" }}
-                      className="d-block w-100"
-                      alt="..."
-                    />
-                  </div>
-                ))}
+                  {(parking.photos).map((photo, index) => (
+                    <div className="carousel-item  active" data-bs-interval="10000" key={index}>
+                      <img
+                        src={`${axiosInstanceParking.defaults.baseURL}/${photo}`}
+                        style={{ width: "3vh", height: "18vh" }}
+                        className="d-block w-100"
+                        alt="..."
+                      />
+                    </div>
+                  ))}
                   {/* <div className="carousel-item " data-bs-interval="2000">
                     <img
                       src={parking.imgpath}
@@ -88,13 +88,16 @@ export default function ParkingCard() {
                   <span className=" fw-semibold"> السعة: </span>
                   {parking.capacity}
                 </p>
-
-                {/* <p className="card-text">تمت الإضافة:</p> */}
-                <p className="card-text">{/* <small className="text-body-secondary">اخر تعديل : </small> */}</p>
+                <p className="">
+                  <small className="text-body-secondary">تمت الإضافة : {new Date(parking.createdAt).toLocaleDateString()}</small>
+                </p>
+                <p className="">
+                  <small className="text-body-secondary">اخر تعديل : {new Date(parking.updatedAt).toLocaleDateString()}</small>
+                </p>
               </div>
               <div className=" d-flex gap-2  py-2 w-100 justify-content-between ">
                 <div className=" d-lg-flex gap-3 flex-lg-column  text-center ">
-                <div className={`badge px-4 rounded-pill ${parking.status === 'approved' ? 'bgColor bg-opacity-75' :
+                  <div className={`badge px-4 rounded-pill ${parking.status === 'approved' ? 'bgColor bg-opacity-75' :
                     parking.status === 'pending' ? ' bg-secondary bg-opacity-50' :
                       'bg-danger bg-opacity-75'}`}>
                     {parking.status}
