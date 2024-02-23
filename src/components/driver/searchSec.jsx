@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import EndDateTime from "./EndDT";
 export default function SearchSec({ setIsSearch }) {
-  const [reserveTime, setReserveTime] = useState(null);
-
-  const handleReserveChange = (searchData) => {
-    setReserveTime(searchData);
+  const [AvaliableParksFilter, setAvaliableParksFilter] = useState([]);
+  console.log(AvaliableParksFilter);
+  const handleReserveChange = (AvaliableParks) => {
+    setAvaliableParksFilter(AvaliableParks);
+    // SearchParks(AvaliableParks);
   };
   const [BookNow, setBookNow] = useState(true);
   function handelBookNow() {
@@ -44,10 +45,7 @@ export default function SearchSec({ setIsSearch }) {
       <div className={`card border-0  my-3`}>
         <div className={` shadow height text-center p-2 border-secondary-subtlepx-2 rounded-2 w-100 height`}>
           <div className={` fs-5 pe-4 my-4  text-end  fw-bolder`}>ابحث عن اقرب موقف</div>
-          <div className={``}>
-            {/* <SearchInput /> */}
-            {/* <SelectLocation /> */}
-          </div>
+          <div className={``}>{/* <SelectLocation /> */}</div>
           <div className={`mb-2`}>
             <EndDateTime BookNow={BookNow} onReserveChange={handleReserveChange} setIsSearch={setIsSearch} />
           </div>

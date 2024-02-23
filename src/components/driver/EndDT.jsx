@@ -15,8 +15,7 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     hours: 0,
     minutes: 0,
   });
-  // const [startTime, setStartTime] = useState(null);
-  // const [endTime, setEndTime] = useState(null);
+  const [AvaliableParks, setAvaliableParks] = useState([]);
 
   const [searchData, setSearchData] = useState({
     city: "",
@@ -25,20 +24,9 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     to: null,
   });
 
-  // const handleInputChange = (event) => {
-  //   const { name, value } = event.target;
-  //   const timestamp = Date.parse(value);
-
-  //   setSearchData({
-  //     ...searchData,
-  //     [name]: timestamp,
-  //   });
-  // };
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     let updatedData = { ...searchData };
-
-    // Convert only 'from' and 'to' keys to timestamps
     if (name === "from" || name === "to") {
       updatedData[name] = Date.parse(value);
     } else {
@@ -75,7 +63,6 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
 
   const sendQuery = (e) => {
     e.preventDefault();
-    // setIsSearch(true);
     console.log("ttttttttttttttttttttttttttttttttttt");
     console.log(searchData);
 
@@ -84,14 +71,11 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        // params: {
-        //   city: searchData.city,
-        //   from: searchData.from,
-        //   to:// searchData.to,
-        // },
       })
       .then((response) => {
-        console.log("Responsessssssssssssssssssssssssssssssssss:", response.data);
+        setAvaliableParks(response.data.parks);
+        console.log("Responsessssssssssssssssssssssssssssssssss:", response.data.parks);
+        setIsSearch(true);
       })
       .catch((error) => {
         console.error(
@@ -100,7 +84,8 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
         );
       });
   };
-
+  console.log(AvaliableParks);
+  onReserveChange(AvaliableParks);
   return (
     <>
       <form method="post" onSubmit={sendQuery}>

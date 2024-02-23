@@ -9,15 +9,22 @@ import { useState } from "react";
 
 export default function HomeLogin() {
   const [isSearch, setIsSearch] = useState(false);
+  // const [SearchParks, setSearchParks] = useState([]);
+  // console.log(SearchParks, "hommmmmmmmmmmmmme");
   function handlesetIsSearch() {
     setIsSearch(!isSearch);
   }
+
+  // function handlesetSearchParks(AvaliableParks) {
+  //   setSearchParks(AvaliableParks);
+  // }
   return (
     <div className={``}>
       <div className={`d-lg-flex flex-row gap-1`}>
         {/* sec1 */}
         {!isSearch && (
           <div className="  col-lg-3  px-3 col-md-3 col-sm-12">
+            {/* SearchParks={handlesetSearchParks} */}
             <SearchSec setIsSearch={setIsSearch} />
           </div>
         )}
