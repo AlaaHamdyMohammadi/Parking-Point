@@ -6,12 +6,20 @@ import { IoIosLogOut } from "react-icons/io";
 import { LuParkingSquareOff } from "react-icons/lu";
 import { IoBagCheckOutline } from "react-icons/io5";
 import { MdOutlineAddHomeWork } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SideBareLink from "../profile/SideBareLink";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../store/slices/authSlice";
 
-export default function SidebarDashboard() {
+export default function SidebarProfile() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const logdedout = () => {
+    dispatch(logout());
+    navigate("/")
+  };
+  const user = useSelector((state) => state.user.user)
   const [mini, setMini] = useState(true);
-
   function toggleSidebar() {
     if (mini) {
       document.getElementById("mySidebar").style.width = "220px";
@@ -29,34 +37,39 @@ export default function SidebarDashboard() {
         onMouseLeave={toggleSidebar}
         className={`${classes.sidebar} w-10 position-fixed pt-2 top-0 end-0 z-1 transition whiteSpace h-100 overflow-x-hidden bgColor`}
       >
-        <Link to={`/dashboard/:ownerId/Owneraccount/ownerProfile`}>
+        <Link to={`/Profile/Owneraccount/ownerProfile`}>
           <div className={`d-flex mt-md-2 fs-5 fw-bold my-4`}>
-            <div className={`ms-3 p-2 yellowcolor  ${classes.userName}`}>M</div>
-            <div className="yellowcolor">Marim Mohmed</div>
+            <div className={`ms-3 p-2 yellowcolor  ${classes.userName}`}>{user.firstName[0]}</div>
+            <div className="yellowcolor">{user.firstName} {user.lastName}</div>
           </div>
         </Link>
         <div className="">
+          {user.role == 'renter' &&
+            <>
+              <SideBareLink
+                href={`/Profile/add_parking`}
+                icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
+                text="اضافة موقف "
+              />
+              <SideBareLink href={`/Profile`} icon={<LuParkingSquareOff className="editIcon p-2" />} text="المواقف" />
+            </>
+          }
           <SideBareLink
-            href={`/dashboard/:ownerId/add_parking`}
-            icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
-            text="اضافة موقف "
-          />
-          <SideBareLink href={`/dashboard/:ownerId`} icon={<LuParkingSquareOff className="editIcon p-2" />} text="المواقف" />
-          <SideBareLink
-            href={`/dashboard/:ownerId/sales`}
+            href={`/Profile/sales`}
             icon={<IoBagCheckOutline className=" editIcon p-1" />}
             text="حجوزاتي"
           />
           <SideBareLink
-            href={`/dashboard/:ownerId/Owneraccount/editOwnerProfile`}
+            href={`/Profile/Owneraccount/editOwnerProfile`}
             icon={<MdEditNote className=" editIcon p-1" />}
             text="تعديل حسابي"
           />
-          <SideBareLink href={`/`} icon={<IoIosLogOut className=" editIcon p-1" />} text="تسجيل خروج" />
+          <div onClick={logdedout} className="sidebar fs-5">
+            <span> <IoIosLogOut className=" editIcon p-1" /></span>
+            <span className="icon-text pe-2"> تسجيل الخروج</span>
+          </div>
         </div>
-        {/* <div className="Gray border-top border-secondary">promisify@2023</div> */}
       </div>
-      <div id="main" className="d-flex"></div>
     </>
   );
 }

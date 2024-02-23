@@ -40,7 +40,6 @@ export default function LoginForm() {
                 dispatch(login(userData.user));
                 dispatch(token( userData.token));
                 navigate("/");
-                console.log("login")
             } catch (error) {
                 setIsTrueErrors("من فضلك ادخل بيانات صحيحة")
                 console.error("not login", error);

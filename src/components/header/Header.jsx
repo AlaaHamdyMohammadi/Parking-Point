@@ -39,7 +39,7 @@ export default function Header() {
               <ul className="dropdown-menu">
                 <div className="  text-end">
                   <li>
-                    <Link to={`Driveraccount/:DriverId/MyTrips`} className="dropdown-item">
+                    <Link to={`/Profile/sales`} className="dropdown-item">
                       <span className="ps-2">
                         <IoBagCheckSharp />
                       </span>
@@ -47,7 +47,7 @@ export default function Header() {
                     </Link>
                   </li>
                   <li>
-                    <Link to={`Driveraccount/:DriverId`} className="dropdown-item">
+                    <Link to={`Profile`} className="dropdown-item">
                       <span className="ps-2">
                         <IoPerson />
                       </span>
@@ -110,7 +110,6 @@ export default function Header() {
                   to={`/register`}
                   className="nav-link active text-white"
                   aria-current="page"
-                  href="#"
                   onClick={() => {
                     displayLogin();
                   }}
@@ -123,10 +122,7 @@ export default function Header() {
                   to={`/register`}
                   className="nav-link active text-white"
                   aria-current="page"
-                  href="#"
-                  onClick={() => {
-                    displayRegester();
-                  }}
+                  onClick={() => { displayRegester()}}
                 >
                   التسجيل
                 </Link>

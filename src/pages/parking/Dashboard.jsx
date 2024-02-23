@@ -1,8 +1,7 @@
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import SidebarDashboard from "../../components/parking/SidebarDashboard";
 
 export default function Dashboard() {
-  let { id } = useParams();
   return (
     <>
       <div className="d-flex ">

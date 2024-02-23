@@ -45,81 +45,21 @@ const router = createBrowserRouter([
     ],
   },
   {
+    
     element: <Layout />,
     children: [
-      {
-        path: "dashboard/:ownerId",
-        element: (
-          <Guard>
-            <Dashboard />
-          </Guard>
-        ),
+      {path: "Profile", element: <Guard><Dashboard /></Guard>,
         children: [
-          {
-            index: true,
-            element: (
-              <Guard>
-                <ParkingHome />
-              </Guard>
-            ),
-            errorElement: <HandelErorr />,
-          },
-          {
-            path: "add_parking",
-            element: (
-              <Guard>
-                <AddParking />
-              </Guard>
-            ),
-            errorElement: <HandelErorr />,
-          },
-          {
-            path: "edit_parking/:ParkingId",
-            element: (
-              <Guard>
-                <AddParking />
-              </Guard>
-            ),
-            errorElement: <HandelErorr />,
-          },
-
-          {
-            path: "Owneraccount/",
-            element: (
-              <Guard>
-                <OwnerProfile />
-              </Guard>
-            ),
+          {  index: true, element:<Guard><ParkingHome /> </Guard>, errorElement: <HandelErorr />},
+          { path: "add_parking", element:  <Guard> <AddParking /> </Guard>, errorElement: <HandelErorr />},
+          { path: "edit_parking/:ParkingId", element:  <Guard> <AddParking /> </Guard>, errorElement: <HandelErorr />},
+          { path: "Owneraccount/", element: <Guard> <OwnerProfile /></Guard>,
             children: [
-              {
-                path: "ownerProfile",
-                element: (
-                  <Guard>
-                    <ViewProfile />
-                  </Guard>
-                ),
-                errorElement: <HandelErorr />,
-              },
-              {
-                path: "editOwnerProfile",
-                element: (
-                  <Guard>
-                    <EditProfile />
-                  </Guard>
-                ),
-                errorElement: <HandelErorr />,
-              },
+              { path: "ownerProfile", element: <Guard>  <ViewProfile /> </Guard>, errorElement: <HandelErorr /> },
+              { path: "editOwnerProfile", element: <Guard> <EditProfile /> </Guard>, errorElement: <HandelErorr /> },
             ],
           },
-          {
-            path: "sales",
-            element: (
-              <Guard>
-                <Sales />
-              </Guard>
-            ),
-            errorElement: <HandelErorr />,
-          },
+          { path: "sales", element:<Guard> <Sales /> </Guard>, errorElement: <HandelErorr />},
         ],
       },
 
