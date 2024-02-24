@@ -15,7 +15,7 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     hours: 0,
     minutes: 0,
   });
-  const [AvaliableParks, setAvaliableParks] = useState([]);
+  // const [AvaliableParks, setAvaliableParks] = useState([]);
 
   const [searchData, setSearchData] = useState({
     city: "",
@@ -73,7 +73,7 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
         },
       })
       .then((response) => {
-        setAvaliableParks(response.data.parks);
+        onReserveChange(response.data.parks);
         console.log("Responsessssssssssssssssssssssssssssssssss:", response.data.parks);
         setIsSearch(true);
       })
@@ -84,8 +84,8 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
         );
       });
   };
-  console.log(AvaliableParks);
-  onReserveChange(AvaliableParks);
+  // console.log(AvaliableParks);
+  // onReserveChange(AvaliableParks);
   return (
     <>
       <form method="post" onSubmit={sendQuery}>
