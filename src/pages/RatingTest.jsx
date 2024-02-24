@@ -2,10 +2,11 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
+import axiosInstanceParking from "../axiosConfig/instanc";
+import StarRatingModal from "../components/driver/StarRatingModal";
 import { useSelector } from "react-redux";
-import axiosInstanceParking from "../../axiosConfig/instanc";
 
-function StarRating() {
+function RatingTest() {
   const [averageRating, setAverageRating] = useState([]);
   const token = useSelector((state) => state.token.token);
 
@@ -15,7 +16,7 @@ function StarRating() {
     ] = `Bearer ${token}`;
 
     axiosInstanceParking.get("/parkings").then((res) => {
-      //console.log(res.data.doc);
+      console.log(res.data.doc);
       setAverageRating(res.data.doc);
     });
   }, [token]);
@@ -25,23 +26,25 @@ function StarRating() {
       {averageRating.map((rating) => (
         <RatingComponent key={rating._id} rating={rating.rate} />
       ))}
+      <StarRatingModal />
     </>
   );
 }
 
-export default StarRating;
+export default RatingTest;
 
 function RatingComponent({ rating }) {
-  const starArr = (length) => Array.from({ length }, (_, i) => i);
+  const createArray = (length) => Array.from({ length }, (_, i) => i);
 
   return (
     <div>
-      {[...starArr(rating)].map((_, index) => (
+      {[...createArray(rating)].map((_, index) => (
         <FaStar key={index} style={{ color: "#f1a525" }} />
       ))}
-      {[...starArr(5 - rating)].map((_, index) => (
+      {[...createArray(5 - rating)].map((_, index) => (
         <FaStar key={index + rating} style={{ color: "#331c41" }} />
       ))}
+      <h1>{rating}</h1>
     </div>
   );
 }

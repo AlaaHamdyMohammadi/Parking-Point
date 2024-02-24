@@ -1,7 +1,5 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-// import dotenv from "dotenv";
-// dotenv.config();
 
 import { useState, useEffect } from "react";
 import ReactMapGL, {
