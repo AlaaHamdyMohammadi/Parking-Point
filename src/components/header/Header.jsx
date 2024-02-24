@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classes from "./../../styles/header.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { changLog } from "../../store/slices/login";
@@ -10,6 +10,7 @@ import { IoBagCheckSharp } from "react-icons/io5";
 import { logout } from "../../store/slices/authSlice";
 
 export default function Header() {
+  const navigate=useNavigate()
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.loggedIn.loggedIn);
   const displayRegester = () => {
@@ -20,6 +21,7 @@ export default function Header() {
   };
   const logdedout = () => {
     dispatch(logout());
+    navigate("/")
   };
 
   return (
@@ -37,7 +39,7 @@ export default function Header() {
               <ul className="dropdown-menu">
                 <div className="  text-end">
                   <li>
-                    <Link to={`Driveraccount/:DriverId/MyTrips`} className="dropdown-item">
+                    <Link to={`/Profile/sales`} className="dropdown-item">
                       <span className="ps-2">
                         <IoBagCheckSharp />
                       </span>
@@ -45,7 +47,7 @@ export default function Header() {
                     </Link>
                   </li>
                   <li>
-                    <Link to={`Driveraccount/:DriverId`} className="dropdown-item">
+                    <Link to={`Profile/Owneraccount/ownerProfile`} className="dropdown-item">
                       <span className="ps-2">
                         <IoPerson />
                       </span>
@@ -108,7 +110,6 @@ export default function Header() {
                   to={`/register`}
                   className="nav-link active text-white"
                   aria-current="page"
-                  href="#"
                   onClick={() => {
                     displayLogin();
                   }}
@@ -121,10 +122,7 @@ export default function Header() {
                   to={`/register`}
                   className="nav-link active text-white"
                   aria-current="page"
-                  href="#"
-                  onClick={() => {
-                    displayRegester();
-                  }}
+                  onClick={() => { displayRegester()}}
                 >
                   التسجيل
                 </Link>

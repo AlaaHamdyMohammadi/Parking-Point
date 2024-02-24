@@ -7,13 +7,14 @@ import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
 
 export default function EditProfile() {
-  const [Role, setRole] = useState("");
-
+  // const [Role, setRole] = useState("");
+  const user = useSelector((state) => state.user.user)
+  
   //
-  const UserRole = useSelector((state) => state.UserRole.UserRole);
+  // const UserRole = useSelector((state) => state.UserRole.UserRole);
 
   useEffect(() => {
-    setRole(UserRole);
+    // setRole(UserRole);
   }, []);
   const [fristName, setFristNam] = useState("");
   const [lastName, setLastNam] = useState("");
@@ -223,7 +224,7 @@ export default function EditProfile() {
           <div className="col-lg-6 col-md-6 col-sm-12">
             <InputEdit label="الأيميل" placeholder="اللأيميل *" type="email" setState={setEmail} />
           </div>
-          {Role === "driver" && (
+          {user.role === "driver" && (
             <>
               <div className="col-lg-6 col-md-6 col-sm-12">
                 <SelectEdit label="نوع المركبة" option1="سيارة" setState={setCarType} />
@@ -233,7 +234,7 @@ export default function EditProfile() {
               </div>
             </>
           )}
-          {Role == "renter" && (
+          {user.role == 'renter' && (
             <>
               <div className={`col-lg-6 col-md-5 col-12`}>
                 <label className="fs-5" htmlFor="state">

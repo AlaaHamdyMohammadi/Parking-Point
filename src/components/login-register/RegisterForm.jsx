@@ -37,7 +37,7 @@ export default function RegisterForm({ setShowFormStatus }) {
   let roleRegx = /^(renter|driver)$/;
   let carTypeRegx = /^(سيارة)$/;
   let plateNumberRegx = /^[0-9]{5,}$/;
-  let cityRegx = /^(masqt|mtrh|seeb|boshr|amrat|qryat)$/;
+  let cityRegx = /^(مسقط|مطرح|السيب|بوشر|العامرات|قريات)$/;
   let stateRegx = /^(مسقط)$/;
   let regionRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;
   const registeValidation = (event) => {
@@ -195,10 +195,10 @@ export default function RegisterForm({ setShowFormStatus }) {
     <>
       <form action="" method="post" onSubmit={handleSubmit} className="my-5">
         <div className="fs-4">
-          <div className={`d-block d-md-flex `}>
+          <div className={`d-md-flex d-block`}>
             <div className="col-md-6 col-12 ms-md-1 ">
               <label className="fs-5" htmlFor="firstName">
-                الأسم الاول
+                الأسم الاول{" "}
               </label>
               <input
                 type="text"
@@ -353,7 +353,6 @@ export default function RegisterForm({ setShowFormStatus }) {
               <input
                 type="submit"
                 value="submit"
-                //  className={`${classes.formBtn} text-center bgColor text-white btn mt-5`}
                 className={
                   Object.values(errors).some((error) => error !== "")
                     ? `btn bgColor text-white col-4 disabled`
@@ -398,12 +397,12 @@ export default function RegisterForm({ setShowFormStatus }) {
                     <option value="" hidden>
                       اختر الولاية
                     </option>
-                    <option value="masqt">مسقط</option>
-                    <option value="mtrh">مطرح</option>
-                    <option value="seeb">السيب</option>
-                    <option value="boshr">بوشر</option>
-                    <option value="amrat">العامرات</option>
-                    <option value="qryat">قريات</option>
+                    <option value="مسقط">مسقط</option>
+                    <option value="مطرح">مطرح</option>
+                    <option value="السيب">السيب</option>
+                    <option value="بوشر">بوشر</option>
+                    <option value="العامرات">العامرات</option>
+                    <option value="قريات">قريات</option>
                   </select>
                   <p className={`${classes.error} text-danger`}>{errors.cityErrors}</p>
                 </div>

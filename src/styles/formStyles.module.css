@@ -23,6 +23,7 @@
     margin-top: 23px;
     background: var(--background);
   } */
+
 .formBtn:hover {
   scale: 1.1;
 }
@@ -31,8 +32,8 @@
   transition: all 0.5s ease;
 }
 
-input:focus,
-select:focus {
+.input:focus,
+.select:focus {
   outline: none;
   border: 1px solid var(--bordercolor) !important;
 }
