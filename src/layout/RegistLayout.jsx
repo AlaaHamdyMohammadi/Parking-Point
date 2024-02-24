@@ -4,7 +4,6 @@ export default function RegistLayout() {
   return (
     <div>
       <Outlet />
-      {/*  */}
     </div>
   );
 }
