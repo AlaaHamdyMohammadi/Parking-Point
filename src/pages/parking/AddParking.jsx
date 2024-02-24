@@ -3,14 +3,15 @@ import { MdOutlineAddBusiness } from "react-icons/md";
 import { MdClose } from "react-icons/md";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 export default function AddParking() {
   const profileImgRef = useRef(null);
-  const token= useSelector((state) => state.token.token)
-  const user= useSelector((state) => state.user.user)
+  const token = useSelector((state) => state.token.token)
+  const user = useSelector((state) => state.user.user)
   let { ParkingId } = useParams();
-// console.log(user._id);
-  console.log(ParkingId);
+  // console.log(user._id);
+  const navigate = useNavigate();
+  // console.log(ParkingId);
   function clickImgInput() {
     profileImgRef.current.click();
   }
@@ -22,40 +23,29 @@ export default function AddParking() {
     user: user._id,
     photos: [],
     capacity: 1,
-    location:{
-      longitude:"31.22",
-      latitude:"30.22"
-  },
+    location: {
+      longitude: "31.22",
+      latitude: "30.22"
+    },
   });
-useEffect(() => {
-  axiosInstanceParking.get(`/parkings`,{
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }}).then((res) => {
-console.log("get parkings successful", res.data);
-})
-.catch((err) => {
-  console.error("Error during POST request:", err);
-});
-
-
-// const editParking = async () => {
-//   const res = await axiosInstanceParking.get(`/parkings/${ParkingId}`,{
-//     headers: {
-//       'Authorization': `Bearer ${token}`
-//     }});
-//   setParking({
-//     city: res.parks.city,
-//     address: res.parks.address,
-//     user: user._id.user,
-//     photos: res.parks.photos,
-//     capacity: res.parks.capacity,
-//   });
-// };
-// if (ParkingId) {
-//   editParking();
-// }
-}, []);
+  useEffect(() => {
+    const editParking = async () => {
+      const res = await axiosInstanceParking.get(`/parkings/${ParkingId}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      setParking({
+        city: res.data.doc.city,
+        address: res.data.doc.address,
+        user: res.data.doc.user,
+        photos: res.data.doc.photos,
+        capacity: res.data.doc.capacity,
+      });
+      setImgArr(res.data.doc.photos)
+    };
+    if (ParkingId) {
+      editParking();
+    }
+  }, []);
   const [errors, setErrors] = useState({
     photosErrors: "",
     cityErrors: "",
@@ -76,10 +66,9 @@ console.log("get parkings successful", res.data);
     try {
       return URL.createObjectURL(image);
     } catch (err) {
-      console.log(err);
+      return `${axiosInstanceParking.defaults.baseURL}/${image}`;
     }
   }
-
   const removeImage = (index) => {
     setImgArr((prevImgArr) => {
       const updatedImgArr = [...prevImgArr];
@@ -89,11 +78,10 @@ console.log("get parkings successful", res.data);
     });
   };
 
- 
+
   function validation(event) {
     if (event.target.name === "photos") {
       setErrors({ ...errors, photosErrors: event.target.value.length === 0 ? "يجب إضافة صورة بحد ادني" : "" });
-      // setParking({ ...parking, photos: event.target.value });
     }
     if (event.target.name === "city") {
       setErrors({ ...errors, cityErrors: event.target.value.length === 0 ? "يجب ادخال الولاية" : "" });
@@ -128,34 +116,42 @@ console.log("get parkings successful", res.data);
   function handleSubmit(event) {
     const hasErrors = Object.values(errors).some((error) => error !== "");
     const isEmpty = Object.values(parking).some((parking) => parking === "");
-    
     if (hasErrors || isEmpty) {
       event.preventDefault();
     } else {
-      formData.append("user", parking.user);
-      // formData.append("photos", parking.photos);
-      formData.append("city", parking.city);
-      // formData.append("state", parking.state);
-      formData.append("address", parking.address);
-      formData.append("capacity", parking.capacity);
-      formData.append("longitude", parking.location.longitude);
-      formData.append("latitude", parking.location.latitude);
-      uploadFile(imgArr, formData)
-      event.preventDefault();
-
-      axiosInstanceParking.post(`/parkings`, formData,{
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }}).then((res) => {
-        console.log("Post request successful", res.data);
-      })
-      .catch((err) => {
-        console.error("Error during POST request:", err);
-      });
+      if (ParkingId) {
+        console.log(ParkingId);
+        axiosInstanceParking.patch(`/parkings/${ParkingId}`, parking, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        }).then((res) => {
+          console.log("update request successful", res.data);
+          navigate("/Profile/parkingHome");
+        }).catch((err) => {
+          console.error("Error during parking request:", err);
+        });
+      } else if (!ParkingId) {
+        formData.append("user", parking.user);
+        formData.append("city", parking.city);
+        // formData.append("state", parking.state);
+        formData.append("address", parking.address);
+        formData.append("capacity", parking.capacity);
+        formData.append("longitude", parking.location.longitude);
+        formData.append("latitude", parking.location.latitude);
+        uploadFile(imgArr, formData)
+        axiosInstanceParking.post(`/parkings`, formData, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        }).then((res) => {
+          console.log("Post request successful", res.data);
+          navigate("/Profile");
+        }).catch((err) => {
+          console.error("Error during parking request:", err);
+        });
+      }
     }
-    console.log(formData);
+    event.preventDefault();
+    // console.log(formData);
   }
-  console.log(errors);
+  // console.log(errors);
   console.log(parking);
   return (
     <>
@@ -177,22 +173,12 @@ console.log("get parkings successful", res.data);
                 </div>
               ))}
               {imgArr.length < 3 && (
-                <div
-                  className={`col-4 mx-2 border d-flex p-5 d-flex align-items-center justify-content-center`}
-                  role="button"
-                  onClick={clickImgInput}
-                >
-                  <MdOutlineAddBusiness className={`fs-1 `} />
-                  <input
-                    type="file"
-                    name="photos"
-                    multiple
-                    id="images"
-                    accept="image/*"
-                    hidden
-                    ref={profileImgRef}
-                    onChange={(e) => saveImageArr(e)}
-                  />
+                <div className={`col-4 mx-2 d-flex p-3 d-flex align-items-center justify-content-center`}
+                  role="button" onClick={clickImgInput}>
+                  <img src="/images/addPhoto.webp" alt="" />
+                  <input type="file" name="photos"
+                    multiple id="images" accept="image/*" hidden ref={profileImgRef}
+                    onChange={(e) => saveImageArr(e)} />
                 </div>
               )}
               <p className="text-danger text-center">{errors.imageErrors}</p>
@@ -203,7 +189,7 @@ console.log("get parkings successful", res.data);
                   <small className="fw-bold">المحافظه</small>
                 </label>
                 <select id="address" name="address" value={parking.address} onChange={validation} onBlur={validation}
-                className={`form-control border border-secondary shadow-none`}>
+                  className={`form-control border border-secondary shadow-none`}>
                   <option value={``} selected disabled>
                     حدد المحافظة
                   </option>
@@ -216,7 +202,7 @@ console.log("get parkings successful", res.data);
                   <small className="fw-bold">الولاية</small>
                 </label>
                 <select id="city" name="city" value={parking.city} onChange={validation} onBlur={validation}
-                className={`form-control border border-secondary shadow-none`}>
+                  className={`form-control border border-secondary shadow-none`}>
                   <option value={``} selected hidden>
                     حدد الولاية
                   </option>
@@ -264,15 +250,25 @@ console.log("get parkings successful", res.data);
               </div>
             </div>
             <div className="d-flex justify-content-center">
-              <input
-                type="submit"
-                value={`إضافة موقف`}
-                className={
-                  Object.values(errors).some((error) => error !== "")
+              {ParkingId ?
+                <input
+                  type="submit"
+                  value={`تعديل الموقف`}
+                  className={Object.values(errors).some((error) => error !== "")
                     ? "btn bgColor text-white col-4 disabled"
                     : "btn bgColor text-white col-4 "}
-                disabled={Object.values(parking).some((parking) => parking == "")}
-              />
+                  disabled={Object.values(parking).some((parking) => parking == "")}
+                />
+                :
+                <input
+                  type="submit"
+                  value={`إضافة موقف`}
+                  className={Object.values(errors).some((error) => error !== "")
+                    ? "btn bgColor text-white col-4 disabled"
+                    : "btn bgColor text-white col-4 "}
+                  disabled={Object.values(parking).some((parking) => parking == "")}
+                />
+              }
             </div>
           </form>
         </div>
