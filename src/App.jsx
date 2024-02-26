@@ -13,7 +13,6 @@ import EditProfile from "./pages/parking/EditProfile";
 import Dashboard from "./pages/parking/Dashboard";
 import RegistLayout from "./layout/RegistLayout";
 import Sales from "./pages/parking/Sales";
-import ViewProfile from "./pages/parking/ViewProfile";
 import Support from "./pages/driver/Support";
 import Map from "./pages/Map";
 import RatingTest from "./pages/RatingTest";
@@ -96,36 +95,14 @@ const router = createBrowserRouter([
             errorElement: <HandelErorr />,
           },
           {
-            path: "Owneraccount/",
+            path: "editOwnerProfile",
             element: (
               <Guard>
                 {" "}
-                <OwnerProfile />
+                <EditProfile />{" "}
               </Guard>
             ),
-            children: [
-              {
-                index: true,
-                path: "ownerProfile",
-                element: (
-                  <Guard>
-                    {" "}
-                    <ViewProfile />{" "}
-                  </Guard>
-                ),
-                errorElement: <HandelErorr />,
-              },
-              {
-                path: "editOwnerProfile",
-                element: (
-                  <Guard>
-                    {" "}
-                    <EditProfile />{" "}
-                  </Guard>
-                ),
-                errorElement: <HandelErorr />,
-              },
-            ],
+            errorElement: <HandelErorr />,
           },
           {
             path: "sales",

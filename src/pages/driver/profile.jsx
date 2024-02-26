@@ -1,4 +1,3 @@
-import Photoprofile from "../../components/profile/photoprofile";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./../../components/profile/sidebar";
 export default function Profile() {

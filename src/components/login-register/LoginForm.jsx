@@ -3,7 +3,7 @@ import classes from "./../../styles/formStyles.module.css";
 import { useState } from "react";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useDispatch } from "react-redux";
-import { login, token } from "../../store/slices/authSlice";
+import { login } from "../../store/slices/authSlice";
 export default function LoginForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
@@ -37,8 +37,7 @@ export default function LoginForm() {
             try {
                 const res = await axiosInstanceParking.post(`/users/signin`, logInUser);
                 const userData = res.data;
-                dispatch(login(userData.user));
-                dispatch(token( userData.token));
+                dispatch(login(userData.token));
                 navigate("/");
             } catch (error) {
                 setIsTrueErrors("من فضلك ادخل بيانات صحيحة")
