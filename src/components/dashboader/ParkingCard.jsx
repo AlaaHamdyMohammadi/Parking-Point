@@ -4,14 +4,12 @@ import { useEffect, useState } from "react";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
 export default function ParkingCard() {
-  const token = useSelector((state) => state.token.token)
-  const user = useSelector((state) => state.user.user)
+  const token = useSelector((state) => state.loggedIn.token)
   const [userParkings, setUserParkings] = useState([])
   useEffect(() => {
-    axiosInstanceParking.get(`/parkings/myparks/${user._id}`, {
+    axiosInstanceParking.get(`/parkings/myparks`, {
       headers: {'Authorization': `Bearer ${token}`}
     }).then((res) => {
-      // console.log(res.data.doc);
       setUserParkings(res.data.doc);
     })
       .catch((err) => {
@@ -29,7 +27,7 @@ export default function ParkingCard() {
                   {(parking.photos).map((photo, index) => (
                     <div className="carousel-item  active" data-bs-interval="10000" key={index}>
                       <img
-                        src={`${axiosInstanceParking.defaults.baseURL}/${photo}`}
+                        src={`${axiosInstanceParking.defaults.baseURL}/parkings/${photo}`}
                         style={{ width: "3vh", height: "18vh" }}
                         className="d-block w-100"
                         alt="..."

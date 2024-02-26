@@ -16,7 +16,7 @@ export default function InputEdit({ label, placeholder, type, setState }) {
           // onChange={(e) => setEmail(e.target.value)}
           className="form-control border border-secondary shadow-none "
           id="exampleInputSecondName"
-          placeholder={placeholder}
+          value={placeholder}
         />
       </div>
     </>

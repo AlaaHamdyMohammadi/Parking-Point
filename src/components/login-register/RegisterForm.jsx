@@ -15,6 +15,7 @@ export default function RegisterForm({ setShowFormStatus }) {
         state: "",
         region: "",
         plateNumber: "",
+        nationaleId:""
     })
     const [errors, setErrors] = useState({
         fristNameErrors: "*",
@@ -29,10 +30,11 @@ export default function RegisterForm({ setShowFormStatus }) {
         stateErrors: "",
         regionErrors: "",
         plateNumberErrors: "",
+        nationaleIdErrors:""
     })
     let nameRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/
     let emailRegx = /^[a-zA-Z0-9]{4,15}(@)(gmail|yahoo|outlook)(.com)$/
-    let passwordRegx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d])(?=.*[*:!#&^$.?#@])[a-zA-Z\d*:!#&^$.?#@]{8,}$/
+    let passwordRegx = /^[a-zA-Z0-9\d*:!#&^$.?#@]{8,}$/
     let phoneRegx = /^(?:(?:\+|00)968)?(9[1-9]\d{6})$/
     let roleRegx = /^(renter|driver)$/
     let carTypeRegx = /^(سيارة)$/
@@ -140,6 +142,14 @@ export default function RegisterForm({ setShowFormStatus }) {
                             : "يجب ادخال ثلاثة احرف بحد ادني",
                 });
             }
+            if (name === "nationaleId") {
+                setErrors({
+                    ...errors, nationaleIdErrors: value.length === 0 ? "يجب ادخال رقم الهوية"
+                        : regionRegx.test(value)
+                            ? ""
+                            : "يجب ادخال ثلاثة احرف بحد ادني",
+                });
+            }
         }
         setRegisteUser({ ...registeUser, [name]: value });
     }
@@ -165,6 +175,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                     formData.append("city", registeUser.city);
                     formData.append("state", registeUser.state);
                     formData.append("region", registeUser.region);
+                    formData.append("nationaleId", registeUser.nationaleId);
                 }
                 if (registeUser.role == 'driver') {
                     formData.append("carType", registeUser.carType);
@@ -299,12 +310,12 @@ export default function RegisterForm({ setShowFormStatus }) {
                                     <select id="city" name="city" className={`${classes.input} form-control border border-secondary shadow-none`}
                                         onChange={registeValidation} onBlur={registeValidation}>
                                         <option value="" hidden>اختر الولاية</option>
-                                        <option value="masqt">مسقط</option>
-                                        <option value="mtrh">مطرح</option>
-                                        <option value="seeb">السيب</option>
-                                        <option value="boshr">بوشر</option>
-                                        <option value="amrat">العامرات</option>
-                                        <option value="qryat">قريات</option>
+                                        <option value="مسقط">مسقط</option>
+                                        <option value="مطرح">مطرح</option>
+                                        <option value="السيب">السيب</option>
+                                        <option value="بوشر">بوشر</option>
+                                        <option value="العامرات">العامرات</option>
+                                        <option value="قريات">قريات</option>
                                     </select>
                                     <p className={`${classes.error} text-danger`}>{errors.cityErrors}</p>
                                 </div>
@@ -316,6 +327,14 @@ export default function RegisterForm({ setShowFormStatus }) {
                                 <input type="text" id="region" name="region" className={`${classes.input} form-control border-secondary shadow-none`}
                                     onChange={registeValidation} onBlur={registeValidation} />
                                 <p className={`${classes.error} text-danger`}>{errors.regionErrors}</p>
+                            </div>
+                            <div className="mt-4">
+                                <label className="fs-5" htmlFor="nationaleId">
+                                    رقم الهوية
+                                </label>
+                                <input type="text" id="nationaleId" name="nationaleId" className={`${classes.input} form-control border-secondary shadow-none`}
+                                    onChange={registeValidation} onBlur={registeValidation} />
+                                <p className={`${classes.error} text-danger`}>{errors.nationaleIdErrors}</p>
                             </div>
                             <input type="submit" value="submit"
                                 //  className={`${classes.formBtn} text-center bgColor text-white btn mt-5`} 
