@@ -8,7 +8,7 @@ import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
 
 export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
-  const token = useSelector((state) => state.token.token);
+  const token = useSelector((state) => state.loggedIn.token);
   console.log(token);
   const [timeDifference, setTimeDifference] = useState({
     days: 0,
