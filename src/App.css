@@ -30,18 +30,10 @@
 .backgroundColor {
   color: var(--background);
 }
-/* form styling */
 
 .navColor {
   background-color: var(--navcolor) !important;
 }
-
-/* sidebar */
-/* .sidebar {
-  text-decoration: none;
-  color: #818181;
-} */
-
 .sidebar:hover {
   color: #f1f1f1;
 }
@@ -53,7 +45,7 @@
 }
 .editIcon {
   height: 6vh;
-  width: 6vh;
+  width: 8vh;
 }
 .editIcon2 {
   height: 2vh;
@@ -75,16 +67,7 @@
 }
 .animate:hover {
   scale: 0.9;
-  /* background-color: var(--gray); */
 }
-/* @media screen and (max-height: 450px) {
-  .sidebar {
-    padding-top: 15px;
-  }
-  .sidebar a {
-    font-size: 18px;
-  }
-} */
 
 @keyframes slideInRight {
   from {
@@ -98,7 +81,7 @@
 .sidebar {
   text-decoration: none;
   color: #818181;
-  width: 220px;
+  /* width: 220px; */
   transition: all 0.3s ease;
 }
 
@@ -106,18 +89,9 @@
   width: 60px;
 }
 
-@media (max-width: 768px) {
-  .sidebar {
-    width: 60px;
-  }
-  .showSidebar {
-    width: 220px;
-  }
-}
-
 .slide-in-right {
   animation-name: slideInRight;
-  animation-duration: 2s; /* Adjust animation duration as needed */
+  animation-duration: 2s;
 }
 .cursor-not-allowed {
   cursor: not-allowed;
@@ -130,5 +104,4 @@
 
 .customfs {
   font-size: 0.8rem;
-  /* font-weight: 500; */
 }
