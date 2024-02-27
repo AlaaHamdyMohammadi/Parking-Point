@@ -1,18 +1,19 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
-import axiosInstanceParking from "../../axiosConfig/instanc";
+import axiosInstanceParking from "../axiosConfig/instanc";
+import StarRatingModal from "../components/driver/StarRatingModal";
 
-function StarRating() {
+function RatingTest() {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   const [averageRating, setAverageRating] = useState(null);
 
-  // useEffect(() => {
-  //   axiosInstanceParking.get('/parkings').then((res) => {
-  //     console.log(res)
-  //   })
-  // }, []);
+//   useEffect(() => {
+//     axiosInstanceParking.get("/parkings").then((res) => {
+//       console.log(res);
+//     });
+//   }, []);
 
   return (
     <>
@@ -38,8 +39,9 @@ function StarRating() {
           </label>
         );
       })}
+      <StarRatingModal/>
     </>
   );
 }
 
-export default StarRating;
+export default RatingTest;

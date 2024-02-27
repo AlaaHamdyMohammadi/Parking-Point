@@ -4,49 +4,44 @@ import classes from "./../../styles/register.module.css";
 
 const { useState } = React;
 import { FcOvertime } from "react-icons/fc";
+import axiosInstanceParking from "../../axiosConfig/instanc";
+import { useSelector } from "react-redux";
 
 export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
-  function handleSearch() {
-    setIsSearch(true);
-  }
+  const token = useSelector((state) => state.loggedIn.token);
+  console.log(token);
   const [timeDifference, setTimeDifference] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
   });
-  // From: BookNow ? Date.now() : "",
+  // const [AvaliableParks, setAvaliableParks] = useState([]);
+
   const [searchData, setSearchData] = useState({
-    time: {
-      from: BookNow ? new Date().toISOString().slice(0, 16) : "", // Format: "YYYY-MM-DDTHH:mm"
-      to: "",
-    },
     city: "",
+
+    from: BookNow ? Date.now() : null,
+    to: null,
   });
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-
-    // Update the time object based on the input name
-    setSearchData({
-      ...searchData,
-      time: {
-        ...searchData.time,
-        [name]: value,
-      },
-    });
-
-    // Call calculateTimeDifference whenever from or to inputs change
+    let updatedData = { ...searchData };
     if (name === "from" || name === "to") {
-      calculateTimeDifference();
+      updatedData[name] = Date.parse(value);
+    } else {
+      updatedData[name] = value;
     }
+
+    setSearchData(updatedData);
   };
 
-  // if (name === "From" || name === "To") {
-  //   calculateTimeDifference();
-  // }
   const calculateTimeDifference = () => {
-    const startTime = new Date(searchData.time.from).getTime();
-    const endTime = new Date(searchData.time.to).getTime();
+    const startTime = new Date(searchData.from).getTime();
+    const endTime = new Date(searchData.to).getTime();
+
+    console.log(startTime);
+    console.log(endTime);
 
     if (isNaN(startTime) || isNaN(endTime)) {
       alert("Please enter valid start and end dates.");
@@ -62,20 +57,38 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
     const hours = Math.floor(timeDifference / (1000 * 60 * 60));
     const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-    console.log(startTime);
-    console.log(endTime);
 
     setTimeDifference({ hours, minutes, days });
   };
 
-  const handleSubmit = (e) => {
+  const sendQuery = (e) => {
     e.preventDefault();
-    onReserveChange(searchData);
+    console.log("ttttttttttttttttttttttttttttttttttt");
     console.log(searchData);
+
+    axiosInstanceParking
+      .get(`/parkings/?city=${searchData.city}&from=${searchData.from}&to=${searchData.to}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        onReserveChange(response.data.parks);
+        console.log("Responsessssssssssssssssssssssssssssssssss:", response.data.parks);
+        setIsSearch(true);
+      })
+      .catch((error) => {
+        console.error(
+          "Error:rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+          error
+        );
+      });
   };
+  // console.log(AvaliableParks);
+  // onReserveChange(AvaliableParks);
   return (
     <>
-      <form method="post" onSubmit={handleSubmit}>
+      <form method="post" onSubmit={sendQuery}>
         <div className={`${classes.customSelectWrapper} Gray container  text-center w-100 mx-2 mb-2  `}>
           <select
             id="cars"
@@ -87,12 +100,12 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
             <option value="" hidden className="text-danger">
               اختر الولاية
             </option>
-            <option value="masqt">مسقط</option>
-            <option value="mtrh">مطرح</option>
-            <option value="seeb">السيب</option>
-            <option value="boshr">بوشر</option>
-            <option value="amrat">العامرات</option>
-            <option value="qryat">قريات</option>
+            <option value="مسقط">مسقط</option>
+            <option value="مطرح">مطرح</option>
+            <option value="السيب">السيب</option>
+            <option value="بوشر">بوشر</option>
+            <option value="العامرات">العامرات</option>
+            <option value="قريات">قريات</option>
           </select>
         </div>
         <div className="container">
@@ -104,7 +117,7 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
               className=" customRange  Gray border-0 pointer text-center w-100 m-2 ms-3 p-1  rounded-2"
               type="datetime-local"
               name="from"
-              value={searchData.time.from}
+              value={searchData.from}
               onChange={handleInputChange}
             />
           </div>
@@ -114,26 +127,20 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
               className=" customRange  Gray  border border-0 pointer text-center w-100 m-2 ms-3 p-1  rounded-2"
               type="datetime-local"
               name="to"
-              value={searchData.time.to}
+              value={searchData.to}
               onChange={handleInputChange}
             />
           </div>
-          <button
+          <div
             onClick={calculateTimeDifference}
             className=" customRange mt-4 Gray border border-0 pointer text-center w-100 m-2 ms-3 p-1 fw-semibold animate  rounded-2"
           >
             {`${timeDifference.days} يوم, ${timeDifference.hours}  ساعة, ${timeDifference.minutes} دقيقة`}
-          </button>
+          </div>
           <div className={`text-end`}>
-            {/* {timeDifference.minutes > 10 && ( */}
-            <button
-              type="submit"
-              className={`text-center bgColor text-white btn m-2 mx-3 ${classes.formBtn} `}
-              onClick={handleSearch}
-            >
+            <button type="submit" className={`text-center bgColor text-white btn m-2 mx-3 ${classes.formBtn} `}>
               اعرض المواقف
             </button>
-            {/* )} */}
           </div>
         </div>
       </form>

@@ -15,6 +15,7 @@ import RegistLayout from "./layout/RegistLayout";
 import Sales from "./pages/parking/Sales";
 import Support from "./pages/driver/Support";
 import Map from "./pages/Map";
+import RatingTest from "./pages/RatingTest";
 import Guard from "./components/guard/Guard";
 import LoginGuard from "./components/guard/LoginGuard";
 import RenterGuard from "./components/guard/RenterGuard";
@@ -34,29 +35,91 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/register",
-        element: <LoginGuard><Register /></LoginGuard>,
+        element: (
+          <LoginGuard>
+            <Register />
+          </LoginGuard>
+        ),
         errorElement: <HandelErorr />,
       },
     ],
   },
   {
-
     element: <Layout />,
     children: [
       {
-        path: "Profile", element: <Guard><Dashboard /></Guard>,
+        path: "Profile",
+        element: (
+          <Guard>
+            <Dashboard />
+          </Guard>
+        ),
         children: [
-          { index: true, element: <Guard><OwnerProfile /> </Guard>, errorElement: <HandelErorr /> },
-          { path: "parkingHome", element: <RenterGuard> <ParkingHome /> </RenterGuard>, errorElement: <HandelErorr /> },
-          { path: "parking", element: <RenterGuard> <AddParking /> </RenterGuard>, errorElement: <HandelErorr /> },
-          { path: "parking/:ParkingId", element: <RenterGuard> <AddParking /> </RenterGuard>, errorElement: <HandelErorr /> },
-          { path: "editOwnerProfile", element: <Guard> <EditProfile /> </Guard>, errorElement: <HandelErorr /> },
-          { path: "sales", element: <Guard> <Sales /> </Guard>, errorElement: <HandelErorr /> },
+          {
+            index: true,
+            element: (
+              <Guard>
+                <OwnerProfile />{" "}
+              </Guard>
+            ),
+            errorElement: <HandelErorr />,
+          },
+          {
+            path: "parkingHome",
+            element: (
+              <RenterGuard>
+                {" "}
+                <ParkingHome />{" "}
+              </RenterGuard>
+            ),
+            errorElement: <HandelErorr />,
+          },
+          {
+            path: "parking",
+            element: (
+              <RenterGuard>
+                {" "}
+                <AddParking />{" "}
+              </RenterGuard>
+            ),
+            errorElement: <HandelErorr />,
+          },
+          {
+            path: "parking/:ParkingId",
+            element: (
+              <RenterGuard>
+                {" "}
+                <AddParking />{" "}
+              </RenterGuard>
+            ),
+            errorElement: <HandelErorr />,
+          },
+          {
+            path: "editOwnerProfile",
+            element: (
+              <Guard>
+                {" "}
+                <EditProfile />{" "}
+              </Guard>
+            ),
+            errorElement: <HandelErorr />,
+          },
+          {
+            path: "sales",
+            element: (
+              <Guard>
+                {" "}
+                <Sales />{" "}
+              </Guard>
+            ),
+            errorElement: <HandelErorr />,
+          },
         ],
       },
     ],
   },
   { path: "map", element: <Map /> },
+  { path: "rating", element: <RatingTest /> },
 ]);
 
 function App() {
