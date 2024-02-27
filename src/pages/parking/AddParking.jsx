@@ -204,7 +204,7 @@ export default function AddParking() {
               </div>
               <div className="form-group mb-3 col-12 col-md-6 ">
                 <label htmlFor="title" className="mb-1 fs-3">
-                  <small className="fw-bold">المنطقه</small>
+                  <small className="fw-bold">اسم الموقف</small>
                 </label>
                 <input
                   onChange={validation}

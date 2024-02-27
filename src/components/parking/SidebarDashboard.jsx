@@ -39,7 +39,6 @@ export default function SidebarProfile() {
       >
         <Link to={`/Profile`}>
           <div className={`d-flex mt-md-2 fs-5 fw-bold my-4`}>
-            <div className={`ms-3 p-2 yellowcolor  ${classes.userName}`}>{user.firstName[0]}</div>
             <div className="yellowcolor">{user.firstName} {user.lastName}</div>
           </div>
         </Link>
