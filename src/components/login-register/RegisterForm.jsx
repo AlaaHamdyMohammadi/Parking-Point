@@ -320,8 +320,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                 onBlur={registeValidation}
               />
               <label className="fs-5" htmlFor="renter">
-                {" "}
-                صاحب موقف{" "}
+                صاحب موقف
               </label>
             </div>
           </div>
