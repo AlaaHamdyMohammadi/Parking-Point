@@ -12,10 +12,10 @@ export default function EditProfile() {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
-    phoneNumber: "",
-    city: "",
-    state: "",
-    region: "",
+    phoneNumber: user.phoneNumber,
+    city: user.city,
+    state: user.state,
+    region: user.region,
     plateNumber: "",
   });
   const [errors, setErrors] = useState({
@@ -205,12 +205,12 @@ export default function EditProfile() {
                   <option value={` `} selected hidden>
                 حدد الولاية
               </option>
-                  <option value="masqt">مسقط</option>
-                  <option value="mtrh">مطرح</option>
-                  <option value="seeb">السيب</option>
-                  <option value="boshr">بوشر</option>
-                  <option value="amrat">العامرات</option>
-                  <option value="qryat">قريات</option>
+                  <option value="مسقط">مسقط</option>
+                  <option value="مطرح">مطرح</option>
+                  <option value="السيب">السيب</option>
+                  <option value="بوشر">بوشر</option>
+                  <option value="العامرات">العامرات</option>
+                  <option value="قريات">قريات</option>
                 </select>
                 <p className={`${classes.error} text-danger`}>{errors.cityErrors}</p>
               </div>
@@ -223,6 +223,7 @@ export default function EditProfile() {
                   type="text"
                   id="region"
                   name="region"
+                  value={registeUser.region}
                   className={`${classes.input} form-control border-secondary shadow-none`}
                   //  onChange={registeValidation}
                   //  onBlur={registeValidation}
