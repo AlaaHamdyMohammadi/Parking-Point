@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 /* eslint-disable react/display-name */
 import React, { forwardRef } from "react";
 import classes from "./../../styles/register.module.css";
@@ -9,7 +11,7 @@ import { useSelector } from "react-redux";
 
 export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
   const token = useSelector((state) => state.token.token);
-  console.log(token);
+  console.log("Token = ", token);
   const [timeDifference, setTimeDifference] = useState({
     days: 0,
     hours: 0,
@@ -56,7 +58,9 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     const timeDifference = Math.abs(endTime - startTime);
     const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
     const hours = Math.floor(timeDifference / (1000 * 60 * 60));
-    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const minutes = Math.floor(
+      (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+    );
 
     setTimeDifference({ hours, minutes, days });
   };
@@ -67,14 +71,20 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     console.log(searchData);
 
     axiosInstanceParking
-      .get(`/parkings/?city=${searchData.city}&from=${searchData.from}&to=${searchData.to}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `/parkings/?city=${searchData.city}&from=${searchData.from}&to=${searchData.to}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         onReserveChange(response.data.parks);
-        console.log("Responsessssssssssssssssssssssssssssssssss:", response.data.parks);
+        console.log(
+          "Responsessssssssssssssssssssssssssssssssss:",
+          response.data.parks
+        );
         setIsSearch(true);
       })
       .catch((error) => {
@@ -89,7 +99,9 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
   return (
     <>
       <form method="post" onSubmit={sendQuery}>
-        <div className={`${classes.customSelectWrapper} Gray container  text-center w-100 mx-2 mb-2  `}>
+        <div
+          className={`${classes.customSelectWrapper} Gray container  text-center w-100 mx-2 mb-2  `}
+        >
           <select
             id="cars"
             name="city"
@@ -122,7 +134,9 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
             />
           </div>
           <div className="text-end ">
-            <label className="Gray pe-2">{BookNow ? "موعد نهاية الحجز :" : "إلي :"}</label>
+            <label className="Gray pe-2">
+              {BookNow ? "موعد نهاية الحجز :" : "إلي :"}
+            </label>
             <input
               className=" customRange  Gray  border border-0 pointer text-center w-100 m-2 ms-3 p-1  rounded-2"
               type="datetime-local"
@@ -138,7 +152,10 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
             {`${timeDifference.days} يوم, ${timeDifference.hours}  ساعة, ${timeDifference.minutes} دقيقة`}
           </div>
           <div className={`text-end`}>
-            <button type="submit" className={`text-center bgColor text-white btn m-2 mx-3 ${classes.formBtn} `}>
+            <button
+              type="submit"
+              className={`text-center bgColor text-white btn m-2 mx-3 ${classes.formBtn} `}
+            >
               اعرض المواقف
             </button>
           </div>

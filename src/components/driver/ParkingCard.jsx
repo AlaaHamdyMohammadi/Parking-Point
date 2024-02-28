@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import classes from "./../../styles/formStyles.module.css";
 // import { parkingplaces } from "../home/parkingplaces";
-import StarRating from "./StarRating";
+// import StarRating from "./StarRating";
+import { FaStar } from "react-icons/fa";
 
 export default function ParkingCard({ AvaliableParksFilter }) {
   console.log(AvaliableParksFilter);
@@ -10,7 +11,11 @@ export default function ParkingCard({ AvaliableParksFilter }) {
       {AvaliableParksFilter.map((item, index) => (
         <div key={item._id} className="card d-flex flex-row mb-3">
           <div className="col-lg-4 col-md-4 col-sm-4">
-            <div id={`carouselExampleInterval${index}`} className="carousel slide" data-bs-ride="carousel">
+            <div
+              id={`carouselExampleInterval${index}`}
+              className="carousel slide"
+              data-bs-ride="carousel"
+            >
               <div className="carousel-inner">
                 <div className="carousel-item active" data-bs-interval="10000">
                   <img
@@ -43,7 +48,10 @@ export default function ParkingCard({ AvaliableParksFilter }) {
                 data-bs-target={`#carouselExampleInterval${index}`}
                 data-bs-slide="prev"
               >
-                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span
+                  className="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
                 <span className="visually-hidden">Previous</span>
               </button>
               <button
@@ -52,7 +60,10 @@ export default function ParkingCard({ AvaliableParksFilter }) {
                 data-bs-target={`#carouselExampleInterval${index}`}
                 data-bs-slide="next"
               >
-                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                <span
+                  className="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
                 <span className="visually-hidden">Next</span>
               </button>
             </div>
@@ -75,15 +86,34 @@ export default function ParkingCard({ AvaliableParksFilter }) {
             </div>
             <div className=" col-lg-3 d-lg-flex gap-1 flex-lg-column justify-content-start text-center ">
               {/* <div className="ps-2"> */}
-              <div className={`text-center  w-75 bgColor text-white  p-0  btn  ${classes.formBtn}`}>احجز</div>
+              <div
+                className={`text-center  w-75 bgColor text-white  p-0  btn  ${classes.formBtn}`}
+              >
+                احجز
+              </div>
               {/* </div> */}
               <div className="d-flex flex-row  text-center justify-content-start ">
-                <StarRating />
+                <RatingComponent rating={item} />
               </div>
             </div>
           </div>
         </div>
       ))}
     </>
+  );
+} 
+
+function RatingComponent({ rating }) {
+  const starArr = (length) => Array.from({ length }, (_, i) => i);
+
+  return (
+    <div>
+      {[...starArr(rating)].map((_, index) => (
+        <FaStar key={index} style={{ color: "#f1a525" }} />
+      ))}
+      {[...starArr(5 - rating)].map((_, index) => (
+        <FaStar key={index + rating} style={{ color: "#331c41" }} />
+      ))}
+    </div>
   );
 }

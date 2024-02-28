@@ -1,14 +1,12 @@
 import Map from "./Map";
 // import ParkingCard from "./ParkingCard";
 import { IoArrowRedoCircleOutline } from "react-icons/io5";
-import classes from "./../../styles/formStyles.module.css";
 
 // import SearchSec from "./searchSec";
 // import Map from "./Map";
 // import SelectLocation from "./selectlocation";
 import { useState } from "react";
 import EndDateTime from "./EndDT";
-import StarRating from "./StarRating";
 import ParkingCard from "./ParkingCard";
 
 export default function HomeLogin() {
@@ -62,11 +60,19 @@ export default function HomeLogin() {
               </div>
             </div>
             <div className={`card border-0  my-3`}>
-              <div className={` shadow height text-center p-2 border-secondary-subtlepx-2 rounded-2 w-100 height`}>
-                <div className={` fs-5 pe-4 my-4  text-end  fw-bolder`}>ابحث عن اقرب موقف</div>
+              <div
+                className={` shadow height text-center p-2 border-secondary-subtlepx-2 rounded-2 w-100 height`}
+              >
+                <div className={` fs-5 pe-4 my-4  text-end  fw-bolder`}>
+                  ابحث عن اقرب موقف
+                </div>
                 <div className={``}>{/* <SelectLocation /> */}</div>
                 <div className={`mb-2`}>
-                  <EndDateTime BookNow={BookNow} onReserveChange={handleReserveChange} setIsSearch={setIsSearch} />
+                  <EndDateTime
+                    BookNow={BookNow}
+                    onReserveChange={handleReserveChange}
+                    setIsSearch={setIsSearch}
+                  />
                 </div>
               </div>
             </div>
@@ -75,7 +81,10 @@ export default function HomeLogin() {
 
         {/* sec2 */}
         {isSearch && (
-          <div className={`col-lg-4 px-3 col-md-12 col-sm-12 px-2 `} id="navbar-example2">
+          <div
+            className={`col-lg-4 px-3 col-md-12 col-sm-12 px-2 `}
+            id="navbar-example2"
+          >
             <div className="d-flex justify-content-between  my-4">
               {/* <div className="fs-5 fw-bolder">اختر الموقف المناسب</div> */}
               <div className=" fw-bold">المواقف الأقرب لك ....</div>
@@ -98,7 +107,7 @@ export default function HomeLogin() {
         )}
         {/* sec3 */}
         <div className={`col-lg-9 col-md-12 col-sm-9 `}>
-          <Map />
+          <Map AvaliableParksFilter={AvaliableParksFilter} />
         </div>
       </div>
     </div>
