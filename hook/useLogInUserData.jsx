@@ -11,6 +11,5 @@ export default function useLogInUserData() {
         }
     }, []);
     const user = useSelector((state) => state.logInUser.logInUser)
-    console.log(user);
   return user;
 }

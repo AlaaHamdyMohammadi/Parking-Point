@@ -1,14 +1,22 @@
 import { useState } from "react";
-import InputEdit from "../../components/profile/InputEdit";
-import SelectEdit from "../../components/profile/selectEdit";
 import Photoprofile from "./../../components/profile/photoprofile";
 import classes from "./../../styles/formStyles.module.css";
 import useLogInUserData from "../../../hook/useLogInUserData";
+import CitySelect from "../../components/formFun/CitySelect";
+import StateInput from "../../components/formFun/StateInput";
+import RegionInput from "../../components/formFun/RegionInput";
+import EmailInput from "../../components/formFun/EmailInput";
+import PhoneInput from "../../components/formFun/PhoneInput";
+import NameInputs from "../../components/formFun/nameInputs";
+import PlateNumberInput from "../../components/formFun/PlateNumberInput";
+import CarTypeInput from "../../components/formFun/CarTypeInput";
+import axiosInstanceParking from "../../axiosConfig/instanc";
+import { useSelector } from "react-redux";
 
 export default function EditProfile() {
+  const token = useSelector((state) => state.loggedIn.token)
   const user = useLogInUserData();
-  console.log(user);
-  const [registeUser, setRegisteUser] = useState({
+  const [userInfo, setUserInfo] = useState({
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
@@ -16,229 +24,100 @@ export default function EditProfile() {
     city: user.city,
     state: user.state,
     region: user.region,
-    plateNumber: "",
+    plateNumber: user.plateNumber,
+    // nationaleId: user.nationaleId,
+    carType: user.carType,
   });
   const [errors, setErrors] = useState({
-    fristNameErrors: "*",
-    lastNameErrors: "*",
-    emailErrors: "*",
-    phoneNumberErrors: "*",
+    fristNameErrors: "",
+    lastNameErrors: "",
+    emailErrors: "",
+    phoneNumberErrors: "",
     cityErrors: "",
     stateErrors: "",
+    // nationaleIdErrors: "",
     regionErrors: "",
     plateNumberErrors: "",
+    carTypeErrors: "",
   });
-  let nameRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;
-  let emailRegx = /^[a-zA-Z0-9]{4,15}(@)(gmail|yahoo|outlook)(.com)$/;
-  let phoneRegx = /^(?:(?:\+|00)968)?(9[1-9]\d{6})$/;
-  let carTypeRegx = /^(سيارة)$/;
-  let plateNumberRegx = /^[0-9]{5,}$/;
-  let cityRegx = /^(masqt|mtrh|seeb|boshr|amrat|qryat)$/;
-  let stateRegx = /^(مسقط)$/;
-  let regionRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;
-  const registeValidation = (event) => {
-    const { name, value } = event.target;
-    if (name === "firstName") {
-      setErrors({
-        ...errors,
-        fristNameErrors:
-          value.length === 0 ? "يجب ادخال الاسم الاول" : nameRegx.test(value) ? "" : "يجب ادخال ثلاثة احرف بحد ادني",
-      });
+  const handleSubmit = async (event) => {
+    const hasErrors = Object.values(errors).some((error) => error !== "");
+    const isEmpty = Object.values(userInfo).some((userInf) => userInf === "");
+    if (hasErrors || isEmpty) {
+        event.preventDefault();
+    } else {
+        event.preventDefault();
+        try {
+            const res = await axiosInstanceParking.patch(`/users/me`, userInfo,{
+              headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const userData = res.data;
+            console.log(userData);
+        } catch (error) {
+            console.error("not login", error);
+        }
     }
-    if (name === "lastName") {
-      setErrors({
-        ...errors,
-        lastNameErrors:
-          value.length === 0 ? "يجب ادخال الاسم الاخير" : nameRegx.test(value) ? "" : "يجب ادخال ثلاثة احرف بحد ادني",
-      });
-    }
-    if (name === "email") {
-      setErrors({
-        ...errors,
-        emailErrors:
-          value.length === 0 ? "يجب ادخال البريد الاليكتروني" : emailRegx.test(value) ? "" : "يجب ادخال بريد اليكتروني صحيح",
-      });
-    }
-    if (name === "phoneNumber") {
-      setErrors({
-        ...errors,
-        phoneNumberErrors:
-          value.length === 0 ? "يجب ادخال رقم الجوال" : phoneRegx.test(value) ? "" : "يجب ادخال رقم جوال صحيح",
-      });
-    }
-    if (registeUser.role === "driver") {
-      if (name === "carType") {
-        setErrors({
-          ...errors,
-          carTypeErrors: value === "" ? "يجب اختيار نوع السيارة" : carTypeRegx.test(value) ? "" : "النوع سيارة فقط",
-        });
-      }
-      if (name === "plateNumber") {
-        setErrors({
-          ...errors,
-          plateNumberErrors:
-            value.length === 0 ? "يجب رقم لوحة السيارة" : plateNumberRegx.test(value) ? "" : "يجب ادخال رقم لوحة صحيح",
-        });
-      }
-    }
-    if (registeUser.role === "renter") {
-      if (name === "city") {
-        setErrors({
-          ...errors,
-          cityErrors:
-            value.length === 0
-              ? "يجب اختيار الولاية"
-              : cityRegx.test(value)
-              ? ""
-              : "يجب اختيار من واحد من الاختيارات المقدمة",
-        });
-      }
-      if (name === "state") {
-        setErrors({
-          ...errors,
-          stateErrors: value.length === 0 ? "يجب اختيار المحافظه" : stateRegx.test(value) ? "" : "المحافظه المتاحة مسقط قفط",
-        });
-      }
-      if (name === "region") {
-        setErrors({
-          ...errors,
-          regionErrors:
-            value.length === 0 ? "يجب ادخال المنطقه" : regionRegx.test(value) ? "" : "يجب ادخال ثلاثة احرف بحد ادني",
-        });
-      }
-    }
-    setRegisteUser({ ...registeUser, [name]: value });
-  };
+}
   console.log(errors);
-  // const handleSubmit = async (event) => {
-  //   const hasErrors = Object.values(errors).some((error) => error !== "");
-  //   // const isEmpty = Object.values(registeUser).some((registeUser) => registeUser === "");
-  //   const formData = new FormData();
-  //   if (hasErrors) {
-  //     registeValidation(event);
-  //     // event.preventDefault();
-  //   } else {
-  //     event.preventDefault();
-  //     try {
-  //       formData.append("firstName", registeUser.firstName);
-  //       formData.append("lastName", registeUser.lastName);
-  //       formData.append("email", registeUser.email);
-  //       formData.append("password", registeUser.password);
-  //       formData.append("confirmPassword", registeUser.confirmPassword);
-  //       formData.append("phoneNumber", registeUser.phoneNumber);
-  //       formData.append("role", registeUser.role);
-  //       if (registeUser.role == "renter") {
-  //         formData.append("city", registeUser.city);
-  //         formData.append("state", registeUser.state);
-  //         formData.append("region", registeUser.region);
-  //       }
-  //       if (registeUser.role == "driver") {
-  //         formData.append("carType", registeUser.carType);
-  //         formData.append("plateNumber", registeUser.plateNumber);
-  //       }
-  //       const res = await axiosInstanceParking.post(`/users/signup`, formData);
-  //       console.log("signup request successful", res.data);
-  //       setShowFormStatus(false);
-  //     } catch (error) {
-  //       console.log("signup request not successful", error);
-  //     }
-  //   }
-  // };
+  console.log(userInfo);
   return (
     <>
-     <Photoprofile photo={`/images/defaultpersonjpg.jpg`} time={`عضو منذ 5 اسابيع`} />
+      <Photoprofile photo={`/images/defaultpersonjpg.jpg`} time={`عضو منذ 5 اسابيع`} />
+      <form method="post" onSubmit={handleSubmit}>
+     
       <div className="d-flex flex-column mt-5  align-self-center gap-6 align-self-start w-75">
         <div className="row flex-column flex-sm-row ">
-          <div className="col-lg-6 col-md-6 col-sm-12">
-            <InputEdit label="الأسم الأول" placeholder={registeUser.firstName} type="text" setState={setRegisteUser} />
+          <NameInputs nameInfo={userInfo} classes={classes} setNameInfo={setUserInfo} errors={errors} setErrors={setErrors} />
+          <div className="col-md-6 col-12">
+            <PhoneInput phoneNumberInfo={userInfo} classes={classes} setPhoneNumberInfo={setUserInfo} errors={errors} setErrors={setErrors} />
           </div>
-          <div className="col-lg-6 col-md-6 col-sm-12">
-            <InputEdit label="الأسم الثاني" placeholder={registeUser.lastName} type="text" setState={setRegisteUser} />
+          <div className="col-md-6 col-sm-12">
+            <EmailInput emailInfo={userInfo} classes={classes} setEmailInfo={setUserInfo} errors={errors} setErrors={setErrors} />
           </div>
-          <div className="col-lg-6 col-md-6 col-sm-12">
-            <InputEdit label="رقم الهاتف" placeholder={registeUser.phoneNumber} type="number" setState={setRegisteUser} />
-          </div>
-          <div className="col-lg-6 col-md-6 col-sm-12">
-            <InputEdit label="الأيميل" placeholder={registeUser.email} type="email" setState={setRegisteUser} />
-          </div>
-          {user.role === "driver" && (
+          {user.role === "driver" &&
             <>
-              <div className="col-lg-6 col-md-6 col-sm-12">
-                <SelectEdit label="نوع المركبة" option1="سيارة" setState={setRegisteUser} />
+              <div className="col-md-6 col-sm-12">
+                <CarTypeInput carTypeInfo={userInfo} classes={classes} setCarTypeInfo={setUserInfo} errors={errors} setErrors={setErrors} />
               </div>
-              <div className="col-lg-6 col-md-6 col-sm-12">
-                <InputEdit label="رقم اللوحة" placeholder="142536 *" type="number" setState={setRegisteUser} />
+              <div className="col-md-6 col-sm-12">
+                <PlateNumberInput plateNumberInfo={userInfo} classes={classes} setPlateNumberInfo={setUserInfo} errors={errors} setErrors={setErrors} />
               </div>
             </>
-          )}
-          {user.role == 'renter' && (
+          }
+          {user.role == "renter" &&
             <>
-              <div className={`col-lg-6 col-md-5 col-12`}>
-                <label className="fs-5" htmlFor="state">
-                  المحافظه
-                </label>
-                <select
-                  className={`${classes.input} form-control border border-secondary shadow-none`}
-                  id="state"
-                  name="state"
-                  onChange={registeValidation}
-                  onBlur={registeValidation}
-                  value={registeUser.state}>
-                 <option value={` `} selected disabled>
-                    حدد المحافظة
-                  </option>
-                  <option value="مسقط">مسقط</option>
-                </select>
-                <p className={`${classes.error} text-danger`}>{errors.stateErrors}</p>
+              <div className="col-md-6 col-12">
+                <CitySelect cityInfo={userInfo} classes={classes} setCityInfo={setUserInfo} errors={errors} setErrors={setErrors} role={user.role} />
               </div>
-              <div className={` col-lg-6 col-md-5 col-12`}>
-                <label className="fs-5" htmlFor="city">
-                  الولاية
-                </label>
-                <select
-                  id="city"
-                  name="city"
-                  value={registeUser.city}
-                  className={`${classes.input} form-control border border-secondary shadow-none`}
-                  onChange={registeValidation}
-                  onBlur={registeValidation}>
-                  <option value={` `} selected hidden>
-                حدد الولاية
-              </option>
-                  <option value="مسقط">مسقط</option>
-                  <option value="مطرح">مطرح</option>
-                  <option value="السيب">السيب</option>
-                  <option value="بوشر">بوشر</option>
-                  <option value="العامرات">العامرات</option>
-                  <option value="قريات">قريات</option>
-                </select>
-                <p className={`${classes.error} text-danger`}>{errors.cityErrors}</p>
+              <div className="col-md-6 col-12">
+                <RegionInput regionInfo={userInfo} classes={classes} setRegionInfo={setUserInfo} errors={errors} setErrors={setErrors} role={user.role} />
               </div>
-              {/* </div> */}
-              <div className=" col-lg-6 col-md-5 col-12">
-                <label className="fs-5" htmlFor="region">
-                  المنطقه
+              <div className="col-md-6 col-12">
+                <StateInput stateInfo={userInfo} classes={classes} setStateInfo={setUserInfo} errors={errors} setErrors={setErrors} role={user.role} />
+              </div>
+              <div className={`col-md-6 col-12`}>
+                <label className="fs-5" htmlFor="nationaleId">
+                  رقم الهوية
                 </label>
-                <input
-                  type="text"
-                  id="region"
-                  name="region"
-                  value={registeUser.region}
-                  className={`${classes.input} form-control border-secondary shadow-none`}
-                  //  onChange={registeValidation}
-                  //  onBlur={registeValidation}
-                />
-
-                <p className={`${classes.error} text-danger`}>{errors.regionErrors} </p>
+                <input type="text" name="nationaleId" id="nationaleId" value={user.nationaleId} disabled
+                  className={`${classes.input} form-control border border-secondary shadow-none`} />
+                <p className={`${classes.error} text-danger`}>{errors.nationaleIdErrors}</p>
               </div>
             </>
-          )}
+          }
         </div>
-
         <div className="row d-flex justify-content-center">
-          <input type="submit" value="تحديث" className={`text-center bgColor w-50 text-white btn mt-2 ${classes.formBtn}`} />
+          <input type="submit" value="تحديث"
+          //  className={`text-center bgColor w-50 text-white btn mt-2 ${classes.formBtn}`} 
+           className={
+            Object.values(errors).some((error) => error !== "")
+                ? `text-center bgColor w-50 text-white btn mt-2 ${classes.formBtn} disabled`
+                : `text-center bgColor w-50 text-white btn mt-2 ${classes.formBtn}`}
+        disabled={Object.values(userInfo).some((userInfo) => userInfo == "")}
+          />
         </div>
       </div>
+      </form>
     </>
   );
 }

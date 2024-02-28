@@ -26,7 +26,6 @@ export default function LoginForm() {
         }
         setLogInUser({ ...logInUser, [name]: value });
     }
-    console.log(errors);
     const handleSubmit = async (event) => {
         const hasErrors = Object.values(errors).some((error) => error !== "");
         const isEmpty = Object.values(logInUser).some((logInUser) => logInUser === "");
