@@ -8,14 +8,13 @@ import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
 
 export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
-  const token = useSelector((state) => state.token.token);
+  const token = useSelector((state) => state.loggedIn.token);
   console.log(token);
   const [timeDifference, setTimeDifference] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
   });
-  // const [AvaliableParks, setAvaliableParks] = useState([]);
 
   const [searchData, setSearchData] = useState({
     city: "",
@@ -34,6 +33,7 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     }
 
     setSearchData(updatedData);
+    // calculateTimeDifference();
   };
 
   const calculateTimeDifference = () => {
@@ -43,10 +43,10 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     console.log(startTime);
     console.log(endTime);
 
-    if (isNaN(startTime) || isNaN(endTime)) {
-      alert("Please enter valid start and end dates.");
-      return;
-    }
+    // if (isNaN(startTime) || isNaN(endTime)) {
+    //   alert("Please enter valid start and end dates.");
+    //   return;
+    // }
 
     if (startTime >= endTime) {
       alert("End date and time must be after start date and time.");
@@ -135,7 +135,9 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
             onClick={calculateTimeDifference}
             className=" customRange mt-4 Gray border border-0 pointer text-center w-100 m-2 ms-3 p-1 fw-semibold animate  rounded-2"
           >
-            {`${timeDifference.days} يوم, ${timeDifference.hours}  ساعة, ${timeDifference.minutes} دقيقة`}
+            {timeDifference.minutes > 0 || timeDifference.hours > 0 || timeDifference.days > 0
+              ? ` ${timeDifference.days} يوم, ${timeDifference.hours}  ساعة, ${timeDifference.minutes} دقيقة`
+              : " معرفة مدة الركن "}
           </div>
           <div className={`text-end`}>
             <button type="submit" className={`text-center bgColor text-white btn m-2 mx-3 ${classes.formBtn} `}>

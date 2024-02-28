@@ -15,6 +15,7 @@ export default function RegisterForm({ setShowFormStatus }) {
     state: "",
     region: "",
     plateNumber: "",
+    nationaleId: "",
   });
   const [errors, setErrors] = useState({
     fristNameErrors: "*",
@@ -29,10 +30,11 @@ export default function RegisterForm({ setShowFormStatus }) {
     stateErrors: "",
     regionErrors: "",
     plateNumberErrors: "",
+    nationaleIdErrors: "",
   });
   let nameRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;
   let emailRegx = /^[a-zA-Z0-9]{4,15}(@)(gmail|yahoo|outlook)(.com)$/;
-  let passwordRegx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d])(?=.*[*:!#&^$.?#@])[a-zA-Z\d*:!#&^$.?#@]{8,}$/;
+  let passwordRegx = /^[a-zA-Z0-9\d*:!#&^$.?#@]{8,}$/;
   let phoneRegx = /^(?:(?:\+|00)968)?(9[1-9]\d{6})$/;
   let roleRegx = /^(renter|driver)$/;
   let carTypeRegx = /^(سيارة)$/;
@@ -137,6 +139,13 @@ export default function RegisterForm({ setShowFormStatus }) {
             value.length === 0 ? "يجب ادخال المنطقه" : regionRegx.test(value) ? "" : "يجب ادخال ثلاثة احرف بحد ادني",
         });
       }
+      if (name === "nationaleId") {
+        setErrors({
+          ...errors,
+          nationaleIdErrors:
+            value.length === 0 ? "يجب ادخال رقم الهوية" : regionRegx.test(value) ? "" : "يجب ادخال ثلاثة احرف بحد ادني",
+        });
+      }
     }
     setRegisteUser({ ...registeUser, [name]: value });
   };
@@ -162,6 +171,7 @@ export default function RegisterForm({ setShowFormStatus }) {
           formData.append("city", registeUser.city);
           formData.append("state", registeUser.state);
           formData.append("region", registeUser.region);
+          formData.append("nationaleId", registeUser.nationaleId);
         }
         if (registeUser.role == "driver") {
           formData.append("carType", registeUser.carType);
@@ -310,8 +320,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                 onBlur={registeValidation}
               />
               <label className="fs-5" htmlFor="renter">
-                {" "}
-                صاحب موقف{" "}
+                صاحب موقف
               </label>
             </div>
           </div>
@@ -420,6 +429,20 @@ export default function RegisterForm({ setShowFormStatus }) {
                   onBlur={registeValidation}
                 />
                 <p className={`${classes.error} text-danger`}>{errors.regionErrors}</p>
+              </div>
+              <div className="mt-4">
+                <label className="fs-5" htmlFor="nationaleId">
+                  رقم الهوية
+                </label>
+                <input
+                  type="text"
+                  id="nationaleId"
+                  name="nationaleId"
+                  className={`${classes.input} form-control border-secondary shadow-none`}
+                  onChange={registeValidation}
+                  onBlur={registeValidation}
+                />
+                <p className={`${classes.error} text-danger`}>{errors.nationaleIdErrors}</p>
               </div>
               <input
                 type="submit"

@@ -4,20 +4,24 @@ import { useEffect, useState } from "react";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
 export default function ParkingCard() {
-  const token = useSelector((state) => state.token.token)
-  const user = useSelector((state) => state.user.user)
-  const [userParkings, setUserParkings] = useState([])
+  const token = useSelector((state) => state.loggedIn.token);
+  console.log(token, "esssssssssssssssssssssssssssssss");
+  const [userParkings, setUserParkings] = useState([]);
   useEffect(() => {
-    axiosInstanceParking.get(`/parkings/myparks/${user._id}`, {
-      headers: {'Authorization': `Bearer ${token}`}
-    }).then((res) => {
-      // console.log(res.data.doc);
-      setUserParkings(res.data.doc);
-    })
+    axiosInstanceParking
+      .get(`/parkings/myparks`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        setUserParkings(res.data.doc);
+        console.log(res.data.doc);
+      })
       .catch((err) => {
         console.error("Error during parkings request:", err);
       });
   }, []);
+  console.log(token, userParkings);
+
   return (
     <>
       {userParkings.map((parking, index) => (
@@ -26,10 +30,10 @@ export default function ParkingCard() {
             <div className="col-3">
               <div id={`carouselExampleInterval${index}`} className=" w-100 carousel rounded " data-bs-ride="carousel">
                 <div className="carousel-inner  ">
-                  {(parking.photos).map((photo, index) => (
+                  {parking.photos.map((photo, index) => (
                     <div className="carousel-item  active" data-bs-interval="10000" key={index}>
                       <img
-                        src={`${axiosInstanceParking.defaults.baseURL}/${photo}`}
+                        src={`${axiosInstanceParking.defaults.baseURL}/parkings/${photo}`}
                         style={{ width: "3vh", height: "18vh" }}
                         className="d-block w-100"
                         alt="..."
@@ -69,17 +73,27 @@ export default function ParkingCard() {
                   {parking.capacity}
                 </p>
                 <p className="">
-                  <small className="text-body-secondary">تمت الإضافة : {new Date(parking.createdAt).toLocaleDateString()}</small>
+                  <small className="text-body-secondary">
+                    تمت الإضافة : {new Date(parking.createdAt).toLocaleDateString()}
+                  </small>
                 </p>
                 <p className="">
-                  <small className="text-body-secondary">اخر تعديل : {new Date(parking.updatedAt).toLocaleDateString()}</small>
+                  <small className="text-body-secondary">
+                    اخر تعديل : {new Date(parking.updatedAt).toLocaleDateString()}
+                  </small>
                 </p>
               </div>
               <div className=" d-flex gap-2  py-2 w-100 justify-content-between ">
                 <div className=" d-lg-flex gap-3 flex-lg-column  text-center ">
-                  <div className={`badge px-4 rounded-pill ${parking.status === 'approved' ? 'bgColor bg-opacity-75' :
-                    parking.status === 'pending' ? ' bg-secondary bg-opacity-50' :
-                      'bg-danger bg-opacity-75'}`}>
+                  <div
+                    className={`badge px-4 rounded-pill ${
+                      parking.status === "approved"
+                        ? "bgColor bg-opacity-75"
+                        : parking.status === "pending"
+                        ? " bg-secondary bg-opacity-50"
+                        : "bg-danger bg-opacity-75"
+                    }`}
+                  >
                     {parking.status}
                   </div>
                   <div className="d-flex flex-row  justify-content-center ">
@@ -102,11 +116,11 @@ export default function ParkingCard() {
                         تعديل
                       </Link>
                     </li>
-                    {parking.disabled ?
+                    {parking.disabled ? (
                       <li className="dropdown-item">إعادة تنشيط</li>
-                      :
+                    ) : (
                       <li className="dropdown-item">إلغاء تنشيط</li>
-                    }
+                    )}
                   </ul>
                 </div>
               </div>

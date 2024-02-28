@@ -1,60 +1,28 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import InputEdit from "../../components/profile/InputEdit";
 import SelectEdit from "../../components/profile/selectEdit";
 import Photoprofile from "./../../components/profile/photoprofile";
 import classes from "./../../styles/formStyles.module.css";
-import axiosInstanceParking from "../../axiosConfig/instanc";
-import { useSelector } from "react-redux";
+import useLogInUserData from "../../../hook/useLogInUserData";
 
 export default function EditProfile() {
-  // const [Role, setRole] = useState("");
-  const user = useSelector((state) => state.user.user)
-  
-  //
-  // const UserRole = useSelector((state) => state.UserRole.UserRole);
-
-  useEffect(() => {
-    // setRole(UserRole);
-  }, []);
-  const [fristName, setFristNam] = useState("");
-  const [lastName, setLastNam] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [carNumber, setCarNumber] = useState("");
-  const [carType, setCarType] = useState("");
-  const userInfo = {
-    fristName: fristName,
-    lastName: lastName,
-    phone: phone,
-    email: email,
-    carNumber: carNumber,
-    carType: carType,
-  };
-  //
-
+  const user = useLogInUserData();
+  console.log(user);
   const [registeUser, setRegisteUser] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    phoneNumber: "",
-    role: "",
-    carType: "",
-    city: "",
-    state: "",
-    region: "",
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    phoneNumber: user.phoneNumber,
+    city: user.city,
+    state: user.state,
+    region: user.region,
     plateNumber: "",
   });
   const [errors, setErrors] = useState({
     fristNameErrors: "*",
     lastNameErrors: "*",
     emailErrors: "*",
-    passwordErrors: "*",
-    confirmPasswordErrors: "*",
     phoneNumberErrors: "*",
-    roleErrors: "*",
-    carTypeErrors: "",
     cityErrors: "",
     stateErrors: "",
     regionErrors: "",
@@ -62,9 +30,7 @@ export default function EditProfile() {
   });
   let nameRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;
   let emailRegx = /^[a-zA-Z0-9]{4,15}(@)(gmail|yahoo|outlook)(.com)$/;
-  let passwordRegx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d])(?=.*[*:!#&^$.?#@])[a-zA-Z\d*:!#&^$.?#@]{8,}$/;
   let phoneRegx = /^(?:(?:\+|00)968)?(9[1-9]\d{6})$/;
-  let roleRegx = /^(renter|driver)$/;
   let carTypeRegx = /^(سيارة)$/;
   let plateNumberRegx = /^[0-9]{5,}$/;
   let cityRegx = /^(masqt|mtrh|seeb|boshr|amrat|qryat)$/;
@@ -93,38 +59,11 @@ export default function EditProfile() {
           value.length === 0 ? "يجب ادخال البريد الاليكتروني" : emailRegx.test(value) ? "" : "يجب ادخال بريد اليكتروني صحيح",
       });
     }
-    if (name === "password") {
-      setErrors({
-        ...errors,
-        passwordErrors:
-          value.length === 0
-            ? "يجب ادخال رقم سري"
-            : value.length <= 7
-            ? "يحب ادخال 8 احرف بحد ادني"
-            : passwordRegx.test(value)
-            ? ""
-            : "يجب ادخال حرف كبير وحرف صغير ورقم ورمز بحد ادني",
-      });
-    }
-    if (name === "confirmPassword") {
-      setErrors({
-        ...errors,
-        confirmPasswordErrors:
-          value.length === 0 ? "يجب تاكيد الرقم السري" : value == registeUser.password ? "" : "الرقم غير صحيح",
-      });
-    }
     if (name === "phoneNumber") {
       setErrors({
         ...errors,
         phoneNumberErrors:
           value.length === 0 ? "يجب ادخال رقم الجوال" : phoneRegx.test(value) ? "" : "يجب ادخال رقم جوال صحيح",
-      });
-    }
-    if (name === "role") {
-      setErrors({
-        ...errors,
-        roleErrors:
-          value.length === 0 ? "يجب اختيار النوع" : roleRegx.test(value) ? "" : "يجب اختيار من واحد من الاختيارات المقدمة",
       });
     }
     if (registeUser.role === "driver") {
@@ -205,32 +144,30 @@ export default function EditProfile() {
   //     }
   //   }
   // };
-  console.log(registeUser);
-
-  console.log(userInfo);
   return (
     <>
+     <Photoprofile photo={`/images/defaultpersonjpg.jpg`} time={`عضو منذ 5 اسابيع`} />
       <div className="d-flex flex-column mt-5  align-self-center gap-6 align-self-start w-75">
         <div className="row flex-column flex-sm-row ">
           <div className="col-lg-6 col-md-6 col-sm-12">
-            <InputEdit label="الأسم الأول" placeholder="...............*" type="text" setState={setFristNam} />
+            <InputEdit label="الأسم الأول" placeholder={registeUser.firstName} type="text" setState={setRegisteUser} />
           </div>
           <div className="col-lg-6 col-md-6 col-sm-12">
-            <InputEdit label="الأسم الثاني" placeholder="...............*" type="text" setState={setLastNam} />
+            <InputEdit label="الأسم الثاني" placeholder={registeUser.lastName} type="text" setState={setRegisteUser} />
           </div>
           <div className="col-lg-6 col-md-6 col-sm-12">
-            <InputEdit label="رقم الهاتف" placeholder="01023456789 *" type="number" setState={setPhone} />
+            <InputEdit label="رقم الهاتف" placeholder={registeUser.phoneNumber} type="number" setState={setRegisteUser} />
           </div>
           <div className="col-lg-6 col-md-6 col-sm-12">
-            <InputEdit label="الأيميل" placeholder="اللأيميل *" type="email" setState={setEmail} />
+            <InputEdit label="الأيميل" placeholder={registeUser.email} type="email" setState={setRegisteUser} />
           </div>
           {user.role === "driver" && (
             <>
               <div className="col-lg-6 col-md-6 col-sm-12">
-                <SelectEdit label="نوع المركبة" option1="سيارة" setState={setCarType} />
+                <SelectEdit label="نوع المركبة" option1="سيارة" setState={setRegisteUser} />
               </div>
               <div className="col-lg-6 col-md-6 col-sm-12">
-                <InputEdit label="رقم اللوحة" placeholder="142536 *" type="number" setState={setCarNumber} />
+                <InputEdit label="رقم اللوحة" placeholder="142536 *" type="number" setState={setRegisteUser} />
               </div>
             </>
           )}
@@ -246,9 +183,9 @@ export default function EditProfile() {
                   name="state"
                   onChange={registeValidation}
                   onBlur={registeValidation}
-                >
-                  <option value="" hidden>
-                    **********{" "}
+                  value={registeUser.state}>
+                 <option value={` `} selected disabled>
+                    حدد المحافظة
                   </option>
                   <option value="مسقط">مسقط</option>
                 </select>
@@ -261,19 +198,19 @@ export default function EditProfile() {
                 <select
                   id="city"
                   name="city"
+                  value={registeUser.city}
                   className={`${classes.input} form-control border border-secondary shadow-none`}
                   onChange={registeValidation}
-                  onBlur={registeValidation}
-                >
-                  <option value="" hidden>
-                    **********
-                  </option>
-                  <option value="masqt">مسقط</option>
-                  <option value="mtrh">مطرح</option>
-                  <option value="seeb">السيب</option>
-                  <option value="boshr">بوشر</option>
-                  <option value="amrat">العامرات</option>
-                  <option value="qryat">قريات</option>
+                  onBlur={registeValidation}>
+                  <option value={` `} selected hidden>
+                حدد الولاية
+              </option>
+                  <option value="مسقط">مسقط</option>
+                  <option value="مطرح">مطرح</option>
+                  <option value="السيب">السيب</option>
+                  <option value="بوشر">بوشر</option>
+                  <option value="العامرات">العامرات</option>
+                  <option value="قريات">قريات</option>
                 </select>
                 <p className={`${classes.error} text-danger`}>{errors.cityErrors}</p>
               </div>
@@ -286,6 +223,7 @@ export default function EditProfile() {
                   type="text"
                   id="region"
                   name="region"
+                  value={registeUser.region}
                   className={`${classes.input} form-control border-secondary shadow-none`}
                   //  onChange={registeValidation}
                   //  onBlur={registeValidation}

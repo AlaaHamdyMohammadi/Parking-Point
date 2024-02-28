@@ -8,23 +8,17 @@ import Layout from "./layout/Layout";
 import HandelErorr from "./pages/handelErorr";
 import AddParking from "./pages/parking/AddParking";
 import OwnerProfile from "./pages/parking/OwnerProfile";
-
-// import Myaccount from "./pages/driver/Myaccount";
-// import Editaccount from "./pages/driver/Editaccount";
 import ParkingHome from "./pages/parking/ParkingHome";
 import EditProfile from "./pages/parking/EditProfile";
 import Dashboard from "./pages/parking/Dashboard";
 import RegistLayout from "./layout/RegistLayout";
 import Sales from "./pages/parking/Sales";
-import ViewProfile from "./pages/parking/ViewProfile";
-// import Profile from "./pages/driver/profile";
-// import MyTrips from "./pages/driver/mytrips";
-import Support from "./pages/driver/Support";
 import Map from "./pages/Map";
 import RatingTest from "./pages/RatingTest";
 import Guard from "./components/guard/Guard";
 import LoginGuard from "./components/guard/LoginGuard";
 import RenterGuard from "./components/guard/RenterGuard";
+import ModalReserve from "./components/driver/ReserveModal";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +26,6 @@ const router = createBrowserRouter([
     element: <DefaultLayout />,
     children: [
       { index: true, element: <Home />, errorElement: <HandelErorr /> },
-      { path: "support", element: <Support />, errorElement: <HandelErorr /> },
       { path: "*", element: <NotFound /> },
     ],
   },
@@ -41,72 +34,92 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/register",
-        element: <LoginGuard><Register /></LoginGuard>,
+        element: (
+          <LoginGuard>
+            <Register />
+          </LoginGuard>
+        ),
         errorElement: <HandelErorr />,
       },
     ],
   },
   {
-    
     element: <Layout />,
     children: [
-      {path: "Profile", element: <Guard><Dashboard /></Guard>,
+      {
+        path: "Profile",
+        element: (
+          <Guard>
+            <Dashboard />
+          </Guard>
+        ),
         children: [
-          { index: true, element:<Guard><OwnerProfile /> </Guard>, errorElement: <HandelErorr />},
-          { path: "parkingHome", element:  <RenterGuard> <ParkingHome /> </RenterGuard>, errorElement: <HandelErorr />},
-          { path: "parking", element:  <RenterGuard> <AddParking /> </RenterGuard>, errorElement: <HandelErorr />},
-          { path: "parking/:ParkingId", element:  <RenterGuard> <AddParking /> </RenterGuard>, errorElement: <HandelErorr />},
-          { path: "Owneraccount/", element: <Guard> <OwnerProfile /></Guard>,
-            children: [
-              {index: true, path: "ownerProfile", element: <Guard>  <ViewProfile /> </Guard>, errorElement: <HandelErorr /> },
-              { path: "editOwnerProfile", element: <Guard> <EditProfile /> </Guard>, errorElement: <HandelErorr /> },
-            ],
+          {
+            index: true,
+            element: (
+              <Guard>
+                <OwnerProfile />{" "}
+              </Guard>
+            ),
+            errorElement: <HandelErorr />,
           },
-          { path: "sales", element:<Guard> <Sales /> </Guard>, errorElement: <HandelErorr />},
+          {
+            path: "parkingHome",
+            element: (
+              <RenterGuard>
+                {" "}
+                <ParkingHome />{" "}
+              </RenterGuard>
+            ),
+            errorElement: <HandelErorr />,
+          },
+          {
+            path: "parking",
+            element: (
+              <RenterGuard>
+                {" "}
+                <AddParking />{" "}
+              </RenterGuard>
+            ),
+            errorElement: <HandelErorr />,
+          },
+          {
+            path: "parking/:ParkingId",
+            element: (
+              <RenterGuard>
+                {" "}
+                <AddParking />{" "}
+              </RenterGuard>
+            ),
+            errorElement: <HandelErorr />,
+          },
+          {
+            path: "editOwnerProfile",
+            element: (
+              <Guard>
+                {" "}
+                <EditProfile />{" "}
+              </Guard>
+            ),
+            errorElement: <HandelErorr />,
+          },
+          {
+            path: "sales",
+            element: (
+              <Guard>
+                {" "}
+                <Sales />{" "}
+              </Guard>
+            ),
+            errorElement: <HandelErorr />,
+          },
         ],
       },
-
-      // {
-      //   path: "/Driveraccount/:DriverId/",
-      //   element: (
-      //     <Guard>
-      //       <Profile />
-      //     </Guard>
-      //   ),
-      //   errorElement: <HandelErorr />,
-      //   children: [
-      //     {
-      //       path: "MyTrips",
-      //       element: (
-      //         <Guard>
-      //           <MyTrips />
-      //         </Guard>
-      //       ),
-      //       errorElement: <HandelErorr />,
-      //     },
-      //     {
-      //       index: true,
-      //       element: (
-      //         <Guard>
-      //           <Myaccount />
-      //         </Guard>
-      //       ),
-      //     },
-      //     {
-      //       path: "editDriverProfile",
-      //       element: (
-      //         <Guard>
-      //           <Editaccount />
-      //         </Guard>
-      //       ),
-      //       errorElement: <HandelErorr />,
-      //     },
-      //   ],
-      // },
     ],
   },
   { path: "map", element: <Map /> },
   { path: "rating", element: <RatingTest /> },
+  { path: "modal", element: <ModalReserve /> },
 ]);
 
 function App() {

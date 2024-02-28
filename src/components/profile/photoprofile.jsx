@@ -21,7 +21,6 @@ export default function Photoprofile({ photo, time }) {
         <div className="row" style={{ height: "45vh" }}>
           <img src="/images/bg2.gif" className="w-100  " style={{ height: "45vh" }} />
         </div>
-        {/* <div className=""> */}
         <div className="position-absolute  top-100 start-50 translate-middle  ">
           <div>
             <img
