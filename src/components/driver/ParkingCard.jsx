@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import classes from "./../../styles/formStyles.module.css";
 import ModalReserve from "./ReserveModal";
 // import { parkingplaces } from "../home/parkingplaces";
 // import StarRating from "./StarRating";
 import { FaStar } from "react-icons/fa";
+import StarRating from "./StarRating";
 
 export default function ParkingCard({ AvaliableParksFilter }) {
   console.log(AvaliableParksFilter);
@@ -92,7 +94,7 @@ export default function ParkingCard({ AvaliableParksFilter }) {
                 {/* <div className={`text-center  w-75 bgColor text-white  p-0  btn  ${classes.formBtn}`}>احجز</div> */}
               </div>
               <div className="d-flex flex-row  text-center justify-content-start ">
-                <RatingComponent rating={item} />
+                <RatingComponent rating={item.rate} />
               </div>
             </div>
           </div>
@@ -100,7 +102,7 @@ export default function ParkingCard({ AvaliableParksFilter }) {
       ))}
     </>
   );
-} 
+}
 
 function RatingComponent({ rating }) {
   const starArr = (length) => Array.from({ length }, (_, i) => i);
@@ -108,10 +110,10 @@ function RatingComponent({ rating }) {
   return (
     <div>
       {[...starArr(rating)].map((_, index) => (
-        <FaStar key={index} style={{ color: "#f1a525" }} />
+        <FaStar key={index} size={"0.7em"} className="yellowcolor" />
       ))}
       {[...starArr(5 - rating)].map((_, index) => (
-        <FaStar key={index + rating} style={{ color: "#331c41" }} />
+        <FaStar key={index + rating} size={"0.7em"} className="Gray" />
       ))}
     </div>
   );
