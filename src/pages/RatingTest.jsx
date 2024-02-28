@@ -8,18 +8,18 @@ import { useSelector } from "react-redux";
 
 function RatingTest() {
   const [averageRating, setAverageRating] = useState([]);
-  const token = useSelector((state) => state.token.token);
+  // const token = useSelector((state) => state.token.token);
 
-  useEffect(() => {
-    axiosInstanceParking.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${token}`;
+  // useEffect(() => {
+  //   axiosInstanceParking.defaults.headers.common[
+  //     "Authorization"
+  //   ] = `Bearer ${token}`;
 
-    axiosInstanceParking.get("/parkings").then((res) => {
-      console.log(res.data.doc);
-      setAverageRating(res.data.doc);
-    });
-  }, [token]);
+  //   axiosInstanceParking.get("/parkings").then((res) => {
+  //     console.log(res.data.doc);
+  //     setAverageRating(res.data.doc);
+  //   });
+  // }, [token]);
 
   return (
     <>

@@ -3,7 +3,8 @@
 /* eslint-disable react/display-name */
 import React, { forwardRef } from "react";
 import classes from "./../../styles/register.module.css";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const { useState } = React;
 import { FcOvertime } from "react-icons/fc";
 import axiosInstanceParking from "../../axiosConfig/instanc";
@@ -51,7 +52,8 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     // }
 
     if (startTime >= endTime) {
-      alert("End date and time must be after start date and time.");
+      // alert("End date and time must be after start date and time.");
+      toast.error("يجب أن يكون تاريخ انتهاء الحجز  بعد تاريخ البدء.");
       return;
     }
 
@@ -149,7 +151,9 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
             onClick={calculateTimeDifference}
             className=" customRange mt-4 Gray border border-0 pointer text-center w-100 m-2 ms-3 p-1 fw-semibold animate  rounded-2"
           >
-            {timeDifference.minutes > 0 || timeDifference.hours > 0 || timeDifference.days > 0
+            {timeDifference.minutes > 0 ||
+            timeDifference.hours > 0 ||
+            timeDifference.days > 0
               ? ` ${timeDifference.days} يوم, ${timeDifference.hours}  ساعة, ${timeDifference.minutes} دقيقة`
               : " معرفة مدة الركن "}
           </div>
@@ -163,6 +167,7 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
           </div>
         </div>
       </form>
+      <ToastContainer position="top-right" autoClose={4000} />
     </>
   );
 }
