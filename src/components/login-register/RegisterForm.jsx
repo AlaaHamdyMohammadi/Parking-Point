@@ -206,9 +206,9 @@ export default function RegisterForm({ setShowFormStatus }) {
       <form action="" method="post" onSubmit={handleSubmit} className="my-5">
         <div className="fs-4">
           <div className={`d-md-flex d-block`}>
-            <div className="col-md-6 col-12 ms-md-1 ">
+            <div className="col-md-6 col-12 ms-md-1">
               <label className="fs-5" htmlFor="firstName">
-                الأسم الاول{" "}
+                الأسم الاول
               </label>
               <input
                 type="text"

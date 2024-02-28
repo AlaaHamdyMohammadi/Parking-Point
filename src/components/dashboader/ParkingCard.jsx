@@ -63,7 +63,7 @@ export default function ParkingCard() {
             </div>
             <div className="col-lg-8 pe-3 col-sm-12 d-lg-flex gap-4">
               <div className="col-lg-6 col-sm-12  align-items-center">
-                <h5>parking name</h5>
+                <h5> {parking.title}</h5>
                 <p className="mb-0 customfs  ">
                   <span className=" fw-semibold">العنوان: </span>
                   {parking.address}
