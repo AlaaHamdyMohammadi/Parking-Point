@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import classes from "./../../styles/formStyles.module.css";
+import ModalReserve from "./ReserveModal";
 // import { parkingplaces } from "../home/parkingplaces";
 // import StarRating from "./StarRating";
 import { FaStar } from "react-icons/fa";
@@ -85,13 +86,11 @@ export default function ParkingCard({ AvaliableParksFilter }) {
               </div>
             </div>
             <div className=" col-lg-3 d-lg-flex gap-1 flex-lg-column justify-content-start text-center ">
-              {/* <div className="ps-2"> */}
-              <div
-                className={`text-center  w-75 bgColor text-white  p-0  btn  ${classes.formBtn}`}
-              >
-                احجز
+              <div className="ps-2">
+                <ModalReserve />
+
+                {/* <div className={`text-center  w-75 bgColor text-white  p-0  btn  ${classes.formBtn}`}>احجز</div> */}
               </div>
-              {/* </div> */}
               <div className="d-flex flex-row  text-center justify-content-start ">
                 <RatingComponent rating={item} />
               </div>

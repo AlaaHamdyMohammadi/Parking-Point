@@ -47,7 +47,7 @@ export default function Header() {
                     </Link>
                   </li>
                   <li>
-                    <Link to={`Profile/Owneraccount/ownerProfile`} className="dropdown-item">
+                    <Link to={`Profile`} className="dropdown-item">
                       <span className="ps-2">
                         <IoPerson />
                       </span>

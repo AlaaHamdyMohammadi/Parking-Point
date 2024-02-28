@@ -28,7 +28,7 @@ export default function HomeLogin() {
     setAvaliableParksFilter(AvaliableParks);
   };
   console.log(AvaliableParksFilter, "AvaliableParks recive");
-  // alert(AvaliableParksFilter);
+
   return (
     <div className={``}>
       <div className={`d-lg-flex flex-row gap-1`}>
