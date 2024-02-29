@@ -58,8 +58,6 @@ export default function EditProfile() {
         }
     }
 }
-  console.log(errors);
-  console.log(userInfo);
   return (
     <>
       <Photoprofile photo={`/images/defaultpersonjpg.jpg`} time={`عضو منذ 5 اسابيع`} />
@@ -87,13 +85,13 @@ export default function EditProfile() {
           {user.role == "renter" &&
             <>
               <div className="col-md-6 col-12">
-                <CitySelect cityInfo={userInfo} classes={classes} setCityInfo={setUserInfo} errors={errors} setErrors={setErrors} role={user.role} />
+                <CitySelect cityInfo={userInfo} classes={classes} setCityInfo={setUserInfo} errors={errors} setErrors={setErrors} />
               </div>
               <div className="col-md-6 col-12">
-                <RegionInput regionInfo={userInfo} classes={classes} setRegionInfo={setUserInfo} errors={errors} setErrors={setErrors} role={user.role} />
+                <RegionInput regionInfo={userInfo} classes={classes} setRegionInfo={setUserInfo} errors={errors} setErrors={setErrors} />
               </div>
               <div className="col-md-6 col-12">
-                <StateInput stateInfo={userInfo} classes={classes} setStateInfo={setUserInfo} errors={errors} setErrors={setErrors} role={user.role} />
+                <StateInput stateInfo={userInfo} classes={classes} setStateInfo={setUserInfo} errors={errors} setErrors={setErrors} />
               </div>
               <div className={`col-md-6 col-12`}>
                 <label className="fs-5" htmlFor="nationaleId">
@@ -108,7 +106,6 @@ export default function EditProfile() {
         </div>
         <div className="row d-flex justify-content-center">
           <input type="submit" value="تحديث"
-          //  className={`text-center bgColor w-50 text-white btn mt-2 ${classes.formBtn}`} 
            className={
             Object.values(errors).some((error) => error !== "")
                 ? `text-center bgColor w-50 text-white btn mt-2 ${classes.formBtn} disabled`

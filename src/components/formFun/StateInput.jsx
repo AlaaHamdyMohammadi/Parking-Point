@@ -3,14 +3,14 @@ export default function StateInput({ classes, setStateInfo, stateInfo, errors, s
     let stateRegx = /^(مسقط)$/;
     const stateValidation = (event) => {
         const { name, value } = event.target
-        if (role === "renter") {
+        // if (role === "renter") {
             setErrors({
                 ...errors,
                 stateErrors: value.length === 0 ? "يجب ادخال المحافظه" : stateRegx.test(value) ? "" : "المحافظه المتاحة مسقط قفط",
             });
+            setStateInfo({ ...stateInfo, [name]: value });
         }
-        setStateInfo({ ...stateInfo, [name]: value });
-    }
+    // }
     return (
         <>
             <label className="fs-5" htmlFor="state">
