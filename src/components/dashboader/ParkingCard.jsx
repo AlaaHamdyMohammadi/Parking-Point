@@ -19,14 +19,14 @@ export default function ParkingCard({userParkings, setUserParkings}) {
     <>
       {userParkings.map((parking, index) => (
         <div key={parking._id} className="mb-3  w-100 d-flex row">
-          <div className=" d-flex   w-100   pb-2 border-bottom justify-content-between">
+          <div className=" d-flex w-100 pb-2 border-bottom justify-content-between">
+            <div className="fw-bold mt-5">{index+1}</div>
             <div className="col-3">
               <div id={`carouselExampleInterval${index}`} className=" w-100 carousel rounded " data-bs-ride="carousel">
                 <div className="carousel-inner  ">
                   {(parking.photos).map((photo, index) => (
                     <div className="carousel-item  active" data-bs-interval="10000" key={index}>
-                      <img
-                        src={`${axiosInstanceParking.defaults.baseURL}/parkings/${photo}`}
+                      <img src={`${axiosInstanceParking.defaults.baseURL}/parkings/${photo}`}
                         style={{ width: "3vh", height: "18vh" }}
                         className="d-block w-100"
                         alt="..."

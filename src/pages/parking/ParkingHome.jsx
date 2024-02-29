@@ -1,12 +1,9 @@
 import { Link } from "react-router-dom";
 import ParkingCard from "../../components/dashboader/ParkingCard";
 import ParkingFilter from "../../components/dashboader/ParkingFilter";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 export default function ParkingHome() {
   const [userParkings, setUserParkings] = useState([])
-  useEffect(() => {
-  console.log(userParkings);
-  }, [userParkings]);
   return (
     <div  className={`d-flex flex-column justify-content-center m-5`}>
       <div className={`d-flex align-self-center justify-content-between w-75 mb-5 pb-4 border-bottom`}>
