@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import ReactMapGL, {
   Marker,
   Popup,
-  NavigationControl,
   Layer,
   Source,
   FullscreenControl,
@@ -20,28 +19,12 @@ const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 const mapStyle = "mapbox://styles/alaahamdy2/clsp701hd005a01pkhrmygybf";
 
 const Map = ({ AvaliableParksFilter }) => {
-  // console.log("AvaliableParksFilter = ", AvaliableParksFilter);
   const [viewport, setViewport] = useState({
     width: "100%",
     height: "100%",
     latitude: 0,
     longitude: 0,
     zoom: 10,
-  });
-
-  const [destination, setDestination] = useState({
-    first: {
-      latitude: 30.4659284,
-      longitude: 30.9305801,
-    },
-    second: {
-      latitude: 30.5476041,
-      longitude: 31.0084369,
-    },
-    third: {
-      latitude: 30.58768,
-      longitude: 31.502,
-    },
   });
 
   useEffect(() => {
@@ -90,11 +73,12 @@ const Map = ({ AvaliableParksFilter }) => {
           offsetTop={-10}
         />
 
-        {destination && (
-          <>
+        {AvaliableParksFilter.map((park, index) =>
+          park.location ? (
             <Marker
-              latitude={destination.first.latitude}
-              longitude={destination.first.longitude}
+              key={index}
+              latitude={park.location.latitude}
+              longitude={park.location.longitude}
               offsetLeft={-20}
               offsetTop={-10}
             >
@@ -102,40 +86,26 @@ const Map = ({ AvaliableParksFilter }) => {
                 <FaLocationDot />
               </div>
             </Marker>
-
-            <Marker
-              latitude={destination.second.latitude}
-              longitude={destination.second.longitude}
-              offsetLeft={-20}
-              offsetTop={-10}
-            >
-              <div style={{ color: "#f1a525", fontSize: "35px" }}>
-                <FaLocationDot />
-              </div>
-            </Marker>
-            <Marker
-              latitude={destination.third.latitude}
-              longitude={destination.third.longitude}
-              offsetLeft={-20}
-              offsetTop={-10}
-            >
-              <div style={{ color: "#f1a525", fontSize: "35px" }}>
-                <FaLocationDot />
-              </div>
-            </Marker>
-          </>
+          ) : null
         )}
 
         <div
           style={{
             position: "absolute",
-            top: 10,
+            top: 85,
             right: 10,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            zIndex: 1,
           }}
         >
+          <GeolocateControl
+            positionOptions={{ enableHighAccuracy: true }}
+            trackUserLocation={true}
+            showUserLocation={true}
+          />
+          <FullscreenControl />
           <button
             onClick={handleZoomIn}
             style={{
@@ -163,68 +133,52 @@ const Map = ({ AvaliableParksFilter }) => {
           </button>
         </div>
 
-        {/* <div>
-          <GeolocateControl />
-          <FullscreenControl />
-       </div>*/}
-
-        {viewport && destination && (
-          <>
+        {AvaliableParksFilter.map((park, index) =>
+          park.location ? (
             <Popup
-              latitude={destination.first.latitude}
-              longitude={destination.first.longitude}
+              key={index}
+              latitude={park.location.latitude}
+              longitude={park.location.longitude}
               closeButton={true}
               closeOnClick={false}
             >
-              <div style={{ fontSize: 15 }}>First Location</div>
+              <div style={{ fontSize: 20 }}>{park.address}</div>
             </Popup>
-            <Popup
-              latitude={destination.second.latitude}
-              longitude={destination.second.longitude}
-              closeButton={true}
-              closeOnClick={false}
-            >
-              <div style={{ fontSize: 15 }}>Second Location</div>
-            </Popup>
-            <Popup
-              latitude={destination.third.latitude}
-              longitude={destination.third.longitude}
-              closeButton={true}
-              closeOnClick={false}
-            >
-              <div style={{ fontSize: 15 }}>Third Location</div>
-            </Popup>
-          </>
+          ) : null
         )}
 
-        {viewport && destination && (
-          <div>
-            <Source
-              type="geojson"
-              data={{
-                type: "Feature",
-                properties: {},
-                geometry: {
-                  type: "LineString",
-                  coordinates: [
-                    [destination.first.longitude, destination.first.latitude],
-                    [viewport.longitude, viewport.latitude],
-                    [destination.second.longitude, destination.second.latitude],
-                    [viewport.longitude, viewport.latitude],
-                    [destination.third.longitude, destination.third.latitude],
-                  ],
-                },
+        {viewport && (
+          <Source
+            id="lineSource"
+            type="geojson"
+            data={{
+              type: "Feature",
+              properties: {},
+              geometry: {
+                type: "LineString",
+                coordinates: [
+                  [viewport.longitude, viewport.latitude],
+                  ...AvaliableParksFilter.filter((park) => park.location).map(
+                    (park) => [park.location.longitude, park.location.latitude]
+                  ),
+                ],
+              },
+            }}
+          >
+            <Layer
+              id="lineLayer"
+              type="line"
+              source="lineSource"
+              layout={{
+                "line-cap": "round",
+                "line-join": "round",
               }}
-            >
-              <Layer
-                type="line"
-                paint={{
-                  "line-color": "#331c41",
-                  "line-width": 3,
-                }}
-              />
-            </Source>
-          </div>
+              paint={{
+                "line-color": "#331c41",
+                "line-width": 3,
+              }}
+            />
+          </Source>
         )}
       </ReactMapGL>
     </div>

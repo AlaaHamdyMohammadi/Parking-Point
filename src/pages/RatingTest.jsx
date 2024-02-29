@@ -7,7 +7,7 @@ import StarRatingModal from "../components/driver/StarRatingModal";
 import { useSelector } from "react-redux";
 
 function RatingTest() {
-  const [averageRating, setAverageRating] = useState([]);
+  // const [averageRating, setAverageRating] = useState([]);
   // const token = useSelector((state) => state.token.token);
 
   // useEffect(() => {
@@ -22,12 +22,9 @@ function RatingTest() {
   // }, [token]);
 
   return (
-    <>
-      {averageRating.map((rating) => (
-        <RatingComponent key={rating._id} rating={rating.rate} />
-      ))}
+    
       <StarRatingModal />
-    </>
+    
   );
 }
 

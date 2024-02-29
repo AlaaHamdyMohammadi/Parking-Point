@@ -1,11 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import classes from "./../../styles/formStyles.module.css";
 import ModalReserve from "./ReserveModal";
-// import { parkingplaces } from "../home/parkingplaces";
-// import StarRating from "./StarRating";
 import { FaStar } from "react-icons/fa";
-import StarRating from "./StarRating";
 
 export default function ParkingCard({ AvaliableParksFilter }) {
   console.log(AvaliableParksFilter);
