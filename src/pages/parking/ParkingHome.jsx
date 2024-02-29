@@ -1,15 +1,26 @@
+import { Link } from "react-router-dom";
 import ParkingCard from "../../components/dashboader/ParkingCard";
+import ParkingFilter from "../../components/dashboader/ParkingFilter";
+import { useEffect, useState } from "react";
 export default function ParkingHome() {
+  const [userParkings, setUserParkings] = useState([])
+  useEffect(() => {
+  console.log(userParkings);
+  }, [userParkings]);
   return (
-    <div  className={`mt-5`}>
-      {/* <div className={`d-flex align-self-center w-75 mt-4`}>
-        <ParkingFilter value={"all"} text="الجميع" count={1} />
-        <ParkingFilter value={"active"} text="نشط" count={6} />
-        <ParkingFilter value={"pending"} text="قيد الانتظار" count={2} />
-        <ParkingFilter value={"inactive"} text="غير نشط" count={3} />
-      </div> */}
+    <div  className={`d-flex flex-column justify-content-center m-5`}>
+      <div className={`d-flex align-self-center justify-content-between w-75 mb-5 pb-4 border-bottom`}>
+        <div className={`d-flex align-self-center w-75`}>
+        <ParkingFilter value={"approved"} text="نشط" setUserParkings={setUserParkings}/>
+        <ParkingFilter value={"pending"} text="قيد الانتظار" setUserParkings={setUserParkings}/>
+        <ParkingFilter value={"rejected"} text="مرفوض" setUserParkings={setUserParkings}/>
+        </div>
+        <div>
+          <Link to={`/Profile/parking`} className="text-decoration-none btn btn-outline-warning text-dark">اضافة موقف جديد</Link>
+        </div>
+      </div>
       <div className={`align-self-center w-75`}>
-        <ParkingCard />
+        <ParkingCard  userParkings={userParkings} setUserParkings={setUserParkings}/>
       </div>
     </div>
   );

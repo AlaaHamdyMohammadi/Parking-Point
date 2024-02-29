@@ -50,7 +50,7 @@ export default function SidebarProfile() {
                 icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
                 text="اضافة موقف "
               />
-              <SideBareLink href={`/Profile/parkingHome`} icon={<LuParkingSquareOff className="editIcon p-2" />} text="المواقف" />
+              <SideBareLink href={`/`} icon={<LuParkingSquareOff className="editIcon p-2" />} text="المواقف" />
             </>
           }
           <SideBareLink

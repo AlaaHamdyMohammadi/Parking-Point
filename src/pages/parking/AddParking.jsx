@@ -3,6 +3,9 @@ import { MdClose } from "react-icons/md";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import CitySelect from "../../components/formFun/CitySelect";
+import classes from "./../../styles/formStyles.module.css";
+// import RegionInput from "../../components/formFun/RegionInput";
 export default function AddParking() {
   const profileImgRef = useRef(null);
   const token = useSelector((state) => state.loggedIn.token)
@@ -35,6 +38,10 @@ export default function AddParking() {
         user: res.data.doc.user,
         photos: res.data.doc.photos,
         capacity: res.data.doc.capacity,
+        location: {
+          longitude: res.data.doc.longitude,
+          latitude: res.data.doc.latitude
+        },
       });
       setImgArr(res.data.doc.photos)
     };
@@ -79,9 +86,6 @@ export default function AddParking() {
     const { name, value } = event.target;
     if (name === "photos") {
       setErrors({ ...errors, photosErrors: value.length === 0 ? "يجب إضافة صورة بحد ادني" : "" });
-    }
-    if (name === "city") {
-      setErrors({ ...errors, cityErrors: value.length === 0 ? "يجب ادخال الولاية" : "" });
     }
     if (name === "title") {
       setErrors({
@@ -168,39 +172,20 @@ export default function AddParking() {
                     onChange={(e) => saveImageArr(e)} />
                 </div>
               )}
-              <p className="text-danger text-center">{errors.imageErrors}</p>
+              <p className={`${classes.error} text-danger`}>{errors.imageErrors}</p>
             </div>
             <div className="row">
               <div className="form-group mb-3 col-12 col-md-6 ">
+              {/* <RegionInput regionInfo={parking} classes={classes} setRegionInfo={setParking} errors={errors} setErrors={setErrors}/> */}
                 <label htmlFor="address" className="mb-1 fs-3">
-                  <small className="fw-bold">المحافظه</small>
+                  <small className="fw-bold">المنطقة</small>
                 </label>
-                <select id="address" name="address" value={parking.address} onChange={validation} onBlur={validation}
-                  className={`form-control border border-secondary shadow-none`}>
-                  <option value={` `} selected disabled>
-                    حدد المحافظة
-                  </option>
-                  <option value="مسقط">مسقط</option>
-                </select>
-                <p className="text-danger text-center">{errors.addressErrors}</p>
+                <input type="text" id="address" name="address" value={parking.address} onChange={validation} onBlur={validation}
+                className={`form-control border-secondary shadow-none`}/>
+                <p className={`${classes.error} text-danger`}>{errors.addressErrors}</p>
               </div>
               <div className="form-group mb-3 col-12 col-md-6">
-                <label htmlFor="city" className="mb-1 fs-3">
-                  <small className="fw-bold">الولاية</small>
-                </label>
-                <select id="city" name="city" value={parking.city} onChange={validation} onBlur={validation}
-                  className={`form-control border border-secondary shadow-none`}>
-                  <option value={` `} selected hidden>
-                    حدد الولاية
-                  </option>
-                  <option value="مسقط">مسقط</option>
-                  <option value="مطرح">مطرح</option>
-                  <option value="السيب">السيب</option>
-                  <option value="بوشر">بوشر</option>
-                  <option value="العامرات">العامرات</option>
-                  <option value="قريات">قريات</option>
-                </select>
-                <p className="text-danger text-center">{errors.cityErrors}</p>
+              <CitySelect cityInfo={parking} classes={classes} setCityInfo={setParking} errors={errors} setErrors={setErrors} />
               </div>
               <div className="form-group mb-3 col-12 col-md-6 ">
                 <label htmlFor="title" className="mb-1 fs-3">
@@ -216,7 +201,7 @@ export default function AddParking() {
                   name="title"
                   value={parking.title}
                 />
-                <p className="text-danger text-center">{errors.titleErrors}</p>
+                <p className={`${classes.error} text-danger`}>{errors.titleErrors}</p>
               </div>
               <div className="form-group mb-3 col-12 col-md-6 ">
                 <label htmlFor="capacity" className="mb-1 fs-3">
@@ -233,7 +218,7 @@ export default function AddParking() {
                   placeholder=""
                   name="capacity"
                 />
-                <p className="text-danger text-center">{errors.capacityErrors}</p>
+                <p className={`${classes.error} text-danger`}>{errors.capacityErrors}</p>
               </div>
             </div>
             <div className="d-flex justify-content-center">

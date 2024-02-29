@@ -3,12 +3,12 @@ export default function CarTypeInput({ classes, setCarTypeInfo, carTypeInfo, err
     let carTypeRegx = /^(سيارة)$/;
     const plateNumberValidation = (event) => {
         const { name, value } = event.target
-        if (role === "driver") {
+        // if (role === "driver") {
             setErrors({
                 ...errors,
                 carTypeErrors: value === "" ? "يجب اختيار نوع السيارة" : carTypeRegx.test(value) ? "" : "النوع سيارة فقط",
             });
-        }
+        // }
         setCarTypeInfo({ ...carTypeInfo, [name]: value });
     }
     return (

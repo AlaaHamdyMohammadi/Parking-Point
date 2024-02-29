@@ -1,15 +1,15 @@
 
-export default function RegionInput({ classes, setRegionInfo, regionInfo, errors, setErrors, role }) {
+export default function RegionInput({ classes, setRegionInfo, regionInfo, errors, setErrors }) {
     let regionRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;
     const regionValidation = (event) => {
         const { name, value } = event.target
-        if (role === "renter") {
+        // if (role === "renter") {
             setErrors({
                 ...errors,
                 regionErrors:
                     value.length === 0 ? "يجب ادخال المنطقه" : regionRegx.test(value) ? "" : "يجب ادخال ثلاثة احرف بحد ادني",
             });
-        }
+        // }
         setRegionInfo({ ...regionInfo, [name]: value });
     }
     return (

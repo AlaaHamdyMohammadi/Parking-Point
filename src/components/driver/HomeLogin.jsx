@@ -1,17 +1,20 @@
 import Map from "./Map";
 // import ParkingCard from "./ParkingCard";
 import { IoArrowRedoCircleOutline } from "react-icons/io5";
-import classes from "./../../styles/formStyles.module.css";
+// import classes from "./../../styles/formStyles.module.css";
 
 // import SearchSec from "./searchSec";
 // import Map from "./Map";
 // import SelectLocation from "./selectlocation";
 import { useState } from "react";
 import EndDateTime from "./EndDT";
-import StarRating from "./StarRating";
+// import StarRating from "./StarRating";
 import ParkingCard from "./ParkingCard";
+import useLogInUserData from "../../../hook/useLogInUserData";
+import ParkingHome from "../../pages/parking/ParkingHome";
 
 export default function HomeLogin() {
+  const user = useLogInUserData();
   const [isSearch, setIsSearch] = useState(false);
   // const [SearchParks, setSearchParks] = useState([]);
   const [AvaliableParksFilter, setAvaliableParksFilter] = useState([]);
@@ -32,7 +35,9 @@ export default function HomeLogin() {
   console.log(AvaliableParksFilter, "AvaliableParks recive");
 
   return (
-    <div className={``}>
+    <>
+    {user.role =='renter'?
+     <ParkingHome/>:
       <div className={`d-lg-flex flex-row gap-1`}>
         {/* sec1 */}
         {!isSearch && (
@@ -101,6 +106,8 @@ export default function HomeLogin() {
           <Map />
         </div>
       </div>
-    </div>
+    }
+     
+    </>
   );
 }

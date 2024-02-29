@@ -13,9 +13,7 @@ export default function PhoneInput({ classes, setPhoneNumberInfo, phoneNumberInf
   return (
     <>
               <div className="form-group mb-3 w-100 ">
-                <label htmlFor="email" className="mb-1 fs-5">
-                    <small className="fw-bold">رقم الهاتف</small>
-                </label>
+                <label htmlFor="email" className="mb-1 fs-5">رقم الهاتف</label>
                 <input
                     type={`text`}
                     className={` ${classes.input} form-control border border-secondary shadow-none `}

@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 import StarRating from "../driver/StarRating";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
-export default function ParkingCard() {
+export default function ParkingCard({userParkings, setUserParkings}) {
   const token = useSelector((state) => state.loggedIn.token)
-  const [userParkings, setUserParkings] = useState([])
   useEffect(() => {
     axiosInstanceParking.get(`/parkings/myparks`, {
       headers: {'Authorization': `Bearer ${token}`}
