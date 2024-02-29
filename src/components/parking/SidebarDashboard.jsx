@@ -52,12 +52,12 @@ export default function SidebarProfile() {
                 icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
                 text={isWide ? "إضافة موقف" : ""}
               />
-              {/* <SideBareLink
-                href={`/Profile/parkingHome`}
+
+              <SideBareLink
+                href={`/`}
                 icon={<LuParkingSquareOff className="editIcon p-2" />}
                 text={isWide ? "المواقف" : ""}
-              /> */}
-              <SideBareLink href={`/`} icon={<LuParkingSquareOff className="editIcon p-2" />} text="المواقف" />
+              />
             </>
           )}
           <SideBareLink
