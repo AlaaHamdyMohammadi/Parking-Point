@@ -1,13 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import classes from './../../styles/parkingFilter.module.css';
 import axiosInstanceParking from '../../axiosConfig/instanc';
 import { useSelector } from 'react-redux';
 export default function ParkingFilter({ value, text, setUserParkings }) {
     const refValue = useRef();
-    useEffect(() => {
-   
-    }, []);
     const token = useSelector((state) => state.loggedIn.token)
+    console.log(token);
     const filterParkings = async (event) => {
         axiosInstanceParking.get(`/parkings/myparks/?status=${event.target.value}`, {
             headers: { 'Authorization': `Bearer ${token}` }

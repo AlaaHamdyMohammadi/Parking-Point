@@ -3,30 +3,36 @@ import StarRating from "../driver/StarRating";
 import { useEffect } from "react";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
-export default function ParkingCard({userParkings, setUserParkings}) {
-  const token = useSelector((state) => state.loggedIn.token)
+export default function ParkingCard({ userParkings, setUserParkings }) {
+  const token = useSelector((state) => state.loggedIn.token);
   useEffect(() => {
-    axiosInstanceParking.get(`/parkings/myparks`, {
-      headers: {'Authorization': `Bearer ${token}`}
-    }).then((res) => {
-      setUserParkings(res.data.doc);
-    })
+    axiosInstanceParking
+      .get(`/parkings/myparks`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        setUserParkings(res.data.doc);
+        console.log(res.data.doc);
+      })
       .catch((err) => {
         console.error("Error during parkings request:", err);
       });
   }, []);
+  console.log(token, userParkings);
+
   return (
     <>
       {userParkings.map((parking, index) => (
         <div key={parking._id} className="mb-3  w-100 d-flex row">
           <div className=" d-flex w-100 pb-2 border-bottom justify-content-between">
-            <div className="fw-bold mt-5">{index+1}</div>
+            <div className="fw-bold mt-5">{index + 1}</div>
             <div className="col-3">
               <div id={`carouselExampleInterval${index}`} className=" w-100 carousel rounded " data-bs-ride="carousel">
                 <div className="carousel-inner  ">
-                  {(parking.photos).map((photo, index) => (
+                  {parking.photos.map((photo, index) => (
                     <div className="carousel-item  active" data-bs-interval="10000" key={index}>
-                      <img src={`${axiosInstanceParking.defaults.baseURL}/parkings/${photo}`}
+                      <img
+                        src={`${axiosInstanceParking.defaults.baseURL}/parkings/${photo}`}
                         style={{ width: "3vh", height: "18vh" }}
                         className="d-block w-100"
                         alt="..."
@@ -56,7 +62,7 @@ export default function ParkingCard({userParkings, setUserParkings}) {
             </div>
             <div className="col-lg-8 pe-3 col-sm-12 d-lg-flex gap-4">
               <div className="col-lg-6 col-sm-12  align-items-center">
-                <h5>parking name</h5>
+                <h5> {parking.title}</h5>
                 <p className="mb-0 customfs  ">
                   <span className=" fw-semibold">العنوان: </span>
                   {parking.address}
@@ -66,17 +72,27 @@ export default function ParkingCard({userParkings, setUserParkings}) {
                   {parking.capacity}
                 </p>
                 <p className="">
-                  <small className="text-body-secondary">تمت الإضافة : {new Date(parking.createdAt).toLocaleDateString()}</small>
+                  <small className="text-body-secondary">
+                    تمت الإضافة : {new Date(parking.createdAt).toLocaleDateString()}
+                  </small>
                 </p>
                 <p className="">
-                  <small className="text-body-secondary">اخر تعديل : {new Date(parking.updatedAt).toLocaleDateString()}</small>
+                  <small className="text-body-secondary">
+                    اخر تعديل : {new Date(parking.updatedAt).toLocaleDateString()}
+                  </small>
                 </p>
               </div>
               <div className=" d-flex gap-2  py-2 w-100 justify-content-between ">
                 <div className=" d-lg-flex gap-3 flex-lg-column  text-center ">
-                  <div className={`badge px-4 rounded-pill ${parking.status === 'approved' ? 'bgColor bg-opacity-75' :
-                    parking.status === 'pending' ? ' bg-secondary bg-opacity-50' :
-                      'bg-danger bg-opacity-75'}`}>
+                  <div
+                    className={`badge px-4 rounded-pill ${
+                      parking.status === "approved"
+                        ? "bgColor bg-opacity-75"
+                        : parking.status === "pending"
+                        ? " bg-secondary bg-opacity-50"
+                        : "bg-danger bg-opacity-75"
+                    }`}
+                  >
                     {parking.status}
                   </div>
                   <div className="d-flex flex-row  justify-content-center ">
@@ -99,11 +115,11 @@ export default function ParkingCard({userParkings, setUserParkings}) {
                         تعديل
                       </Link>
                     </li>
-                    {parking.disabled ?
+                    {parking.disabled ? (
                       <li className="dropdown-item">إعادة تنشيط</li>
-                      :
+                    ) : (
                       <li className="dropdown-item">إلغاء تنشيط</li>
-                    }
+                    )}
                   </ul>
                 </div>
               </div>

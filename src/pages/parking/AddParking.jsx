@@ -8,7 +8,7 @@ import classes from "./../../styles/formStyles.module.css";
 // import RegionInput from "../../components/formFun/RegionInput";
 export default function AddParking() {
   const profileImgRef = useRef(null);
-  const token = useSelector((state) => state.loggedIn.token)
+  const token = useSelector((state) => state.loggedIn.token);
   let { ParkingId } = useParams();
   const navigate = useNavigate();
   function clickImgInput() {
@@ -23,13 +23,13 @@ export default function AddParking() {
     capacity: 1,
     location: {
       longitude: "31.22",
-      latitude: "30.22"
+      latitude: "30.22",
     },
   });
   useEffect(() => {
     const editParking = async () => {
       const res = await axiosInstanceParking.get(`/parkings/${ParkingId}`, {
-        headers: { 'Authorization': `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
       setParking({
         city: res.data.doc.city,
@@ -40,10 +40,10 @@ export default function AddParking() {
         capacity: res.data.doc.capacity,
         location: {
           longitude: res.data.doc.longitude,
-          latitude: res.data.doc.latitude
+          latitude: res.data.doc.latitude,
         },
       });
-      setImgArr(res.data.doc.photos)
+      setImgArr(res.data.doc.photos);
     };
     if (ParkingId) {
       editParking();
@@ -55,7 +55,7 @@ export default function AddParking() {
     titleErrors: "",
     addressErrors: "",
     capacityErrors: "",
-    locationErrors: '',
+    locationErrors: "",
   });
   const formData = new FormData();
   function uploadFile(files, formData) {
@@ -81,7 +81,6 @@ export default function AddParking() {
     });
   };
 
-
   function validation(event) {
     const { name, value } = event.target;
     if (name === "photos") {
@@ -89,9 +88,12 @@ export default function AddParking() {
     }
     if (name === "title") {
       setErrors({
-        ...errors, titleErrors: value.length === 0
-          ? "يجب ادخال المنطقه"
-          : /^[A-Za-z0-9\u0600-\u06FF]{3,}$/.test(value) ? ""
+        ...errors,
+        titleErrors:
+          value.length === 0
+            ? "يجب ادخال اسم الموقف"
+            : /^[A-Za-z0-9\u0600-\u06FF]{3,}$/.test(value)
+            ? ""
             : "يجب ادخال ثلاثة احرف بحد ادني",
       });
     }
@@ -99,7 +101,7 @@ export default function AddParking() {
       setErrors({ ...errors, addressErrors: value.length === 0 ? "يجب ادخال المحافظة" : "" });
     }
     if (name === "location") {
-      setErrors({ ...errors, locationErrors: value.length === 0 ? "يجب ادخال نص" : "" })
+      setErrors({ ...errors, locationErrors: value.length === 0 ? "يجب ادخال نص" : "" });
     }
     if (name === "capacity") {
       setErrors({ ...errors, capacityErrors: value.length === 0 ? "يجب ادخال السعة" : "" });
@@ -115,14 +117,17 @@ export default function AddParking() {
     } else {
       if (ParkingId) {
         console.log(ParkingId);
-        axiosInstanceParking.patch(`/parkings/${ParkingId}`, parking, {
-          headers: { 'Authorization': `Bearer ${token}` }
-        }).then((res) => {
-          console.log("update request successful", res.data);
-          navigate("/");
-        }).catch((err) => {
-          console.error("Error during parking request:", err);
-        });
+        axiosInstanceParking
+          .patch(`/parkings/${ParkingId}`, parking, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((res) => {
+            console.log("update request successful", res.data);
+            navigate("/");
+          })
+          .catch((err) => {
+            console.error("Error during parking request:", err);
+          });
       } else if (!ParkingId) {
         formData.append("city", parking.city);
         formData.append("title", parking.title);
@@ -130,15 +135,18 @@ export default function AddParking() {
         formData.append("capacity", parking.capacity);
         formData.append("longitude", parking.location.longitude);
         formData.append("latitude", parking.location.latitude);
-        uploadFile(imgArr, formData)
-        axiosInstanceParking.post(`/parkings`, formData, {
-          headers: { 'Authorization': `Bearer ${token}` }
-        }).then((res) => {
-          console.log("Post request successful", res.data);
-          navigate("/Profile/parkingHome");
-        }).catch((err) => {
-          console.error("Error during parking request:", err);
-        });
+        uploadFile(imgArr, formData);
+        axiosInstanceParking
+          .post(`/parkings`, formData, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((res) => {
+            console.log("Post request successful", res.data);
+            navigate("/Profile/parkingHome");
+          })
+          .catch((err) => {
+            console.error("Error during parking request:", err);
+          });
       }
     }
     event.preventDefault();
@@ -158,38 +166,62 @@ export default function AddParking() {
                   key={index}
                 >
                   <div onClick={() => removeImage(index)} className={`position-absolute top-0 end-0`} role="button">
-                    <MdClose className="fs-3 bgColor text-white" />
+                    <MdClose className="fs-5 bgColor text-white" />
                   </div>
                   <img className="w-100" src={showImages(image)} alt="Selected" />
                 </div>
               ))}
               {imgArr.length < 3 && (
-                <div className={`col-4 mx-2 d-flex p-3 d-flex align-items-center justify-content-center`}
-                  role="button" onClick={clickImgInput}>
+                <div
+                  className={`col-4 mx-2 d-flex p-3 d-flex align-items-center justify-content-center`}
+                  role="button"
+                  onClick={clickImgInput}
+                >
                   <img src="/images/addPhoto.webp" alt="" />
-                  <input type="file" name="photos"
-                    multiple id="images" accept="image/*" hidden ref={profileImgRef}
-                    onChange={(e) => saveImageArr(e)} />
+                  <input
+                    type="file"
+                    name="photos"
+                    multiple
+                    id="images"
+                    accept="image/*"
+                    hidden
+                    ref={profileImgRef}
+                    onChange={(e) => saveImageArr(e)}
+                  />
                 </div>
               )}
               <p className={`${classes.error} text-danger`}>{errors.imageErrors}</p>
             </div>
+
             <div className="row">
               <div className="form-group mb-3 col-12 col-md-6 ">
-              {/* <RegionInput regionInfo={parking} classes={classes} setRegionInfo={setParking} errors={errors} setErrors={setErrors}/> */}
-                <label htmlFor="address" className="mb-1 fs-3">
-                  <small className="fw-bold">المنطقة</small>
+                {/* <RegionInput regionInfo={parking} classes={classes} setRegionInfo={setParking} errors={errors} setErrors={setErrors}/> */}
+                <label htmlFor="address" className="mb-1 fs-5">
+                  المنطقة
                 </label>
-                <input type="text" id="address" name="address" value={parking.address} onChange={validation} onBlur={validation}
-                className={`form-control border-secondary shadow-none`}/>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={parking.address}
+                  onChange={validation}
+                  onBlur={validation}
+                  className={`form-control border-secondary shadow-none`}
+                />
                 <p className={`${classes.error} text-danger`}>{errors.addressErrors}</p>
               </div>
               <div className="form-group mb-3 col-12 col-md-6">
-              <CitySelect cityInfo={parking} classes={classes} setCityInfo={setParking} errors={errors} setErrors={setErrors} />
+                <CitySelect
+                  cityInfo={parking}
+                  classes={classes}
+                  setCityInfo={setParking}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
               </div>
               <div className="form-group mb-3 col-12 col-md-6 ">
-                <label htmlFor="title" className="mb-1 fs-3">
-                  <small className="fw-bold">اسم الموقف</small>
+                <label htmlFor="title" className="mb-1 fs-5">
+                  اسم الموقف
                 </label>
                 <input
                   onChange={validation}
@@ -204,8 +236,8 @@ export default function AddParking() {
                 <p className={`${classes.error} text-danger`}>{errors.titleErrors}</p>
               </div>
               <div className="form-group mb-3 col-12 col-md-6 ">
-                <label htmlFor="capacity" className="mb-1 fs-3">
-                  <small className="fw-bold">السعة</small>
+                <label htmlFor="capacity" className="mb-1 fs-5">
+                  السعة
                 </label>
                 <input
                   type="number"
@@ -220,27 +252,50 @@ export default function AddParking() {
                 />
                 <p className={`${classes.error} text-danger`}>{errors.capacityErrors}</p>
               </div>
+              <div className="form-group mb-3 col-12 col-md-6 ">
+                <label htmlFor="address" className="mb-1 fs-5">
+                  المحافظه
+                </label>
+                <select
+                  id="address"
+                  name="address"
+                  value={parking.address}
+                  onChange={validation}
+                  onBlur={validation}
+                  className={`form-control border border-secondary shadow-none`}
+                >
+                  <option value={` `} selected disabled>
+                    حدد المحافظة
+                  </option>
+                  <option value="مسقط">مسقط</option>
+                </select>
+                <p className="text-danger text-center">{errors.addressErrors}</p>
+              </div>
             </div>
             <div className="d-flex justify-content-center">
-              {ParkingId ?
+              {ParkingId ? (
                 <input
                   type="submit"
                   value={`تعديل الموقف`}
-                  className={Object.values(errors).some((error) => error !== "")
-                    ? "btn bgColor text-white col-4 disabled"
-                    : "btn bgColor text-white col-4 "}
+                  className={
+                    Object.values(errors).some((error) => error !== "")
+                      ? "btn bgColor text-white col-4 disabled"
+                      : "btn bgColor text-white col-4 "
+                  }
                   disabled={Object.values(parking).some((parking) => parking == "")}
                 />
-                :
+              ) : (
                 <input
                   type="submit"
                   value={`إضافة موقف`}
-                  className={Object.values(errors).some((error) => error !== "")
-                    ? "btn bgColor text-white col-4 disabled"
-                    : "btn bgColor text-white col-4 "}
+                  className={
+                    Object.values(errors).some((error) => error !== "")
+                      ? "btn bgColor text-white col-4 disabled"
+                      : "btn bgColor text-white col-4 "
+                  }
                   disabled={Object.values(parking).some((parking) => parking == "")}
                 />
-              }
+              )}
             </div>
           </form>
         </div>
