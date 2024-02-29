@@ -3,13 +3,13 @@ export default function PlateNumberInput({ classes, setPlateNumberInfo, plateNum
     let plateNumberRegx = /^[0-9]{5}[a-z]{1,2}$/;
     const plateNumberValidation = (event) => {
         const { name, value } = event.target
-        if (role === "driver") {
+        // if (role === "driver") {
             setErrors({
                 ...errors,
                 plateNumberErrors:
                     value.length === 0 ? "يجب رقم لوحة السيارة" : plateNumberRegx.test(value) ? "" : "يجب ادخال رقم لوحة صحيح",
             });
-        }
+        // }
         setPlateNumberInfo({ ...plateNumberInfo, [name]: value });
     }
     return (

@@ -13,9 +13,7 @@ export default function EmailInput({ classes, setEmailInfo, emailInfo, errors, s
     return (
         <>
             <div className="form-group mb-3 w-100 ">
-                <label htmlFor="email" className="mb-1 fs-5">
-                    <small className="fw-bold">الأيميل</small>
-                </label>
+                <label htmlFor="email" className="mb-1 fs-5">الأيميل</label>
                 <input
                     type={`text`}
                     className={` ${classes.input} form-control border border-secondary shadow-none `}

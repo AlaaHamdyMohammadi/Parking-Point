@@ -1,16 +1,9 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 
 import { useState, useEffect } from "react";
-import ReactMapGL, {
-  Marker,
-  Popup,
-  NavigationControl,
-  Layer,
-  Source,
-  FullscreenControl,
-  GeolocateControl,
-} from "react-map-gl";
+import ReactMapGL, { Marker, Popup, Layer, Source, FullscreenControl, GeolocateControl } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaPlus, FaMinus } from "react-icons/fa";
@@ -18,28 +11,13 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 const mapStyle = "mapbox://styles/alaahamdy2/clsp701hd005a01pkhrmygybf";
 
-const Map = () => {
+const Map = ({ AvaliableParksFilter }) => {
   const [viewport, setViewport] = useState({
     width: "100%",
     height: "100%",
     latitude: 0,
     longitude: 0,
     zoom: 10,
-  });
-
-  const [destination, setDestination] = useState({
-    first: {
-      latitude: 26.0711,
-      longitude: 32.2778,
-    },
-    second: {
-      latitude: 26.0053,
-      longitude: 31.7733,
-    },
-    third: {
-      latitude: 26.5569,
-      longitude: 31.4997,
-    },
   });
 
   useEffect(() => {
@@ -70,42 +48,20 @@ const Map = () => {
       zoom: Math.max(prevViewport.zoom - 1, 1),
     }));
   };
-
-  const handleMarkerDrag = (event) => {
-    setDestination({
-      latitude: event.lngLat[1],
-      longitude: event.lngLat[0],
-    });
-  };
-
-  useEffect(() => {
-    if (!destination) return;
-
-    const getRoute = async () => {
-      const response = await fetch(
-        `https://api.mapbox.com/directions/v5/mapbox/driving/${viewport.longitude},${viewport.latitude};${
-          destination.longitude
-        },${
-          destination.latitude
-        }?steps=true&geometries=geojson&access_token=${"pk.eyJ1IjoiYWxhYWhhbWR5MiIsImEiOiJjbHNvcmJsZ2kwaHFlMm1rNXJkMWYxZjhkIn0.JKB_JwB_XSgRR2OJsjd5eA"}`
-      );
-      const data = await response.json();
-
-      setDirections(data);
-    };
-    getRoute();
-  }, [destination, viewport.latitude, viewport.longitude]);
-
+  if (!Array.isArray(AvaliableParksFilter)) {
+    AvaliableParksFilter = []; // Set it to an empty array if it's not defined or not an array
+  }
   return (
-    <div className="text-center w-100 p-3 pe-lg-0" style={{ height: "93vh" }}>
+    <div style={{ width: "100vw", height: "100vh" }}>
       <ReactMapGL {...viewport} mapStyle={mapStyle} mapboxAccessToken={TOKEN} onViewportChange={setViewport} dragPan={true}>
         <Marker draggable latitude={viewport.latitude} longitude={viewport.longitude} offsetLeft={-20} offsetTop={-10} />
 
-        {destination && (
-          <>
+        {AvaliableParksFilter.map((park, index) =>
+          park.location ? (
             <Marker
-              latitude={destination.first.latitude}
-              longitude={destination.first.longitude}
+              key={index}
+              latitude={park.location.latitude}
+              longitude={park.location.longitude}
               offsetLeft={-20}
               offsetTop={-10}
             >
@@ -113,40 +69,26 @@ const Map = () => {
                 <FaLocationDot />
               </div>
             </Marker>
-
-            <Marker
-              latitude={destination.second.latitude}
-              longitude={destination.second.longitude}
-              offsetLeft={-20}
-              offsetTop={-10}
-            >
-              <div style={{ color: "#f1a525", fontSize: "35px" }}>
-                <FaLocationDot />
-              </div>
-            </Marker>
-            <Marker
-              latitude={destination.third.latitude}
-              longitude={destination.third.longitude}
-              offsetLeft={-20}
-              offsetTop={-10}
-            >
-              <div style={{ color: "#f1a525", fontSize: "35px" }}>
-                <FaLocationDot />
-              </div>
-            </Marker>
-          </>
+          ) : null
         )}
 
         <div
           style={{
             position: "absolute",
-            top: 10,
+            top: 85,
             right: 10,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            zIndex: 1,
           }}
         >
+          <GeolocateControl
+            positionOptions={{ enableHighAccuracy: true }}
+            trackUserLocation={true}
+            showUserLocation={true}
+          />
+          <FullscreenControl />
           <button
             onClick={handleZoomIn}
             style={{
@@ -174,68 +116,53 @@ const Map = () => {
           </button>
         </div>
 
-        {/* <div>
-          <GeolocateControl />
-          <FullscreenControl />
-       </div>*/}
-
-        {viewport && destination && (
-          <>
+        {AvaliableParksFilter.map((park, index) =>
+          park.location ? (
             <Popup
-              latitude={destination.first.latitude}
-              longitude={destination.first.longitude}
+              key={index}
+              latitude={park.location.latitude}
+              longitude={park.location.longitude}
               closeButton={true}
               closeOnClick={false}
             >
-              <div style={{ fontSize: 15 }}>First Location</div>
+              <div style={{ fontSize: 20 }}>{park.address}</div>
             </Popup>
-            <Popup
-              latitude={destination.second.latitude}
-              longitude={destination.second.longitude}
-              closeButton={true}
-              closeOnClick={false}
-            >
-              <div style={{ fontSize: 15 }}>Second Location</div>
-            </Popup>
-            <Popup
-              latitude={destination.third.latitude}
-              longitude={destination.third.longitude}
-              closeButton={true}
-              closeOnClick={false}
-            >
-              <div style={{ fontSize: 15 }}>Third Location</div>
-            </Popup>
-          </>
+          ) : null
         )}
 
-        {viewport && destination && (
-          <div>
-            <Source
-              type="geojson"
-              data={{
-                type: "Feature",
-                properties: {},
-                geometry: {
-                  type: "LineString",
-                  coordinates: [
-                    [destination.first.longitude, destination.first.latitude],
-                    [viewport.longitude, viewport.latitude],
-                    [destination.second.longitude, destination.second.latitude],
-                    [viewport.longitude, viewport.latitude],
-                    [destination.third.longitude, destination.third.latitude],
-                  ],
-                },
+        {viewport && (
+          <Source
+            id="lineSource"
+            type="geojson"
+            data={{
+              type: "Feature",
+              properties: {},
+              geometry: {
+                type: "LineString",
+                coordinates: [
+                  [viewport.longitude, viewport.latitude],
+                  ...AvaliableParksFilter.filter((park) => park.location).map((park) => [
+                    park.location.longitude,
+                    park.location.latitude,
+                  ]),
+                ],
+              },
+            }}
+          >
+            <Layer
+              id="lineLayer"
+              type="line"
+              source="lineSource"
+              layout={{
+                "line-cap": "round",
+                "line-join": "round",
               }}
-            >
-              <Layer
-                type="line"
-                paint={{
-                  "line-color": "#331c41",
-                  "line-width": 3,
-                }}
-              />
-            </Source>
-          </div>
+              paint={{
+                "line-color": "#331c41",
+                "line-width": 3,
+              }}
+            />
+          </Source>
         )}
       </ReactMapGL>
     </div>

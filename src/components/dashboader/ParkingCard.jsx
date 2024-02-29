@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
 import StarRating from "../driver/StarRating";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
-export default function ParkingCard() {
+export default function ParkingCard({ userParkings, setUserParkings }) {
   const token = useSelector((state) => state.loggedIn.token);
-  console.log(token, "esssssssssssssssssssssssssssssss");
-  const [userParkings, setUserParkings] = useState([]);
   useEffect(() => {
     axiosInstanceParking
       .get(`/parkings/myparks`, {
@@ -14,19 +12,17 @@ export default function ParkingCard() {
       })
       .then((res) => {
         setUserParkings(res.data.doc);
-        console.log(res.data.doc);
       })
       .catch((err) => {
         console.error("Error during parkings request:", err);
       });
   }, []);
-  console.log(token, userParkings);
-
   return (
     <>
       {userParkings.map((parking, index) => (
         <div key={parking._id} className="mb-3  w-100 d-flex row">
-          <div className=" d-flex   w-100   pb-2 border-bottom justify-content-between">
+          <div className=" d-flex w-100 pb-2 border-bottom justify-content-between">
+            <div className="fw-bold mt-5">{index + 1}</div>
             <div className="col-3">
               <div id={`carouselExampleInterval${index}`} className=" w-100 carousel rounded " data-bs-ride="carousel">
                 <div className="carousel-inner  ">
@@ -63,7 +59,7 @@ export default function ParkingCard() {
             </div>
             <div className="col-lg-8 pe-3 col-sm-12 d-lg-flex gap-4">
               <div className="col-lg-6 col-sm-12  align-items-center">
-                <h5> {parking.title}</h5>
+                <h5>parking name</h5>
                 <p className="mb-0 customfs  ">
                   <span className=" fw-semibold">العنوان: </span>
                   {parking.address}

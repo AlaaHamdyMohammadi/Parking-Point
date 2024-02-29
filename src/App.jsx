@@ -8,7 +8,6 @@ import Layout from "./layout/Layout";
 import HandelErorr from "./pages/handelErorr";
 import AddParking from "./pages/parking/AddParking";
 import OwnerProfile from "./pages/parking/OwnerProfile";
-import ParkingHome from "./pages/parking/ParkingHome";
 import EditProfile from "./pages/parking/EditProfile";
 import Dashboard from "./pages/parking/Dashboard";
 import RegistLayout from "./layout/RegistLayout";
@@ -58,18 +57,8 @@ const router = createBrowserRouter([
             index: true,
             element: (
               <Guard>
-                <OwnerProfile />{" "}
+                <OwnerProfile />
               </Guard>
-            ),
-            errorElement: <HandelErorr />,
-          },
-          {
-            path: "parkingHome",
-            element: (
-              <RenterGuard>
-                {" "}
-                <ParkingHome />{" "}
-              </RenterGuard>
             ),
             errorElement: <HandelErorr />,
           },
@@ -77,8 +66,7 @@ const router = createBrowserRouter([
             path: "parking",
             element: (
               <RenterGuard>
-                {" "}
-                <AddParking />{" "}
+                <AddParking />
               </RenterGuard>
             ),
             errorElement: <HandelErorr />,
@@ -87,8 +75,7 @@ const router = createBrowserRouter([
             path: "parking/:ParkingId",
             element: (
               <RenterGuard>
-                {" "}
-                <AddParking />{" "}
+                <AddParking />
               </RenterGuard>
             ),
             errorElement: <HandelErorr />,
@@ -97,8 +84,7 @@ const router = createBrowserRouter([
             path: "editOwnerProfile",
             element: (
               <Guard>
-                {" "}
-                <EditProfile />{" "}
+                <EditProfile />
               </Guard>
             ),
             errorElement: <HandelErorr />,
@@ -107,8 +93,8 @@ const router = createBrowserRouter([
             path: "sales",
             element: (
               <Guard>
-                {" "}
-                <Sales />{" "}
+
+                <Sales />
               </Guard>
             ),
             errorElement: <HandelErorr />,

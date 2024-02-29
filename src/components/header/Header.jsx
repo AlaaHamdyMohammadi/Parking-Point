@@ -75,7 +75,7 @@ export default function Header() {
             </div>
             <Link to={`/Driveraccount/:DriverId/editDriverProfile`}>
               <img
-                src="./../../../public/images/defaultpersonjpg.jpg"
+                src="/images/defaultpersonjpg.jpg"
                 className="rounded-circle position-absolute top-0 start-0"
                 style={{ height: "5vh", width: "5vh" }}
                 alt="..."

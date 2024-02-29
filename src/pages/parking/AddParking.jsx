@@ -3,6 +3,9 @@ import { MdClose } from "react-icons/md";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import CitySelect from "../../components/formFun/CitySelect";
+import classes from "./../../styles/formStyles.module.css";
+// import RegionInput from "../../components/formFun/RegionInput";
 export default function AddParking() {
   const profileImgRef = useRef(null);
   const token = useSelector((state) => state.loggedIn.token);
@@ -35,6 +38,10 @@ export default function AddParking() {
         user: res.data.doc.user,
         photos: res.data.doc.photos,
         capacity: res.data.doc.capacity,
+        location: {
+          longitude: res.data.doc.longitude,
+          latitude: res.data.doc.latitude,
+        },
       });
       setImgArr(res.data.doc.photos);
     };
@@ -79,9 +86,6 @@ export default function AddParking() {
     if (name === "photos") {
       setErrors({ ...errors, photosErrors: value.length === 0 ? "يجب إضافة صورة بحد ادني" : "" });
     }
-    if (name === "city") {
-      setErrors({ ...errors, cityErrors: value.length === 0 ? "يجب ادخال الولاية" : "" });
-    }
     if (name === "title") {
       setErrors({
         ...errors,
@@ -119,7 +123,7 @@ export default function AddParking() {
           })
           .then((res) => {
             console.log("update request successful", res.data);
-            navigate("/Profile/parkingHome");
+            navigate("/");
           })
           .catch((err) => {
             console.error("Error during parking request:", err);
@@ -151,7 +155,7 @@ export default function AddParking() {
   return (
     <>
       <h3 className={`mt-4 text-center`}>لإضافة موقف يرجي ادخال البيانات الصحيحة</h3>
-      <div className={`card w-75 align-self-center p-2`}>
+      <div className={`card w-75 align-self-center p-2 mb-5`}>
         <div className={`p-5`}>
           <h5 className={`text-secondary text-center`}>يمكن إضافة ثلاث صور فقط</h5>
           <form encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
@@ -186,7 +190,7 @@ export default function AddParking() {
                   />
                 </div>
               )}
-              <p className="text-danger text-center">{errors.imageErrors}</p>
+              <p className={`${classes.error} text-danger`}>{errors.imageErrors}</p>
             </div>
 
             <div className="row">
@@ -204,8 +208,34 @@ export default function AddParking() {
                   name="title"
                   value={parking.title}
                 />
-                <p className="text-danger text-center">{errors.titleErrors}</p>
+                <p className={`${classes.error} text-danger`}>{errors.titleErrors}</p>
               </div>
+              <div className="form-group mb-3 col-12 col-md-6 ">
+                {/* <RegionInput regionInfo={parking} classes={classes} setRegionInfo={setParking} errors={errors} setErrors={setErrors}/> */}
+                <label htmlFor="address" className="mb-1 fs-3">
+                  <small className="fw-bold">المنطقة</small>
+                </label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={parking.address}
+                  onChange={validation}
+                  onBlur={validation}
+                  className={`form-control border-secondary shadow-none`}
+                />
+                <p className={`${classes.error} text-danger`}>{errors.addressErrors}</p>
+              </div>
+              {/* <div className="form-group mb-3 col-12 col-md-6">
+                <CitySelect
+                  cityInfo={parking}
+                  classes={classes}
+                  setCityInfo={setParking}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              </div> */}
+
               <div className="form-group mb-3 col-12 col-md-6 ">
                 <label htmlFor="capacity" className="mb-1 fs-3">
                   <small className="fw-bold">السعة</small>
@@ -221,7 +251,7 @@ export default function AddParking() {
                   placeholder=""
                   name="capacity"
                 />
-                <p className="text-danger text-center">{errors.capacityErrors}</p>
+                <p className={`${classes.error} text-danger`}>{errors.capacityErrors}</p>
               </div>
               <div className="form-group mb-3 col-12 col-md-6 ">
                 <label htmlFor="address" className="mb-1 fs-3">

@@ -1,6 +1,14 @@
 import { useState } from "react";
 import classes from "./../../styles/formStyles.module.css";
 import axiosInstanceParking from "../../axiosConfig/instanc";
+import CitySelect from "../formFun/CitySelect";
+import StateInput from "../formFun/StateInput";
+import RegionInput from "../formFun/RegionInput";
+import NameInputs from "../formFun/nameInputs";
+import EmailInput from "../formFun/EmailInput";
+import PhoneInput from "../formFun/PhoneInput";
+import PlateNumberInput from "../formFun/PlateNumberInput";
+import CarTypeInput from "../formFun/CarTypeInput";
 export default function RegisterForm({ setShowFormStatus }) {
   const [registeUser, setRegisteUser] = useState({
     firstName: "",
@@ -10,9 +18,9 @@ export default function RegisterForm({ setShowFormStatus }) {
     confirmPassword: "",
     phoneNumber: "",
     role: "",
-    carType: "",
+    carType: "سيارة",
     city: "",
-    state: "",
+    state: "مسقط",
     region: "",
     plateNumber: "",
     nationaleId: "",
@@ -32,39 +40,11 @@ export default function RegisterForm({ setShowFormStatus }) {
     plateNumberErrors: "",
     nationaleIdErrors: "",
   });
-  let nameRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;
-  let emailRegx = /^[a-zA-Z0-9]{4,15}(@)(gmail|yahoo|outlook)(.com)$/;
   let passwordRegx = /^[a-zA-Z0-9\d*:!#&^$.?#@]{8,}$/;
-  let phoneRegx = /^(?:(?:\+|00)968)?(9[1-9]\d{6})$/;
   let roleRegx = /^(renter|driver)$/;
-  let carTypeRegx = /^(سيارة)$/;
-  let plateNumberRegx = /^[0-9]{5,}$/;
-  let cityRegx = /^(مسقط|مطرح|السيب|بوشر|العامرات|قريات)$/;
-  let stateRegx = /^(مسقط)$/;
   let regionRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;
   const registeValidation = (event) => {
     const { name, value } = event.target;
-    if (name === "firstName") {
-      setErrors({
-        ...errors,
-        fristNameErrors:
-          value.length === 0 ? "يجب ادخال الاسم الاول" : nameRegx.test(value) ? "" : "يجب ادخال ثلاثة احرف بحد ادني",
-      });
-    }
-    if (name === "lastName") {
-      setErrors({
-        ...errors,
-        lastNameErrors:
-          value.length === 0 ? "يجب ادخال الاسم الاخير" : nameRegx.test(value) ? "" : "يجب ادخال ثلاثة احرف بحد ادني",
-      });
-    }
-    if (name === "email") {
-      setErrors({
-        ...errors,
-        emailErrors:
-          value.length === 0 ? "يجب ادخال البريد الاليكتروني" : emailRegx.test(value) ? "" : "يجب ادخال بريد اليكتروني صحيح",
-      });
-    }
     if (name === "password") {
       setErrors({
         ...errors,
@@ -85,13 +65,6 @@ export default function RegisterForm({ setShowFormStatus }) {
           value.length === 0 ? "يجب تاكيد الرقم السري" : value == registeUser.password ? "" : "الرقم غير صحيح",
       });
     }
-    if (name === "phoneNumber") {
-      setErrors({
-        ...errors,
-        phoneNumberErrors:
-          value.length === 0 ? "يجب ادخال رقم الجوال" : phoneRegx.test(value) ? "" : "يجب ادخال رقم جوال صحيح",
-      });
-    }
     if (name === "role") {
       setErrors({
         ...errors,
@@ -99,46 +72,7 @@ export default function RegisterForm({ setShowFormStatus }) {
           value.length === 0 ? "يجب اختيار النوع" : roleRegx.test(value) ? "" : "يجب اختيار من واحد من الاختيارات المقدمة",
       });
     }
-    if (registeUser.role === "driver") {
-      if (name === "carType") {
-        setErrors({
-          ...errors,
-          carTypeErrors: value === "" ? "يجب اختيار نوع السيارة" : carTypeRegx.test(value) ? "" : "النوع سيارة فقط",
-        });
-      }
-      if (name === "plateNumber") {
-        setErrors({
-          ...errors,
-          plateNumberErrors:
-            value.length === 0 ? "يجب رقم لوحة السيارة" : plateNumberRegx.test(value) ? "" : "يجب ادخال رقم لوحة صحيح",
-        });
-      }
-    }
     if (registeUser.role === "renter") {
-      if (name === "city") {
-        setErrors({
-          ...errors,
-          cityErrors:
-            value.length === 0
-              ? "يجب اختيار الولاية"
-              : cityRegx.test(value)
-              ? ""
-              : "يجب اختيار من واحد من الاختيارات المقدمة",
-        });
-      }
-      if (name === "state") {
-        setErrors({
-          ...errors,
-          stateErrors: value.length === 0 ? "يجب اختيار المحافظه" : stateRegx.test(value) ? "" : "المحافظه المتاحة مسقط قفط",
-        });
-      }
-      if (name === "region") {
-        setErrors({
-          ...errors,
-          regionErrors:
-            value.length === 0 ? "يجب ادخال المنطقه" : regionRegx.test(value) ? "" : "يجب ادخال ثلاثة احرف بحد ادني",
-        });
-      }
       if (name === "nationaleId") {
         setErrors({
           ...errors,
@@ -152,11 +86,9 @@ export default function RegisterForm({ setShowFormStatus }) {
   console.log(errors);
   const handleSubmit = async (event) => {
     const hasErrors = Object.values(errors).some((error) => error !== "");
-    // const isEmpty = Object.values(registeUser).some((registeUser) => registeUser === "");
     const formData = new FormData();
     if (hasErrors) {
       registeValidation(event);
-      // event.preventDefault();
     } else {
       event.preventDefault();
       try {
@@ -206,48 +138,10 @@ export default function RegisterForm({ setShowFormStatus }) {
       <form action="" method="post" onSubmit={handleSubmit} className="my-5">
         <div className="fs-4">
           <div className={`d-md-flex d-block`}>
-            <div className="col-md-6 col-12 ms-md-1">
-              <label className="fs-5" htmlFor="firstName">
-                الأسم الاول
-              </label>
-              <input
-                type="text"
-                name="firstName"
-                className={`${classes.input} form-control border-secondary shadow-none`}
-                id="firstName"
-                onChange={registeValidation}
-                onBlur={registeValidation}
-              />
-              <p className={`${classes.error} text-danger`}>{errors.fristNameErrors}</p>
-            </div>
-            <div className="col-md-6 col-12 me-md-1">
-              <label className="fs-5" htmlFor="lastName">
-                الأسم الاخير
-              </label>
-              <input
-                className={`${classes.input} form-control border-secondary shadow-none`}
-                type="text"
-                name="lastName"
-                id="lastName"
-                onChange={registeValidation}
-                onBlur={registeValidation}
-              />
-              <p className={`${classes.error} text-danger`}>{errors.lastNameErrors}</p>
-            </div>
+          <NameInputs nameInfo={registeUser} classes={classes} setNameInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
           </div>
           <div className="mt-2">
-            <label className="fs-5" htmlFor="email">
-              الايميل
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              className={`${classes.input} form-control border-secondary shadow-none`}
-              onChange={registeValidation}
-              onBlur={registeValidation}
-            />
-            <p className={`${classes.error} text-danger`}>{errors.emailErrors}</p>
+          <EmailInput emailInfo={registeUser} classes={classes} setEmailInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
           </div>
           <div className="mt-4">
             <label className="fs-5" htmlFor="password">
@@ -278,18 +172,7 @@ export default function RegisterForm({ setShowFormStatus }) {
             <p className={`${classes.error} text-danger`}>{errors.confirmPasswordErrors}</p>
           </div>
           <div className="mt-4">
-            <label className="fs-5" htmlFor="phoneNumber">
-              رقم الهاتف{" "}
-            </label>
-            <input
-              type="text"
-              id="phoneNumber"
-              onChange={registeValidation}
-              onBlur={registeValidation}
-              name="phoneNumber"
-              className={`${classes.input} form-control border-secondary shadow-none`}
-            />
-            <p className={`${classes.error} text-danger`}>{errors.phoneNumberErrors}</p>
+          <PhoneInput phoneNumberInfo={registeUser} classes={classes} setPhoneNumberInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
           </div>
           <label className="mt-4 fs-5 col-md-4 col-12"> نوع الحساب</label>
           <div className="mt-2 row">
@@ -328,36 +211,10 @@ export default function RegisterForm({ setShowFormStatus }) {
           {isDriver && (
             <>
               <div className="mt-4">
-                <label className="fs-5" htmlFor="plateNumber">
-                  رقم اللوحة
-                </label>
-                <input
-                  type="text"
-                  id="plateNumber"
-                  name="plateNumber"
-                  className={`${classes.input} form-control border-secondary shadow-none`}
-                  onChange={registeValidation}
-                  onBlur={registeValidation}
-                />
-                <p className={`${classes.error} text-danger`}>{errors.plateNumberErrors}</p>
+              <PlateNumberInput plateNumberInfo={registeUser} classes={classes} setPlateNumberInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
               </div>
               <div className="mt-4">
-                <label className="fs-5" htmlFor="carType">
-                  المركبة
-                </label>
-                <select
-                  id="carType"
-                  name="carType"
-                  className={`${classes.input} form-control border border-secondary shadow-none`}
-                  onChange={registeValidation}
-                  onBlur={registeValidation}
-                >
-                  <option value="" hidden>
-                    اختر نوع المركبة
-                  </option>
-                  <option value="سيارة">سيارة</option>
-                </select>
-                <p className={`${classes.error} text-danger`}>{errors.carTypeErrors}</p>
+              <CarTypeInput carTypeInfo={registeUser} classes={classes} setCarTypeInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
               </div>
               <input
                 type="submit"
@@ -375,60 +232,14 @@ export default function RegisterForm({ setShowFormStatus }) {
             <>
               <div className={`row mt-3`}>
                 <div className={`col-md-5 col-12`}>
-                  <label className="fs-5" htmlFor="state">
-                    المحافظه
-                  </label>
-                  <select
-                    className={`${classes.input} form-control border border-secondary shadow-none`}
-                    id="state"
-                    name="state"
-                    onChange={registeValidation}
-                    onBlur={registeValidation}
-                  >
-                    <option value="" hidden>
-                      اختر المحافظه
-                    </option>
-                    <option value="مسقط">مسقط</option>
-                  </select>
-                  <p className={`${classes.error} text-danger`}>{errors.stateErrors}</p>
+                <StateInput stateInfo={registeUser} classes={classes} setStateInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
                 </div>
                 <div className={`col-md-5 col-12`}>
-                  <label className="fs-5" htmlFor="city">
-                    الولاية
-                  </label>
-                  <select
-                    id="city"
-                    name="city"
-                    className={`${classes.input} form-control border border-secondary shadow-none`}
-                    onChange={registeValidation}
-                    onBlur={registeValidation}
-                  >
-                    <option value="" hidden>
-                      اختر الولاية
-                    </option>
-                    <option value="مسقط">مسقط</option>
-                    <option value="مطرح">مطرح</option>
-                    <option value="السيب">السيب</option>
-                    <option value="بوشر">بوشر</option>
-                    <option value="العامرات">العامرات</option>
-                    <option value="قريات">قريات</option>
-                  </select>
-                  <p className={`${classes.error} text-danger`}>{errors.cityErrors}</p>
+              <CitySelect cityInfo={registeUser} classes={classes} setCityInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
                 </div>
               </div>
               <div className="mt-4">
-                <label className="fs-5" htmlFor="region">
-                  المنطقه
-                </label>
-                <input
-                  type="text"
-                  id="region"
-                  name="region"
-                  className={`${classes.input} form-control border-secondary shadow-none`}
-                  onChange={registeValidation}
-                  onBlur={registeValidation}
-                />
-                <p className={`${classes.error} text-danger`}>{errors.regionErrors}</p>
+              <RegionInput regionInfo={registeUser} classes={classes} setRegionInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
               </div>
               <div className="mt-4">
                 <label className="fs-5" htmlFor="nationaleId">
@@ -447,7 +258,6 @@ export default function RegisterForm({ setShowFormStatus }) {
               <input
                 type="submit"
                 value="submit"
-                //  className={`${classes.formBtn} text-center bgColor text-white btn mt-5`}
                 className={
                   Object.values(errors).some((error) => error !== "")
                     ? `btn bgColor text-white col-4 disabled`
