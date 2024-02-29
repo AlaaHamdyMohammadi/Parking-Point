@@ -155,7 +155,7 @@ export default function AddParking() {
   return (
     <>
       <h3 className={`mt-4 text-center`}>لإضافة موقف يرجي ادخال البيانات الصحيحة</h3>
-      <div className={`card w-75 align-self-center p-2`}>
+      <div className={`card w-75 align-self-center p-2 mb-5`}>
         <div className={`p-5`}>
           <h5 className={`text-secondary text-center`}>يمكن إضافة ثلاث صور فقط</h5>
           <form encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
@@ -195,31 +195,6 @@ export default function AddParking() {
 
             <div className="row">
               <div className="form-group mb-3 col-12 col-md-6 ">
-                {/* <RegionInput regionInfo={parking} classes={classes} setRegionInfo={setParking} errors={errors} setErrors={setErrors}/> */}
-                <label htmlFor="address" className="mb-1 fs-3">
-                  <small className="fw-bold">المنطقة</small>
-                </label>
-                <input
-                  type="text"
-                  id="address"
-                  name="address"
-                  value={parking.address}
-                  onChange={validation}
-                  onBlur={validation}
-                  className={`form-control border-secondary shadow-none`}
-                />
-                <p className={`${classes.error} text-danger`}>{errors.addressErrors}</p>
-              </div>
-              <div className="form-group mb-3 col-12 col-md-6">
-                <CitySelect
-                  cityInfo={parking}
-                  classes={classes}
-                  setCityInfo={setParking}
-                  errors={errors}
-                  setErrors={setErrors}
-                />
-              </div>
-              <div className="form-group mb-3 col-12 col-md-6 ">
                 <label htmlFor="title" className="mb-1 fs-3">
                   <small className="fw-bold">اسم الموقف</small>
                 </label>
@@ -235,6 +210,32 @@ export default function AddParking() {
                 />
                 <p className={`${classes.error} text-danger`}>{errors.titleErrors}</p>
               </div>
+              <div className="form-group mb-3 col-12 col-md-6 ">
+                {/* <RegionInput regionInfo={parking} classes={classes} setRegionInfo={setParking} errors={errors} setErrors={setErrors}/> */}
+                <label htmlFor="address" className="mb-1 fs-3">
+                  <small className="fw-bold">المنطقة</small>
+                </label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={parking.address}
+                  onChange={validation}
+                  onBlur={validation}
+                  className={`form-control border-secondary shadow-none`}
+                />
+                <p className={`${classes.error} text-danger`}>{errors.addressErrors}</p>
+              </div>
+              {/* <div className="form-group mb-3 col-12 col-md-6">
+                <CitySelect
+                  cityInfo={parking}
+                  classes={classes}
+                  setCityInfo={setParking}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              </div> */}
+
               <div className="form-group mb-3 col-12 col-md-6 ">
                 <label htmlFor="capacity" className="mb-1 fs-3">
                   <small className="fw-bold">السعة</small>

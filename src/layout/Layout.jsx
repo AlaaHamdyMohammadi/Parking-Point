@@ -6,7 +6,7 @@ export default function Layout() {
   return (
     <div>
       <Header_2/>
-      <Outlet />
+      <Outlet  className="h-100" />
       <Footer />
     </div>
   );
