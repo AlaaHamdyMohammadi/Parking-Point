@@ -119,7 +119,7 @@ export default function AddParking() {
           headers: { 'Authorization': `Bearer ${token}` }
         }).then((res) => {
           console.log("update request successful", res.data);
-          navigate("/Profile/parkingHome");
+          navigate("/");
         }).catch((err) => {
           console.error("Error during parking request:", err);
         });
