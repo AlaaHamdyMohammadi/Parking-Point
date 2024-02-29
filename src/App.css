@@ -26,7 +26,12 @@
 .yellowcolor {
   color: var(--yellow);
 }
-
+.hoverColor {
+  color: var(--gray);
+}
+.hoverColor:hover {
+  color: var(--yellow);
+}
 .backgroundColor {
   color: var(--background);
 }
