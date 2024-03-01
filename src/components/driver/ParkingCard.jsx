@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import ModalReserve from "./ReserveModal";
-import StarRating from "./StarRating";
+import { FaStar } from "react-icons/fa";
 
 export default function ParkingCard({ AvaliableParksFilter }) {
   console.log(AvaliableParksFilter);
@@ -77,12 +79,27 @@ export default function ParkingCard({ AvaliableParksFilter }) {
                 {/* <div className={`text-center  w-75 bgColor text-white  p-0  btn  ${classes.formBtn}`}>احجز</div> */}
               </div>
               <div className="d-flex flex-row  text-center justify-content-start ">
-                <StarRating />
+                <RatingComponent rating={item.rate} />
               </div>
             </div>
           </div>
         </div>
       ))}
     </>
+  );
+}
+
+function RatingComponent({ rating }) {
+  const starArr = (length) => Array.from({ length }, (_, i) => i);
+
+  return (
+    <div>
+      {[...starArr(rating)].map((_, index) => (
+        <FaStar key={index} size={"0.7em"} className="yellowcolor" />
+      ))}
+      {[...starArr(5 - rating)].map((_, index) => (
+        <FaStar key={index + rating} size={"0.7em"} className="Gray" />
+      ))}
+    </div>
   );
 }

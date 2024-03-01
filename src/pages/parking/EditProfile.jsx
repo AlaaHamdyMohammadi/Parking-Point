@@ -14,7 +14,7 @@ import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
 
 export default function EditProfile() {
-  const token = useSelector((state) => state.loggedIn.token)
+  const token = useSelector((state) => state.loggedIn.token);
   const user = useLogInUserData();
   const [userInfo, setUserInfo] = useState({
     firstName: user.firstName,
@@ -60,7 +60,7 @@ export default function EditProfile() {
   }
   return (
     <>
-      <Photoprofile photo={`/images/defaultpersonjpg.jpg`} time={`عضو منذ 5 اسابيع`} />
+      <Photoprofile photo={`/images/defaultpersonjpg.jpg`} time={`عضو منذ ${new Date(user.createdAt).toLocaleDateString()}`} />
       <form method="post" onSubmit={handleSubmit}>
 
         <div className="d-flex flex-column mt-5  align-self-center gap-6 align-self-start w-75">

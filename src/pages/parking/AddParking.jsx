@@ -154,7 +154,7 @@ export default function AddParking() {
   return (
     <>
       <h3 className={`mt-4 text-center`}>لإضافة موقف يرجي ادخال البيانات الصحيحة</h3>
-      <div className={`card w-75 align-self-center p-2`}>
+      <div className={`card w-75 align-self-center p-2 mb-5`}>
         <div className={`p-5`}>
           <h5 className={`text-secondary text-center`}>يمكن إضافة ثلاث صور فقط</h5>
           <form encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
