@@ -62,7 +62,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
             </div>
             <div className="col-lg-8 pe-3 col-sm-12 d-lg-flex gap-4">
               <div className="col-lg-6 col-sm-12  align-items-center">
-                <h5>parking name</h5>
+                <h5>{parking.title}</h5>
                 <p className="mb-0 customfs  ">
                   <span className=" fw-semibold">العنوان: </span>
                   {parking.address}
@@ -93,7 +93,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                         : "bg-danger bg-opacity-75"
                     }`}
                   >
-                    {parking.status=='pending'?'قيد الانتظار':parking.status=='approved'?'نشط':'مرفوض'}
+                    {parking.status == "pending" ? "قيد الانتظار" : parking.status == "approved" ? "نشط" : "مرفوض"}
                   </div>
                   <div className="d-flex flex-row  justify-content-center ">
                     <RatingComponent rating={parking.rate} />
