@@ -12,12 +12,9 @@ import EditProfile from "./pages/parking/EditProfile";
 import Dashboard from "./pages/parking/Dashboard";
 import RegistLayout from "./layout/RegistLayout";
 import Sales from "./pages/parking/Sales";
-import Map from "./pages/Map";
-import RatingTest from "./pages/RatingTest";
 import Guard from "./components/guard/Guard";
 import LoginGuard from "./components/guard/LoginGuard";
 import RenterGuard from "./components/guard/RenterGuard";
-import ModalReserve from "./components/driver/ReserveModal";
 
 const router = createBrowserRouter([
   {
@@ -93,7 +90,6 @@ const router = createBrowserRouter([
             path: "sales",
             element: (
               <Guard>
-
                 <Sales />
               </Guard>
             ),
@@ -103,9 +99,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: "map", element: <Map /> },
-  { path: "rating", element: <RatingTest /> },
-  { path: "modal", element: <ModalReserve /> },
 ]);
 
 function App() {

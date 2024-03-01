@@ -19,7 +19,7 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
   const [searchData, setSearchData] = useState({
     city: "",
 
-    from: BookNow ? Date.now() : null,
+    from: BookNow ? new Date().toISOString().slice(0, 16) : null,
     to: null,
   });
 
@@ -27,7 +27,8 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     const { name, value } = event.target;
     let updatedData = { ...searchData };
     if (name === "from" || name === "to") {
-      updatedData[name] = Date.parse(value);
+      // updatedData[name] = Date.parse(value);
+      updatedData[name] = value;
     } else {
       updatedData[name] = value;
     }
@@ -63,7 +64,6 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
 
   const sendQuery = (e) => {
     e.preventDefault();
-    console.log("ttttttttttttttttttttttttttttttttttt");
     console.log(searchData);
 
     axiosInstanceParking
@@ -84,8 +84,7 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
         );
       });
   };
-  // console.log(AvaliableParks);
-  // onReserveChange(AvaliableParks);
+
   return (
     <>
       <form method="post" onSubmit={sendQuery}>
