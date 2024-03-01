@@ -1,47 +1,51 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
-import { useSelector } from "react-redux";
 import axiosInstanceParking from "../../axiosConfig/instanc";
+import { useSelector } from "react-redux";
 
 function StarRating() {
-  const [averageRating, setAverageRating] = useState([]);
-  const token = useSelector((state) => state.token.token);
+  const [rating, setRating] = useState(null);
+  const [hover, setHover] = useState(null);
+  const token = useSelector((state) => state.loggedIn.token);
 
   useEffect(() => {
-    axiosInstanceParking.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${token}`;
-
-    axiosInstanceParking.get("/parkings").then((res) => {
-      //console.log(res.data.doc);
-      setAverageRating(res.data.doc);
-    });
+    axiosInstanceParking
+      .post("/reviews", {
+        headers: { Authorization: `Bearer ${token}` },
+        "Content-Type": "application/json",
+      })
+      .then((res) => {
+        console.log(res);
+      });
   }, [token]);
 
   return (
-    <>
-      {averageRating.map((rating) => (
-        <RatingComponent key={rating._id} rating={rating.rate} />
-      ))}
-    </>
+    <div>
+      {[...Array(5)].map((star, i) => {
+        const ratingValue = i + 1;
+        return (
+          <label key={i} className="p-2">
+            <input
+              type="radio"
+              className="RadioNone"
+              name="rating"
+              value={ratingValue}
+              onClick={() => setRating(ratingValue)}
+            />
+
+            <FaStar
+              className="cursor-pointer pointer"
+              color={ratingValue <= (hover || rating) ? "#f1a525" : "#aaa5a5"}
+              size={30}
+              onMouseEnter={() => setHover(ratingValue)}
+              onMouseLeave={() => setHover(null)}
+            />
+          </label>
+        );
+      })}
+    </div>
   );
 }
 
 export default StarRating;
-
-function RatingComponent({ rating }) {
-  const starArr = (length) => Array.from({ length }, (_, i) => i);
-
-  return (
-    <div>
-      {[...starArr(rating)].map((_, index) => (
-        <FaStar key={index} style={{ color: "#f1a525" }} />
-      ))}
-      {[...starArr(5 - rating)].map((_, index) => (
-        <FaStar key={index + rating} style={{ color: "#331c41" }} />
-      ))}
-    </div>
-  );
-}

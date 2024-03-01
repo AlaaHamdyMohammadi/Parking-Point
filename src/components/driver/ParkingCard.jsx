@@ -10,7 +10,11 @@ export default function ParkingCard({ AvaliableParksFilter }) {
       {AvaliableParksFilter.map((item, index) => (
         <div key={item._id} className="card d-flex flex-row mb-3">
           <div className="col-lg-4 col-md-4 col-sm-4">
-            <div id={`carouselExampleInterval${index}`} className="carousel slide" data-bs-ride="carousel">
+            <div
+              id={`carouselExampleInterval${index}`}
+              className="carousel slide"
+              data-bs-ride="carousel"
+            >
               <div className="carousel-inner">
                 <div className="carousel-item active" data-bs-interval="10000">
                   <img
@@ -43,7 +47,10 @@ export default function ParkingCard({ AvaliableParksFilter }) {
                 data-bs-target={`#carouselExampleInterval${index}`}
                 data-bs-slide="prev"
               >
-                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span
+                  className="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
                 <span className="visually-hidden">Previous</span>
               </button>
               <button
@@ -52,7 +59,10 @@ export default function ParkingCard({ AvaliableParksFilter }) {
                 data-bs-target={`#carouselExampleInterval${index}`}
                 data-bs-slide="next"
               >
-                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                <span
+                  className="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
                 <span className="visually-hidden">Next</span>
               </button>
             </div>

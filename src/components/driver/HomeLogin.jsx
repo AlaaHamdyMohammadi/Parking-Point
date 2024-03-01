@@ -103,7 +103,7 @@ export default function HomeLogin() {
             </div>
           )}
           {/* sec3 */}
-          <div className={`col-lg-9 col-md-12 col-sm-9 `}>
+          <div className={`col-lg-9 col-md-12 col-sm-9 mb-2 `}>
             <Map AvaliableParksFilter={AvaliableParksFilter} />
           </div>
         </div>

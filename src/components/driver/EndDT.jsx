@@ -1,7 +1,10 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 /* eslint-disable react/display-name */
 import React, { forwardRef } from "react";
 import classes from "./../../styles/register.module.css";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const { useState } = React;
 import { FcOvertime } from "react-icons/fc";
 import axiosInstanceParking from "../../axiosConfig/instanc";
@@ -50,14 +53,17 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     // }
 
     if (startTime >= endTime) {
-      alert("End date and time must be after start date and time.");
+      // alert("End date and time must be after start date and time.");
+      toast.error("يجب أن يكون تاريخ انتهاء الحجز  بعد تاريخ البدء.");
       return;
     }
 
     const timeDifference = Math.abs(endTime - startTime);
     const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
     const hours = Math.floor(timeDifference / (1000 * 60 * 60));
-    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const minutes = Math.floor(
+      (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+    );
 
     setTimeDifference({ hours, minutes, days });
   };
@@ -67,14 +73,20 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     console.log(searchData);
 
     axiosInstanceParking
-      .get(`/parkings/?city=${searchData.city}&from=${searchData.from}&to=${searchData.to}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `/parkings/?city=${searchData.city}&from=${searchData.from}&to=${searchData.to}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         onReserveChange(response.data.parks);
-        console.log("Responsessssssssssssssssssssssssssssssssss:", response.data.parks);
+        console.log(
+          "Responsessssssssssssssssssssssssssssssssss:",
+          response.data.parks
+        );
         setIsSearch(true);
       })
       .catch((error) => {
@@ -88,7 +100,9 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
   return (
     <>
       <form method="post" onSubmit={sendQuery}>
-        <div className={`${classes.customSelectWrapper} Gray container  text-center w-100 mx-2 mb-2  `}>
+        <div
+          className={`${classes.customSelectWrapper} Gray container  text-center w-100 mx-2 mb-2  `}
+        >
           <select
             id="cars"
             name="city"
@@ -121,7 +135,9 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
             />
           </div>
           <div className="text-end ">
-            <label className="Gray pe-2">{BookNow ? "موعد نهاية الحجز :" : "إلي :"}</label>
+            <label className="Gray pe-2">
+              {BookNow ? "موعد نهاية الحجز :" : "إلي :"}
+            </label>
             <input
               className=" customRange  Gray  border border-0 pointer text-center w-100 m-2 ms-3 p-1  rounded-2"
               type="datetime-local"
@@ -134,17 +150,23 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
             onClick={calculateTimeDifference}
             className=" customRange mt-4 Gray border border-0 pointer text-center w-100 m-2 ms-3 p-1 fw-semibold animate  rounded-2"
           >
-            {timeDifference.minutes > 0 || timeDifference.hours > 0 || timeDifference.days > 0
+            {timeDifference.minutes > 0 ||
+            timeDifference.hours > 0 ||
+            timeDifference.days > 0
               ? ` ${timeDifference.days} يوم, ${timeDifference.hours}  ساعة, ${timeDifference.minutes} دقيقة`
               : " معرفة مدة الركن "}
           </div>
           <div className={`text-end`}>
-            <button type="submit" className={`text-center bgColor text-white btn m-2 mx-3 ${classes.formBtn} `}>
+            <button
+              type="submit"
+              className={`text-center bgColor text-white btn m-2 mx-3 ${classes.formBtn} `}
+            >
               اعرض المواقف
             </button>
           </div>
         </div>
       </form>
+      <ToastContainer position="top-right" autoClose={4000} />
     </>
   );
 }
