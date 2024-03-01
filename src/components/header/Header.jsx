@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./../../styles/header.module.css";
 import { useDispatch, useSelector } from "react-redux";

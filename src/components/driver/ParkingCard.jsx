@@ -89,7 +89,6 @@ export default function ParkingCard({ AvaliableParksFilter }) {
             <div className=" col-lg-3 d-lg-flex gap-1 flex-lg-column justify-content-start text-center ">
               <div className="ps-2">
                 <ModalReserve />
-
                 {/* <div className={`text-center  w-75 bgColor text-white  p-0  btn  ${classes.formBtn}`}>احجز</div> */}
               </div>
               <div className="d-flex flex-row  text-center justify-content-start ">

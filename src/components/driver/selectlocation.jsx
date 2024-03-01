@@ -1,6 +1,4 @@
-// import { FaLocationArrow } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-
 export default function SelectLocation() {
   return (
     <div>

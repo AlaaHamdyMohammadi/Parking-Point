@@ -57,7 +57,7 @@ export default function AddParking() {
     capacityErrors: "",
     locationErrors: "",
   });
-  const formData = new FormData();
+
   function uploadFile(files, formData) {
     [...files].forEach((file) => formData.append("photos", file));
   }
@@ -101,7 +101,7 @@ export default function AddParking() {
       setErrors({ ...errors, addressErrors: value.length === 0 ? "يجب ادخال المحافظة" : "" });
     }
     if (name === "location") {
-      setErrors({ ...errors, locationErrors: value.length === 0 ? "يجب ادخال نص" : "" });
+      setErrors({ ...errors, locationErrors: value.length === 0 ? "يجب ادخال الموقع" : "" });
     }
     if (name === "capacity") {
       setErrors({ ...errors, capacityErrors: value.length === 0 ? "يجب ادخال السعة" : "" });
@@ -115,10 +115,17 @@ export default function AddParking() {
     if (hasErrors || isEmpty) {
       event.preventDefault();
     } else {
+      const formData = new FormData();
+      formData.append("city", parking.city);
+      formData.append("title", parking.title);
+      formData.append("address", parking.address);
+      formData.append("capacity", parking.capacity);
+      formData.append("longitude", parking.location.longitude);
+      formData.append("latitude", parking.location.latitude);
+      uploadFile(imgArr, formData);
       if (ParkingId) {
-        console.log(ParkingId);
         axiosInstanceParking
-          .patch(`/parkings/${ParkingId}`, parking, {
+          .patch(`/parkings/${ParkingId}`, formData, {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then((res) => {
@@ -129,20 +136,13 @@ export default function AddParking() {
             console.error("Error during parking request:", err);
           });
       } else if (!ParkingId) {
-        formData.append("city", parking.city);
-        formData.append("title", parking.title);
-        formData.append("address", parking.address);
-        formData.append("capacity", parking.capacity);
-        formData.append("longitude", parking.location.longitude);
-        formData.append("latitude", parking.location.latitude);
-        uploadFile(imgArr, formData);
         axiosInstanceParking
           .post(`/parkings`, formData, {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then((res) => {
             console.log("Post request successful", res.data);
-            navigate("/Profile/parkingHome");
+            navigate("/");
           })
           .catch((err) => {
             console.error("Error during parking request:", err);
@@ -151,7 +151,6 @@ export default function AddParking() {
     }
     event.preventDefault();
   }
-  console.log(parking);
   return (
     <>
       <h3 className={`mt-4 text-center`}>لإضافة موقف يرجي ادخال البيانات الصحيحة</h3>
@@ -166,7 +165,7 @@ export default function AddParking() {
                   key={index}
                 >
                   <div onClick={() => removeImage(index)} className={`position-absolute top-0 end-0`} role="button">
-                    <MdClose className="fs-3 bgColor text-white" />
+                    <MdClose className="fs-5 bgColor text-white" />
                   </div>
                   <img className="w-100" src={showImages(image)} alt="Selected" />
                 </div>
@@ -195,8 +194,33 @@ export default function AddParking() {
 
             <div className="row">
               <div className="form-group mb-3 col-12 col-md-6 ">
-                <label htmlFor="title" className="mb-1 fs-3">
-                  <small className="fw-bold">اسم الموقف</small>
+                {/* <RegionInput regionInfo={parking} classes={classes} setRegionInfo={setParking} errors={errors} setErrors={setErrors}/> */}
+                <label htmlFor="address" className="mb-1 fs-5">
+                  المنطقة
+                </label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={parking.address}
+                  onChange={validation}
+                  onBlur={validation}
+                  className={`form-control border-secondary shadow-none`}
+                />
+                <p className={`${classes.error} text-danger`}>{errors.addressErrors}</p>
+              </div>
+              <div className="form-group mb-3 col-12 col-md-6">
+                <CitySelect
+                  cityInfo={parking}
+                  classes={classes}
+                  setCityInfo={setParking}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              </div>
+              <div className="form-group mb-3 col-12 col-md-6 ">
+                <label htmlFor="title" className="mb-1 fs-5">
+                  اسم الموقف
                 </label>
                 <input
                   onChange={validation}
@@ -211,34 +235,8 @@ export default function AddParking() {
                 <p className={`${classes.error} text-danger`}>{errors.titleErrors}</p>
               </div>
               <div className="form-group mb-3 col-12 col-md-6 ">
-                {/* <RegionInput regionInfo={parking} classes={classes} setRegionInfo={setParking} errors={errors} setErrors={setErrors}/> */}
-                <label htmlFor="address" className="mb-1 fs-3">
-                  <small className="fw-bold">المنطقة</small>
-                </label>
-                <input
-                  type="text"
-                  id="address"
-                  name="address"
-                  value={parking.address}
-                  onChange={validation}
-                  onBlur={validation}
-                  className={`form-control border-secondary shadow-none`}
-                />
-                <p className={`${classes.error} text-danger`}>{errors.addressErrors}</p>
-              </div>
-              {/* <div className="form-group mb-3 col-12 col-md-6">
-                <CitySelect
-                  cityInfo={parking}
-                  classes={classes}
-                  setCityInfo={setParking}
-                  errors={errors}
-                  setErrors={setErrors}
-                />
-              </div> */}
-
-              <div className="form-group mb-3 col-12 col-md-6 ">
-                <label htmlFor="capacity" className="mb-1 fs-3">
-                  <small className="fw-bold">السعة</small>
+                <label htmlFor="capacity" className="mb-1 fs-5">
+                  السعة
                 </label>
                 <input
                   type="number"
@@ -254,8 +252,8 @@ export default function AddParking() {
                 <p className={`${classes.error} text-danger`}>{errors.capacityErrors}</p>
               </div>
               <div className="form-group mb-3 col-12 col-md-6 ">
-                <label htmlFor="address" className="mb-1 fs-3">
-                  <small className="fw-bold">المحافظه</small>
+                <label htmlFor="address" className="mb-1 fs-5">
+                  المحافظه
                 </label>
                 <select
                   id="address"
@@ -271,30 +269,6 @@ export default function AddParking() {
                   <option value="مسقط">مسقط</option>
                 </select>
                 <p className="text-danger text-center">{errors.addressErrors}</p>
-              </div>
-              <div className="form-group mb-3 col-12 col-md-6">
-                <label htmlFor="city" className="mb-1 fs-3">
-                  <small className="fw-bold">الولاية</small>
-                </label>
-                <select
-                  id="city"
-                  name="city"
-                  value={parking.city}
-                  onChange={validation}
-                  onBlur={validation}
-                  className={`form-control border border-secondary shadow-none`}
-                >
-                  <option value={` `} selected hidden>
-                    حدد الولاية
-                  </option>
-                  <option value="مسقط">مسقط</option>
-                  <option value="مطرح">مطرح</option>
-                  <option value="السيب">السيب</option>
-                  <option value="بوشر">بوشر</option>
-                  <option value="العامرات">العامرات</option>
-                  <option value="قريات">قريات</option>
-                </select>
-                <p className="text-danger text-center">{errors.cityErrors}</p>
               </div>
             </div>
             <div className="d-flex justify-content-center">

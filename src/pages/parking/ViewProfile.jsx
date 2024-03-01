@@ -9,7 +9,7 @@ export default function ViewProfile() {
     <>
       <div className="row w-100 ">
         <p className="fs-3 fw-bold m-md-3 py-2 "> البيانات الشخصية </p>
-        <div className="my-3 justify-content-center d-lg-flex gap-4 flex-wrap">
+        <div className="my-3 justify-content-center d-lg-flex d-block gap-4 flex-wrap">
           <div className="w-100 d-flex">
             <Info lable="الاسم" info={`${user.firstName} ${user.lastName}`} icon={<FaUserPen className="yellowcolor" />} />
             <Info lable="الايميل" info={user.email} icon={<MdEmail className="yellowcolor" />} />
