@@ -10,7 +10,7 @@ import { IoBagCheckSharp } from "react-icons/io5";
 import { logout } from "../../store/slices/authSlice";
 
 export default function Header() {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.loggedIn.loggedIn);
   const displayRegester = () => {
@@ -21,7 +21,7 @@ export default function Header() {
   };
   const logdedout = () => {
     dispatch(logout());
-    navigate("/")
+    navigate("/");
   };
 
   return (
@@ -47,21 +47,21 @@ export default function Header() {
                     </Link>
                   </li>
                   <li>
-                    <Link to={`Profile`} className="dropdown-item">
+                    <Link to={`/Profile/editOwnerProfile`} className="dropdown-item">
                       <span className="ps-2">
                         <IoPerson />
                       </span>
                       إدارة حسابي
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link to={`#`} className="dropdown-item">
                       <span className="ps-2">
                         <MdContactSupport />
                       </span>
                       الدعم الفني
                     </Link>
-                  </li>
+                  </li> */}
                   <li>
                     <div role="button" className="dropdown-item  text-danger border-top" onClick={logdedout}>
                       <span className="ps-2 text-danger">
@@ -73,7 +73,7 @@ export default function Header() {
                 </div>
               </ul>
             </div>
-            <Link to={`/Driveraccount/:DriverId/editDriverProfile`}>
+            <Link to={`profile`}>
               <img
                 src="/images/defaultpersonjpg.jpg"
                 className="rounded-circle position-absolute top-0 start-0"
@@ -122,7 +122,9 @@ export default function Header() {
                   to={`/register`}
                   className="nav-link active text-white"
                   aria-current="page"
-                  onClick={() => { displayRegester()}}
+                  onClick={() => {
+                    displayRegester();
+                  }}
                 >
                   التسجيل
                 </Link>
