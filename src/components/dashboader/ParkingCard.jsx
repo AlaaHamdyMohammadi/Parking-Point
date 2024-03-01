@@ -90,7 +90,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                         : "bg-danger bg-opacity-75"
                     }`}
                   >
-                    {parking.status}
+                    {parking.status=='pending'?'قيد الانتظار':parking.status=='approved'?'نشط':'مرفوض'}
                   </div>
                   <div className="d-flex flex-row  justify-content-center ">
                     <StarRating />
