@@ -1,5 +1,7 @@
 import classes from "./../../styles/header.module.css";
 import SearchInput from "../driver/SearchInput";
+import { Link } from "react-router-dom";
+
 export default function HomeLogout() {
   return (
     <div className={`container-fluid`}>
@@ -7,7 +9,9 @@ export default function HomeLogout() {
         <div className={`col-12 col-md-6 d-flex align-items-center bgColor justify-content-center`}>
           <div className={`w-75`}>
             <div className={`fs-3 mb-5 text-light`}>اركن في أقرب موقف لك</div>
-            <SearchInput />
+            <Link to={`/register`}>
+              <SearchInput />
+            </Link>
           </div>
         </div>
         <div className={`col-12 col-md-6 d-flex align-items-center justify-content-center bgColor`}>

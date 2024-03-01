@@ -33,10 +33,18 @@ export default function SidebarProfile() {
       >
         <Link to={`/Profile`}>
           <div className={`d-flex mt-md-2 fs-5 fw-bold gap-2 `}>
-            <div className={` yellowcolor  text-center  ${classes.userName}`}>
+            <div className="pe-2">
+              <img
+                src="/images/defaultpersonjpg.jpg"
+                className=" border rounded-circle"
+                style={{ width: "6vh", height: "6vh" }}
+              />
+            </div>
+
+            {/* <div className={` yellowcolor  text-center  ${classes.userName}`}>
               {user.firstName[0]}
               {user.lastName[0]}
-            </div>
+            </div> */}
             {isWide && (
               <div className="yellowcolor pt-1">
                 {user.firstName} {user.lastName}

@@ -3,6 +3,8 @@ import StarRating from "../driver/StarRating";
 import { useEffect } from "react";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
+import { FaStar } from "react-icons/fa";
+
 export default function ParkingCard({ userParkings, setUserParkings }) {
   const token = useSelector((state) => state.loggedIn.token);
   function getMyParkings(){
@@ -12,6 +14,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
       })
       .then((res) => {
         setUserParkings(res.data.doc);
+        console.log(res.data.doc);
       })
       .catch((err) => {
         console.error("Error during parkings request:", err);
@@ -108,10 +111,10 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                         : "bg-danger bg-opacity-75"
                     }`}
                   >
-                    {parking.status=='pending'?'قيد الانتظار':parking.status=='approved'?'نشط':'مرفوض'}
+                    {parking.status == "pending" ? "قيد الانتظار" : parking.status == "approved" ? "نشط" : "مرفوض"}
                   </div>
                   <div className="d-flex flex-row  justify-content-center ">
-                    <StarRating />
+                    <RatingComponent rating={parking.rate} />
                   </div>
                 </div>
                 <div className="dropdown">
@@ -145,5 +148,19 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
         </div>
       ))}
     </>
+  );
+}
+function RatingComponent({ rating }) {
+  const starArr = (length) => Array.from({ length }, (_, i) => i);
+
+  return (
+    <div>
+      {[...starArr(rating)].map((_, index) => (
+        <FaStar key={index} size={"0.7em"} className="yellowcolor" />
+      ))}
+      {[...starArr(5 - rating)].map((_, index) => (
+        <FaStar key={index + rating} size={"0.7em"} className="Gray" />
+      ))}
+    </div>
   );
 }

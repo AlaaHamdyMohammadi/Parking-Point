@@ -1,7 +1,10 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 /* eslint-disable react/display-name */
 import React, { forwardRef } from "react";
 import classes from "./../../styles/register.module.css";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const { useState } = React;
 import { FcOvertime } from "react-icons/fc";
 import axiosInstanceParking from "../../axiosConfig/instanc";
@@ -19,7 +22,7 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
   const [searchData, setSearchData] = useState({
     city: "",
 
-    from: BookNow ? Date.now() : null,
+    from: BookNow ? new Date().toISOString().slice(0, 16) : null,
     to: null,
   });
 
@@ -27,13 +30,12 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     const { name, value } = event.target;
     let updatedData = { ...searchData };
     if (name === "from" || name === "to") {
-      updatedData[name] = Date.parse(value);
+      updatedData[name] = value;
     } else {
       updatedData[name] = value;
     }
 
     setSearchData(updatedData);
-    // calculateTimeDifference();
   };
 
   const calculateTimeDifference = () => {
@@ -44,12 +46,12 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     console.log(endTime);
 
     // if (isNaN(startTime) || isNaN(endTime)) {
-    //   alert("Please enter valid start and end dates.");
+    //   toast.error("يجب ادخال تاريخ الحجز");
     //   return;
     // }
 
     if (startTime >= endTime) {
-      alert("End date and time must be after start date and time.");
+      toast.error("يجب أن يكون تاريخ انتهاء الحجز  بعد تاريخ البدء.");
       return;
     }
 
@@ -63,8 +65,13 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
 
   const sendQuery = (e) => {
     e.preventDefault();
-    console.log("ttttttttttttttttttttttttttttttttttt");
     console.log(searchData);
+    const startTime = new Date(searchData.from).getTime();
+    const endTime = new Date(searchData.to).getTime();
+    if (startTime >= endTime) {
+      toast.error("يجب أن يكون تاريخ انتهاء الحجز  بعد تاريخ البدء.");
+      return;
+    }
 
     axiosInstanceParking
       .get(`/parkings/?city=${searchData.city}&from=${searchData.from}&to=${searchData.to}`, {
@@ -74,18 +81,14 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
       })
       .then((response) => {
         onReserveChange(response.data.parks);
-        console.log("Responsessssssssssssssssssssssssssssssssss:", response.data.parks);
+        console.log("Response:", response.data.parks);
         setIsSearch(true);
       })
       .catch((error) => {
-        console.error(
-          "Error:rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
-          error
-        );
+        console.error("Error", error);
       });
   };
-  // console.log(AvaliableParks);
-  // onReserveChange(AvaliableParks);
+
   return (
     <>
       <form method="post" onSubmit={sendQuery}>
@@ -146,6 +149,7 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
           </div>
         </div>
       </form>
+      <ToastContainer position="top-right" autoClose={4000} />
     </>
   );
 }
