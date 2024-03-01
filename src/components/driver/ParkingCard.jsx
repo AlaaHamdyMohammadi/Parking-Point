@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import ModalReserve from "./ReserveModal";
-import { FaStar } from "react-icons/fa";
-import axiosInstanceParking from "../../axiosConfig/instanc";
+
+import RatingComponent from "./RatingComponent";
 
 export default function ParkingCard({ AvaliableParksFilter }) {
   console.log(AvaliableParksFilter);
@@ -99,20 +99,5 @@ export default function ParkingCard({ AvaliableParksFilter }) {
         </div>
       ))}
     </>
-  );
-}
-
-function RatingComponent({ rating }) {
-  const starArr = (length) => Array.from({ length }, (_, i) => i);
-
-  return (
-    <div>
-      {[...starArr(rating)].map((_, index) => (
-        <FaStar key={index} size={"0.7em"} className="yellowcolor" />
-      ))}
-      {[...starArr(5 - rating)].map((_, index) => (
-        <FaStar key={index + rating} size={"0.7em"} className="Gray" />
-      ))}
-    </div>
   );
 }

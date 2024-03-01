@@ -1,5 +1,0 @@
-.table-responsive {
-  display: block;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch; /* Enables smooth scrolling on iOS devices */
-}

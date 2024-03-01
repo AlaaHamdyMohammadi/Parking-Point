@@ -1,11 +1,7 @@
 import Map from "./Map";
 // import ParkingCard from "./ParkingCard";
 import { IoArrowRedoCircleOutline } from "react-icons/io5";
-// import classes from "./../../styles/formStyles.module.css";
-
-// import SearchSec from "./searchSec";
-// import Map from "./Map";
-// import SelectLocation from "./selectlocation";
+import classes from "./../../styles/formStyles.module.css";
 import { useState } from "react";
 import EndDateTime from "./EndDT";
 // import StarRating from "./StarRating";

@@ -121,3 +121,8 @@
   background-color: var(--background) !important;
   color: white !important;
 }
+
+.focus:focus {
+  outline: none;
+  border: 1px solid var(--bordercolor) !important;
+}
