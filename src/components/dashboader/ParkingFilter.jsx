@@ -16,7 +16,7 @@ export default function ParkingFilter({ value, text, setUserParkings }) {
     return (
         <>
             <button className={`${classes.filterBtn} btn btn-outline-warning d-flex p-2 ms-4`} onClick={filterParkings}>
-                <div className={`fw-bold ms-2`}>{text}</div>
+                <div className={`ms-2`}>{text}</div>
             </button>
         </>
     )
