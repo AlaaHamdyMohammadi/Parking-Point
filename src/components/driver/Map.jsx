@@ -152,17 +152,31 @@ const Map = ({ AvaliableParksFilter }) => {
             id="lineSource"
             type="geojson"
             data={{
-              type: "Feature",
-              properties: {},
-              geometry: {
-                type: "LineString",
-                coordinates: [
-                  [viewport.longitude, viewport.latitude],
-                  ...AvaliableParksFilter.filter((park) => park.location).map(
-                    (park) => [park.location.longitude, park.location.latitude]
-                  ),
-                ],
-              },
+              type: "FeatureCollection",
+              features: [
+                {
+                  type: "Feature",
+                  geometry: {
+                    type: "Point",
+                    coordinates: [viewport.longitude, viewport.latitude],
+                  },
+                },
+                ...AvaliableParksFilter.filter((park) => park.location).map(
+                  (park) => ({
+                    type: "Feature",
+                    geometry: {
+                      type: "LineString",
+                      coordinates: [
+                        [viewport.longitude, viewport.latitude],
+                        [park.location.longitude, park.location.latitude],
+                      ],
+                    },
+                    properties: {
+                      title: park.address,
+                    },
+                  })
+                ),
+              ],
             }}
           >
             <Layer
