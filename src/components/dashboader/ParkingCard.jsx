@@ -59,7 +59,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
             </div>
             <div className="col-lg-8 pe-3 col-sm-12 d-lg-flex gap-4">
               <div className="col-lg-6 col-sm-12  align-items-center">
-                <h5>parking name</h5>
+                <h5>{parking.title}</h5>
                 <p className="mb-0 customfs  ">
                   <span className=" fw-semibold">العنوان: </span>
                   {parking.address}
@@ -112,11 +112,10 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                         تعديل
                       </Link>
                     </li>
-                    {parking.disabled ? (
-                      <li className="dropdown-item">إعادة تنشيط</li>
-                    ) : (
-                      <li className="dropdown-item">إلغاء تنشيط</li>
-                    )}
+                    {parking.status=='approved'&&(parking.disabled ? 
+                      <li className="dropdown-item" role="button">إعادة تنشيط</li>: 
+                      <li className="dropdown-item" role="button">إلغاء تنشيط</li>)
+                    }
                   </ul>
                 </div>
               </div>
