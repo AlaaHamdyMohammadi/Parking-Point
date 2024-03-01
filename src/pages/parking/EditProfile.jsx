@@ -25,7 +25,6 @@ export default function EditProfile() {
     state: user.state,
     region: user.region,
     plateNumber: user.plateNumber,
-    // nationaleId: user.nationaleId,
     carType: user.carType,
   });
   const [errors, setErrors] = useState({
@@ -35,7 +34,7 @@ export default function EditProfile() {
     phoneNumberErrors: "",
     cityErrors: "",
     stateErrors: "",
-    // nationaleIdErrors: "",
+    nationaleIdErrors: "",
     regionErrors: "",
     plateNumberErrors: "",
     carTypeErrors: "",
