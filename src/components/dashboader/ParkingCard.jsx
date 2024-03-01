@@ -5,7 +5,7 @@ import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
 export default function ParkingCard({ userParkings, setUserParkings }) {
   const token = useSelector((state) => state.loggedIn.token);
-  useEffect(() => {
+  function getMyParkings(){
     axiosInstanceParking
       .get(`/parkings/myparks`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -16,11 +16,29 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
       .catch((err) => {
         console.error("Error during parkings request:", err);
       });
+  }
+  useEffect(() => {
+    getMyParkings()
   }, []);
+  function isDisabled(ParkingId, disabled ) {
+      const formData = new FormData();
+      formData.append("disabled", disabled);
+      axiosInstanceParking
+        .patch(`/parkings/${ParkingId}`, formData, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          console.log("update request successful", res.data);
+          getMyParkings()
+        })
+        .catch((err) => {
+          console.error("Error during parking request:", err);
+        });
+  }
   return (
     <>
       {userParkings.map((parking, index) => (
-        <div key={parking._id} className="mb-3  w-100 d-flex row">
+        <div key={parking._id} className={`mb-3 w-100 d-flex row ${parking.disabled==true ?'bg-secondary bg-opacity-25' :''}`}>
           <div className=" d-flex w-100 pb-2 border-bottom justify-content-between">
             <div className="fw-bold mt-5">{index + 1}</div>
             <div className="col-3">
@@ -112,9 +130,12 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                         تعديل
                       </Link>
                     </li>
-                    {parking.status=='approved'&&(parking.disabled ? 
-                      <li className="dropdown-item" role="button">إعادة تنشيط</li>: 
-                      <li className="dropdown-item" role="button">إلغاء تنشيط</li>)
+                    {parking.status=='approved'&&
+                      < >
+                       { parking.disabled ? 
+                        <li className="dropdown-item" role="button" onClick={()=>{isDisabled(parking._id, false)}}>إعادة تنشيط</li>: 
+                        <li className="dropdown-item" role="button" onClick={()=>{isDisabled(parking._id, true)}}>إلغاء تنشيط</li>}
+                      </>
                     }
                   </ul>
                 </div>
