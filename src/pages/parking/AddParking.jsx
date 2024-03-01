@@ -124,6 +124,7 @@ export default function AddParking() {
       formData.append("latitude", parking.location.latitude);
       uploadFile(imgArr, formData);
       if (ParkingId) {
+        formData.append("status", "pending");
         axiosInstanceParking
           .patch(`/parkings/${ParkingId}`, formData, {
             headers: { Authorization: `Bearer ${token}` },
@@ -151,6 +152,7 @@ export default function AddParking() {
     }
     event.preventDefault();
   }
+  console.log(errors);
   return (
     <>
       <h3 className={`mt-4 text-center`}>لإضافة موقف يرجي ادخال البيانات الصحيحة</h3>

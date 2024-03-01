@@ -115,11 +115,10 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                         تعديل
                       </Link>
                     </li>
-                    {parking.disabled ? (
-                      <li className="dropdown-item">إعادة تنشيط</li>
-                    ) : (
-                      <li className="dropdown-item">إلغاء تنشيط</li>
-                    )}
+                    {parking.status=='approved'&&(parking.disabled ? 
+                      <li className="dropdown-item" role="button">إعادة تنشيط</li>: 
+                      <li className="dropdown-item" role="button">إلغاء تنشيط</li>)
+                    }
                   </ul>
                 </div>
               </div>
