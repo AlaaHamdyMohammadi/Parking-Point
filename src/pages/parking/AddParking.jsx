@@ -57,7 +57,7 @@ export default function AddParking() {
     capacityErrors: "",
     locationErrors: "",
   });
-  const formData = new FormData();
+
   function uploadFile(files, formData) {
     [...files].forEach((file) => formData.append("photos", file));
   }
@@ -101,7 +101,7 @@ export default function AddParking() {
       setErrors({ ...errors, addressErrors: value.length === 0 ? "يجب ادخال المحافظة" : "" });
     }
     if (name === "location") {
-      setErrors({ ...errors, locationErrors: value.length === 0 ? "يجب ادخال نص" : "" });
+      setErrors({ ...errors, locationErrors: value.length === 0 ? "يجب ادخال الموقع" : "" });
     }
     if (name === "capacity") {
       setErrors({ ...errors, capacityErrors: value.length === 0 ? "يجب ادخال السعة" : "" });
@@ -115,10 +115,17 @@ export default function AddParking() {
     if (hasErrors || isEmpty) {
       event.preventDefault();
     } else {
+      const formData = new FormData();
+      formData.append("city", parking.city);
+      formData.append("title", parking.title);
+      formData.append("address", parking.address);
+      formData.append("capacity", parking.capacity);
+      formData.append("longitude", parking.location.longitude);
+      formData.append("latitude", parking.location.latitude);
+      uploadFile(imgArr, formData);
       if (ParkingId) {
-        console.log(ParkingId);
         axiosInstanceParking
-          .patch(`/parkings/${ParkingId}`, parking, {
+          .patch(`/parkings/${ParkingId}`, formData, {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then((res) => {
@@ -129,20 +136,13 @@ export default function AddParking() {
             console.error("Error during parking request:", err);
           });
       } else if (!ParkingId) {
-        formData.append("city", parking.city);
-        formData.append("title", parking.title);
-        formData.append("address", parking.address);
-        formData.append("capacity", parking.capacity);
-        formData.append("longitude", parking.location.longitude);
-        formData.append("latitude", parking.location.latitude);
-        uploadFile(imgArr, formData);
         axiosInstanceParking
           .post(`/parkings`, formData, {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then((res) => {
             console.log("Post request successful", res.data);
-            navigate("/Profile/parkingHome");
+            navigate("/");
           })
           .catch((err) => {
             console.error("Error during parking request:", err);
@@ -151,7 +151,6 @@ export default function AddParking() {
     }
     event.preventDefault();
   }
-  console.log(parking);
   return (
     <>
       <h3 className={`mt-4 text-center`}>لإضافة موقف يرجي ادخال البيانات الصحيحة</h3>
