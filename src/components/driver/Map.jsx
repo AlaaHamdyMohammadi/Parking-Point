@@ -123,7 +123,7 @@ const Map = ({ AvaliableParksFilter }) => {
               closeButton={true}
               closeOnClick={false}
             >
-              <div style={{ fontSize: 20 }}>{park.address}</div>
+              <div style={{ fontSize: 20 }}>{park.title}</div>
             </Popup>
           ) : null
         )}
