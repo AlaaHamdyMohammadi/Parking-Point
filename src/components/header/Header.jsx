@@ -7,8 +7,11 @@ import { IoIosLogOut } from "react-icons/io";
 import { MdContactSupport } from "react-icons/md";
 import { IoBagCheckSharp } from "react-icons/io5";
 import { logout } from "../../store/slices/authSlice";
+import axiosInstanceParking from "../../axiosConfig/instanc";
+import useLogInUserData from "../../../hook/useLogInUserData";
 
 export default function Header() {
+  const user = useLogInUserData();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.loggedIn.loggedIn);
@@ -74,7 +77,7 @@ export default function Header() {
             </div>
             <Link to={`profile`}>
               <img
-                src="/images/defaultpersonjpg.jpg"
+                src={user.photo ? `${axiosInstanceParking.defaults.baseURL}/users/${user.photo}` : '/images/defaultpersonjpg.jpg'}
                 className="rounded-circle position-absolute top-0 start-0"
                 style={{ height: "5vh", width: "5vh" }}
                 alt="..."

@@ -10,6 +10,7 @@ import SideBareLink from "../profile/SideBareLink";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/slices/authSlice";
 import useLogInUserData from "../../../hook/useLogInUserData";
+import axiosInstanceParking from './../../axiosConfig/instanc';
 
 export default function SidebarProfile() {
   const navigate = useNavigate();
@@ -35,16 +36,11 @@ export default function SidebarProfile() {
           <div className={`d-flex mt-md-2 fs-5 fw-bold gap-2 `}>
             <div className="pe-2">
               <img
-                src="/images/defaultpersonjpg.jpg"
+                src={user.photo ? `${axiosInstanceParking.defaults.baseURL}/users/${user.photo}` : '/images/defaultpersonjpg.jpg'}
                 className=" border rounded-circle"
                 style={{ width: "6vh", height: "6vh" }}
               />
             </div>
-
-            {/* <div className={` yellowcolor  text-center  ${classes.userName}`}>
-              {user.firstName[0]}
-              {user.lastName[0]}
-            </div> */}
             {isWide && (
               <div className="yellowcolor pt-1">
                 {user.firstName} {user.lastName}
