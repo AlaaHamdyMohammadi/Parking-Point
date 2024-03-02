@@ -41,7 +41,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
   return (
     <>
       {userParkings.map((parking, index) => (
-        <div key={parking._id} className={`mb-3 w-100 d-flex ${parking.disabled == true ? 'bg-secondary bg-opacity-25' : ''}`}>
+        <div key={parking._id} className={`pt-3 px-3 rounded w-100 d-flex ${parking.disabled == true ? 'bg-secondary bg-opacity-25' : ''}`}>
           <div className="d-md-flex w-100 pb-2 border-bottom justify-content-between">
             <div className="d-none d-md-block fw-bold mt-5">{index + 1}</div>
             <div className="col-md-3 col-12">
@@ -91,14 +91,14 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                 </p>
                 <p className="">
                   <small className="text-body-secondary">
-                    تمت الإضافة : {new Date(parking.createdAt).toLocaleDateString()}
+                     الإضافة: {new Date(parking.createdAt).toLocaleDateString()}
                   </small>
                 </p>
-                <p className="">
+                {/* <p className="">
                   <small className="text-body-secondary">
-                    اخر تعديل : {new Date(parking.updatedAt).toLocaleDateString()}
+                   تعديل: {new Date(parking.updatedAt).toLocaleDateString()}
                   </small>
-                </p>
+                </p> */}
               </div>
               <div className=" d-flex gap-2  py-2 w-100 justify-content-between ">
                 <div className=" d-lg-flex gap-3 flex-lg-column  text-center ">
@@ -112,9 +112,6 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                   >
                     {parking.disabled==true?'غير نشط':
                     (parking.status == "pending" ? "قيد الانتظار" : parking.status == "approved" ? "نشط" : "مرفوض")}
-                    <>
-                    {/* {parking.status == "pending" ? "قيد الانتظار" : parking.status == "approved" ? "نشط" : "مرفوض"} */}
-                    </>
                   </div>
                   <div className="d-flex flex-row  justify-content-center ">
                     <RatingComponent rating={parking.rate} />
