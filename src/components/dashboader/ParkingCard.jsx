@@ -7,7 +7,7 @@ import { FaStar } from "react-icons/fa";
 
 export default function ParkingCard({ userParkings, setUserParkings }) {
   const token = useSelector((state) => state.loggedIn.token);
-  function getMyParkings(){
+  function getMyParkings() {
     axiosInstanceParking
       .get(`/parkings/myparks`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -23,28 +23,28 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
   useEffect(() => {
     getMyParkings()
   }, []);
-  function isDisabled(ParkingId, disabled ) {
-      const formData = new FormData();
-      formData.append("disabled", disabled);
-      axiosInstanceParking
-        .patch(`/parkings/${ParkingId}`, formData, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((res) => {
-          console.log("update request successful", res.data);
-          getMyParkings()
-        })
-        .catch((err) => {
-          console.error("Error during parking request:", err);
-        });
+  function isDisabled(ParkingId, disabled) {
+    const formData = new FormData();
+    formData.append("disabled", disabled);
+    axiosInstanceParking
+      .patch(`/parkings/${ParkingId}`, formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        console.log("update request successful", res.data);
+        getMyParkings()
+      })
+      .catch((err) => {
+        console.error("Error during parking request:", err);
+      });
   }
   return (
     <>
       {userParkings.map((parking, index) => (
-        <div key={parking._id} className={`mb-3 w-100 d-flex row ${parking.disabled==true ?'bg-secondary bg-opacity-25' :''}`}>
-          <div className=" d-flex w-100 pb-2 border-bottom justify-content-between">
-            <div className="fw-bold mt-5">{index + 1}</div>
-            <div className="col-3">
+        <div key={parking._id} className={`mb-3 w-100 d-flex ${parking.disabled == true ? 'bg-secondary bg-opacity-25' : ''}`}>
+          <div className="d-md-flex w-100 pb-2 border-bottom justify-content-between">
+            <div className="d-none d-md-block fw-bold mt-5">{index + 1}</div>
+            <div className="col-md-3 col-12">
               <div id={`carouselExampleInterval${index}`} className=" w-100 carousel rounded " data-bs-ride="carousel">
                 <div className="carousel-inner  ">
                   {parking.photos.map((photo, index) => (
@@ -103,13 +103,12 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
               <div className=" d-flex gap-2  py-2 w-100 justify-content-between ">
                 <div className=" d-lg-flex gap-3 flex-lg-column  text-center ">
                   <div
-                    className={`badge px-4 rounded-pill ${
-                      parking.status === "approved"
+                    className={`badge px-4 rounded-pill ${parking.status === "approved"
                         ? "bgColor bg-opacity-75"
                         : parking.status === "pending"
-                        ? " bg-secondary bg-opacity-50"
-                        : "bg-danger bg-opacity-75"
-                    }`}
+                          ? " bg-secondary bg-opacity-50"
+                          : "bg-danger bg-opacity-75"
+                      }`}
                   >
                     {parking.status == "pending" ? "قيد الانتظار" : parking.status == "approved" ? "نشط" : "مرفوض"}
                   </div>
@@ -133,11 +132,11 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                         تعديل
                       </Link>
                     </li>
-                    {parking.status=='approved'&&
+                    {parking.status == 'approved' &&
                       < >
-                       { parking.disabled ? 
-                        <li className="dropdown-item" role="button" onClick={()=>{isDisabled(parking._id, false)}}>إعادة تنشيط</li>: 
-                        <li className="dropdown-item" role="button" onClick={()=>{isDisabled(parking._id, true)}}>إلغاء تنشيط</li>}
+                        {parking.disabled ?
+                          <li className="dropdown-item" role="button" onClick={() => { isDisabled(parking._id, false) }}>إعادة تنشيط</li> :
+                          <li className="dropdown-item" role="button" onClick={() => { isDisabled(parking._id, true) }}>إلغاء تنشيط</li>}
                       </>
                     }
                   </ul>

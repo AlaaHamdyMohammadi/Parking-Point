@@ -1,5 +1,6 @@
 .filterBtn {
     color: #000000 !important;
+    justify-content: space-around;
 }
 
 .filterBtn:focus {
