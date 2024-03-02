@@ -103,14 +103,18 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
               <div className=" d-flex gap-2  py-2 w-100 justify-content-between ">
                 <div className=" d-lg-flex gap-3 flex-lg-column  text-center ">
                   <div
-                    className={`badge px-4 rounded-pill ${parking.status === "approved"
+                    className={`badge px-4 rounded-pill ${parking.disabled==true?'bg-secondary bg-opacity-50':(parking.status === "approved"
                         ? "bgColor bg-opacity-75"
                         : parking.status === "pending"
                           ? " bg-secondary bg-opacity-50"
-                          : "bg-danger bg-opacity-75"
+                          : "bg-danger bg-opacity-75")
                       }`}
                   >
-                    {parking.status == "pending" ? "قيد الانتظار" : parking.status == "approved" ? "نشط" : "مرفوض"}
+                    {parking.disabled==true?'غير نشط':
+                    (parking.status == "pending" ? "قيد الانتظار" : parking.status == "approved" ? "نشط" : "مرفوض")}
+                    <>
+                    {/* {parking.status == "pending" ? "قيد الانتظار" : parking.status == "approved" ? "نشط" : "مرفوض"} */}
+                    </>
                   </div>
                   <div className="d-flex flex-row  justify-content-center ">
                     <RatingComponent rating={parking.rate} />
