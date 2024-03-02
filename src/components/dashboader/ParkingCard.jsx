@@ -30,7 +30,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        // console.log("update request successful", res.data);
+        console.log("update request successful", res.data);
         getMyParkings();
       })
       .catch((err) => {
