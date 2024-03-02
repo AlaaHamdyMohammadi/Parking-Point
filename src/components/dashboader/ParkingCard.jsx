@@ -42,11 +42,11 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
       {userParkings.map((parking, index) => (
         <div
           key={parking._id}
-          className={`mb-3 w-100 d-flex row ${parking.disabled == true ? "bg-secondary bg-opacity-25" : ""}`}
+          className={`pt-3 px-3 rounded w-100 d-flex ${parking.disabled == true ? "bg-secondary bg-opacity-25" : ""}`}
         >
-          <div className=" d-flex w-100 pb-2 border-bottom justify-content-between">
-            <div className="fw-bold mt-5">{index + 1}</div>
-            <div className="col-3">
+          <div className="d-md-flex w-100 pb-2 border-bottom justify-content-between">
+            <div className="d-none d-md-block fw-bold mt-5">{index + 1}</div>
+            <div className="col-md-3 col-12">
               <div id={`carouselExampleInterval${index}`} className=" w-100 carousel rounded " data-bs-ride="carousel">
                 <div className="carousel-inner  ">
                   {parking.photos.map((photo, index) => (
@@ -92,28 +92,34 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                   {parking.capacity}
                 </p>
                 <p className="">
-                  <small className="text-body-secondary">
-                    تمت الإضافة : {new Date(parking.createdAt).toLocaleDateString()}
-                  </small>
+                  <small className="text-body-secondary">الإضافة: {new Date(parking.createdAt).toLocaleDateString()}</small>
                 </p>
-                <p className="">
+                {/* <p className="">
                   <small className="text-body-secondary">
-                    اخر تعديل : {new Date(parking.updatedAt).toLocaleDateString()}
+                   تعديل: {new Date(parking.updatedAt).toLocaleDateString()}
                   </small>
-                </p>
+                </p> */}
               </div>
               <div className=" d-flex gap-2  py-2 w-100 justify-content-between ">
                 <div className=" d-lg-flex gap-3 flex-lg-column  text-center ">
                   <div
                     className={`badge px-4 rounded-pill ${
-                      parking.status === "approved"
+                      parking.disabled == true
+                        ? "bg-secondary bg-opacity-50"
+                        : parking.status === "approved"
                         ? "bgColor bg-opacity-75"
                         : parking.status === "pending"
                         ? " bg-secondary bg-opacity-50"
                         : "bg-danger bg-opacity-75"
                     }`}
                   >
-                    {parking.status == "pending" ? "قيد الانتظار" : parking.status == "approved" ? "نشط" : "مرفوض"}
+                    {parking.disabled == true
+                      ? "غير نشط"
+                      : parking.status == "pending"
+                      ? "قيد الانتظار"
+                      : parking.status == "approved"
+                      ? "نشط"
+                      : "مرفوض"}
                   </div>
                   <div className="d-flex flex-row  justify-content-center ">
                     <RatingComponent rating={parking.rate} />

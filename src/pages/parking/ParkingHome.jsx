@@ -5,15 +5,15 @@ import { useState } from "react";
 export default function ParkingHome() {
   const [userParkings, setUserParkings] = useState([])
   return (
-    <div  className={`d-flex flex-column justify-content-center m-5`}>
-      <div className={`d-flex align-self-center justify-content-between w-75 mb-5 pb-4 border-bottom`}>
-        <div className={`d-flex align-self-center w-75`}>
+    <div  className={`d-flex flex-column m-md-5 m-2`}>
+      <div className={`d-md-flex w-md-75 mb-5 pb-md-4 pb-1 border-bottom`}>
+        <div className="mb-md-0 mb-3 col-6 col-md-5">
+          <Link to={`/Profile/parking`} className="text-decoration-none btn btn-outline-warning text-dark">اضافة موقف جديد</Link>
+        </div>
+        <div className={`d-flex w-75`}>
         <ParkingFilter value={"approved"} text="نشط" setUserParkings={setUserParkings}/>
         <ParkingFilter value={"pending"} text="قيد الانتظار" setUserParkings={setUserParkings}/>
         <ParkingFilter value={"rejected"} text="مرفوض" setUserParkings={setUserParkings}/>
-        </div>
-        <div>
-          <Link to={`/Profile/parking`} className="text-decoration-none btn btn-outline-warning text-dark">اضافة موقف جديد</Link>
         </div>
       </div>
       <div className={`align-self-center w-75`}>

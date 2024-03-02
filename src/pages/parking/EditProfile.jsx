@@ -59,10 +59,7 @@ export default function EditProfile() {
   };
   return (
     <>
-      <Photoprofile
-        photo={`/images/defaultpersonjpg.jpg`}
-        time={`عضو منذ ${new Date(user.createdAt).toLocaleDateString()}`}
-      />
+      <Photoprofile />
       <form method="post" onSubmit={handleSubmit}>
         <div className="d-flex flex-column mt-5 pe-5 align-self-center gap-6 align-self-start w-75">
           <div className="row flex-column flex-sm-row ">
