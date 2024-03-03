@@ -17,10 +17,10 @@ export default function ParkingFilter({ value, text, setUserParkings }) {
   };
   return (
     <>
-      <div className={`${classes.filterBtn} btn btn-outline-warning d-flex col-2 p-2 w-auto ms-4`} onClick={filterParkings}>
+      <button className={`${classes.filterBtn} btn btn-outline-warning d-flex col-2 p-2 w-auto ms-2`} onClick={filterParkings}>
         {/* <div className={`ms-2`}>{text}</div> */}
         {text}
-      </div>
+      </button>
     </>
   );
 }
