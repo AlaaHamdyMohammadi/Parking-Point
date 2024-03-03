@@ -24,6 +24,10 @@ export default function HomeLogin() {
   }
   function handelBookLater() {
     setBookNow(false);
+    // setsearchData({
+    //   city: "",
+    // from: BookNow ? new Date().toISOString().slice(0, 16) : null,
+    // to: null})
   }
   const handleReserveChange = (AvaliableParks) => {
     setAvaliableParksFilter(AvaliableParks);
