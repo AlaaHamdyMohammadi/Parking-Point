@@ -52,10 +52,10 @@ export default function RegisterForm({ setShowFormStatus }) {
           value.length === 0
             ? "يجب ادخال رقم سري"
             : value.length <= 7
-            ? "يحب ادخال 8 احرف بحد ادني"
-            : passwordRegx.test(value)
-            ? ""
-            : "يجب ادخال حرف كبير وحرف صغير ورقم ورمز بحد ادني",
+              ? "يحب ادخال 8 احرف بحد ادني"
+              : passwordRegx.test(value)
+                ? ""
+                : "يجب ادخال حرف كبير وحرف صغير ورقم ورمز بحد ادني",
       });
     }
     if (name === "confirmPassword") {
@@ -113,7 +113,21 @@ export default function RegisterForm({ setShowFormStatus }) {
         console.log("signup request successful", res.data);
         setShowFormStatus(false);
       } catch (error) {
-        console.log("signup request not successful", error);
+        if (error.response.request.response.includes(registeUser.email)) {
+          setErrors({ ...errors, emailErrors: 'البريد الاليكتروني مستخدم من قبل' });
+        }
+        else if (error.response.request.response.includes(registeUser.phoneNumber)) {
+          setErrors({ ...errors, phoneNumberErrors: 'رقم الجوال مستخدم من قبل' });
+        }
+        else if (error.response.request.response.includes(registeUser.plateNumber)) {
+          setErrors({ ...errors, plateNumberErrors: 'رقم اللوحة مستخدم من قيل' });
+          console.log("signup request not successful", error.response.request);
+        }
+        else if (error.response.request.response.includes(registeUser.nationaleId)) {
+          setErrors({ ...errors, nationaleIdErrors: 'رقم الهوية مستخدم من قبل' });
+        } else {
+          console.log("signup request not successful", error.response.request);
+        }
       }
     }
   };
@@ -138,10 +152,10 @@ export default function RegisterForm({ setShowFormStatus }) {
       <form action="" method="post" onSubmit={handleSubmit} className="my-5">
         <div className="fs-4">
           <div className={`d-md-flex d-block`}>
-          <NameInputs nameInfo={registeUser} classes={classes} setNameInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
+            <NameInputs nameInfo={registeUser} classes={classes} setNameInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
           </div>
           <div className="mt-2">
-          <EmailInput emailInfo={registeUser} classes={classes} setEmailInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
+            <EmailInput emailInfo={registeUser} classes={classes} setEmailInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
           </div>
           <div className="mt-4">
             <label className="fs-5" htmlFor="password">
@@ -172,7 +186,7 @@ export default function RegisterForm({ setShowFormStatus }) {
             <p className={`${classes.error} text-danger`}>{errors.confirmPasswordErrors}</p>
           </div>
           <div className="mt-4">
-          <PhoneInput phoneNumberInfo={registeUser} classes={classes} setPhoneNumberInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
+            <PhoneInput phoneNumberInfo={registeUser} classes={classes} setPhoneNumberInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
           </div>
           <label className="mt-4 fs-5 col-md-4 col-12"> نوع الحساب</label>
           <div className="mt-2 row">
@@ -188,7 +202,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                 onBlur={registeValidation}
               />
               <label className="fs-5 ms-md-1" htmlFor="driver">
-                سائق
+                مستاجر
               </label>
             </div>
             <div className="col-md-6 col-12 mt-3 mt-md-0">
@@ -203,7 +217,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                 onBlur={registeValidation}
               />
               <label className="fs-5" htmlFor="renter">
-                صاحب موقف
+                مؤجر
               </label>
             </div>
           </div>
@@ -211,10 +225,10 @@ export default function RegisterForm({ setShowFormStatus }) {
           {isDriver && (
             <>
               <div className="mt-4">
-              <PlateNumberInput plateNumberInfo={registeUser} classes={classes} setPlateNumberInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
+                <PlateNumberInput plateNumberInfo={registeUser} classes={classes} setPlateNumberInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
               </div>
               <div className="mt-4">
-              <CarTypeInput carTypeInfo={registeUser} classes={classes} setCarTypeInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
+                <CarTypeInput carTypeInfo={registeUser} classes={classes} setCarTypeInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
               </div>
               <input
                 type="submit"
@@ -232,14 +246,14 @@ export default function RegisterForm({ setShowFormStatus }) {
             <>
               <div className={`row mt-3`}>
                 <div className={`col-md-5 col-12`}>
-                <StateInput stateInfo={registeUser} classes={classes} setStateInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
+                  <StateInput stateInfo={registeUser} classes={classes} setStateInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
                 </div>
                 <div className={`col-md-5 col-12`}>
-              <CitySelect cityInfo={registeUser} classes={classes} setCityInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
+                  <CitySelect cityInfo={registeUser} classes={classes} setCityInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
                 </div>
               </div>
               <div className="mt-4">
-              <RegionInput regionInfo={registeUser} classes={classes} setRegionInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
+                <RegionInput regionInfo={registeUser} classes={classes} setRegionInfo={setRegisteUser} errors={errors} setErrors={setErrors} />
               </div>
               <div className="mt-4">
                 <label className="fs-5" htmlFor="nationaleId">
