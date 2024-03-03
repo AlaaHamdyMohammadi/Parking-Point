@@ -202,7 +202,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                 onBlur={registeValidation}
               />
               <label className="fs-5 ms-md-1" htmlFor="driver">
-                سائق
+                مستاجر
               </label>
             </div>
             <div className="col-md-6 col-12 mt-3 mt-md-0">
@@ -217,7 +217,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                 onBlur={registeValidation}
               />
               <label className="fs-5" htmlFor="renter">
-                صاحب موقف
+                مؤجر
               </label>
             </div>
           </div>

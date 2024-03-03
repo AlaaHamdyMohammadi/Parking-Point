@@ -196,7 +196,7 @@ export default function AddParking() {
               <div className="form-group mb-3 col-12 col-md-6 ">
                 {/* <RegionInput regionInfo={parking} classes={classes} setRegionInfo={setParking} errors={errors} setErrors={setErrors}/> */}
                 <label htmlFor="address" className="mb-1 fs-5">
-                  المنطقة
+                  العنوان
                 </label>
                 <input
                   type="text"
@@ -250,25 +250,6 @@ export default function AddParking() {
                   name="capacity"
                 />
                 <p className={`${classes.error} text-danger`}>{errors.capacityErrors}</p>
-              </div>
-              <div className="form-group mb-3 col-12 col-md-6 ">
-                <label htmlFor="address" className="mb-1 fs-5">
-                  المحافظه
-                </label>
-                <select
-                  id="address"
-                  name="address"
-                  value={parking.address}
-                  onChange={validation}
-                  onBlur={validation}
-                  className={`form-control border border-secondary shadow-none`}
-                >
-                  <option value={` `} selected disabled>
-                    حدد المحافظة
-                  </option>
-                  <option value="مسقط">مسقط</option>
-                </select>
-                <p className="text-danger text-center">{errors.addressErrors}</p>
               </div>
             </div>
             <div className="d-flex justify-content-center">
