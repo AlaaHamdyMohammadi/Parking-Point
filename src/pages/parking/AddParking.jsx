@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 import { useEffect, useRef, useState } from "react";
 import { MdClose } from "react-icons/md";
 import axiosInstanceParking from "../../axiosConfig/instanc";
@@ -22,10 +24,32 @@ export default function AddParking() {
     photos: [],
     capacity: 1,
     location: {
-      longitude: "31.22",
-      latitude: "30.22",
+      longitude: null,
+      latitude: null,
     },
   });
+  const [currentLocation, setCurrentLocation] = useState(null);
+  const [error, setError] = useState(null);
+
+  const findCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setCurrentLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+          setError(null);
+        },
+        (error) => {
+          setError(error.message);
+        }
+      );
+    } else {
+      setError("Error in location.");
+    }
+  };
+
   useEffect(() => {
     const editParking = async () => {
       const res = await axiosInstanceParking.get(`/parkings/${ParkingId}`, {
@@ -43,6 +67,7 @@ export default function AddParking() {
           latitude: res.data.doc.latitude,
         },
       });
+      console.log(setParking);
       setImgArr(res.data.doc.photos);
     };
     if (ParkingId) {
@@ -63,7 +88,10 @@ export default function AddParking() {
   }
   function saveImageArr(eve) {
     setImgArr((i) => [...i, ...Array.from(eve.target.files)]);
-    setParking({ ...parking, photos: [...imgArr, ...Array.from(eve.target.files)] });
+    setParking({
+      ...parking,
+      photos: [...imgArr, ...Array.from(eve.target.files)],
+    });
   }
   function showImages(image) {
     try {
@@ -84,7 +112,10 @@ export default function AddParking() {
   function validation(event) {
     const { name, value } = event.target;
     if (name === "photos") {
-      setErrors({ ...errors, photosErrors: value.length === 0 ? "يجب إضافة صورة بحد ادني" : "" });
+      setErrors({
+        ...errors,
+        photosErrors: value.length === 0 ? "يجب إضافة صورة بحد ادني" : "",
+      });
     }
     if (name === "title") {
       setErrors({
@@ -98,13 +129,22 @@ export default function AddParking() {
       });
     }
     if (name === "address") {
-      setErrors({ ...errors, addressErrors: value.length === 0 ? "يجب ادخال المحافظة" : "" });
+      setErrors({
+        ...errors,
+        addressErrors: value.length === 0 ? "يجب ادخال المحافظة" : "",
+      });
     }
     if (name === "location") {
-      setErrors({ ...errors, locationErrors: value.length === 0 ? "يجب ادخال الموقع" : "" });
+      setErrors({
+        ...errors,
+        locationErrors: value.length === 0 ? "يجب ادخال الموقع" : "",
+      });
     }
     if (name === "capacity") {
-      setErrors({ ...errors, capacityErrors: value.length === 0 ? "يجب ادخال السعة" : "" });
+      setErrors({
+        ...errors,
+        capacityErrors: value.length === 0 ? "يجب ادخال السعة" : "",
+      });
     }
     setParking({ ...parking, [name]: value });
   }
@@ -120,8 +160,13 @@ export default function AddParking() {
       formData.append("title", parking.title);
       formData.append("address", parking.address);
       formData.append("capacity", parking.capacity);
-      formData.append("longitude", parking.location.longitude);
-      formData.append("latitude", parking.location.latitude);
+      if (currentLocation) {
+        formData.append("latitude", currentLocation.latitude);
+        formData.append("longitude", currentLocation.longitude);
+      } else {
+        formData.append("latitude", parking.location.latitude);
+        formData.append("longitude", parking.location.longitude);
+      }
       uploadFile(imgArr, formData);
       if (ParkingId) {
         axiosInstanceParking
@@ -151,23 +196,40 @@ export default function AddParking() {
     }
     event.preventDefault();
   }
+
   return (
     <>
-      <h3 className={`mt-4 text-center`}>لإضافة موقف يرجي ادخال البيانات الصحيحة</h3>
+      <h3 className={`mt-4 text-center`}>
+        لإضافة موقف يرجي ادخال البيانات الصحيحة
+      </h3>
       <div className={`card w-75 align-self-center p-2 mb-5`}>
         <div className={`p-5`}>
-          <h5 className={`text-secondary text-center`}>يمكن إضافة ثلاث صور فقط</h5>
-          <form encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
+          <h5 className={`text-secondary text-center`}>
+            يمكن إضافة ثلاث صور فقط
+          </h5>
+          <form
+            encType="multipart/form-data"
+            method="post"
+            onSubmit={handleSubmit}
+          >
             <div className={` p-2 d-flex justify-content-center`}>
               {imgArr.map((image, index) => (
                 <div
                   className={`col-3 mx-2 border d-flex d-flex align-items-center justify-content-center position-relative`}
                   key={index}
                 >
-                  <div onClick={() => removeImage(index)} className={`position-absolute top-0 end-0`} role="button">
+                  <div
+                    onClick={() => removeImage(index)}
+                    className={`position-absolute top-0 end-0`}
+                    role="button"
+                  >
                     <MdClose className="fs-5 bgColor text-white" />
                   </div>
-                  <img className="w-100" src={showImages(image)} alt="Selected" />
+                  <img
+                    className="w-100"
+                    src={showImages(image)}
+                    alt="Selected"
+                  />
                 </div>
               ))}
               {imgArr.length < 3 && (
@@ -189,7 +251,9 @@ export default function AddParking() {
                   />
                 </div>
               )}
-              <p className={`${classes.error} text-danger`}>{errors.imageErrors}</p>
+              <p className={`${classes.error} text-danger`}>
+                {errors.imageErrors}
+              </p>
             </div>
 
             <div className="row">
@@ -207,7 +271,9 @@ export default function AddParking() {
                   onBlur={validation}
                   className={`form-control border-secondary shadow-none`}
                 />
-                <p className={`${classes.error} text-danger`}>{errors.addressErrors}</p>
+                <p className={`${classes.error} text-danger`}>
+                  {errors.addressErrors}
+                </p>
               </div>
               <div className="form-group mb-3 col-12 col-md-6">
                 <CitySelect
@@ -232,7 +298,9 @@ export default function AddParking() {
                   name="title"
                   value={parking.title}
                 />
-                <p className={`${classes.error} text-danger`}>{errors.titleErrors}</p>
+                <p className={`${classes.error} text-danger`}>
+                  {errors.titleErrors}
+                </p>
               </div>
               <div className="form-group mb-3 col-12 col-md-6 ">
                 <label htmlFor="capacity" className="mb-1 fs-5">
@@ -249,8 +317,16 @@ export default function AddParking() {
                   placeholder=""
                   name="capacity"
                 />
-                <p className={`${classes.error} text-danger`}>{errors.capacityErrors}</p>
+                <p className={`${classes.error} text-danger`}>
+                  {errors.capacityErrors}
+                </p>
               </div>
+              <button
+                onClick={findCurrentLocation}
+                className="btn bgColor text-white col-11 mb-2 m-auto"
+              >
+                ابحث عن موقعك
+              </button>
             </div>
             <div className="d-flex justify-content-center">
               {ParkingId ? (
@@ -262,7 +338,9 @@ export default function AddParking() {
                       ? "btn bgColor text-white col-4 disabled"
                       : "btn bgColor text-white col-4 "
                   }
-                  disabled={Object.values(parking).some((parking) => parking == "")}
+                  disabled={Object.values(parking).some(
+                    (parking) => parking == ""
+                  )}
                 />
               ) : (
                 <input
@@ -273,7 +351,9 @@ export default function AddParking() {
                       ? "btn bgColor text-white col-4 disabled"
                       : "btn bgColor text-white col-4 "
                   }
-                  disabled={Object.values(parking).some((parking) => parking == "")}
+                  disabled={Object.values(parking).some(
+                    (parking) => parking == ""
+                  )}
                 />
               )}
             </div>
