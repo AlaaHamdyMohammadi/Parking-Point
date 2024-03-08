@@ -143,7 +143,9 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
               : " معرفة مدة الركن "}
           </div>
           <div className={`text-end`}>
-            <button type="submit" className={`text-center bgColor text-white btn m-2 mx-3 ${classes.formBtn} `}></button>
+            <button type="submit" className={`text-center bgColor text-white btn m-2 mx-3 ${classes.formBtn} `}>
+              اعرض المواقف
+            </button>
           </div>
         </div>
       </form>

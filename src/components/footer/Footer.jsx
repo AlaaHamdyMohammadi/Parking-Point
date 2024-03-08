@@ -35,7 +35,7 @@ export default function Footer() {
           </Link>
         </li>
         <li className="ms-3">
-          <Link to={`https://www.instagram.com/`}>
+          <Link to={`https://www.instagram.com/_parkingpoint?igsh=Z2Qyeno1NGlseWZm&utm_source=qr`}>
             <SlSocialInstagram className="fs-4 animate  transition hoverColor" />
           </Link>
         </li>
