@@ -40,7 +40,7 @@ export default function RegisterForm({ setShowFormStatus }) {
     plateNumberErrors: "",
     nationaleIdErrors: "",
   });
-  let passwordRegx = /^[a-zA-Z0-9\d*:!#&^$.?#@]{8,}$/;
+  let passwordRegx = /^[a-zA-Z0-9]{8,}$/;
   let roleRegx = /^(renter|driver)$/;
   let regionRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;
   const registeValidation = (event) => {
@@ -55,7 +55,7 @@ export default function RegisterForm({ setShowFormStatus }) {
               ? "يحب ادخال 8 احرف بحد ادني"
               : passwordRegx.test(value)
                 ? ""
-                : "يجب ادخال حرف كبير وحرف صغير ورقم ورمز بحد ادني",
+                : "يجب ادخال حرف كبير وحرف صغير ورقم بحد ادني",
       });
     }
     if (name === "confirmPassword") {

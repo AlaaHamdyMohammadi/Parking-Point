@@ -7,9 +7,10 @@ export default function RenterGuard({children}) {
     const user = useLogInUserData();
     if (isLoggedIn == false) {
       return <Navigate to="/register" />;
-    }else if(user.role !== 'renter' && isLoggedIn== true){
+    }else if( isLoggedIn== true ){
+      if(user.role === 'driver'||user.isActivated==false)
         return <Navigate to="**" />
-    } else {
+    }else {
       return children;
     }
 }
