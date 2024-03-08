@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import classes from "./../../styles/formStyles.module.css";
 import axiosInstanceParking from "../../axiosConfig/instanc";
@@ -188,7 +189,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                 onBlur={registeValidation}
               />
               <label className="fs-5 ms-md-1" htmlFor="driver">
-                سائق
+                مُستأجر
               </label>
             </div>
             <div className="col-md-6 col-12 mt-3 mt-md-0">
@@ -203,7 +204,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                 onBlur={registeValidation}
               />
               <label className="fs-5" htmlFor="renter">
-                صاحب موقف
+                مُؤجر 
               </label>
             </div>
           </div>
