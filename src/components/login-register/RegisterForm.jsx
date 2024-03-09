@@ -179,6 +179,7 @@ export default function RegisterForm({ setShowFormStatus }) {
               onChange={registeValidation}
               onBlur={registeValidation}
             />
+
             <p className={`${classes.error} text-danger`}>{errors.passwordErrors}</p>
           </div>
           <div className="mt-4">

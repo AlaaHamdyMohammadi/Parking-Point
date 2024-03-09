@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { login } from "../../store/slices/authSlice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { IoEyeOutline } from "react-icons/io5";
+import { FaRegEyeSlash } from "react-icons/fa6";
 
 export default function LoginForm() {
   const dispatch = useDispatch();
@@ -20,6 +22,13 @@ export default function LoginForm() {
     emailErrors: "",
     passwordErrors: "",
   });
+  //
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  //
   const loginValidation = (event) => {
     const { name, value } = event.target;
     if (name === "email") {
@@ -38,9 +47,7 @@ export default function LoginForm() {
   };
   const handleSubmit = async (event) => {
     const hasErrors = Object.values(errors).some((error) => error !== "");
-    const isEmpty = Object.values(logInUser).some(
-      (logInUser) => logInUser === ""
-    );
+    const isEmpty = Object.values(logInUser).some((logInUser) => logInUser === "");
     if (hasErrors || isEmpty) {
       event.preventDefault();
     } else {
@@ -75,7 +82,7 @@ export default function LoginForm() {
             onBlur={loginValidation}
           />
         </div>
-        <div className="mt-4">
+        {/* <div className="mt-4">
           <label htmlFor="password" className="fs-5">
             كلمة السر
           </label>
@@ -87,6 +94,32 @@ export default function LoginForm() {
             onChange={loginValidation}
             onBlur={loginValidation}
           />
+        </div> */}
+        <div>
+          <div className="mt-4">
+            <label htmlFor="password" className="fs-5">
+              كلمة السر
+            </label>
+            <div className="input-group">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                id="password"
+                className={`${classes.input} form-control border-secondary shadow-none`}
+                onChange={loginValidation}
+                onBlur={loginValidation}
+                style={{ borderTopRightRadius: "0.375rem", borderBottomRightRadius: "0.375rem" }}
+              />
+              <button
+                type="button"
+                className="btn Gray border border-0"
+                style={{ position: "absolute", right: "20rem", zIndex: "1" }}
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? <IoEyeOutline /> : <FaRegEyeSlash />}
+              </button>
+            </div>
+          </div>
         </div>
         <input
           type="submit"
@@ -96,9 +129,7 @@ export default function LoginForm() {
               ? "btn bgColor text-white col-4 disabled"
               : "text-center bgColor text-white btn mt-5 "
           }
-          disabled={Object.values(logInUser).some(
-            (logInUser) => logInUser == ""
-          )}
+          disabled={Object.values(logInUser).some((logInUser) => logInUser == "")}
         />
       </form>
       <ToastContainer position="top-right" autoClose={50000} />
