@@ -45,8 +45,10 @@ export default function AddParking() {
       navigator.geolocation.getCurrentPosition((position) => {
         setParking((prevViewport) => ({
           ...prevViewport,
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
+          location: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          },
         }));
       });
       //   console.log("latitude", parking.latitude);
@@ -79,7 +81,7 @@ export default function AddParking() {
     if (ParkingId) {
       editParking();
     }
-  }, []);
+  }, [ParkingId, token]);
   const [errors, setErrors] = useState({
     photosErrors: "",
     cityErrors: "",
@@ -370,8 +372,8 @@ export default function AddParking() {
                 >
                   <Marker
                     draggable
-                    latitude={parking.latitude}
-                    longitude={parking.longitude}
+                    latitude={parking.location.latitude}
+                    longitude={parking.location.longitude}
                     offsetLeft={-20}
                     offsetTop={-10}
                   />
