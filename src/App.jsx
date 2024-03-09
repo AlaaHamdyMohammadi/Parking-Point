@@ -15,6 +15,7 @@ import Sales from "./pages/parking/Sales";
 import Guard from "./components/guard/Guard";
 import LoginGuard from "./components/guard/LoginGuard";
 import RenterGuard from "./components/guard/RenterGuard";
+import LiveLocation from "./pages/Map";
 
 const router = createBrowserRouter([
   {
@@ -97,6 +98,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: "/map", element: <LiveLocation /> },
 ]);
 
 function App() {

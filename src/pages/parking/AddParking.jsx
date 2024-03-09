@@ -1,6 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import { useEffect, useRef, useState } from "react";
+import ReactMapGL, {
+  Marker,
+  FullscreenControl,
+  GeolocateControl,
+} from "react-map-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
 import { MdClose } from "react-icons/md";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
@@ -8,6 +14,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import CitySelect from "../../components/formFun/CitySelect";
 import classes from "./../../styles/formStyles.module.css";
 // import RegionInput from "../../components/formFun/RegionInput";
+
+const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
+const mapStyle = "mapbox://styles/alaahamdy2/clsp701hd005a01pkhrmygybf";
+
 export default function AddParking() {
   const profileImgRef = useRef(null);
   const token = useSelector((state) => state.loggedIn.token);
@@ -24,31 +34,27 @@ export default function AddParking() {
     photos: [],
     capacity: 1,
     location: {
-      longitude: null,
-      latitude: null,
+      longitude: 0,
+      latitude: 0,
     },
+    zoom: 10,
   });
-  const [currentLocation, setCurrentLocation] = useState(null);
-  const [error, setError] = useState(null);
 
-  const findCurrentLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setCurrentLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
-          setError(null);
-        },
-        (error) => {
-          setError(error.message);
-        }
-      );
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setParking((prevViewport) => ({
+          ...prevViewport,
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        }));
+      });
+      //   console.log("latitude", parking.latitude);
+      //   console.log("longitude", parking.longitude);
     } else {
-      setError("Error in location.");
+      console.error("Geolocation is not supported by this browser.");
     }
-  };
+  }, [parking]);
 
   useEffect(() => {
     const editParking = async () => {
@@ -199,21 +205,37 @@ export default function AddParking() {
 
   return (
     <>
-      <h3 className={`mt-4 text-center`}>لإضافة موقف يرجي ادخال البيانات الصحيحة</h3>
+      <h3 className={`mt-4 text-center`}>
+        لإضافة موقف يرجي ادخال البيانات الصحيحة
+      </h3>
       <div className={`card w-75 align-self-center p-2 mb-5`}>
         <div className={`p-5`}>
-          <h5 className={`text-secondary text-center`}>يمكن إضافة ثلاث صور فقط</h5>
-          <form encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
+          <h5 className={`text-secondary text-center`}>
+            يمكن إضافة ثلاث صور فقط
+          </h5>
+          <form
+            encType="multipart/form-data"
+            method="post"
+            onSubmit={handleSubmit}
+          >
             <div className={` p-2 d-flex justify-content-center`}>
               {imgArr.map((image, index) => (
                 <div
                   className={`col-3 mx-2 border d-flex d-flex align-items-center justify-content-center position-relative`}
                   key={index}
                 >
-                  <div onClick={() => removeImage(index)} className={`position-absolute top-0 end-0`} role="button">
+                  <div
+                    onClick={() => removeImage(index)}
+                    className={`position-absolute top-0 end-0`}
+                    role="button"
+                  >
                     <MdClose className="fs-5 bgColor text-white" />
                   </div>
-                  <img className="w-100" src={showImages(image)} alt="Selected" />
+                  <img
+                    className="w-100"
+                    src={showImages(image)}
+                    alt="Selected"
+                  />
                 </div>
               ))}
               {imgArr.length < 3 && (
@@ -235,7 +257,9 @@ export default function AddParking() {
                   />
                 </div>
               )}
-              <p className={`${classes.error} text-danger`}>{errors.imageErrors}</p>
+              <p className={`${classes.error} text-danger`}>
+                {errors.imageErrors}
+              </p>
             </div>
 
             <div className="row">
@@ -253,7 +277,9 @@ export default function AddParking() {
                   name="title"
                   value={parking.title}
                 />
-                <p className={`${classes.error} text-danger`}>{errors.titleErrors}</p>
+                <p className={`${classes.error} text-danger`}>
+                  {errors.titleErrors}
+                </p>
               </div>
               <div className="form-group mb-3 col-12 col-md-6 ">
                 {/* <RegionInput regionInfo={parking} classes={classes} setRegionInfo={setParking} errors={errors} setErrors={setErrors}/> */}
@@ -269,7 +295,9 @@ export default function AddParking() {
                   onBlur={validation}
                   className={`form-control border-secondary shadow-none`}
                 />
-                <p className={`${classes.error} text-danger`}>{errors.addressErrors}</p>
+                <p className={`${classes.error} text-danger`}>
+                  {errors.addressErrors}
+                </p>
               </div>
               <div className="form-group mb-3 col-12 col-md-6">
                 <CitySelect
@@ -296,14 +324,16 @@ export default function AddParking() {
                   placeholder=""
                   name="capacity"
                 />
-                <p className={`${classes.error} text-danger`}>{errors.capacityErrors}</p>
+                <p className={`${classes.error} text-danger`}>
+                  {errors.capacityErrors}
+                </p>
               </div>
               {/* <button  className="btn bgColor text-white col-11 mb-2 m-auto">
               </button> */}
               <label htmlFor="location" className="mb-1 fs-5">
                 الموقع{" "}
               </label>
-              <div className="accordion my-2" id="accordionExample">
+              {/*<div className="accordion my-2" id="accordionExample">
                 <div className="accordion-item">
                   <h5 className="accordion-header">
                     <button
@@ -328,6 +358,31 @@ export default function AddParking() {
                     </div>
                   </div>
                 </div>
+            </div>*/}
+
+              <div style={{ width: "100vw", height: "85vh" }}>
+                <ReactMapGL
+                  {...parking}
+                  mapStyle={mapStyle}
+                  mapboxAccessToken={TOKEN}
+                  onViewportChange={setParking}
+                  dragPan={true}
+                >
+                  <Marker
+                    draggable
+                    latitude={parking.latitude}
+                    longitude={parking.longitude}
+                    offsetLeft={-20}
+                    offsetTop={-10}
+                  />
+
+                  <GeolocateControl
+                    positionOptions={{ enableHighAccuracy: true }}
+                    trackUserLocation={true}
+                    showUserLocation={true}
+                  />
+                  <FullscreenControl />
+                </ReactMapGL>
               </div>
             </div>
             <div className="d-flex justify-content-center">
@@ -340,7 +395,9 @@ export default function AddParking() {
                       ? "btn bgColor text-white col-4 disabled"
                       : "btn bgColor text-white col-4 "
                   }
-                  disabled={Object.values(parking).some((parking) => parking == "")}
+                  disabled={Object.values(parking).some(
+                    (parking) => parking == ""
+                  )}
                 />
               ) : (
                 <input
@@ -351,7 +408,9 @@ export default function AddParking() {
                       ? "btn bgColor text-white col-4 disabled"
                       : "btn bgColor text-white col-4 "
                   }
-                  disabled={Object.values(parking).some((parking) => parking == "")}
+                  disabled={Object.values(parking).some(
+                    (parking) => parking == ""
+                  )}
                 />
               )}
             </div>
