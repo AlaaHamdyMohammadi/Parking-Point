@@ -135,6 +135,12 @@ export default function Header() {
           </div>
         )}
       </nav>
+      {isLoggedIn && user.isActivated == false &&
+        <div className="alert alert-danger text-center" role="alert">
+          لكي تتمكن من اضافة موقف يرجي التواصل مع الدعم
+        </div>
+      }
+
     </>
   );
 }

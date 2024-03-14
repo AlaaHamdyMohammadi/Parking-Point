@@ -11,6 +11,8 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../store/slices/authSlice";
 import useLogInUserData from "../../../hook/useLogInUserData";
 import axiosInstanceParking from './../../axiosConfig/instanc';
+import { HiLockClosed } from "react-icons/hi2";
+
 
 export default function SidebarProfile() {
   const navigate = useNavigate();
@@ -51,11 +53,17 @@ export default function SidebarProfile() {
         <div className="">
           {user.role == "renter" && (
             <>
+            {user.isActivated == true?
               <SideBareLink
                 href={`/Profile/parking`}
                 icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
-                text={isWide ? "إضافة موقف" : ""}
-              />
+                text={isWide ? "إضافة موقف" : ""} />
+            :
+              <div className="fs-5">
+                <span><HiLockClosed className=" editIcon p-1"/></span>
+                <span className="icon-text ps-2 ">{isWide ? "إضافة موقف" : ""}</span>
+              </div>
+            }
 
               <SideBareLink
                 href={`/`}
