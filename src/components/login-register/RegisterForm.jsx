@@ -10,7 +10,11 @@ import EmailInput from "../formFun/EmailInput";
 import PhoneInput from "../formFun/PhoneInput";
 import PlateNumberInput from "../formFun/PlateNumberInput";
 import CarTypeInput from "../formFun/CarTypeInput";
+// import ModalEmail from "./emailConfirm";
+import ConfirmationCodeInput from "./confirmEmail";
 export default function RegisterForm({ setShowFormStatus }) {
+  const [showEmailModal, setShowEmailModal] = useState(false);
+
   const [registeUser, setRegisteUser] = useState({
     firstName: "",
     lastName: "",
@@ -112,7 +116,9 @@ export default function RegisterForm({ setShowFormStatus }) {
         }
         const res = await axiosInstanceParking.post(`/users/signup`, formData);
         console.log("signup request successful", res.data);
-        setShowFormStatus(false);
+        setShowEmailModal(true);
+
+        // setShowFormStatus(false);
       } catch (error) {
         if (error.response.request.response.includes(registeUser.email)) {
           setErrors({ ...errors, emailErrors: "البريد الاليكتروني مستخدم من قبل" });
@@ -316,16 +322,66 @@ export default function RegisterForm({ setShowFormStatus }) {
                 />
                 <p className={`${classes.error} text-danger`}>{errors.nationaleIdErrors}</p>
               </div>
-              <input
-                type="submit"
-                value="submit"
-                className={
-                  Object.values(errors).some((error) => error !== "")
-                    ? `btn bgColor text-white col-4 disabled`
-                    : `${classes.formBtn} text-center bgColor text-white btn mt-5`
-                }
-                disabled={Object.values(errors).some((registerUser) => registerUser !== "")}
-              />
+              <div>
+                <input
+                  type="submit"
+                  value="إنشاء حساب"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                  className={
+                    Object.values(errors).some((error) => error !== "")
+                      ? `btn bgColor text-white col-4 disabled`
+                      : `${classes.formBtn} text-center bgColor text-white btn mt-5`
+                  }
+                  disabled={Object.values(errors).some((registerUser) => registerUser !== "")}
+                />
+                {/* {showEmailModal && <ModalEmail />} */}
+                {/* <ModalEmail /> */}
+                {/* <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                  Launch static backdrop modal
+                </button> */}
+
+                <div
+                  className="modal fade"
+                  id="staticBackdrop"
+                  data-bs-backdrop="static"
+                  data-bs-keyboard="false"
+                  tabIndex="-1"
+                  aria-labelledby="staticBackdropLabel"
+                  aria-hidden="true"
+                >
+                  <div className="modal-dialog  modal-lg">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h1 className="modal-title fs-5" id="staticBackdropLabel">
+                          Modal title
+                        </h1>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div className="modal-body d-flex">
+                        <div>
+                          <ConfirmationCodeInput length={6} onConfirm={(code) => console.log("Confirmed:", code)} />
+                        </div>
+                        <div>
+                          <img
+                            style={{ height: "20rem", width: "20rem" }}
+                            src="./../../../public/images/Mail sent-amico (1).png"
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                      <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                          Close
+                        </button>
+                        <button type="button" className="btn btn-primary">
+                          Understood
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </>
           )}
         </div>
