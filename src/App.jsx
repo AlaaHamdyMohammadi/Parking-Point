@@ -53,6 +53,8 @@ const router = createBrowserRouter([
             <Dashboard />
           </Guard>
         ),
+        errorElement: <HandelErorr />,
+
         children: [
           {
             index: true,
