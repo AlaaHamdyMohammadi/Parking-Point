@@ -13,6 +13,7 @@ import useLogInUserData from "../../../hook/useLogInUserData";
 import axiosInstanceParking from "./../../axiosConfig/instanc";
 import { HiLockClosed } from "react-icons/hi2";
 import { LiaMoneyCheckAltSolid } from "react-icons/lia";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function SidebarProfile() {
   const navigate = useNavigate();
@@ -23,6 +24,9 @@ export default function SidebarProfile() {
   };
   const user = useLogInUserData();
   var [isWide, setWide] = useState(false);
+  const handleUnactive = () => {
+    toast.error("يرجى التواصل مع الدعم لتأكيد الهوية اولا ");
+  };
   return (
     <>
       <div
@@ -64,13 +68,21 @@ export default function SidebarProfile() {
                   text={isWide ? "إضافة موقف" : ""}
                 />
               ) : (
-                <div className="fs-5">
+                <div
+                  className={`${classes.unactive}  fs-5 d-block`}
+                  onClick={handleUnactive}
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-custom-class={`${classes.customTooltip}`}
+                  title="يرجى التواصل مع الدعم لتأكيد الهوية اولا"
+                >
                   <span>
-                    <HiLockClosed className=" editIcon p-1" />
+                    <HiLockClosed className="  editIcon p-2" />
                   </span>
-                  <span className="icon-text ps-2 ">{isWide ? "إضافة موقف" : ""}</span>
+                  <span className="icon-text ps-2  ">{isWide ? "إضافة موقف" : ""}</span>
                 </div>
               )}
+              <ToastContainer position="top-right" autoClose={10000} />
 
               <SideBareLink
                 href={`/`}

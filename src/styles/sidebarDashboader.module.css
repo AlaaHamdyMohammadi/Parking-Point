@@ -1,33 +1,20 @@
-/* .showSidebar {
-  width: 13rem;
-}
-.closeSidebar {
-  width: 3.5rem;
-} */
-
-.sidebar a {
+.sidebar a,
+.unactive {
   padding: 8px 8px 8px 0px;
   text-decoration: none;
   font-size: 25px;
-  color: #818181;
+  color: #818181 !important;
   display: block;
 }
 
 .sidebar a:hover {
   color: #f1f1f1;
 }
-
-/* @media screen and (max-height: 450px) {
-  .sidebar {
-    padding-top: 15px;
-  }
-  .sidebar a {
-    font-size: 18px;
-  }
-} */
+.customTooltip {
+  --bs-tooltip-bg: var(--bd-violet-bg);
+  --bs-tooltip-color: var(--bs-white);
+}
 .userName {
-  /* #818181 */
-  /* font-size: smaller; */
   border: 2px solid var(--yellow);
   border-radius: 50%;
   width: 3vw;
