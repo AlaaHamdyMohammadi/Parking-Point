@@ -15,6 +15,7 @@ import Sales from "./pages/parking/Sales";
 import Guard from "./components/guard/Guard";
 import LoginGuard from "./components/guard/LoginGuard";
 import RenterGuard from "./components/guard/RenterGuard";
+import Fqa from "./pages/FQA";
 import LiveLocation from "./pages/Map";
 
 const router = createBrowserRouter([
@@ -23,6 +24,8 @@ const router = createBrowserRouter([
     element: <DefaultLayout />,
     children: [
       { index: true, element: <Home />, errorElement: <HandelErorr /> },
+      // { path: "/FQA", element: <Fqa />, errorElement: <HandelErorr /> },
+
       { path: "*", element: <NotFound /> },
     ],
   },
@@ -40,14 +43,18 @@ const router = createBrowserRouter([
       },
     ],
   },
-  {element: <Layout />,
+  {
+    element: <Layout />,
     children: [
-      {path: "Profile",
+      {
+        path: "Profile",
         element: (
           <Guard>
             <Dashboard />
           </Guard>
         ),
+        errorElement: <HandelErorr />,
+
         children: [
           {
             index: true,
@@ -90,6 +97,15 @@ const router = createBrowserRouter([
             element: (
               <Guard>
                 <Sales />
+              </Guard>
+            ),
+            errorElement: <HandelErorr />,
+          },
+          {
+            path: "FQA",
+            element: (
+              <Guard>
+                <Fqa />
               </Guard>
             ),
             errorElement: <HandelErorr />,

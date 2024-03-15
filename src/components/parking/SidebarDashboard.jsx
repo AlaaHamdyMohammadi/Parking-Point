@@ -10,7 +10,10 @@ import SideBareLink from "../profile/SideBareLink";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/slices/authSlice";
 import useLogInUserData from "../../../hook/useLogInUserData";
-import axiosInstanceParking from './../../axiosConfig/instanc';
+import axiosInstanceParking from "./../../axiosConfig/instanc";
+import { HiLockClosed } from "react-icons/hi2";
+import { LiaMoneyCheckAltSolid } from "react-icons/lia";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function SidebarProfile() {
   const navigate = useNavigate();
@@ -21,6 +24,9 @@ export default function SidebarProfile() {
   };
   const user = useLogInUserData();
   var [isWide, setWide] = useState(false);
+  const handleUnactive = () => {
+    toast.error("يرجى التواصل مع الدعم لتأكيد الهوية اولا ");
+  };
   return (
     <>
       <div
@@ -36,7 +42,11 @@ export default function SidebarProfile() {
           <div className={`d-flex mt-md-2 fs-5 fw-bold gap-2 `}>
             <div className="pe-2">
               <img
-                src={user.photo ? `${axiosInstanceParking.defaults.baseURL}/users/${user.photo}` : '/images/defaultpersonjpg.jpg'}
+                src={
+                  user.photo
+                    ? `${axiosInstanceParking.defaults.baseURL}/users/${user.photo}`
+                    : "/images/defaultpersonjpg.jpg"
+                }
                 className=" border rounded-circle"
                 style={{ width: "6vh", height: "6vh" }}
               />
@@ -51,11 +61,28 @@ export default function SidebarProfile() {
         <div className="">
           {user.role == "renter" && (
             <>
-              <SideBareLink
-                href={`/Profile/parking`}
-                icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
-                text={isWide ? "إضافة موقف" : ""}
-              />
+              {user.isActivated == true ? (
+                <SideBareLink
+                  href={`/Profile/parking`}
+                  icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
+                  text={isWide ? "إضافة موقف" : ""}
+                />
+              ) : (
+                <div
+                  className={`${classes.unactive}  fs-5 d-block`}
+                  onClick={handleUnactive}
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-custom-class={`${classes.customTooltip}`}
+                  title="يرجى التواصل مع الدعم لتأكيد الهوية اولا"
+                >
+                  <span>
+                    <HiLockClosed className="  editIcon p-2" />
+                  </span>
+                  <span className="icon-text ps-2  ">{isWide ? "إضافة موقف" : ""}</span>
+                </div>
+              )}
+              <ToastContainer position="top-right" autoClose={10000} />
 
               <SideBareLink
                 href={`/`}
@@ -66,7 +93,7 @@ export default function SidebarProfile() {
           )}
           <SideBareLink
             href={`/Profile/sales`}
-            icon={<IoBagCheckOutline className=" editIcon p-1" />}
+            icon={<LiaMoneyCheckAltSolid className=" editIcon p-1" />}
             text={isWide ? "حجوزاتي" : ""}
           />
           <SideBareLink
