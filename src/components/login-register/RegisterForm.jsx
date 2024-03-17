@@ -267,9 +267,9 @@ export default function RegisterForm({ setShowFormStatus }) {
               </div>
               <input
                 type="submit"
-                value="submit"
                 data-bs-toggle="modal"
                 data-bs-target="#staticBackdrop"
+                value="إنشاء حساب"
                 className={
                   Object.values(errors).some((error) => error !== "")
                     ? `btn bgColor text-white col-4 disabled`
