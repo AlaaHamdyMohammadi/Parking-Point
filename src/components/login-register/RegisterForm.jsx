@@ -268,6 +268,8 @@ export default function RegisterForm({ setShowFormStatus }) {
               <input
                 type="submit"
                 value="submit"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"
                 className={
                   Object.values(errors).some((error) => error !== "")
                     ? `btn bgColor text-white col-4 disabled`
@@ -275,6 +277,45 @@ export default function RegisterForm({ setShowFormStatus }) {
                 }
                 disabled={Object.values(errors).some((registerUser) => registerUser !== "")}
               />
+              <div
+                className="modal fade"
+                id="staticBackdrop"
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                tabIndex="-1"
+                aria-labelledby="staticBackdropLabel"
+                aria-hidden="true"
+              >
+                <div className="modal-dialog  modal-dialog-centered">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <button type="button" className="btn-close fs-6" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div className="modal-body ">
+                      <div className="text-center">
+                        <img
+                          style={{ height: "16rem", width: "16rem" }}
+                          src="./../../../public/images/Mail sent-amico (1).png"
+                          alt=""
+                        />
+                      </div>
+                      <div className="text-center">
+                        <ConfirmationCodeInput length={6} onConfirm={(code) => console.log("Confirmed:", code)} />
+                      </div>
+                      <p className="fs-6 py-3 text-center">
+                        شكرا لتسجيلك معنا! لقد تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني المُسجّل
+                        <span className={`${classes.resendcode}`}>{registeUser.email}</span> يُرجى فتح بريدك الإلكتروني
+                        والبحث عن رسالة منّا. بمجرد العثور على الرسالة، يُرجى فتحها ونسخ الرمز المُرسل.ذا كنت بحاجة إلى
+                        مساعدة، فلا تتردد في الاتصال بفريق الدعم .
+                      </p>
+                    </div>
+                    <div className="modal-footer d-flex ">
+                      <span className="text-secondary  fs-6">إذا لم تتمكن من الرمز</span>
+                      <div className={`${classes.resendcode} pointer fs-6 fw-bold`}>إعادة إرسال رمز التأكيد</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </>
           )}
           {isOwner && (
@@ -335,12 +376,6 @@ export default function RegisterForm({ setShowFormStatus }) {
                   }
                   disabled={Object.values(errors).some((registerUser) => registerUser !== "")}
                 />
-                {/* {showEmailModal && <ModalEmail />} */}
-                {/* <ModalEmail /> */}
-                {/* <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                  Launch static backdrop modal
-                </button> */}
-
                 <div
                   className="modal fade"
                   id="staticBackdrop"
@@ -350,33 +385,32 @@ export default function RegisterForm({ setShowFormStatus }) {
                   aria-labelledby="staticBackdropLabel"
                   aria-hidden="true"
                 >
-                  <div className="modal-dialog  modal-lg">
+                  <div className="modal-dialog  modal-dialog-centered">
                     <div className="modal-content">
                       <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="staticBackdropLabel">
-                          Modal title
-                        </h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" className="btn-close fs-6" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                      <div className="modal-body d-flex">
-                        <div>
-                          <ConfirmationCodeInput length={6} onConfirm={(code) => console.log("Confirmed:", code)} />
-                        </div>
-                        <div>
+                      <div className="modal-body ">
+                        <div className="text-center">
                           <img
-                            style={{ height: "20rem", width: "20rem" }}
+                            style={{ height: "16rem", width: "16rem" }}
                             src="./../../../public/images/Mail sent-amico (1).png"
                             alt=""
                           />
                         </div>
+                        <div className="text-center">
+                          <ConfirmationCodeInput length={6} onConfirm={(code) => console.log("Confirmed:", code)} />
+                        </div>
+                        <p className="fs-6 py-3 text-center">
+                          شكرا لتسجيلك معنا! لقد تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني المُسجّل
+                          <span className={`${classes.resendcode}`}>{registeUser.email}</span> يُرجى فتح بريدك الإلكتروني
+                          والبحث عن رسالة منّا. بمجرد العثور على الرسالة، يُرجى فتحها ونسخ الرمز المُرسل.ذا كنت بحاجة إلى
+                          مساعدة، فلا تتردد في الاتصال بفريق الدعم .
+                        </p>
                       </div>
-                      <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
-                          Close
-                        </button>
-                        <button type="button" className="btn btn-primary">
-                          Understood
-                        </button>
+                      <div className="modal-footer d-flex ">
+                        <span className="text-secondary  fs-6">إذا لم تتمكن من الرمز</span>
+                        <div className={`${classes.resendcode} pointer fs-6 fw-bold`}>إعادة إرسال رمز التأكيد</div>
                       </div>
                     </div>
                   </div>

@@ -5,7 +5,9 @@
 .formBtn {
   transition: all 0.5s ease;
 }
-
+.resendcode {
+  color: var(--bordercolor) !important;
+}
 .input:focus,
 .select:focus {
   outline: none;
