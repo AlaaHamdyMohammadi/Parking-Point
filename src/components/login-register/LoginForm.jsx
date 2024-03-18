@@ -101,23 +101,25 @@ export default function LoginForm() {
               كلمة السر
             </label>
             <div className="input-group">
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                id="password"
-                className={`${classes.input} form-control border-secondary shadow-none`}
-                onChange={loginValidation}
-                onBlur={loginValidation}
-                style={{ borderTopRightRadius: "0.375rem", borderBottomRightRadius: "0.375rem" }}
-              />
-              <button
-                type="button"
-                className="btn Gray border border-0"
-                style={{ position: "absolute", right: "20rem", zIndex: "1" }}
-                onClick={togglePasswordVisibility}
-              >
-                {showPassword ? <IoEyeOutline /> : <FaRegEyeSlash />}
-              </button>
+              <div className="d-flex  w-100 justify-content-end">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  id="password"
+                  className={`${classes.input} form-control border-secondary shadow-none`}
+                  onChange={loginValidation}
+                  onBlur={loginValidation}
+                  style={{ borderTopRightRadius: "0.375rem", borderBottomRightRadius: "0.375rem" }}
+                />
+                <button
+                  type="button"
+                  className="btn Gray border border-0"
+                  style={{ position: "absolute", zIndex: "1" }}
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? <IoEyeOutline /> : <FaRegEyeSlash />}
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -133,7 +135,7 @@ export default function LoginForm() {
         />
       </form>
       <ToastContainer position="top-right" autoClose={50000} />
-      <Link to={``} className={`mt-5`}>
+      <Link to={``} className={`mt-3`}>
         نسيت كلمه السر ؟
       </Link>
     </>

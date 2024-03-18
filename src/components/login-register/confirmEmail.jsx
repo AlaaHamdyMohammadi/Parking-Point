@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import classes from "./../../styles/formStyles.module.css";
 
 const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
   const [confirmationCode, setConfirmationCode] = useState(new Array(length).fill(""));
+  const inputRefs = useRef(new Array(length).fill(null));
 
   // Handler for input change
   const handleChange = (index, value) => {
@@ -14,13 +15,10 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
     if (newConfirmationCode.every((code) => code !== "")) {
       onConfirm(newConfirmationCode.join(""));
     }
-  };
 
-  // Handler for input focus
-  const handleFocus = (index) => {
-    // Move focus to the next input field when filled
-    if (confirmationCode[index] !== "" && index < length - 1) {
-      document.getElementById(`confirmationInput${index + 1}`).focus();
+    // Move focus to the next input field
+    if (value !== "" && index < length - 1) {
+      inputRefs.current[index + 1].focus();
     }
   };
 
@@ -30,7 +28,9 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
   };
 
   return (
-    <div>
+    <div dir="rtl">
+      {" "}
+      {/* Applying dir attribute for right-to-left direction */}
       {confirmationCode.map((value, index) => (
         <input
           key={index}
@@ -39,10 +39,10 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
           maxLength={1}
           value={value}
           onChange={(e) => handleChange(index, e.target.value)}
-          onFocus={() => handleFocus(index)}
           onBlur={handleBlur}
           className={` ${classes}`}
           style={{ width: "30px", marginRight: "5px" }}
+          ref={(input) => (inputRefs.current[index] = input)}
         />
       ))}
     </div>
