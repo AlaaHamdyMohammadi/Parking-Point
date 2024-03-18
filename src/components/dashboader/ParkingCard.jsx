@@ -13,7 +13,6 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
       })
       .then((res) => {
         setUserParkings(res.data.doc);
-        console.log(res.data.doc);
       })
       .catch((err) => {
         console.error("Error during parkings request:", err);

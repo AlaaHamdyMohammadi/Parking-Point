@@ -46,11 +46,9 @@ export default function Setting() {
         } else {
             event.preventDefault();
             try {
-                const res = await axiosInstanceParking.patch(`/users/me`, userInfo, {
+                 await axiosInstanceParking.patch(`/users/me`, userInfo, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                const userData = res.data;
-                console.log(userData);
             } catch (error) {
                 console.error("not login", error);
             }
