@@ -302,10 +302,10 @@ export default function RegisterForm({ setShowFormStatus }) {
                       <div className="text-center">
                         <ConfirmationCodeInput length={6} onConfirm={(code) => console.log("Confirmed:", code)} />
                       </div>
-                      <p className="fs-6 py-3 text-center">
+                      <p className="fs-6 py-3 px-4 text-justify-center">
                         شكرا لتسجيلك معنا! لقد تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني المُسجّل
                         <span className={`${classes.resendcode}`}>{registeUser.email}</span> يُرجى فتح بريدك الإلكتروني
-                        والبحث عن رسالة منّا. بمجرد العثور على الرسالة، يُرجى فتحها ونسخ الرمز المُرسل.ذا كنت بحاجة إلى
+                        والبحث عن رسالة منّا. بمجرد العثور على الرسالة، يُرجى فتحها ونسخ الرمز المُرسل.إذا كنت بحاجة إلى
                         مساعدة، فلا تتردد في الاتصال بفريق الدعم .
                       </p>
                     </div>
@@ -401,10 +401,10 @@ export default function RegisterForm({ setShowFormStatus }) {
                         <div className="text-center">
                           <ConfirmationCodeInput length={6} onConfirm={(code) => console.log("Confirmed:", code)} />
                         </div>
-                        <p className="fs-6 py-3 text-center">
+                        <p className="fs-6 py-3 px-4 text-justify-center">
                           شكرا لتسجيلك معنا! لقد تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني المُسجّل
                           <span className={`${classes.resendcode}`}>{registeUser.email}</span> يُرجى فتح بريدك الإلكتروني
-                          والبحث عن رسالة منّا. بمجرد العثور على الرسالة، يُرجى فتحها ونسخ الرمز المُرسل.ذا كنت بحاجة إلى
+                          والبحث عن رسالة منّا. بمجرد العثور على الرسالة، يُرجى فتحها ونسخ الرمز المُرسل.إذا كنت بحاجة إلى
                           مساعدة، فلا تتردد في الاتصال بفريق الدعم .
                         </p>
                       </div>
