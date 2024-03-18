@@ -40,6 +40,7 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
           value={value}
           onChange={(e) => handleChange(index, e.target.value)}
           onBlur={handleBlur}
+          /*ref={(el) => (inputRefs.current[index] = el)}*/
           className={` ${classes}`}
           style={{ width: "30px", marginRight: "5px" }}
           ref={(input) => (inputRefs.current[index] = input)}
