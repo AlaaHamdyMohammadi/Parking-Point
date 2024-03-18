@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import React, { useRef, useState } from "react";
 import classes from "./../../styles/formStyles.module.css";
 
 const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
   const [confirmationCode, setConfirmationCode] = useState(new Array(length).fill(""));
+  const inputRefs = useRef(new Array(length).fill(null));
+
 
   // Handler for input change
   const handleChange = (index, value) => {
@@ -13,6 +17,10 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
     // Check if all inputs are filled, then trigger onConfirm callback
     if (newConfirmationCode.every((code) => code !== "")) {
       onConfirm(newConfirmationCode.join(""));
+    }
+
+    if (value !== "" && index < length - 1 && inputRefs.current[index + 1]) {
+      inputRefs.current[index + 1].focus();
     }
   };
 
@@ -41,6 +49,7 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
           onChange={(e) => handleChange(index, e.target.value)}
           onFocus={() => handleFocus(index)}
           onBlur={handleBlur}
+          ref={(el) => (inputRefs.current[index] = el)}
           className={` ${classes}`}
           style={{ width: "30px", marginRight: "5px" }}
         />
