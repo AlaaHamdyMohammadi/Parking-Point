@@ -5,7 +5,7 @@ import classes from "./../../styles/formStyles.module.css";
 
 const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
   const [confirmationCode, setConfirmationCode] = useState(new Array(length).fill(""));
-  const inputRefs = useRef(new Array(length).fill(null));
+  //const inputRefs = useRef(new Array(length).fill(null));
 
 
   // Handler for input change
@@ -19,9 +19,9 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
       onConfirm(newConfirmationCode.join(""));
     }
 
-    if (value !== "" && index < length - 1 && inputRefs.current[index + 1]) {
-      inputRefs.current[index + 1].focus();
-    }
+    // if (value !== "" && index < length - 1 && inputRefs.current[index + 1]) {
+    //   inputRefs.current[index + 1].focus();
+    // }
   };
 
   // Handler for input focus
@@ -49,7 +49,7 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
           onChange={(e) => handleChange(index, e.target.value)}
           onFocus={() => handleFocus(index)}
           onBlur={handleBlur}
-          ref={(el) => (inputRefs.current[index] = el)}
+      /*ref={(el) => (inputRefs.current[index] = el)}*/
           className={` ${classes}`}
           style={{ width: "30px", marginRight: "5px" }}
         />
