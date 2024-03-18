@@ -1,15 +1,18 @@
 .sidebar a,
 .unactive {
-  padding: 8px 8px 8px 0px;
+  padding: 8px 0px 8px 0px;
   text-decoration: none;
   font-size: 25px;
   color: #818181 !important;
   display: block;
 }
-
 .sidebar a:hover {
-  color: #f1f1f1;
+  color: #f1f1f1 !important;
 }
+.customW {
+  width: 60% !important;
+}
+
 .customTooltip {
   --bs-tooltip-bg: var(--bd-violet-bg);
   --bs-tooltip-color: var(--bs-white);
@@ -19,4 +22,10 @@
   border-radius: 50%;
   width: 3vw;
   height: 3vw;
+}
+.sidebarIcon {
+  color: var(--iconColor) !important;
+}
+.sidebarIcon:focus {
+  color: var(--bordercolor);
 }

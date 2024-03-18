@@ -14,7 +14,7 @@ import axiosInstanceParking from "./../../axiosConfig/instanc";
 import { HiLockClosed } from "react-icons/hi2";
 import { LiaMoneyCheckAltSolid } from "react-icons/lia";
 import { toast, ToastContainer } from "react-toastify";
-import { BsLayoutTextSidebar } from "react-icons/bs";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 export default function SidebarProfile() {
   const navigate = useNavigate();
@@ -25,22 +25,16 @@ export default function SidebarProfile() {
   };
   const user = useLogInUserData();
   var [isWide, setWide] = useState(false);
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 768);
+      setIsSmallScreen(window.innerWidth < 1025);
     };
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen);
-    console.log("clicked");
-  };
   const handleUnactive = () => {
     toast.error("يرجى التواصل مع الدعم لتأكيد الهوية اولا ");
   };
@@ -48,14 +42,98 @@ export default function SidebarProfile() {
   return (
     <>
       {isSmallScreen && (
-        <div
-          className={`${classes.sidebarIcon} position-fixed top-0 start-0 z-1 transition`}
-        >
-          <BsLayoutTextSidebar
-            color="red"
-            className="position-fixed end-0 z-1 transition"
-            onClick={toggleSidebar}
+        <div className={`${classes.sidebar} position-fixed top-0 start-0 z-1 transition`}>
+          <GiHamburgerMenu
+            className="position-fixed fs-1 p-1 pointer mx-2 mt-2  end-0 z-1 transition  dropdown-toggle"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBothOptions"
+            aria-controls="offcanvasWithBothOptions"
           />
+
+          <div
+            className={`offcanvas offcanvas-end bgColor pe- ${classes.customW}`}
+            data-bs-scroll="true"
+            tabIndex="-1"
+            id="offcanvasWithBothOptions"
+            aria-labelledby="offcanvasWithBothOptionsLabel"
+          >
+            <div className="offcanvas-header d-flex flex-row">
+              <Link to={`/Profile`}>
+                <div
+                  className={` text-end d-flex mt-md-2 fs-5 fw-bold gap-2 offcanvas-title`}
+                  id="offcanvasWithBothOptionsLabel"
+                >
+                  <div className="pe-2">
+                    <img
+                      src={
+                        user.photo
+                          ? `${axiosInstanceParking.defaults.baseURL}/users/${user.photo}`
+                          : "/images/defaultpersonjpg.jpg"
+                      }
+                      className=" border rounded-circle"
+                      style={{ width: "6vh", height: "6vh" }}
+                    />
+                  </div>
+
+                  <div className="yellowcolor pt-1">
+                    {user.firstName} {user.lastName}
+                  </div>
+                </div>
+              </Link>
+              <button
+                type="button"
+                className={`btn-close  text-secondary text-start`}
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="offcanvas-body pe-2">
+              {user.role == "renter" && (
+                <>
+                  {user.isActivated == true ? (
+                    <SideBareLink
+                      href={`/Profile/parking`}
+                      icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
+                      text="إضافة موقف"
+                    />
+                  ) : (
+                    <div
+                      className={`${classes.unactive}  fs-5 d-block`}
+                      onClick={handleUnactive}
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="top"
+                      data-bs-custom-class={`${classes.customTooltip}`}
+                      title="يرجى التواصل مع الدعم لتأكيد الهوية اولا"
+                    >
+                      <span>
+                        <HiLockClosed className="  editIcon p-2" />
+                      </span>
+                      <span className="icon-text ps-2  "> إضافة موقف</span>
+                    </div>
+                  )}
+                  <ToastContainer position="top-right" autoClose={10000} />
+
+                  <SideBareLink href={`/`} icon={<LuParkingSquareOff className="  editIcon p-2" />} text="المواقف" />
+                </>
+              )}
+              <SideBareLink
+                href={`/Profile/sales`}
+                icon={<LiaMoneyCheckAltSolid className=" editIcon p-1" />}
+                text="حجوزاتي"
+              />
+              <SideBareLink
+                href={`/Profile/editOwnerProfile`}
+                icon={<MdEditNote className=" editIcon p-1" />}
+                text="تعديل حسابي"
+              />
+              <div onClick={logdedout} className="sidebar fs-5" role="button">
+                <span>
+                  <IoIosLogOut className=" editIcon p-1" />
+                </span>
+                <span className="icon-text pe-1">تسجيل الخروج</span>
+              </div>
+            </div>
+          </div>
         </div>
       )}
       {!isSmallScreen && (
@@ -66,11 +144,10 @@ export default function SidebarProfile() {
           onMouseOver={() => {
             setWide(true);
           }}
-          className={`${
-            classes.sidebar
-          } position-fixed pt-2 top-0 end-0 z-1 transition whiteSpace h-100 overflow-x-hidden bgColor ${
-            isSidebarOpen ? "open" : ""
-          }`}
+          className={`${classes.sidebar} pe-2 position-fixed pt-2 top-0 end-0 z-1 transition whiteSpace h-100 overflow-x-hidden bgColor 
+         
+         
+          `}
         >
           <Link to={`/Profile`}>
             <div className={`d-flex mt-md-2 fs-5 fw-bold gap-2 `}>
@@ -92,7 +169,7 @@ export default function SidebarProfile() {
               )}
             </div>
           </Link>
-          <div className="">
+          <div className={isWide ? "ps-3 sidebar transition" : "sidebar transition"}>
             {user.role == "renter" && (
               <>
                 {user.isActivated == true ? (
@@ -113,9 +190,7 @@ export default function SidebarProfile() {
                     <span>
                       <HiLockClosed className="  editIcon p-2" />
                     </span>
-                    <span className="icon-text ps-2  ">
-                      {isWide ? "إضافة موقف" : ""}
-                    </span>
+                    <span className="icon-text ps-2  ">{isWide ? "إضافة موقف" : ""}</span>
                   </div>
                 )}
                 <ToastContainer position="top-right" autoClose={10000} />
@@ -134,12 +209,12 @@ export default function SidebarProfile() {
             />
             <SideBareLink
               href={`/Profile/editOwnerProfile`}
-              icon={<MdEditNote className=" editIcon p-1" />}
+              icon={<MdEditNote className=" editIcon " />}
               text={isWide ? "تعديل حسابي" : ""}
             />
             <div onClick={logdedout} className="sidebar fs-5" role="button">
               <span>
-                <IoIosLogOut className=" editIcon p-1 pe-3" />
+                <IoIosLogOut className=" editIcon p-1 " />
               </span>
               {isWide && <span className="icon-text pe-2"> تسجيل الخروج</span>}
             </div>
