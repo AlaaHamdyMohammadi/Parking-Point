@@ -43,8 +43,7 @@ export default function LoginForm() {
                 console.error("not login", error);
             }
         }
-    }
-    console.log(isTrueErrors);
+    };
     return (
         <>
             <form method="post" onSubmit={handleSubmit} className="fs-4 mb-5">
@@ -59,7 +58,7 @@ export default function LoginForm() {
                     <input type="password" name="password" id="password" className={`${classes.input} form-control border-secondary shadow-none`}
                         onChange={loginValidation} onBlur={loginValidation} />
                 </div>
-                <input type="submit" value="submit"
+                <input type="submit" value="تسجيل الدخول"
                     className={
                         Object.values(errors).some((error) => error !== "")
                             ? "btn bgColor text-white col-4 disabled"

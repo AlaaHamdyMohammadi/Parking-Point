@@ -4,7 +4,6 @@ export const getLogInUser = createAsyncThunk('user', async (token) => {
   const response = await axiosInstanceParking.get('/users/me', {
     headers: { 'Authorization': `Bearer ${token}` }
   });
-  console.log(response.data.doc);
   return response.data.doc;
 });
 const userSlice = createSlice({

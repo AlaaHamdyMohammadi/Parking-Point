@@ -57,7 +57,6 @@ export default function AddParking() {
     capacityErrors: "",
     locationErrors: "",
   });
-console.log(errors);
   function uploadFile(files, formData) {
     [...files].forEach((file) => formData.append("photos", file));
   }

@@ -29,7 +29,6 @@ const Map = ({ AvaliableParksFilter }) => {
           longitude: position.coords.longitude,
         }));
       });
-      // console.log(viewport);
     } else {
       console.error("Geolocation is not supported by this browser.");
     }

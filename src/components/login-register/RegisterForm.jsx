@@ -83,7 +83,6 @@ export default function RegisterForm({ setShowFormStatus }) {
     }
     setRegisteUser({ ...registeUser, [name]: value });
   };
-  console.log(errors);
   const handleSubmit = async (event) => {
     const hasErrors = Object.values(errors).some((error) => error !== "");
     const formData = new FormData();
@@ -109,8 +108,7 @@ export default function RegisterForm({ setShowFormStatus }) {
           formData.append("carType", registeUser.carType);
           formData.append("plateNumber", registeUser.plateNumber);
         }
-        const res = await axiosInstanceParking.post(`/users/signup`, formData);
-        console.log("signup request successful", res.data);
+         await axiosInstanceParking.post(`/users/signup`, formData);
         setShowFormStatus(false);
       } catch (error) {
         if (error.response.request.response.includes(registeUser.email)) {
@@ -121,7 +119,6 @@ export default function RegisterForm({ setShowFormStatus }) {
         }
         else if (error.response.request.response.includes(registeUser.plateNumber)) {
           setErrors({ ...errors, plateNumberErrors: 'رقم اللوحة مستخدم من قيل' });
-          console.log("signup request not successful", error.response.request);
         }
         else if (error.response.request.response.includes(registeUser.nationaleId)) {
           setErrors({ ...errors, nationaleIdErrors: 'رقم الهوية مستخدم من قبل' });
@@ -131,7 +128,6 @@ export default function RegisterForm({ setShowFormStatus }) {
       }
     }
   };
-  console.log(registeUser);
 
   const [isDriver, setIsDriver] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
