@@ -1,17 +1,34 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import ConfirmationCodeInput from "./confirmEmail";
 import classes from "./../../styles/formStyles.module.css";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa6";
+import axiosInstanceParking from "../../axiosConfig/instanc";
+
+//{/*setRegisteUser({ ...registeUser, email: e.target.value })*/}
+
+
 const ForgotPassword = () => {
   const [registeUser, setRegisteUser] = React.useState({ email: "" });
   const [codeconfirmed, setCodeconfirmed] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = React.useState("");
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  async function handleForgotPassword() {
+    try {
+      const res = await axiosInstanceParking.post("/users/me/forgetPassword", {
+        email,
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  }
 
   return (
     <>
@@ -27,21 +44,33 @@ const ForgotPassword = () => {
         <div className="modal-dialog  modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
-              <button type="button" className="btn-close fs-6" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button
+                type="button"
+                className="btn-close fs-6"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
             <div className="modal-body  p-0 px-4">
               <div className=" d-flex ">
                 <div className="d-flex flex-column  ">
-                  <label className=" pt-2">الرجاء إدخال عنوان بريدك الإلكتروني للبحث عن حسابك:</label>
+                  <label className=" pt-2">
+                    الرجاء إدخال عنوان بريدك الإلكتروني للبحث عن حسابك:
+                  </label>
                   <input
                     type="email"
                     className={`${classes.input}  w-100 mt-2 form-control border-secondary shadow-none`}
-                    value={registeUser.email}
-                    onChange={(e) => setRegisteUser({ ...registeUser, email: e.target.value })}
+                    /*value={registeUser.email}*/
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="text-start align-self-center">
-                  <img style={{ height: "100%", width: "10rem" }} src="./../../../public/images/notify-animate.svg" alt="" />
+                  <img
+                    style={{ height: "100%", width: "10rem" }}
+                    src="./../../../public/images/notify-animate.svg"
+                    alt=""
+                  />
                 </div>
               </div>
 
@@ -49,6 +78,7 @@ const ForgotPassword = () => {
                 <input
                   type="submit"
                   value="بحث"
+                  onClick={handleForgotPassword}
                   data-bs-target="#exampleModalToggle2"
                   data-bs-toggle="modal"
                   className={
@@ -74,7 +104,12 @@ const ForgotPassword = () => {
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
             {!codeconfirmed ? (
               <div className="modal-body p-0">
@@ -105,8 +140,10 @@ const ForgotPassword = () => {
 
                 <p className="fs-6  px-4 text-justify-center">
                   لقد تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني المُسجّل
-                  <span className={`${classes.resendcode}`}>{registeUser.email}</span> يُرجى فتح بريدك الإلكتروني و نسخ الرمز
-                  المُرسل.
+                  <span className={`${classes.resendcode}`}>
+                    {registeUser.email}
+                  </span>{" "}
+                  يُرجى فتح بريدك الإلكتروني و نسخ الرمز المُرسل.
                 </p>
               </div>
             ) : (
@@ -122,7 +159,10 @@ const ForgotPassword = () => {
                           name="password"
                           id="password"
                           className={`${classes.input} form-control border-secondary shadow-none`}
-                          style={{ borderTopRightRadius: "0.375rem", borderBottomRightRadius: "0.375rem" }}
+                          style={{
+                            borderTopRightRadius: "0.375rem",
+                            borderBottomRightRadius: "0.375rem",
+                          }}
                         />
                         <button
                           type="button"
@@ -137,7 +177,11 @@ const ForgotPassword = () => {
                   </div>
                   <div className="  text-start align-self-center"></div>
                   <div className="  text-center align-self-center">
-                    <img style={{ height: "30%", width: "50%" }} src="./../../../public/images/account-animate.svg" alt="" />
+                    <img
+                      style={{ height: "30%", width: "50%" }}
+                      src="./../../../public/images/account-animate.svg"
+                      alt=""
+                    />
                   </div>
                 </div>
               </div>
