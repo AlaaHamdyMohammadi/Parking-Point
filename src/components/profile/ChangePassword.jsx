@@ -95,14 +95,14 @@ export default function ChangePassword() {
               />
               <p className={`${classes.error} text-danger`}>{errors.currentPasswordErrors}</p>
             </div>
-            <button
+            {/* <button
               type="button"
               className="btn Gray border border-0"
               style={{ position: "absolute", zIndex: "1" }}
               onClick={togglePasswordVisibilityCurrent}
             >
               {showPasswordCurrent ? <IoEyeOutline /> : <FaRegEyeSlash />}
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="col-md-5">

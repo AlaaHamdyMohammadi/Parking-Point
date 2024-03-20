@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import classes from "./../../styles/formStyles.module.css";
 
-const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
+const ConfirmationCodeInput = ({ length = 5, onConfirm }) => {
   const [confirmationCode, setConfirmationCode] = useState(new Array(length).fill(""));
   const inputRefs = useRef(new Array(length).fill(null));
 
@@ -42,7 +42,7 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
           onBlur={handleBlur}
           /*ref={(el) => (inputRefs.current[index] = el)}*/
           className={` ${classes}`}
-          style={{ width: "30px", marginRight: "5px" }}
+          style={{ width: "20px", marginRight: "5px" }}
           ref={(input) => (inputRefs.current[index] = input)}
         />
       ))}
