@@ -49,7 +49,7 @@ export default function RegisterForm({ setShowFormStatus }) {
   let passwordRegx = /^[a-zA-Z0-9]{8,}$/;
   let roleRegx = /^(renter|driver)$/;
   let regionRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;
-  const registeValidation = (event) => {
+   const registeValidation = (event) => {
     const { name, value } = event.target;
     if (name === "password") {
       setErrors({

@@ -9,7 +9,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa6";
-import ForgotPassword from "./ForgotPassword";
+import ForgotPassword from "./forgetPassword/ForgotPassword";
 
 export default function LoginForm() {
   const dispatch = useDispatch();
