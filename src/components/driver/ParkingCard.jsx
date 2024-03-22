@@ -3,6 +3,7 @@
 import ModalReserve from "./ReserveModal";
 
 import RatingComponent from "./RatingComponent";
+import axiosInstanceParking from "../../axiosConfig/instanc";
 
 export default function ParkingCard({ AvaliableParksFilter }) {
   console.log(AvaliableParksFilter);
@@ -12,33 +13,7 @@ export default function ParkingCard({ AvaliableParksFilter }) {
         <div key={item._id} className="card d-flex flex-row mb-3">
           <div className="col-lg-4 col-md-4 col-sm-4">
             <div id={`carouselExampleInterval${index}`} className="carousel slide" data-bs-ride="carousel">
-              <div className="carousel-inner">
-                <div className="carousel-item active" data-bs-interval="10000">
-                  <img
-                    style={{ width: "3vh", height: "18vh" }}
-                    src={`/images/homeimg.jpg`}
-                    className="d-block  w-100"
-                    alt="..."
-                  />
-                </div>
-                <div className="carousel-item" data-bs-interval="2000">
-                  <img
-                    style={{ width: "3vh", height: "18vh" }}
-                    src={`/images/park.jpg`}
-                    className="d-block  w-100"
-                    alt="..."
-                  />
-                </div>
-                <div className="carousel-item">
-                  <img
-                    style={{ width: "3vh", height: "18vh" }}
-                    src={`/images/backgroundjpg.jpg`}
-                    className="d-block w-100"
-                    alt="..."
-                  />
-                </div>
-              </div>
-              {/* <div className="carousel-inner  ">
+              <div className="carousel-inner  ">
                 {item.photos.map((photo, index) => (
                   <div className="carousel-item  active" data-bs-interval="10000" key={index}>
                     <img
@@ -49,7 +24,7 @@ export default function ParkingCard({ AvaliableParksFilter }) {
                     />
                   </div>
                 ))}
-              </div> */}
+              </div>
               <button
                 className="carousel-control-prev"
                 type="button"

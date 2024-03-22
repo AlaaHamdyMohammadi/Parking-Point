@@ -11,14 +11,16 @@ export default function Footer() {
     <footer className=" bgColor mb-0 z-3 position-absolute w-100 ">
       <ul className="nav justify-content-center   py-3 mb-1">
         <li className="nav-item">
-          <Link className=" px-2 hoverColor animate transition">Home</Link>
+          <Link className=" px-2 hoverColor animate transition">الرئيسية</Link>
         </li>
 
         <li className="nav-item">
-          <Link className=" px-2 hoverColor animate transition">FAQs</Link>
+          <Link to={"/Terms"} className=" px-2 hoverColor animate transition">
+            الشروط والأحكام
+          </Link>
         </li>
         <li className="nav-item">
-          <Link className=" px-2 hoverColor animate transition">About</Link>
+          <Link className=" px-2 hoverColor animate transition">نبذة عنا</Link>
         </li>
       </ul>
 

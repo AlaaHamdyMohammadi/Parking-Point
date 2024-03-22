@@ -24,7 +24,7 @@
   color: var(--iconColor) !important;
 }
 .yellowcolor {
-  color: var(--yellow);
+  color: var(--yellow) !important;
 }
 .hoverColor {
   color: var(--gray);

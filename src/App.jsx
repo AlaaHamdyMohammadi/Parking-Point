@@ -17,6 +17,7 @@ import LoginGuard from "./components/guard/LoginGuard";
 import RenterGuard from "./components/guard/RenterGuard";
 import Fqa from "./pages/FQA";
 import LiveLocation from "./pages/Map";
+import Terms from "./pages/Terms";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
     element: <DefaultLayout />,
     children: [
       { index: true, element: <Home />, errorElement: <HandelErorr /> },
-      // { path: "/FQA", element: <Fqa />, errorElement: <HandelErorr /> },
+      { path: "/Terms", element: <Terms />, errorElement: <HandelErorr /> },
 
       { path: "*", element: <NotFound /> },
     ],
