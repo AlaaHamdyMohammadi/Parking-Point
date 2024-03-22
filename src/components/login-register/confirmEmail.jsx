@@ -1,16 +1,18 @@
 import React, { useState, useRef } from "react";
 import classes from "./../../styles/formStyles.module.css";
+import axiosInstanceParking from "../../axiosConfig/instanc";
 
-const ConfirmationCodeInput = ({ length = 5, onConfirm }) => {
+const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
   const [confirmationCode, setConfirmationCode] = useState(new Array(length).fill(""));
   const inputRefs = useRef(new Array(length).fill(null));
 
   // Handler for input change
-  const handleChange = (index, value) => {
+  const handleChange = async (index, value) => {
     const newConfirmationCode = [...confirmationCode];
     newConfirmationCode[index] = value;
     setConfirmationCode(newConfirmationCode);
-
+    const res = await axiosInstanceParking.post(`/users//me/confirmEmail`, newConfirmationCode)
+    console.log(res);
     // Check if all inputs are filled, then trigger onConfirm callback
     if (newConfirmationCode.every((code) => code !== "")) {
       onConfirm(newConfirmationCode.join(""));
