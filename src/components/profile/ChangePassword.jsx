@@ -3,7 +3,7 @@ import classes from "./../../styles/formStyles.module.css";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../store/slices/authSlice";
+import { login, logout } from "../../store/slices/authSlice";
 import { toast, ToastContainer } from "react-toastify";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa6";
@@ -63,15 +63,12 @@ export default function ChangePassword() {
         confirmPassword: confirmPassword,
       };
       try {
-        await axiosInstanceParking.patch(`/users/me/changePassword`, obj, {
+        await axiosInstanceParking.patch(`/users/me/change-password`, obj, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        dispatch(logout());
-        navigate("/");
         toast.success("لقد تم تغيير كلمة السر بنجاح  !");
       } catch (error) {
         toast.error("كلمة السر الحالية غير صحيحة");
-
         console.error("not login", error);
       }
     }

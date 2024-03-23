@@ -13,9 +13,11 @@ import PlateNumberInput from "../formFun/PlateNumberInput";
 import CarTypeInput from "../formFun/CarTypeInput";
 // import ModalEmail from "./emailConfirm";
 import ConfirmationCodeInput from "./confirmEmail";
+import { login } from "../../store/slices/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 export default function RegisterForm({ setShowFormStatus }) {
   const [showEmailModal, setShowEmailModal] = useState(false);
-
+  const dispatch = useDispatch();
   const [registeUser, setRegisteUser] = useState({
     firstName: "",
     lastName: "",
@@ -117,6 +119,8 @@ export default function RegisterForm({ setShowFormStatus }) {
         }
         const res = await axiosInstanceParking.post(`/users/signup`, formData);
         console.log("signup request successful", res.data);
+        dispatch(login(res.data.token));
+        
         setShowEmailModal(true);
 
         // setShowFormStatus(false);
@@ -151,6 +155,21 @@ export default function RegisterForm({ setShowFormStatus }) {
       setIsDriver(false);
       setIsOwner(true);
     }
+  };
+  const token = useSelector((state) => state.loggedIn.token);
+  const handleChange = async () => {
+    try {
+      const res = await axiosInstanceParking.get(`/users/me/confirm-email`, {
+        headers: { Authorization: `Bearer ${token}`},
+      });
+      console.log("send:",res);
+    } catch (error) {
+      console.error("Error occurred while confirming email:", error);
+      if (error.response) {
+        console.error("Response data:", error.response.data);
+      }
+    }
+
   };
   return (
     <>
@@ -400,7 +419,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                           />
                         </div>
                         <div className="text-center">
-                          <ConfirmationCodeInput length={6} onConfirm={(code) => console.log("Confirmed:", code)} />
+                          <ConfirmationCodeInput length={6} onConfirm={(code) => code} />
                         </div>
                         <p className="fs-6 py-3 px-4 text-justify-center">
                           شكرا لتسجيلك معنا! لقد تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني المُسجّل
@@ -411,7 +430,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                       </div>
                       <div className="modal-footer d-flex ">
                         <span className="text-secondary  fs-6">إذا لم تتمكن من الرمز</span>
-                        <div className={`${classes.resendcode} pointer fs-6 fw-bold`}>إعادة إرسال رمز التأكيد</div>
+                        <div className={`${classes.resendcode} pointer fs-6 fw-bold`} onClick={handleChange}>إعادة إرسال رمز التأكيد</div>
                       </div>
                     </div>
                   </div>

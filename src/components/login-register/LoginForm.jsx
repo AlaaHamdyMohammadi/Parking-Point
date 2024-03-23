@@ -4,7 +4,7 @@ import classes from "./../../styles/formStyles.module.css";
 import React, { useState } from "react";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useDispatch } from "react-redux";
-import { login } from "../../store/slices/authSlice";
+import { loggedInState, login } from "../../store/slices/authSlice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoEyeOutline } from "react-icons/io5";
@@ -55,13 +55,12 @@ export default function LoginForm() {
       event.preventDefault();
       try {
         const res = await axiosInstanceParking.post(`/users/signin`, logInUser);
-        const userData = res.data;
-        dispatch(login(userData.token));
+        dispatch(login(res.data.token));
+        dispatch(loggedInState());
         navigate("/");
       } catch (error) {
-        // setIsTrueErrors("من فضلك ادخل بيانات صحيحة");
         toast.error("من فضلك ادخل بيانات صحيحة");
-        console.error("not login", error);
+        console.error( error);
       }
     }
   };
