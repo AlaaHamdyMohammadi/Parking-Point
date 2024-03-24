@@ -45,22 +45,14 @@ const ForgotPassword = () => {
       setErrors({
         ...errors,
         confirmPasswordErrors:
-          value.length === 0
-            ? "يجب تاكيد الرقم السري"
-            : value == registeUser.password
-            ? ""
-            : "الرقم غير صحيح",
+          value.length === 0 ? "يجب تاكيد الرقم السري" : value == registeUser.password ? "" : "الرقم غير صحيح",
       });
     }
     if (name === "role") {
       setErrors({
         ...errors,
         roleErrors:
-          value.length === 0
-            ? "يجب اختيار النوع"
-            : roleRegx.test(value)
-            ? ""
-            : "يجب اختيار من واحد من الاختيارات المقدمة",
+          value.length === 0 ? "يجب اختيار النوع" : roleRegx.test(value) ? "" : "يجب اختيار من واحد من الاختيارات المقدمة",
       });
     }
     if (registeUser.role === "renter") {
@@ -68,11 +60,7 @@ const ForgotPassword = () => {
         setErrors({
           ...errors,
           nationaleIdErrors:
-            value.length === 0
-              ? "يجب ادخال رقم الهوية"
-              : regionRegx.test(value)
-              ? ""
-              : "يجب ادخال ثلاثة احرف بحد ادني",
+            value.length === 0 ? "يجب ادخال رقم الهوية" : regionRegx.test(value) ? "" : "يجب ادخال ثلاثة احرف بحد ادني",
         });
       }
     }
@@ -102,7 +90,7 @@ const ForgotPassword = () => {
         password,
         confirmPassword,
       });
-      console.log(res.data);
+      console.log(res);
     } catch (error) {
       if (error.response) {
         console.log("Error data:", error.response.data);
@@ -128,19 +116,12 @@ const ForgotPassword = () => {
         <div className="modal-dialog  modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
-              <button
-                type="button"
-                className="btn-close fs-6"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+              <button type="button" className="btn-close fs-6" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body  p-0 px-4">
               <div className=" d-flex ">
                 <div className="d-flex flex-column  ">
-                  <label className=" pt-2">
-                    الرجاء إدخال عنوان بريدك الإلكتروني للبحث عن حسابك:
-                  </label>
+                  <label className=" pt-2">الرجاء إدخال عنوان بريدك الإلكتروني للبحث عن حسابك:</label>
                   <input
                     type="email"
                     className={`${classes.input}  w-100 mt-2 form-control border-secondary shadow-none`}
@@ -150,11 +131,7 @@ const ForgotPassword = () => {
                   />
                 </div>
                 <div className="text-start align-self-center">
-                  <img
-                    style={{ height: "100%", width: "10rem" }}
-                    src="./../../../public/images/notify-animate.svg"
-                    alt=""
-                  />
+                  <img style={{ height: "100%", width: "10rem" }} src="./../../../public/images/notify-animate.svg" alt="" />
                 </div>
               </div>
 
@@ -190,12 +167,7 @@ const ForgotPassword = () => {
           <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content">
               <div className="modal-header">
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body p-0">
                 <div className="d-flex">
@@ -221,16 +193,14 @@ const ForgotPassword = () => {
 
                 <p className="fs-6  px-4 text-justify-center">
                   لقد تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني المُسجّل
-                  <span className={`${classes.resendcode}`}>
-                    {registeUser.email}
-                  </span>{" "}
-                  يُرجى فتح بريدك الإلكتروني و نسخ الرمز المُرسل.
+                  <span className={`${classes.resendcode}`}>{registeUser.email}</span> يُرجى فتح بريدك الإلكتروني و نسخ الرمز
+                  المُرسل.
                 </p>
                 <div className="modal-footer p-0 pe-3 m-0 justify-content-between">
                   <input
                     type="submit"
                     value="تأكيد"
-                    onClick={() => setCodeconfirmed(true)}
+                    // onClick={() => setCodeconfirmed(true)}
                     className="text-center bgColor text-white btn"
                   />
                 </div>
@@ -249,12 +219,7 @@ const ForgotPassword = () => {
           <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content">
               <div className="modal-header">
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body p-0">
                 <div className="d-flex">
@@ -282,17 +247,11 @@ const ForgotPassword = () => {
                             style={{ position: "absolute", zIndex: "1" }}
                             onClick={togglePasswordVisibility}
                           >
-                            {showPassword ? (
-                              <IoEyeOutline />
-                            ) : (
-                              <FaRegEyeSlash />
-                            )}
+                            {showPassword ? <IoEyeOutline /> : <FaRegEyeSlash />}
                           </button>
                         </div>
                       </div>
-                      <p className={`${classes.error} text-danger`}>
-                        {errors.passwordErrors}
-                      </p>
+                      <p className={`${classes.error} text-danger`}>{errors.passwordErrors}</p>
                     </div>
                     <div className="text-end pe-3 align-self-center ">
                       <label className=" pb-2">تأكيد كلمة السر:</label>
@@ -317,27 +276,17 @@ const ForgotPassword = () => {
                             style={{ position: "absolute", zIndex: "1" }}
                             onClick={togglePasswordVisibility}
                           >
-                            {showPassword ? (
-                              <IoEyeOutline />
-                            ) : (
-                              <FaRegEyeSlash />
-                            )}
+                            {showPassword ? <IoEyeOutline /> : <FaRegEyeSlash />}
                           </button>
                         </div>
                       </div>
-                      <p className={`${classes.error} text-danger`}>
-                        {errors.confirmPasswordErrors}
-                      </p>
+                      <p className={`${classes.error} text-danger`}>{errors.confirmPasswordErrors}</p>
                     </div>
                   </div>
 
                   <div className="  text-start align-self-center"></div>
                   <div className="  text-center align-self-center">
-                    <img
-                      style={{ height: "30%", width: "50%" }}
-                      src="./../../../public/images/account-animate.svg"
-                      alt=""
-                    />
+                    <img style={{ height: "30%", width: "50%" }} src="./../../../public/images/account-animate.svg" alt="" />
                   </div>
                 </div>
                 <div className="modal-footer p-0 pe-3 m-0 justify-content-between">
