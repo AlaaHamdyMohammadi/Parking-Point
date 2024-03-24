@@ -135,10 +135,29 @@ export default function Header() {
           </div>
         )}
       </nav>
-      {isLoggedIn && user.isActivated == false &&user.role=='renter' &&
-        <div className="alert alert-danger text-center" role="alert">
-          لكي تتمكن من اضافة موقف يرجي التواصل مع الدعم
+      {isLoggedIn&& <>
+     <div className="alert alert-danger" role="alert">
+      <div>
+        لكي تتمكن من اضافة موقف
+      </div>
+      <ul>
+        {(user.isActivated == false && user.role=='renter') && 
+        <li>
+          يرجي التواصل مع الدعم لتاكيد الهوية
+        </li>
+        }
+        {user.isEmailConfirmed == false&&
+        <>
+          <li>
+            يرجي تاكيد البريد الاليكتروني
+          </li>
+          <div className={`${classes.resendcode} pointer fs-6 fw-bold mt-md-1`}>- اضغط هنا للتاكيد</div>
+        </>
+        }
+      </ul>
         </div>
+      
+      </>
       }
 
     </>

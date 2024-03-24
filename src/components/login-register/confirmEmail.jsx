@@ -1,12 +1,17 @@
 import React, { useState, useRef } from "react";
 import classes from "./../../styles/formStyles.module.css";
+import axiosInstanceParking from "../../axiosConfig/instanc";
+import { useDispatch, useSelector } from "react-redux";
+import { loggedInState, login } from "../../store/slices/authSlice";
 
-const ConfirmationCodeInput = ({ length = 5, onConfirm }) => {
+const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
   const [confirmationCode, setConfirmationCode] = useState(new Array(length).fill(""));
   const inputRefs = useRef(new Array(length).fill(null));
-
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.loggedIn.token);
+  console.log(token);
   // Handler for input change
-  const handleChange = (index, value) => {
+  const handleChange = async (index, value) => {
     const newConfirmationCode = [...confirmationCode];
     newConfirmationCode[index] = value;
     setConfirmationCode(newConfirmationCode);
@@ -14,6 +19,18 @@ const ConfirmationCodeInput = ({ length = 5, onConfirm }) => {
     // Check if all inputs are filled, then trigger onConfirm callback
     if (newConfirmationCode.every((code) => code !== "")) {
       onConfirm(newConfirmationCode.join(""));
+      try {
+        const res = await axiosInstanceParking.post(`/users/me/confirm-email`, { token: newConfirmationCode.join("") }, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        dispatch(login(res.data.token));
+        dispatch(loggedInState());
+      } catch (error) {
+        console.error("Error occurred while confirming email:", error);
+        if (error.response) {
+          console.error("Response data:", error.response.data);
+        }
+      }
     }
 
     // Move focus to the next input field
@@ -28,8 +45,7 @@ const ConfirmationCodeInput = ({ length = 5, onConfirm }) => {
   };
 
   return (
-    <div dir="rtl">
-      {" "}
+    <div dir="ltr">
       {/* Applying dir attribute for right-to-left direction */}
       {confirmationCode.map((value, index) => (
         <input
