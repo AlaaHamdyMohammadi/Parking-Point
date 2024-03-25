@@ -20,19 +20,20 @@ export default function Footer() {
           </Link>
         </li>
         <li className="nav-item">
-          <Link className=" px-2 hoverColor animate transition">نبذة عنا</Link>
+          <a className=" px-2 hoverColor animate transition" href="mailto:parkingpoint@outlook.com">
+            الدعم الفني
+          </a>
         </li>
       </ul>
 
       <ul className="list-unstyled d-flex justify-content-center text-center">
         <li className="ms-3">
-          <a className="link-body-emphasis" href="#">
+          <a className="link-body-emphasis" href="mailto:parkingpoint@outlook.com">
             <TfiEmail className="fs-4 animate transition hoverColor" />
           </a>
         </li>
         <li className="ms-3">
-          <Link to={`https://twitter.com/`}>
-            {/* <SlSocialTwitter className="fs-4 animate transition hoverColor" /> */}
+          <Link to={`https://x.com/parkingpointt?s=11`}>
             <BsTwitterX className="fs-4 animate transition hoverColor" />
           </Link>
         </li>

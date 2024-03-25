@@ -15,6 +15,10 @@ import { HiLockClosed } from "react-icons/hi2";
 import { LiaMoneyCheckAltSolid } from "react-icons/lia";
 import { toast, ToastContainer } from "react-toastify";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { MdVerified } from "react-icons/md";
+import { MdOutlineAdsClick } from "react-icons/md";
+import ConfirmationCodeInput from "../login-register/confirmEmail";
+import ConfimEmailPop from "../login-register/confirmEmailpop";
 
 export default function SidebarProfile() {
   const navigate = useNavigate();
@@ -58,11 +62,11 @@ export default function SidebarProfile() {
             aria-labelledby="offcanvasWithBothOptionsLabel"
           >
             <div className="offcanvas-header d-flex flex-row">
-              <Link to={`/Profile`}>
-                <div
-                  className={` text-end d-flex mt-md-2 fs-5 fw-bold gap-2 offcanvas-title`}
-                  id="offcanvasWithBothOptionsLabel"
-                >
+              <div
+                className={` text-end d-flex mt-md-2 fs-5 fw-bold gap-2 offcanvas-title`}
+                id="offcanvasWithBothOptionsLabel"
+              >
+                <Link to={`/Profile`}>
                   <div className="pe-2">
                     <img
                       src={
@@ -74,12 +78,28 @@ export default function SidebarProfile() {
                       style={{ width: "6vh", height: "6vh" }}
                     />
                   </div>
-
-                  <div className="yellowcolor pt-1">
-                    {user.firstName} {user.lastName}
-                  </div>
+                </Link>
+                <div className={`${classes.unactive} d-flex flex-column`}>
+                  <Link to={`/Profile`}>
+                    <div className="yellowcolor pt-1">
+                      {user.firstName} {user.lastName}{" "}
+                    </div>
+                  </Link>
+                  {user.isEmailConfirmed ? (
+                    <div className="fs-6">
+                      <MdVerified className="mx-1" />
+                      <span>تم تأكيد الأيميل</span>
+                    </div>
+                  ) : (
+                    <div className="fs-6 pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                      <MdOutlineAdsClick className="mx-1 " />
+                      <span>تأكيد الأيميل</span>
+                    </div>
+                  )}
+                  <ConfimEmailPop userEmail={user.email} />
                 </div>
-              </Link>
+              </div>
+
               <button
                 type="button"
                 className={`btn-close  text-secondary text-start`}
@@ -149,8 +169,8 @@ export default function SidebarProfile() {
          
           `}
         >
-          <Link to={`/Profile`}>
-            <div className={`d-flex mt-md-2 fs-5 fw-bold gap-2 `}>
+          <div className={`d-flex mt-md-2 fs-5 fw-bold gap-2 `}>
+            <Link to={`/Profile`}>
               <div className="pe-2">
                 <img
                   src={
@@ -162,13 +182,32 @@ export default function SidebarProfile() {
                   style={{ width: "6vh", height: "6vh" }}
                 />
               </div>
-              {isWide && (
-                <div className="yellowcolor pt-1">
-                  {user.firstName} {user.lastName}
+            </Link>
+            {isWide && (
+              <>
+                <div className={`${classes.unactive} d-flex flex-column`}>
+                  <Link to={`/Profile`}>
+                    <div className="yellowcolor ms-2">
+                      {user.firstName} {user.lastName}
+                    </div>{" "}
+                  </Link>
+                  {user.isEmailConfirmed ? (
+                    <div className="fs-6">
+                      <MdVerified className="mx-1" />
+                      <span>تم تأكيد الأيميل</span>
+                    </div>
+                  ) : (
+                    <div className="fs-6 pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                      <MdOutlineAdsClick className="mx-1 " />
+                      <span>تأكيد الأيميل</span>
+                    </div>
+                  )}
+                  <ConfimEmailPop userEmail={user.email} />
                 </div>
-              )}
-            </div>
-          </Link>
+              </>
+            )}
+          </div>
+
           <div className={isWide ? "ps-3 sidebar transition" : "sidebar transition"}>
             {user.role == "renter" && (
               <>

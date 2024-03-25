@@ -12,7 +12,9 @@
 .customW {
   width: 60% !important;
 }
-
+.resendcode {
+  color: var(--bordercolor) !important;
+}
 .customTooltip {
   --bs-tooltip-bg: var(--bd-violet-bg);
   --bs-tooltip-color: var(--bs-white);

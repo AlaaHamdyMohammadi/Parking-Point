@@ -77,7 +77,11 @@ export default function Header() {
             </div>
             <Link to={`profile`}>
               <img
-                src={user.photo ? `${axiosInstanceParking.defaults.baseURL}/users/${user.photo}` : '/images/defaultpersonjpg.jpg'}
+                src={
+                  user.photo
+                    ? `${axiosInstanceParking.defaults.baseURL}/users/${user.photo}`
+                    : "/images/defaultpersonjpg.jpg"
+                }
                 className="rounded-circle position-absolute top-0 start-0"
                 style={{ height: "5vh", width: "5vh" }}
                 alt="..."
@@ -135,31 +139,25 @@ export default function Header() {
           </div>
         )}
       </nav>
-      {isLoggedIn&& <>
-     <div className="alert alert-danger" role="alert">
-      <div>
-        لكي تتمكن من اضافة موقف
-      </div>
-      <ul>
-        {(user.isActivated == false && user.role=='renter') && 
-        <li>
-          يرجي التواصل مع الدعم لتاكيد الهوية
-        </li>
-        }
-        {user.isEmailConfirmed == false&&
+      {isLoggedIn && (
         <>
-          <li>
-            يرجي تاكيد البريد الاليكتروني
-          </li>
-          <div className={`${classes.resendcode} pointer fs-6 fw-bold mt-md-1`}>- اضغط هنا للتاكيد</div>
-        </>
-        }
-      </ul>
-        </div>
-      
-      </>
-      }
+          {user.isActivated == false && user.role == "renter" && (
+            <div className="alert alert-danger" role="alert">
+              <div>لكي تتمكن من اضافة موقف</div>
 
+              <ul>
+                <li>يرجي التواصل مع الدعم لتاكيد الهوية</li>
+              </ul>
+            </div>
+          )}
+          {/* {user.isEmailConfirmed == false && (
+                <>
+                  <li>يرجي تاكيد البريد الاليكتروني</li>
+                  <div className={`${classes.resendcode} pointer fs-6 fw-bold mt-md-1`}>- اضغط هنا للتاكيد</div>
+                </>
+              )} */}
+        </>
+      )}
     </>
   );
 }

@@ -3,6 +3,7 @@ import classes from "./../../styles/formStyles.module.css";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useDispatch, useSelector } from "react-redux";
 import { loggedInState, login } from "../../store/slices/authSlice";
+import { ToastContainer, toast } from "react-toastify";
 
 const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
   const [confirmationCode, setConfirmationCode] = useState(new Array(length).fill(""));
@@ -20,11 +21,17 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
     if (newConfirmationCode.every((code) => code !== "")) {
       onConfirm(newConfirmationCode.join(""));
       try {
-        const res = await axiosInstanceParking.post(`/users/me/confirm-email`, { token: newConfirmationCode.join("") }, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await axiosInstanceParking.post(
+          `/users/me/confirm-email`,
+          { token: newConfirmationCode.join("") },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
         dispatch(login(res.data.token));
         dispatch(loggedInState());
+        toast.success("لقد تم تأكيد الأيميل بنجاح");
       } catch (error) {
         console.error("Error occurred while confirming email:", error);
         if (error.response) {
@@ -62,6 +69,7 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
           ref={(input) => (inputRefs.current[index] = input)}
         />
       ))}
+      <ToastContainer position="top-right" autoClose={5000} />
     </div>
   );
 };

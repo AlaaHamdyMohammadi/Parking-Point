@@ -15,6 +15,7 @@ import CarTypeInput from "../formFun/CarTypeInput";
 import ConfirmationCodeInput from "./confirmEmail";
 import { login } from "../../store/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+import ConfimEmailPop from "./confirmEmailpop";
 export default function RegisterForm({ setShowFormStatus }) {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ export default function RegisterForm({ setShowFormStatus }) {
   let passwordRegx = /^[a-zA-Z0-9]{8,}$/;
   let roleRegx = /^(renter|driver)$/;
   let regionRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;
-   const registeValidation = (event) => {
+  const registeValidation = (event) => {
     const { name, value } = event.target;
     if (name === "password") {
       setErrors({
@@ -120,10 +121,8 @@ export default function RegisterForm({ setShowFormStatus }) {
         const res = await axiosInstanceParking.post(`/users/signup`, formData);
         console.log("signup request successful", res.data);
         dispatch(login(res.data.token));
-        
-        setShowEmailModal(true);
 
-        // setShowFormStatus(false);
+        setShowEmailModal(true);
       } catch (error) {
         if (error.response.request.response.includes(registeUser.email)) {
           setErrors({ ...errors, emailErrors: "البريد الاليكتروني مستخدم من قبل" });
@@ -157,20 +156,7 @@ export default function RegisterForm({ setShowFormStatus }) {
     }
   };
   const token = useSelector((state) => state.loggedIn.token);
-  const handleChange = async () => {
-    try {
-      const res = await axiosInstanceParking.get(`/users/me/confirm-email`, {
-        headers: { Authorization: `Bearer ${token}`},
-      });
-      console.log("send:",res);
-    } catch (error) {
-      console.error("Error occurred while confirming email:", error);
-      if (error.response) {
-        console.error("Response data:", error.response.data);
-      }
-    }
 
-  };
   return (
     <>
       <form action="" method="post" onSubmit={handleSubmit} className="my-5">
@@ -287,8 +273,8 @@ export default function RegisterForm({ setShowFormStatus }) {
               </div>
               <input
                 type="submit"
-                data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop"
+                data-bs-toggle={showEmailModal ? "modal" : ""}
+                data-bs-target={showEmailModal ? "#staticBackdrop" : ""}
                 value="إنشاء حساب"
                 className={
                   Object.values(errors).some((error) => error !== "")
@@ -297,45 +283,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                 }
                 disabled={Object.values(errors).some((registerUser) => registerUser !== "")}
               />
-              <div
-                className="modal fade"
-                id="staticBackdrop"
-                data-bs-backdrop="static"
-                data-bs-keyboard="false"
-                tabIndex="-1"
-                aria-labelledby="staticBackdropLabel"
-                aria-hidden="true"
-              >
-                <div className="modal-dialog  modal-dialog-centered">
-                  <div className="modal-content">
-                    <div className="modal-header">
-                      <button type="button" className="btn-close fs-6" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body ">
-                      <div className="text-center">
-                        <img
-                          style={{ height: "16rem", width: "16rem" }}
-                          src="./../../../public/images/Mail sent-amico (1).png"
-                          alt=""
-                        />
-                      </div>
-                      <div className="text-center">
-                        <ConfirmationCodeInput length={6} onConfirm={(code) => console.log("Confirmed:", code)} />
-                      </div>
-                      <p className="fs-6 py-3 px-4 text-justify-center">
-                        شكرا لتسجيلك معنا! لقد تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني المُسجّل
-                        <span className={`${classes.resendcode}`}>{registeUser.email}</span> يُرجى فتح بريدك الإلكتروني
-                        والبحث عن رسالة منّا. بمجرد العثور على الرسالة، يُرجى فتحها ونسخ الرمز المُرسل.إذا كنت بحاجة إلى
-                        مساعدة، فلا تتردد في الاتصال بفريق الدعم .
-                      </p>
-                    </div>
-                    <div className="modal-footer d-flex ">
-                      <span className="text-secondary  fs-6">إذا لم تتمكن من الرمز</span>
-                      <div className={`${classes.resendcode} pointer fs-6 fw-bold`}>إعادة إرسال رمز التأكيد</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ConfimEmailPop userEmail={registeUser.email} />
             </>
           )}
           {isOwner && (
@@ -387,8 +335,8 @@ export default function RegisterForm({ setShowFormStatus }) {
                 <input
                   type="submit"
                   value="إنشاء حساب"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
+                  data-bs-toggle={showEmailModal ? "modal" : ""}
+                  data-bs-target={showEmailModal ? "#staticBackdrop" : ""}
                   className={
                     Object.values(errors).some((error) => error !== "")
                       ? `btn bgColor text-white col-4 disabled`
@@ -396,45 +344,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                   }
                   disabled={Object.values(errors).some((registerUser) => registerUser !== "")}
                 />
-                <div
-                  className="modal fade"
-                  id="staticBackdrop"
-                  data-bs-backdrop="static"
-                  data-bs-keyboard="false"
-                  tabIndex="-1"
-                  aria-labelledby="staticBackdropLabel"
-                  aria-hidden="true"
-                >
-                  <div className="modal-dialog  modal-dialog-centered">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <button type="button" className="btn-close fs-6" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div className="modal-body ">
-                        <div className="text-center">
-                          <img
-                            style={{ height: "16rem", width: "16rem" }}
-                            src="./../../../public/images/Mail sent-amico (1).png"
-                            alt=""
-                          />
-                        </div>
-                        <div className="text-center">
-                          <ConfirmationCodeInput length={6} onConfirm={(code) => code} />
-                        </div>
-                        <p className="fs-6 py-3 px-4 text-justify-center">
-                          شكرا لتسجيلك معنا! لقد تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني المُسجّل
-                          <span className={`${classes.resendcode}`}>{registeUser.email}</span> يُرجى فتح بريدك الإلكتروني
-                          والبحث عن رسالة منّا. بمجرد العثور على الرسالة، يُرجى فتحها ونسخ الرمز المُرسل.إذا كنت بحاجة إلى
-                          مساعدة، فلا تتردد في الاتصال بفريق الدعم .
-                        </p>
-                      </div>
-                      <div className="modal-footer d-flex ">
-                        <span className="text-secondary  fs-6">إذا لم تتمكن من الرمز</span>
-                        <div className={`${classes.resendcode} pointer fs-6 fw-bold`} onClick={handleChange}>إعادة إرسال رمز التأكيد</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <ConfimEmailPop userEmail={registeUser.email} />
               </div>
             </>
           )}
