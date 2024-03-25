@@ -17,11 +17,12 @@ const ForgotPassword = () => {
   const [token, setToken] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [emailError, setEmailError] = useState(false);
 
   const [errors, setErrors] = React.useState({
-    emailErrors: "*",
     passwordErrors: "*",
     confirmPasswordErrors: "*",
+    tokenErrors: "*",
   });
   let regionRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;
   let passwordRegx = /^[a-zA-Z0-9]{8,}$/;
@@ -63,19 +64,6 @@ const ForgotPassword = () => {
             : "يجب اختيار من واحد من الاختيارات المقدمة",
       });
     }
-    if (registeUser.role === "renter") {
-      if (name === "nationaleId") {
-        setErrors({
-          ...errors,
-          nationaleIdErrors:
-            value.length === 0
-              ? "يجب ادخال رقم الهوية"
-              : regionRegx.test(value)
-              ? ""
-              : "يجب ادخال ثلاثة احرف بحد ادني",
-        });
-      }
-    }
     setRegisteUser({ ...registeUser, [name]: value });
   };
 
@@ -84,13 +72,34 @@ const ForgotPassword = () => {
   };
 
   async function handleForgotPassword() {
+    if (email.trim() === "") {
+      setEmailError(true);
+    } else {
+      try {
+        const res = await axiosInstanceParking.post(
+          "/users/me/forget-password",
+          {
+            email,
+          }
+        );
+        console.log(res.data);
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+    }
+  }
+  async function handleToken() {
     try {
-      const res = await axiosInstanceParking.post("/users/me/forget-password", {
+      console.log("Token before API call:", token);
+      const res = await axiosInstanceParking.post("/users/me/validate-otp", {
+        token,
         email,
       });
-      console.log(res.data);
+      console.log("API Response:", res.data);
     } catch (error) {
-      console.log("Error: ", error);
+      if (error.response) {
+        console.log("Error data:", error.response.data);
+      }
     }
   }
 
@@ -113,7 +122,7 @@ const ForgotPassword = () => {
       }
     }
   }
-  //
+
   return (
     <>
       <div
@@ -144,13 +153,18 @@ const ForgotPassword = () => {
                   <input
                     type="email"
                     className={`${classes.input}  w-100 mt-2 form-control border-secondary shadow-none`}
-                    /*value={registeUser.email}*/
                     value={email}
                     onChange={(e) => {
                       setEmail(e.target.value);
+                      setEmailError(false);
                       console.log("Email:", e.target.value);
                     }}
                   />
+                  {emailError && (
+                    <p className="text-danger">
+                      يرجى إدخال عنوان بريد إلكتروني
+                    </p>
+                  )}
                 </div>
                 <div className="text-start align-self-center">
                   <img
@@ -165,16 +179,17 @@ const ForgotPassword = () => {
                 <input
                   type="submit"
                   value="بحث"
-                  onClick={handleForgotPassword}
+                  onClick={() => {
+                    if (email.trim() === "") {
+                      setEmailError(true);
+                    } else {
+                      handleForgotPassword();
+                    }
+                  }}
                   data-bs-target="#exampleModalToggle2"
                   data-bs-toggle="modal"
-                  className={
-                    // Object.values(errors).some((error) => error !== "")
-                    //   ? "btn bgColor text-white col-4 disabled"
-                    // :
-                    "text-center bgColor text-white btn  "
-                  }
-                  // disabled={Object.values(logInUser).some((logInUser) => logInUser == "")}
+                  className={"text-center bgColor text-white btn"}
+                  disabled={email.trim() === ""}
                 />
               </div>
             </div>
@@ -236,7 +251,10 @@ const ForgotPassword = () => {
                   <input
                     type="submit"
                     value="تأكيد"
-                    onClick={() => setCodeconfirmed(true)}
+                    onClick={() => {
+                      handleToken();
+                      setCodeconfirmed(true);
+                    }}
                     className="text-center bgColor text-white btn"
                   />
                 </div>
