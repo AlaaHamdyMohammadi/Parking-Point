@@ -9,6 +9,7 @@ import { IoBagCheckSharp } from "react-icons/io5";
 import { logout } from "../../store/slices/authSlice";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import useLogInUserData from "../../../hook/useLogInUserData";
+import { LiaMoneyCheckAltSolid } from "react-icons/lia";
 
 export default function Header() {
   const user = useLogInUserData();
@@ -43,7 +44,7 @@ export default function Header() {
                   <li>
                     <Link to={`/Profile/sales`} className="dropdown-item">
                       <span className="ps-2">
-                        <IoBagCheckSharp />
+                        <LiaMoneyCheckAltSolid />
                       </span>
                       حجوزاتي
                     </Link>
@@ -56,14 +57,14 @@ export default function Header() {
                       إدارة حسابي
                     </Link>
                   </li>
-                  {/* <li>
-                    <Link to={`#`} className="dropdown-item">
+                  <li>
+                    <a className="dropdown-item" href="mailto:parkingpoint@outlook.com">
                       <span className="ps-2">
                         <MdContactSupport />
                       </span>
                       الدعم الفني
-                    </Link>
-                  </li> */}
+                    </a>
+                  </li>
                   <li>
                     <div role="button" className="dropdown-item  text-danger border-top" onClick={logdedout}>
                       <span className="ps-2 text-danger">

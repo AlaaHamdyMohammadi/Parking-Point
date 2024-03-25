@@ -187,7 +187,7 @@ export default function SidebarProfile() {
               <>
                 <div className={`${classes.unactive} d-flex flex-column`}>
                   <Link to={`/Profile`}>
-                    <div className="yellowcolor ms-2">
+                    <div className="yellowcolor  ms-2">
                       {user.firstName} {user.lastName}
                     </div>{" "}
                   </Link>
@@ -197,7 +197,7 @@ export default function SidebarProfile() {
                       <span>تم تأكيد الأيميل</span>
                     </div>
                   ) : (
-                    <div className="fs-6 pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <div className=" pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                       <MdOutlineAdsClick className="mx-1 " />
                       <span>تأكيد الأيميل</span>
                     </div>
