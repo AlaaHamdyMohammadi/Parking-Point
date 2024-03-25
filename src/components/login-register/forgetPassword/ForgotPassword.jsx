@@ -73,7 +73,7 @@ const ForgotPassword = () => {
 
   async function handleForgotPassword() {
     try {
-      const res = await axiosInstanceParking.post("/users/me/forgetPassword", {
+      const res = await axiosInstanceParking.post("/users/me/forget-password", {
         email,
       });
       console.log(res.data);
@@ -84,7 +84,7 @@ const ForgotPassword = () => {
 
   async function handleResetPassword() {
     try {
-      const res = await axiosInstanceParking.post("/users/me/resetPassword", {
+      const res = await axiosInstanceParking.post("/users/me/reset-password", {
         token,
         email,
         password,
@@ -101,7 +101,7 @@ const ForgotPassword = () => {
       }
     }
   }
-
+  //
   return (
     <>
       <div
@@ -127,7 +127,10 @@ const ForgotPassword = () => {
                     className={`${classes.input}  w-100 mt-2 form-control border-secondary shadow-none`}
                     /*value={registeUser.email}*/
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      console.log("Email:", e.target.value);
+                    }}
                   />
                 </div>
                 <div className="text-start align-self-center">
@@ -177,7 +180,10 @@ const ForgotPassword = () => {
                     <input
                       type="text"
                       value={token}
-                      onChange={(e) => setToken(e.target.value)}
+                      onChange={(e) => {
+                        setToken(e.target.value);
+                        console.log("Token:", e.target.value);
+                      }}
                       className={`${classes.input}  w-100 mt-2 form-control border-secondary shadow-none`}
                     />
                     {/* <ConfirmationCodeInput length={6} onConfirm={(code) => console.log("Confirmed:", code)} /> */}
@@ -233,12 +239,17 @@ const ForgotPassword = () => {
                             type={showPassword ? "text" : "password"}
                             name="password"
                             id="password"
+                            value={password}
+                            onChange={(e) => {
+                              registeValidation;
+                              setPassword(e.target.value);
+                              console.log("Password:", e.target.value);
+                            }}
                             className={`${classes.input} form-control border-secondary shadow-none`}
                             style={{
                               borderTopRightRadius: "0.375rem",
                               borderBottomRightRadius: "0.375rem",
                             }}
-                            onChange={registeValidation}
                             onBlur={registeValidation}
                           />
                           <button
@@ -262,12 +273,17 @@ const ForgotPassword = () => {
                             type={showPassword ? "text" : "password"}
                             name="confirmPassword"
                             id="confirmPassword"
+                            value={confirmPassword}
+                            onChange={(e) => {
+                              registeValidation;
+                              setConfirmPassword(e.target.value);
+                              console.log("ConfirmPassword:", e.target.value);
+                            }}
                             className={`${classes.input} form-control border-secondary shadow-none`}
                             style={{
                               borderTopRightRadius: "0.375rem",
                               borderBottomRightRadius: "0.375rem",
                             }}
-                            onChange={registeValidation}
                             onBlur={registeValidation}
                           />
                           <button
