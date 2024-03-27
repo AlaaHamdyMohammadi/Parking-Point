@@ -5,9 +5,9 @@ import Footer from "../components/footer/Footer";
 export default function Layout() {
   return (
     <div>
-      <Header_2/>
-      <div style={{minHeight:'26.5vw'}}>
-      <Outlet />
+      <Header_2 />
+      <div style={{ minHeight: "26.5vw" }}>
+        <Outlet />
       </div>
       <Footer />
     </div>
