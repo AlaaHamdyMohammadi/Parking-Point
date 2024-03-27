@@ -5,8 +5,14 @@ import { TfiEmail } from "react-icons/tfi";
 import { Link } from "react-router-dom";
 import { BsTwitterX } from "react-icons/bs";
 // import { ImWhatsapp } from "react-icons/im";
+import { FaWhatsapp } from "react-icons/fa6";
+
+const whatsappNumber = '+96877344277';
+// const whatsappNumber = '+201098235324';
 
 export default function Footer() {
+  const whatsappUrl = `https://wa.me/${whatsappNumber}`;
+
   return (
     <footer className=" bgColor mb-0 z-3 position-absolute w-100 ">
       <ul className="nav justify-content-center   py-3 mb-1">
@@ -43,10 +49,10 @@ export default function Footer() {
           </Link>
         </li>
         <li className="ms-3">
-          <Link to={`https://www.linkedin.com/`}>
-            <SlSocialLinkedin className="fs-4 animate transition hoverColor" />
-          </Link>
-        </li>
+      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+        <FaWhatsapp className="fs-3 animate transition hoverColor" />
+      </a>
+    </li>
       </ul>
       <p className="text-center p-2 Gray  mb-0  transition navcolor">
         {`<Developed by<`}

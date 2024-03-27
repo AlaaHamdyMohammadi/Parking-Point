@@ -23,7 +23,7 @@ export default function HomeLogin() {
     setBookNow(true);
   }
   function handelBookLater() {
-    setBookNow(false);
+    setBookNow(!BookNow);
     // setsearchData({
     //   city: "",
     // from: BookNow ? new Date().toISOString().slice(0, 16) : null,
