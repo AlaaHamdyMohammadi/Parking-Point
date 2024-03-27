@@ -13,6 +13,8 @@ const ForgotPassword = () => {
   const [registeUser, setRegisteUser] = React.useState({ email: "" });
   const [codeconfirmed, setCodeconfirmed] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [enterOtp, setEnterOtp] = useState(false);
+
   const [email, setEmail] = React.useState("");
   const [token, setToken] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -75,6 +77,7 @@ const ForgotPassword = () => {
           }
         );
         console.log(res.data);
+        setEnterOtp(true)
       } catch (error) {
         console.log("Error: ", error);
       }
@@ -167,8 +170,8 @@ const ForgotPassword = () => {
                       handleForgotPassword();
                     }
                   }}
-                  data-bs-target="#exampleModalToggle2"
-                  data-bs-toggle="modal"
+                  data-bs-toggle={codeconfirmed ? "modal" : ""}
+                  data-bs-target={codeconfirmed ? "#exampleModalToggle2" : ""}
                   className={"text-center bgColor text-white btn"}
                   disabled={email.trim() === ""}
                 />
@@ -178,7 +181,7 @@ const ForgotPassword = () => {
         </div>
       </div>
 
-      {!codeconfirmed ? (
+      {enterOtp ? (
         <div
           className="modal fade"
           id="exampleModalToggle2"
@@ -292,7 +295,7 @@ const ForgotPassword = () => {
                       <div className="input-group">
                         <div className="d-flex  w-100 justify-content-end">
                           <input
-                            type={showPassword ? "text" : "password"}
+                            type="password"
                             name="confirmPassword"
                             id="confirmPassword"
                             value={confirmPassword}
@@ -314,7 +317,6 @@ const ForgotPassword = () => {
                             style={{ position: "absolute", zIndex: "1" }}
                             onClick={togglePasswordVisibility}
                           >
-                            {showPassword ? <IoEyeOutline /> : <FaRegEyeSlash />}
                           </button>
                         </div>
                       </div>
