@@ -3,7 +3,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-
+import spinnerReducer from "./slices/spinner";
 import isLog from "./slices/login";
 import loggedIn from "./slices/authSlice";
 import logInUser from "./slices/logInUser";
@@ -21,6 +21,7 @@ const persistedReducer = persistReducer(persistConfig, combineReducers({
 
 const store = configureStore({
   reducer: persistedReducer,
+  spinner: spinnerReducer,
 });
 
 export const persistor = persistStore(store);
