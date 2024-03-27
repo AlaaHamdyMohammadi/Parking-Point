@@ -13,15 +13,19 @@ const persistConfig = {
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, combineReducers({
-  isLog,
-  loggedIn,
-  logInUser,
-}));
+const persistedReducer = persistReducer(
+  persistConfig,
+  combineReducers({
+    isLog,
+    loggedIn,
+    logInUser,
+    spinner: spinnerReducer,
+  })
+);
 
 const store = configureStore({
   reducer: persistedReducer,
-  spinner: spinnerReducer,
+  
 });
 
 export const persistor = persistStore(store);

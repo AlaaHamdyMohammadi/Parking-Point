@@ -5,23 +5,39 @@ import { LuParkingCircle } from "react-icons/lu";
 import { MdPriceCheck } from "react-icons/md";
 import { FaRegFilePdf } from "react-icons/fa6";
 import { useReactToPrint } from "react-to-print";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import SpinnerLoad from "../../components/spinner/Spinner";
 export default function Sales() {
+  const [isLoading, setIsLoading] = useState(true);
+
   const ComponentPDF = useRef();
   const generatePDF = useReactToPrint({
     content: () => ComponentPDF.current,
     documentTitle: "الحجوزات",
     onAfterPrint: () => alert("تم الحفظ في ملف pdf"),
   });
+
+  useEffect(function () {
+    console.log("work");
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
   return (
-    <div className="my-5  w-100 align-self-center">
+    <>
+   {isLoading ? <SpinnerLoad/> : <div className="my-5  w-100 align-self-center">
       <div>
         <div ref={ComponentPDF}>
-          <button className={`text-center  btnDownload w-25 animate  m-2 btn `} onClick={generatePDF}>
+          <button
+            className={`text-center  btnDownload w-25 animate  m-2 btn `}
+            onClick={generatePDF}
+          >
             <FaRegFilePdf className="text-center   fs-5" /> تحميل
           </button>
           {/* maxWidth: "700px" */}
-          <div style={{ overflowX: "auto", overflowY: "auto", maxHeight: "600px" }}>
+          <div
+            style={{ overflowX: "auto", overflowY: "auto", maxHeight: "600px" }}
+          >
             <table className="table table-hover border rounded-3">
               <thead className="bgColor border rounded-2 fs-5 text-white fw-bolder py-3">
                 <th className="p-1 px-2 fw-bolder">
@@ -142,6 +158,7 @@ export default function Sales() {
           </div>
         </div>
       </div>
-    </div>
+    </div>}
+    </>
   );
 }
