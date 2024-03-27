@@ -1,5 +1,11 @@
+@font-face {
+  font-family: "Cairo";
+  src: url("./../public/Cairo-Regular.ttf") format("ttf");
+}
+
 * {
   font-family: "Cairo", sans-serif !important;
+  /* font-family: "./../public/Cairo-Regular.ttf"; */
 }
 .bgColor {
   background-color: var(--background) !important;
