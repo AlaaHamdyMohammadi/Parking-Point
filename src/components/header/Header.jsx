@@ -10,6 +10,8 @@ import { logout } from "../../store/slices/authSlice";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import useLogInUserData from "../../../hook/useLogInUserData";
 import { LiaMoneyCheckAltSolid } from "react-icons/lia";
+import ConfimEmailPop from "../login-register/confirmEmailpop";
+import useSendCode from "../../../hook/useSendCode";
 
 export default function Header() {
   const user = useLogInUserData();
@@ -26,7 +28,7 @@ export default function Header() {
     dispatch(logout());
     navigate("/");
   };
-
+  const handleChange=useSendCode()
   return (
     <>
       <nav className={`navColor p-2 d-flex w-100 justify-content-between navbar-expand-lg shadow`}>
@@ -140,25 +142,31 @@ export default function Header() {
           </div>
         )}
       </nav>
-      {isLoggedIn && (
-        <>
-          {user.isActivated == false && user.role == "renter" && (
-            <div className="alert alert-danger" role="alert">
-              <div>لكي تتمكن من اضافة موقف</div>
-
-              <ul>
-                <li>يرجي التواصل مع الدعم لتاكيد الهوية</li>
-              </ul>
-            </div>
-          )}
-          {/* {user.isEmailConfirmed == false && (
-                <>
-                  <li>يرجي تاكيد البريد الاليكتروني</li>
-                  <div className={`${classes.resendcode} pointer fs-6 fw-bold mt-md-1`}>- اضغط هنا للتاكيد</div>
-                </>
-              )} */}
-        </>
-      )}
+      { (isLoggedIn&& user.role == 'renter')  && <>
+        <div className="alert alert-danger" role="alert">
+          <div>
+            لكي تتمكن من اضافة موقف
+          </div>
+          <ul>
+                {user.isActivated == false &&
+                  <li>
+                    يرجي التواصل مع الدعم لتاكيد الهوية
+                  </li>
+                }
+                {user.isEmailConfirmed == false &&
+                  <>
+                    <li>
+                      يرجي تاكيد البريد الاليكتروني
+                    </li>
+                    <div className={`${classes.resendcode} pointer fs-6 fw-bold mt-md-1`}
+                     data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={handleChange}>- اضغط هنا للتاكيد</div>
+                  </>
+                }
+            <ConfimEmailPop userEmail={user.email} />
+          </ul>
+        </div>
+      </>
+      }
     </>
   );
 }
