@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./../../styles/formStyles.module.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useDispatch } from "react-redux";
 import { loggedInState, login } from "../../store/slices/authSlice";
@@ -10,7 +10,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import ForgotPassword from "./forgetPassword/ForgotPassword";
-
 export default function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,6 +25,7 @@ export default function LoginForm() {
   //
   const [showPassword, setShowPassword] = useState(false);
   const [showModal, setShowModal] = React.useState(false);
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -48,7 +48,9 @@ export default function LoginForm() {
   };
   const handleSubmit = async (event) => {
     const hasErrors = Object.values(errors).some((error) => error !== "");
-    const isEmpty = Object.values(logInUser).some((logInUser) => logInUser === "");
+    const isEmpty = Object.values(logInUser).some(
+      (logInUser) => logInUser === ""
+    );
     if (hasErrors || isEmpty) {
       event.preventDefault();
     } else {
@@ -75,7 +77,7 @@ export default function LoginForm() {
   }
 
   return (
-    <>
+    <div>
       <form method="post" onSubmit={handleSubmit} className="fs-4 mb-5">
         <p className={`text-danger`}>{isTrueErrors}</p>
         <div>
@@ -118,7 +120,10 @@ export default function LoginForm() {
                   className={`${classes.input} form-control border-secondary shadow-none`}
                   onChange={loginValidation}
                   onBlur={loginValidation}
-                  style={{ borderTopRightRadius: "0.375rem", borderBottomRightRadius: "0.375rem" }}
+                  style={{
+                    borderTopRightRadius: "0.375rem",
+                    borderBottomRightRadius: "0.375rem",
+                  }}
                 />
                 <button
                   type="button"
@@ -140,14 +145,21 @@ export default function LoginForm() {
               ? "btn bgColor text-white col-4 disabled"
               : "text-center bgColor text-white btn mt-5 "
           }
-          disabled={Object.values(logInUser).some((logInUser) => logInUser == "")}
+          disabled={Object.values(logInUser).some(
+            (logInUser) => logInUser == ""
+          )}
         />
       </form>
       <ToastContainer position="top-right" autoClose={50000} />
-      <Link to={``} className={`mt-5`} data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      <Link
+        to={``}
+        className={`mt-5`}
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+      >
         نسيت كلمه السر ؟
       </Link>
       <ForgotPassword />
-    </>
+    </div>
   );
 }

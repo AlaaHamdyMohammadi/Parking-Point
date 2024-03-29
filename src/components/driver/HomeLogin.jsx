@@ -2,18 +2,20 @@ import Map from "./Map";
 // import ParkingCard from "./ParkingCard";
 import { IoArrowRedoCircleOutline } from "react-icons/io5";
 // import classes from "./../../styles/formStyles.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EndDateTime from "./EndDT";
 // import StarRating from "./StarRating";
 import ParkingCard from "./ParkingCard";
 import useLogInUserData from "../../../hook/useLogInUserData";
 import ParkingHome from "../../pages/parking/ParkingHome";
+import SpinnerLoad from "../spinner/Spinner";
 
 export default function HomeLogin() {
   const user = useLogInUserData();
   const [isSearch, setIsSearch] = useState(false);
   // const [SearchParks, setSearchParks] = useState([]);
   const [AvaliableParksFilter, setAvaliableParksFilter] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   function handlesetIsSearch() {
     setIsSearch(!isSearch);
   }
@@ -32,10 +34,17 @@ export default function HomeLogin() {
   const handleReserveChange = (AvaliableParks) => {
     setAvaliableParksFilter(AvaliableParks);
   };
-  console.log(AvaliableParksFilter, "AvaliableParks recive");
+  //console.log(AvaliableParksFilter, "AvaliableParks recive");
+
+  useEffect(function () {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+  }, []);
 
   return (
     <>
+    {isLoading ? <SpinnerLoad/> : <div>
       {user.role == "renter" ? (
         <ParkingHome />
       ) : (
@@ -108,6 +117,7 @@ export default function HomeLogin() {
           </div>
         </div>
       )}
+    </div>}
     </>
   );
 }

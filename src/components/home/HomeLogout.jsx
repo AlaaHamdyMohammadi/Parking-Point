@@ -2,7 +2,7 @@ import classes from "./../../styles/header.module.css";
 import SearchInput from "../driver/SearchInput";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Spinner from "../../store/slices/spinner";
+import SpinnerLoad from "../spinner/Spinner";
 
 export default function HomeLogout() {
   const [isLoading, setIsLoading] = useState(true);
@@ -10,13 +10,13 @@ export default function HomeLogout() {
   useEffect(function () {
     setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 1500);
   }, []);
 
   return (
     <>
       {isLoading ? (
-        <Spinner />
+        <SpinnerLoad />
       ) : (
         <div className={`container-fluid`}>
           <div className={`row`}>
