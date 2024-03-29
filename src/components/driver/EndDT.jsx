@@ -9,8 +9,12 @@ const { useState } = React;
 import { FcOvertime } from "react-icons/fc";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
+import useSendCode from "../../../hook/useSendCode";
+import ConfimEmailPop from "../login-register/confirmEmailpop";
+import useLogInUserData from "../../../hook/useLogInUserData";
 
 export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
+  const user = useLogInUserData();
   const token = useSelector((state) => state.loggedIn.token);
   const [timeDifference, setTimeDifference] = useState({
     days: 0,
@@ -71,23 +75,26 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
       toast.error("يجب أن يكون تاريخ انتهاء الحجز  بعد تاريخ البدء.");
       return;
     }
-
-    axiosInstanceParking
-      .get(`/parkings/?city=${searchData.city}&from=${searchData.from}&to=${searchData.to}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        onReserveChange(response.data.parks);
-        console.log("Response:", response.data.parks);
-        setIsSearch(true);
-      })
-      .catch((error) => {
-        console.error("Error", error);
-      });
+    if (user.isEmailConfirmed == false) {
+      e.preventDefault();
+    } else {
+      axiosInstanceParking
+        .get(`/parkings/?city=${searchData.city}&from=${searchData.from}&to=${searchData.to}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          onReserveChange(response.data.parks);
+          console.log("Response:", response.data.parks);
+          setIsSearch(true);
+        })
+        .catch((error) => {
+          console.error("Error", error);
+        });
+    }
   };
-
+  const handleChange = useSendCode()
   return (
     <>
       <form method="post" onSubmit={sendQuery}>
@@ -135,16 +142,27 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
           </div>
           <div
             onClick={calculateTimeDifference}
-            className=" customRange mt-4 Gray  border border-0 pointer text-center w-100 m-2 ms-3 p-1 fw-semibold animate  rounded-2"
+            className=" customRange mt-4 Gray border-0 pointer text-center w-100 m-2 ms-3 p-1 fw-semibold animate  rounded-2"
           >
             {timeDifference.minutes > 0 || timeDifference.hours > 0 || timeDifference.days > 0
               ? ` ${timeDifference.days} يوم, ${timeDifference.hours}  ساعة, ${timeDifference.minutes} دقيقة`
               : " معرفة مدة الركن "}
           </div>
           <div className={`text-end`}>
-            <button type="submit" className={`text-center bgColor text-white btn m-2 mx-3 ${classes.formBtn} `}>
+            <button type="submit" className={`text-center bgColor text-white btn m-2 mx-3 ${classes.formBtn}`}
+              disabled={user.isEmailConfirmed == false && true}>
               اعرض المواقف
             </button>
+            {user.isEmailConfirmed == false &&
+              <div className="text-danger">
+                <div>
+                  * للحجز يرجي تاكيد البريد الاليكتروني اولا
+                </div>
+                <div className={`${classes.resendcode} pointer fs-6 fw-bold mt-md-1`}
+                  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={handleChange}>- اضغط هنا للتاكيد</div>
+              </div>
+            }
+            <ConfimEmailPop userEmail={user.email} />
           </div>
         </div>
       </form>

@@ -28,7 +28,7 @@ export default function Header() {
     dispatch(logout());
     navigate("/");
   };
-  const handleChange=useSendCode()
+  const handleChange = useSendCode()
   return (
     <>
       <nav className={`navColor p-2 d-flex w-100 justify-content-between navbar-expand-lg shadow`}>
@@ -142,26 +142,26 @@ export default function Header() {
           </div>
         )}
       </nav>
-      { (isLoggedIn&& user.role == 'renter')  && <>
+      {(isLoggedIn && user.role == 'renter') && <>
         <div className="alert alert-danger" role="alert">
           <div>
             لكي تتمكن من اضافة موقف
           </div>
           <ul>
-                {user.isActivated == false &&
-                  <li>
-                    يرجي التواصل مع الدعم لتاكيد الهوية
-                  </li>
-                }
-                {user.isEmailConfirmed == false &&
-                  <>
-                    <li>
-                      يرجي تاكيد البريد الاليكتروني
-                    </li>
-                    <div className={`${classes.resendcode} pointer fs-6 fw-bold mt-md-1`}
-                     data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={handleChange}>- اضغط هنا للتاكيد</div>
-                  </>
-                }
+            {user.isActivated == false &&
+              <li>
+                يرجي التواصل مع الدعم لتاكيد الهوية
+              </li>
+            }
+            {user.isEmailConfirmed == false &&
+              <>
+                <li>
+                  يرجي تاكيد البريد الاليكتروني
+                </li>
+                <div className={`${classes.resendcode} pointer fs-6 fw-bold mt-md-1`}
+                  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={handleChange}>- اضغط هنا للتاكيد</div>
+              </>
+            }
             <ConfimEmailPop userEmail={user.email} />
           </ul>
         </div>
