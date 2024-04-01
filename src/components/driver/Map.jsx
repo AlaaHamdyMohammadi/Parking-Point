@@ -3,18 +3,22 @@
 /* eslint-disable no-unused-vars */
 
 import { useState, useEffect } from "react";
-import ReactMapGL, { Marker, Popup, Layer, Source, FullscreenControl, GeolocateControl } from "react-map-gl";
+import ReactMapGL, {
+  Marker,
+  Popup,
+  Layer,
+  Source,
+  FullscreenControl,
+  GeolocateControl,
+} from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaPlus, FaMinus } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
 
 const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 const mapStyle = "mapbox://styles/alaahamdy2/clsp701hd005a01pkhrmygybf";
 
 const Map = ({ AvaliableParksFilter }) => {
-  const spinner = useSelector((state) => state.spinner.spinner);
-  const dispatch = useDispatch();
   const [viewport, setViewport] = useState({
     width: "100%",
     height: "100%",
@@ -24,7 +28,6 @@ const Map = ({ AvaliableParksFilter }) => {
   });
 
   useEffect(() => {
-    dispatch(changeSpinner(true));
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         setViewport((prevViewport) => ({
@@ -36,8 +39,7 @@ const Map = ({ AvaliableParksFilter }) => {
     } else {
       console.error("Geolocation is not supported by this browser.");
     }
-    dispatch(changeSpinner(false));
-  }, [viewport, dispatch]);
+  }, [viewport]);
 
   const handleZoomIn = () => {
     setViewport((prevViewport) => ({
@@ -55,8 +57,20 @@ const Map = ({ AvaliableParksFilter }) => {
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-      <ReactMapGL {...viewport} mapStyle={mapStyle} mapboxAccessToken={TOKEN} onViewportChange={setViewport} dragPan={true}>
-        <Marker draggable latitude={viewport.latitude} longitude={viewport.longitude} offsetLeft={-20} offsetTop={-10} />
+      <ReactMapGL
+        {...viewport}
+        mapStyle={mapStyle}
+        mapboxAccessToken={TOKEN}
+        onViewportChange={setViewport}
+        dragPan={true}
+      >
+        <Marker
+          draggable
+          latitude={viewport.latitude}
+          longitude={viewport.longitude}
+          offsetLeft={-20}
+          offsetTop={-10}
+        />
 
         {AvaliableParksFilter.map((park, index) =>
           park.location ? (
@@ -146,19 +160,21 @@ const Map = ({ AvaliableParksFilter }) => {
                     coordinates: [viewport.longitude, viewport.latitude],
                   },
                 },
-                ...AvaliableParksFilter.filter((park) => park.location).map((park) => ({
-                  type: "Feature",
-                  geometry: {
-                    type: "LineString",
-                    coordinates: [
-                      [viewport.longitude, viewport.latitude],
-                      [park.location.longitude, park.location.latitude],
-                    ],
-                  },
-                  properties: {
-                    title: park.address,
-                  },
-                })),
+                ...AvaliableParksFilter.filter((park) => park.location).map(
+                  (park) => ({
+                    type: "Feature",
+                    geometry: {
+                      type: "LineString",
+                      coordinates: [
+                        [viewport.longitude, viewport.latitude],
+                        [park.location.longitude, park.location.latitude],
+                      ],
+                    },
+                    properties: {
+                      title: park.address,
+                    },
+                  })
+                ),
               ],
             }}
           >

@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { LuCalendarClock } from "react-icons/lu";
 // import { GrValidate } from "react-icons/gr";
 import { PiCalendarCheckBold } from "react-icons/pi";
+import SpinnerLoad from "../../components/spinner/Spinner";
 
 const calculateTimeDifference = (fromDate, toDate) => {
   const from = new Date(fromDate);
@@ -54,17 +55,31 @@ export default function Sales() {
   }, []);
   console.log(data, "data");
   //Download
+// export default function Sales() {
+  const [isLoading, setIsLoading] = useState(true);
+
   const ComponentPDF = useRef();
   const generatePDF = useReactToPrint({
     content: () => ComponentPDF.current,
     documentTitle: "الحجوزات",
     onAfterPrint: () => alert("تم الحفظ في ملف pdf"),
   });
+
+  useEffect(function () {
+    console.log("work");
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
   return (
-    <div className="my-5  w-100 align-self-center">
+    <>
+   {isLoading ? <SpinnerLoad/> : <div className="my-5  w-100 align-self-center">
       <div>
         <div ref={ComponentPDF}>
-          <button className={`text-center  btnDownload w-25 animate  m-2 btn `} onClick={generatePDF}>
+          <button
+            className={`text-center  btnDownload w-25 animate  m-2 btn `}
+            onClick={generatePDF}
+          >
             <FaRegFilePdf className="text-center   fs-5" /> تحميل
           </button>
           <div style={{ overflowX: "auto", overflowY: "auto", maxHeight: "600px" }}>
@@ -112,6 +127,6 @@ export default function Sales() {
           </div>
         </div>
       </div>
-    </div>
-  );
-}
+    </div>}
+    </>
+  );}
