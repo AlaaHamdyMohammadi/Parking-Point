@@ -93,19 +93,6 @@ export default function LoginForm() {
             onBlur={loginValidation}
           />
         </div>
-        {/* <div className="mt-4">
-          <label htmlFor="password" className="fs-5">
-            كلمة السر
-          </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            className={`${classes.input} form-control border-secondary shadow-none`}
-            onChange={loginValidation}
-            onBlur={loginValidation}
-          />
-        </div> */}
         <div>
           <div className="mt-4">
             <label htmlFor="password" className="fs-5">

@@ -5,16 +5,16 @@ import classes from "./../../../styles/formStyles.module.css";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import axiosInstanceParking from "../../../axiosConfig/instanc";
-import ForgotPasswordModal from "./ForgotPasswordModal";
-
-//{/*setRegisteUser({ ...registeUser, email: e.target.value })*/}
-
+// import ForgotPasswordModal from "./ForgotPasswordModal";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const ForgotPassword = () => {
   const [registeUser, setRegisteUser] = React.useState({ email: "" });
   const [codeconfirmed, setCodeconfirmed] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [enterOtp, setEnterOtp] = useState(false);
-
+  const [showEmailModal, setShowEmailModal] = useState(true);
+  const [esc, setEsc] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [token, setToken] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -26,9 +26,9 @@ const ForgotPassword = () => {
     confirmPasswordErrors: "*",
     tokenErrors: "*",
   });
-  let regionRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;
   let passwordRegx = /^[a-zA-Z0-9]{8,}$/;
-  let roleRegx = /^(renter|driver)$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const registeValidation = (event) => {
     const { name, value } = event.target;
     if (name === "password") {
@@ -51,13 +51,6 @@ const ForgotPassword = () => {
           value.length === 0 ? "يجب تاكيد الرقم السري" : value == registeUser.password ? "" : "الرقم غير صحيح",
       });
     }
-    if (name === "role") {
-      setErrors({
-        ...errors,
-        roleErrors:
-          value.length === 0 ? "يجب اختيار النوع" : roleRegx.test(value) ? "" : "يجب اختيار من واحد من الاختيارات المقدمة",
-      });
-    }
     setRegisteUser({ ...registeUser, [name]: value });
   };
 
@@ -66,9 +59,10 @@ const ForgotPassword = () => {
   };
 
   async function handleForgotPassword() {
-    if (email.trim() === "") {
+    if (!emailRegex.test(email)) {
       setEmailError(true);
-    } else {
+      toast.error("يرجى إدخال بريد إلكتروني صحيح");
+    }else {
       try {
         const res = await axiosInstanceParking.post(
           "/users/me/forget-password",
@@ -76,24 +70,36 @@ const ForgotPassword = () => {
             email,
           }
         );
-        console.log(res.data);
         setEnterOtp(true)
+        console.log(res.data,enterOtp);
       } catch (error) {
+        toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
+
         console.log("Error: ", error);
       }
     }
   }
   async function handleToken() {
     try {
-      console.log("Token before API call:", token);
+      // console.log("Token before API call:", token);
+
+
       const res = await axiosInstanceParking.post("/users/me/validate-otp", {
         token,
         email,
       });
-      console.log("API Response:", res.data);
+      setCodeconfirmed(true);
+      setShowEmailModal(false);
+      console.log(res,"handletoken SUCCESS")
+      console.log(codeconfirmed ,"codeconfirmed",showEmailModal,"ShowEmailModal");
+
+
     } catch (error) {
       if (error.response) {
         console.log("Error data:", error.response.data);
+        toast.error("رمز التحقق غير صحيح");
+
+
       }
     }
   }
@@ -107,6 +113,9 @@ const ForgotPassword = () => {
         confirmPassword,
       });
       console.log(res);
+      setEsc(true);
+      toast.success("تم تفعيل كلمة السر بنجاح");
+
     } catch (error) {
       if (error.response) {
         console.log("Error data:", error.response.data);
@@ -120,7 +129,8 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <div
+    {showEmailModal&& (
+       <div
         className="modal fade"
         id="staticBackdrop"
         data-bs-backdrop="static"
@@ -159,7 +169,7 @@ const ForgotPassword = () => {
                 </div>
               </div>
 
-              <div className="modal-footer p-0 m-0 d-flex justify-content-between">
+              <div className="modal-footer p-0 m-0 d-flex justify-content-start">
                 <input
                   type="submit"
                   value="بحث"
@@ -170,18 +180,21 @@ const ForgotPassword = () => {
                       handleForgotPassword();
                     }
                   }}
-                  data-bs-toggle={codeconfirmed ? "modal" : ""}
-                  data-bs-target={codeconfirmed ? "#exampleModalToggle2" : ""}
+                  data-bs-toggle={enterOtp ? "modal" : ""}
+                  data-bs-target={enterOtp ? "#exampleModalToggle2" : ""}
                   className={"text-center bgColor text-white btn"}
                   disabled={email.trim() === ""}
                 />
+    <button type="button" className="text-center  bgColor text-white btn"
+  data-bs-dismiss="modal">إلغاء</button>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div>)}
+     
 
-      {enterOtp ? (
+      {enterOtp && (
         <div
           className="modal fade"
           id="exampleModalToggle2"
@@ -224,35 +237,37 @@ const ForgotPassword = () => {
                   <span className={`${classes.resendcode}`}>{registeUser.email}</span> يُرجى فتح بريدك الإلكتروني و نسخ الرمز
                   المُرسل.
                 </p>
-                <div className="modal-footer p-0 pe-3 m-0 justify-content-between">
+                <div className="modal-footer p-0 px-3 m-0 justify-content-start">
                   <input
                     type="submit"
                     value="تأكيد"
                     onClick={() => {
                       handleToken();
-                      setCodeconfirmed(true);
                     }}
+                    data-bs-toggle={codeconfirmed ? "modal" : ""}
+                    data-bs-target={codeconfirmed ? "#staticBackdrop" : ""}
+              
                     className="text-center bgColor text-white btn"
                   />
+                        <button className="text-center  bgColor text-white btn" data-bs-target="#staticBackdrop" data-bs-toggle="modal" 
+                          onClick={() => {
+                            setShowEmailModal(true)
+                      ;
+                    }}>الرجوع</button>
+
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <div
-          className="modal fade"
-          id="exampleModalToggle2"
-          aria-hidden="true"
-          aria-labelledby="exampleModalToggleLabel2"
-          tabIndex="-1"
-        >
-          <div className="modal-dialog modal-dialog-centered">
-            <div className="modal-content">
-              <div className="modal-header">
+        </div>)}
+
+{codeconfirmed && (<div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div className="modal-dialog modal-dialog-centered">
+    <div className="modal-content">
+    <div className="modal-header">
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div className="modal-body p-0">
+      <div className="modal-body p-0">
                 <div className="d-flex">
                   <div>
                     <div className="text-end pe-3 align-self-center ">
@@ -329,19 +344,26 @@ const ForgotPassword = () => {
                     <img style={{ height: "30%", width: "50%" }} src="./../../../public/images/account-animate.svg" alt="" />
                   </div>
                 </div>
-                <div className="modal-footer p-0 pe-3 m-0 justify-content-between">
+                <div className="modal-footer p-0 px-3 m-0 justify-content-start">
                   <input
                     type="submit"
                     value="تأكيد"
                     onClick={handleResetPassword}
                     className="text-center bgColor text-white btn"
+                    data-bs-dismiss={esc ? "modal" : ""}
                   />
+ <button type="button" className="text-center  bgColor text-white btn"
+  data-bs-dismiss="modal">إلغاء</button>
+
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      )}
+
+    </div>
+  </div>
+</div>)}
+<ToastContainer position="top-right" autoClose={4000} />
+
+     
     </>
   );
 };
