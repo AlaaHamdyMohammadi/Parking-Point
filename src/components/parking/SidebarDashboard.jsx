@@ -19,6 +19,7 @@ import { MdVerified } from "react-icons/md";
 import { MdOutlineAdsClick } from "react-icons/md";
 import ConfirmationCodeInput from "../login-register/confirmEmail";
 import ConfimEmailPop from "../login-register/confirmEmailpop";
+import useSendCode from "../../../hook/useSendCode";
 
 export default function SidebarProfile() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ export default function SidebarProfile() {
   const handleUnactive = () => {
     toast.error("يرجى التواصل مع الدعم لتأكيد الهوية اولا ");
   };
-
+  const handleChange=useSendCode()
   return (
     <>
       {isSmallScreen && (
@@ -91,7 +92,7 @@ export default function SidebarProfile() {
                       <span>تم تأكيد الأيميل</span>
                     </div>
                   ) : (
-                    <div className="fs-6 pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <div className="fs-6 pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={handleChange}>
                       <MdOutlineAdsClick className="mx-1 " />
                       <span>تأكيد الأيميل</span>
                     </div>

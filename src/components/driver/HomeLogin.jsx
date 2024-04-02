@@ -90,7 +90,7 @@ export default function HomeLogin() {
 
           {/* sec2 */}
           {isSearch && (
-            <div className={`col-lg-4 px-3 col-md-12 col-sm-12 px-2 `} id="navbar-example2">
+            <div className={`col-lg-4 col-md-12 col-sm-12 px-2 `} id="navbar-example2">
               <div className="d-flex justify-content-between  my-4">
                 {/* <div className="fs-5 fw-bolder">اختر الموقف المناسب</div> */}
                 <div className=" fw-bold">المواقف الأقرب لك ....</div>

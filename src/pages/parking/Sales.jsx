@@ -85,6 +85,8 @@ export default function Sales() {
           <div style={{ overflowX: "auto", overflowY: "auto", maxHeight: "600px" }}>
             <table className="table table-hover border rounded-3">
               <thead className="bgColor border rounded-2 fs-5 text-white fw-bolder py-3">
+              {/* <tr >  */}
+
                 <th className="p-1 px-2 fw-bolder">
                   <LuParkingCircle className="me-1 mb-1 fw-bolder text-white fs-1 bgColor" />
                   الموقف
@@ -106,6 +108,7 @@ export default function Sales() {
                   <MdPriceCheck className="mb-1 text-center text-white fs-1 bgColor" />
                   التكلفة
                 </th>
+                {/* </tr> */}
               </thead>
               <tbody className="pe-2">
                 {data &&

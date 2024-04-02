@@ -1,27 +1,12 @@
-import React from "react";
 import ConfirmationCodeInput from "./confirmEmail";
 import classes from "./../../styles/formStyles.module.css";
 import CountdownTimer from "./CountdownTimer";
-import { useSelector } from "react-redux";
-import axiosInstanceParking from "../../axiosConfig/instanc";
 import "react-toastify/dist/ReactToastify.css";
+import useSendCode from "../../../hook/useSendCode";
 
 export default function ConfimEmailPop({ userEmail }) {
-  const token = useSelector((state) => state.loggedIn.token);
-  const handleChange = async () => {
-    try {
-      const res = await axiosInstanceParking.get(`/users/me/confirm-email`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      console.log("send:", res);
-    } catch (error) {
-      console.error("Error occurred while confirming email:", error);
-      if (error.response) {
-        console.error("Response data:", error.response.data);
-      }
-    }
-  };
 
+const handleChange=useSendCode()
   return (
     <>
       <div
