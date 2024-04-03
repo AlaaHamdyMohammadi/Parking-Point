@@ -219,6 +219,11 @@ const ForgotPassword = () => {
                         setToken(e.target.value);
                         console.log("Token:", e.target.value);
                       }}
+                      onPaste={(e) => {
+                        const pastedText = e.clipboardData.getData("text");
+                        setToken(pastedText);
+                        console.log("Pasted Token:", pastedText);
+                      }}
                       className={`${classes.input}  w-100 mt-2 form-control border-secondary shadow-none`}
                     />
                     {/* <ConfirmationCodeInput length={6} onConfirm={(code) => console.log("Confirmed:", code)} /> */}

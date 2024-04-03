@@ -36,16 +36,16 @@ const handleChange=useSendCode()
               </div>
               <p className="fs-6 pt-2 px-2 text-end text-justify">
                 شكرا لتسجيلك معنا! لقد تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني المُسجّل
-                <span className={`${classes.resendcode} px-1`}>{userEmail}</span> يُرجى فتح بريدك الإلكتروني والبحث عن رسالة
-                منّا. بمجرد العثور على الرسالة، يُرجى فتحها ونسخ الرمز المُرسل
+                <span className={`${classes.resendcode} px-1`}>{userEmail}</span> يُرجى فتح بريدك الإلكتروني 
+                  ونسخ الرمز المُرسل
               </p>
             </div>
             <div className="modal-footer d-flex  justify-content-between">
-              <div className={`${classes.resendcode} pointer fs-6 fw-bold`} onClick={handleChange}>
+              <div className={`${classes.resendcode} pointer  fw-semibold`} onClick={handleChange}>
                 إعادة إرسال رمز التأكيد
               </div>
 
-              <span className="text-secondary  fs-6">
+              <span className="text-secondary  ">
                 إرسال الرمز خلال <CountdownTimer /> دقائق
               </span>
             </div>

@@ -17,9 +17,8 @@ import { toast, ToastContainer } from "react-toastify";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdVerified } from "react-icons/md";
 import { MdOutlineAdsClick } from "react-icons/md";
-import ConfirmationCodeInput from "../login-register/confirmEmail";
-import ConfimEmailPop from "../login-register/confirmEmailpop";
 import useSendCode from "../../../hook/useSendCode";
+import ConfimEmailPop from "../login-register/confirmEmailpop";
 
 export default function SidebarProfile() {
   const navigate = useNavigate();
@@ -86,18 +85,18 @@ export default function SidebarProfile() {
                       {user.firstName} {user.lastName}{" "}
                     </div>
                   </Link>
-                  {user.isEmailConfirmed ? (
+                  {/* {user.isEmailConfirmed ? (
                     <div className="fs-6">
                       <MdVerified className="mx-1" />
                       <span>تم تأكيد الأيميل</span>
                     </div>
                   ) : (
-                    <div className="fs-6 pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={handleChange}>
+                    <div className=" fs-6 pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={handleChange}>
                       <MdOutlineAdsClick className="mx-1 " />
                       <span>تأكيد الأيميل</span>
                     </div>
                   )}
-                  <ConfimEmailPop userEmail={user.email} />
+                  <ConfimEmailPop userEmail={user.email} /> */}
                 </div>
               </div>
 
@@ -192,18 +191,21 @@ export default function SidebarProfile() {
                       {user.firstName} {user.lastName}
                     </div>{" "}
                   </Link>
-                  {user.isEmailConfirmed ? (
+                  {/* {user.isEmailConfirmed ? (
                     <div className="fs-6">
                       <MdVerified className="mx-1" />
                       <span>تم تأكيد الأيميل</span>
                     </div>
                   ) : (
-                    <div className=" pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <div className="fs-6 pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={handleChange}> 
                       <MdOutlineAdsClick className="mx-1 " />
                       <span>تأكيد الأيميل</span>
+                      <ConfimEmailPop userEmail={user.email} />
+
                     </div>
-                  )}
-                  <ConfimEmailPop userEmail={user.email} />
+                    
+
+                  )} */}
                 </div>
               </>
             )}

@@ -87,24 +87,24 @@ export default function Sales() {
               <thead className="bgColor border rounded-2 fs-5 text-white fw-bolder py-3">
               {/* <tr >  */}
 
-                <th className="p-1 px-2 fw-bolder">
-                  <LuParkingCircle className="me-1 mb-1 fw-bolder text-white fs-1 bgColor" />
+                <th className="p-1 px-2 ">
+                  <LuParkingCircle className="me-1 mb-1  text-white fs-1 bgColor" />
                   الموقف
                 </th>
-                <th className="p-1 px-2 fw-bolder">
+                <th className="p-1 px-2 ">
                   <LiaCarSideSolid className="me-1 mb-1 text-center text-white fs-1 bgColor" />
                   رقم اللوحة
                 </th>
 
-                <th className="p-1 px-2 fw-bolder">
+                <th className="p-1 px-2 ">
                   <PiCalendarCheckBold className="me-1 mb-1 text-center text-white fs-1 bgColor" />
                   مدة الحجز
                 </th>
-                <th className="p-1 px-2 fw-bolder">
+                <th className="p-1 px-2 ">
                   <LuCalendarClock className="me-1 mb-1 text-center text-white fs-1 bgColor" />
                   بداية الحجز : نهاية الحجز
                 </th>
-                <th className="p-1 px-2 fw-bolder">
+                <th className="p-1 px-2 ">
                   <MdPriceCheck className="mb-1 text-center text-white fs-1 bgColor" />
                   التكلفة
                 </th>
