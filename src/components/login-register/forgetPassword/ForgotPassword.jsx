@@ -8,6 +8,7 @@ import axiosInstanceParking from "../../../axiosConfig/instanc";
 // import ForgotPasswordModal from "./ForgotPasswordModal";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 const ForgotPassword = () => {
   const [registeUser, setRegisteUser] = React.useState({ email: "" });
   const [codeconfirmed, setCodeconfirmed] = useState(false);
@@ -26,6 +27,8 @@ const ForgotPassword = () => {
     confirmPasswordErrors: "*",
     tokenErrors: "*",
   });
+  const navigate = useNavigate(); 
+
   let passwordRegx = /^[a-zA-Z0-9]{8,}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -114,7 +117,14 @@ const ForgotPassword = () => {
       });
       console.log(res);
       setEsc(true);
-      toast.success("تم تفعيل كلمة السر بنجاح");
+      // toast.success("تم تفعيل كلمة السر بنجاح");
+      // window.location.reload(); 
+      toast.success("تم تفعيل كلمة السر بنجاح", {
+        onClose: () => {
+          navigate('/register');
+          window.location.reload();
+        }
+      });
 
     } catch (error) {
       if (error.response) {

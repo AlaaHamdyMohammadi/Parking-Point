@@ -4,19 +4,16 @@ import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useDispatch, useSelector } from "react-redux";
 import { loggedInState, login } from "../../store/slices/authSlice";
 import { ToastContainer, toast } from "react-toastify";
-
 const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
   const [confirmationCode, setConfirmationCode] = useState(new Array(length).fill(""));
   const inputRefs = useRef(new Array(length).fill(null));
   const dispatch = useDispatch();
   const token = useSelector((state) => state.loggedIn.token);
   console.log(token);
-  // Handler for input change
   const handleChange = async (index, value) => {
     const newConfirmationCode = [...confirmationCode];
     newConfirmationCode[index] = value;
     console.log(newConfirmationCode);
-
     setConfirmationCode(newConfirmationCode);
     // Check if all inputs are filled, then trigger onConfirm callback
     if (newConfirmationCode.every((code) => code !== "")) {
@@ -29,13 +26,14 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-
         dispatch(login(res.data.token));
         dispatch(loggedInState());
-        toast.success("لقد تم تأكيد الأيميل بنجاح");
+        toast.success("لقد تم تأكيد الأيميل بنجاح", {
+          onClose: () => {
+            window.location.reload();
+          }
+        });
       } catch (error) {
-        // toast.error("حدث خطأ! يرجي المحاولة مره أخرى");
-
         console.error("Error occurred while confirming email:", error);
         if (error.response) {
           toast.error("رمز التحقق غير صحيح");
@@ -53,18 +51,11 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
     }
   };
 
-  // Handler for input blur
-  // const handleBlur = () => {
-  //   // Perform validation or other actions as needed
-  // };
 
-// Handler for paste event
 const handlePaste = async(e, index) => {
   e.preventDefault();
   const clipboardData = e.clipboardData || window.clipboardData;
   const pastedData = clipboardData.getData('text').trim();
-
-  // Set the confirmationCode state with the pasted OTP code
   const newConfirmationCode = pastedData.split('').slice(0, length);
   setConfirmationCode(newConfirmationCode);
   console.log(newConfirmationCode)
@@ -82,10 +73,11 @@ const handlePaste = async(e, index) => {
 
       dispatch(login(res.data.token));
       dispatch(loggedInState());
-      toast.success("لقد تم تأكيد الأيميل بنجاح");
-    } catch (error) {
-      // toast.error("حدث خطأ! يرجي المحاولة مره أخرى");
-
+      toast.success("لقد تم تأكيد الأيميل بنجاح", {
+        onClose: () => {
+          window.location.reload();
+        }
+      });    } catch (error) {
       console.error("Error occurred while confirming email:", error);
       if (error.response) {
         toast.error("رمز التحقق غير صحيح");
@@ -119,7 +111,7 @@ return (
         ref={(input) => (inputRefs.current[index] = input)}
       />
     ))}
-    <ToastContainer position="top-right" autoClose={5000} />
+    <ToastContainer position="top-right" autoClose={3000} />
   </div>
 );
 
