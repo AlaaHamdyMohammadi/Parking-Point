@@ -3,6 +3,8 @@ import SearchInput from "../driver/SearchInput";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SpinnerLoad from "../spinner/Spinner";
+import { Helmet } from "react-helmet";
+
 
 export default function HomeLogout() {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,6 +17,9 @@ export default function HomeLogout() {
 
   return (
     <>
+      <Helmet>
+        <title>Parking Point | الصفحة الرئيسية</title>
+      </Helmet>
       {isLoading ? (
         <SpinnerLoad />
       ) : (

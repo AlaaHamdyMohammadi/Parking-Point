@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import LoginForm from "../components/login-register/LoginForm";
 import RegisterForm from "../components/login-register/RegisterForm";
 import SpinnerLoad from "../components/spinner/Spinner";
+import { Helmet } from "react-helmet";
 function Register() {
   const [showFormStatus, setShowFormStatus] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -28,6 +29,9 @@ function Register() {
   }, []);
   return (
     <>
+      <Helmet>
+        <title>Parking Point |  تسجيل الدخول</title>
+      </Helmet>
       {isLoading ? (
         <SpinnerLoad />
       ) : (
