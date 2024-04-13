@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import SidebarDashboard from "../../components/parking/SidebarDashboard";
 import { useEffect, useState } from "react";
 import SpinnerLoad from "../../components/spinner/Spinner";
+import { Helmet } from "react-helmet";
 
 export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,14 +15,21 @@ export default function Dashboard() {
   }, []);
   return (
     <>
-      {isLoading ? <SpinnerLoad/> : <div className="d-flex ">
-        <div className="col-2">
-          <SidebarDashboard />
+      <Helmet>
+        <title>Parking Point | البيانات الشخصية</title>
+      </Helmet>
+      {isLoading ? (
+        <SpinnerLoad />
+      ) : (
+        <div className="d-flex ">
+          <div className="col-2">
+            <SidebarDashboard />
+          </div>
+          <div className="col-9  gap-5 d-flex justify-content-center align-self-center flex-column">
+            <Outlet />
+          </div>
         </div>
-        <div className="col-9  gap-5 d-flex justify-content-center align-self-center flex-column">
-          <Outlet />
-        </div>
-      </div>}
+      )}
     </>
   );
 }
