@@ -123,7 +123,7 @@ export default function Sales() {
 
             <div style={{ overflowX: "auto", overflowY: "auto", maxHeight: "600px" }}>
               <table className="table table-hover border rounded-3">
-                <thead className="bgColor border rounded-2 fs-5 text-white fw-bolder py-3">
+                <thead className="bgColor border rounded-2 fs-6 text-white fw-bolder py-3">
                   <th className="p-1 px-2 ">
                     <LuParkingCircle className="me-1 mb-1  text-white fs-1 bgColor" />
                     الموقف
