@@ -12,6 +12,7 @@ import { LuCalendarClock } from "react-icons/lu";
 import { PiCalendarCheckBold } from "react-icons/pi";
 import SpinnerLoad from "../../components/spinner/Spinner";
 import { LiaSearchSolid } from "react-icons/lia";
+import { Helmet } from "react-helmet";
 
 const calculateTimeDifference = (fromDate, toDate) => {
   const from = new Date(fromDate);
@@ -92,6 +93,9 @@ export default function Sales() {
 
   return (
     <>
+      <Helmet>
+        <title>Parking Point | الحجوزات</title>
+      </Helmet>
       {isLoading ? (
         <SpinnerLoad />
       ) : data && data.length > 0 ? (

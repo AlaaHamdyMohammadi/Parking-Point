@@ -9,6 +9,7 @@ import ParkingCard from "./ParkingCard";
 import useLogInUserData from "../../../hook/useLogInUserData";
 import ParkingHome from "../../pages/parking/ParkingHome";
 import SpinnerLoad from "../spinner/Spinner";
+import { Helmet } from "react-helmet";
 
 export default function HomeLogin() {
   const user = useLogInUserData();
@@ -44,6 +45,9 @@ export default function HomeLogin() {
 
   return (
     <>
+    <Helmet>
+        <title>Parking Point | احجز الآن</title>
+      </Helmet>
     {isLoading ? <SpinnerLoad/> : <div>
       {user.role == "renter" ? (
         <ParkingHome />
