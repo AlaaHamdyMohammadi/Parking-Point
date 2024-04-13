@@ -13,7 +13,8 @@ import { PiCalendarCheckBold } from "react-icons/pi";
 import SpinnerLoad from "../../components/spinner/Spinner";
 import { LiaSearchSolid } from "react-icons/lia";
 import { Helmet } from "react-helmet";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const calculateTimeDifference = (fromDate, toDate) => {
   const from = new Date(fromDate);
   const to = new Date(toDate);
@@ -87,7 +88,8 @@ export default function Sales() {
   const generatePDF = useReactToPrint({
     content: () => ComponentPDF.current,
     documentTitle: "الحجوزات",
-    onAfterPrint: () => alert("تم الحفظ في ملف pdf"),
+    onAfterPrint: () =>
+    toast.success(' pdf تم الحفظ الملف ') ,
   });
 
 
@@ -100,11 +102,14 @@ export default function Sales() {
         <SpinnerLoad />
       ) : data && data.length > 0 ? (
         <div className="my-5  w-100 align-self-center">
-          <div ref={ComponentPDF}>
+          
 
-            <div className="d-md-flex m-2 justify-content-between">
-            <div className="d-flex" role="search">
-        <input className="form-control me-2 text-secondary"
+            <div className="d-lg-flex d-md-flex m-2 gap-5 justify-content-between">
+            <button className={`text-center my-2 btnDownload w-100 animate    btn `} onClick={generatePDF}>
+              <FaRegFilePdf className="text-center   fs-5" /> تحميل
+            </button>
+            <div className="d-flex w-100 my-2" role="search">
+        <input className="form-control  fs-6 btnDownload  opacity-50 text-body-secondary "
          type="search" placeholder="ابحث برقم اللوحة" 
         //  onChange={(e) => search(e.target.value)}
          value={reserveSearch}
@@ -114,13 +119,11 @@ export default function Sales() {
           <LiaSearchSolid/>
         </button>
       </div>
-            <button className={`text-center  btnDownload w-25 animate    btn `} onClick={generatePDF}>
-              <FaRegFilePdf className="text-center   fs-5" /> تحميل
-            </button>
+      
        
             </div>
    
-
+            <div ref={ComponentPDF}>
             <div style={{ overflowX: "auto", overflowY: "auto", maxHeight: "600px" }}>
               <table className="table table-hover border rounded-3">
                 <thead className="bgColor border rounded-2 fs-6 text-white fw-bolder py-3">
@@ -164,7 +167,9 @@ export default function Sales() {
               </table>
             </div>
           </div>
+          <ToastContainer position="top-right" autoClose={50000} />
         </div>
+
       ) : (
         <div className="fs-3 fw-bold text-center "> 
         <p className="my-5 py-5">لا يوجد حجوزات حتى الان </p>
