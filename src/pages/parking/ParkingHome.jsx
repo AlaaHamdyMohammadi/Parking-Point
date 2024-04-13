@@ -21,14 +21,14 @@ export default function ParkingHome() {
           <Link
             to={user.isActivated == false ? `/` : `/Profile/parking`}
             className={
-              user.isActivated == false
-                ? `text-decoration-none btn btn-outline-secondary text-dark`
+              (!user.isActivated || !user.isEmailConfirmed)
+                ? `text-decoration-none btn btn-outline-secondary text-secondary opacity-25`
                 : `text-decoration-none btn btn-outline-warning text-dark`
             }
-            {...(!user.isActivated && {
+            {...((!user.isActivated || !user.isEmailConfirmed ) &&{
               "data-bs-toggle": "tooltip",
               "data-bs-placement": "top",
-              title: "يرجى التواصل مع الدعم لتأكيد الهوية أولا",
+              title: "يرجى التواصل مع الدعم   ",
             })}
           >
             اضافة موقف جديد

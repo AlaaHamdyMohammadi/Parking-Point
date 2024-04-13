@@ -40,7 +40,7 @@ export default function SidebarProfile() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   const handleUnactive = () => {
-    toast.error("يرجى التواصل مع الدعم لتأكيد الهوية اولا ");
+    toast.error("يرجى التواصل مع الدعم  ");
   };
   const handleChange=useSendCode()
   return (
@@ -110,26 +110,27 @@ export default function SidebarProfile() {
             <div className="offcanvas-body pe-2">
               {user.role == "renter" && (
                 <>
-                  {user.isActivated == true ? (
-                    <SideBareLink
-                      href={`/Profile/parking`}
-                      icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
-                      text="إضافة موقف"
-                    />
+                  {(!user.isActivated || !user.isEmailConfirmed) ? (
+                  <div
+                  className={`${classes.unactive}  fs-5 d-block`}
+                  onClick={handleUnactive}
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-custom-class={`${classes.customTooltip}`}
+                  title="يرجى التواصل مع الدعم"
+                >
+                  <span>
+                    <HiLockClosed className="  editIcon p-2" />
+                  </span>
+                  <span className="icon-text ps-2  "> {isWide ? "إضافة موقف" : ""} </span>
+                </div>
                   ) : (
-                    <div
-                      className={`${classes.unactive}  fs-5 d-block`}
-                      onClick={handleUnactive}
-                      data-bs-toggle="tooltip"
-                      data-bs-placement="top"
-                      data-bs-custom-class={`${classes.customTooltip}`}
-                      title="يرجى التواصل مع الدعم لتأكيد الهوية اولا"
-                    >
-                      <span>
-                        <HiLockClosed className="  editIcon p-2" />
-                      </span>
-                      <span className="icon-text ps-2  "> إضافة موقف</span>
-                    </div>
+                    <SideBareLink
+                    href={`/Profile/parking`}
+                    icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
+                    text="إضافة موقف"
+                  />
+                  
                   )}
                   <ToastContainer position="top-right" autoClose={10000} />
 
@@ -214,26 +215,27 @@ export default function SidebarProfile() {
           <div className={isWide ? "ps-3 sidebar transition" : "sidebar transition"}>
             {user.role == "renter" && (
               <>
-                {user.isActivated == true ? (
-                  <SideBareLink
-                    href={`/Profile/parking`}
-                    icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
-                    text={isWide ? "إضافة موقف" : ""}
-                  />
+                {(!user.isActivated || !user.isEmailConfirmed) ? (
+                   <div
+                   className={`${classes.unactive}  fs-5 d-block`}
+                   onClick={handleUnactive}
+                   data-bs-toggle="tooltip"
+                   data-bs-placement="top"
+                   data-bs-custom-class={`${classes.customTooltip}`}
+                   title="يرجى التواصل مع الدعم   "
+                 >
+                   <span>
+                     <HiLockClosed className="  editIcon p-2" />
+                   </span>
+                   <span className="icon-text ps-2  ">{isWide ? "إضافة موقف" : ""}</span>
+                 </div>
+                
                 ) : (
-                  <div
-                    className={`${classes.unactive}  fs-5 d-block`}
-                    onClick={handleUnactive}
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    data-bs-custom-class={`${classes.customTooltip}`}
-                    title="يرجى التواصل مع الدعم لتأكيد الهوية اولا"
-                  >
-                    <span>
-                      <HiLockClosed className="  editIcon p-2" />
-                    </span>
-                    <span className="icon-text ps-2  ">{isWide ? "إضافة موقف" : ""}</span>
-                  </div>
+                  <SideBareLink
+                  href={`/Profile/parking`}
+                  icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
+                  text={isWide ? "إضافة موقف" : ""}
+                />
                 )}
                 <ToastContainer position="top-right" autoClose={10000} />
 

@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
 import RatingComponent from "../driver/RatingComponent";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
+import SpinnerLoad from "../../components/spinner/Spinner";
 
 export default function ParkingCard({ userParkings, setUserParkings }) {
   const token = useSelector((state) => state.loggedIn.token);
+  const [isLoading, setIsLoading] = useState(true);
+
   function getMyParkings() {
     axiosInstanceParking
       .get(`/parkings/myparks`, {
@@ -16,7 +19,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
       })
       .catch((err) => {
         console.error("Error during parkings request:", err);
-      });
+      })
   }
   useEffect(() => {
     getMyParkings();
@@ -36,14 +39,22 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
         console.error("Error during parking request:", err);
       });
   }
+
+  useEffect(function () {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+  }, []);
   return (
     <>
-      {userParkings.map((parking, index) => (
-        <div
-          key={parking._id}
-          className={`pt-3 px-3 rounded w-100 d-flex ${parking.disabled == true ? "bg-secondary bg-opacity-25" : ""}`}
-        >
-          <div className="d-md-flex w-100 pb-2 border-bottom justify-content-between">
+  {isLoading ? ( <SpinnerLoad />):(   
+    <>
+      {userParkings && userParkings.length > 0 ? userParkings.map((parking, index) => (
+      <div
+        key={parking._id}
+        className={`pt-3 px-3 rounded w-100 d-flex ${parking.disabled == true ? "bg-secondary bg-opacity-25" : ""}`}
+      >
+        <div className="d-md-flex w-100 pb-2 border-bottom justify-content-between">
             <div className="d-none d-md-block fw-bold mt-5">{index + 1}</div>
             <div className="col-md-3 col-12">
               <div id={`carouselExampleInterval${index}`} className=" w-100 carousel rounded " data-bs-ride="carousel">
@@ -170,8 +181,16 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
               </div>
             </div>
           </div>
-        </div>
-      ))}
+      </div>
+    )) : (
+      <div className="fs-3 fw-semibold text-center">
+        <p className="my-5 py-5">لم يتم إضافة موقف حتى الان</p>
+      </div>
+    )}
+    </>
+  
+    )}
+  
     </>
   );
 }

@@ -15,6 +15,7 @@ import useSendCode from "../../../hook/useSendCode";
 
 export default function Header() {
   const user = useLogInUserData();
+  console.log(user)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.loggedIn.loggedIn);
@@ -142,31 +143,39 @@ export default function Header() {
           </div>
         )}
       </nav>
-      {(isLoggedIn && user.role == 'renter') && <>
-        <div className="alert alert-danger" role="alert">
-          <div>
-            لكي تتمكن من اضافة موقف
-          </div>
+      {(isLoggedIn && user.role === 'renter') && (
+  <>
+  <div>
+  {(!user.isActivated || !user.isEmailConfirmed)  && (
+        <>
+
+            <div className="alert alert-danger" role="alert">
+
+          <div>لكي تتمكن من اضافة موقف</div>
           <ul>
-            {user.isActivated == false &&
-              <li>
-                يرجي التواصل مع الدعم لتاكيد الهوية
-              </li>
-            }
-            {user.isEmailConfirmed == false &&
+            {user.isActivated === false && (
+              <li>يرجى التواصل مع الدعم لتأكيد الهوية</li>
+            )}
+            {user.isEmailConfirmed === false && (
               <>
-                <li>
-                  يرجي تاكيد البريد الاليكتروني
-                </li>
+                <li>يرجى تأكيد البريد الالكتروني</li>
                 <div className={`${classes.resendcode} pointer fs-6 fw-bold mt-md-1`}
-                  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={handleChange}>- اضغط هنا للتاكيد</div>
+                  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={handleChange}>
+                  - اضغط هنا للتأكيد
+                </div>
+                <ConfimEmailPop userEmail={user.email} />
               </>
-            }
-            <ConfimEmailPop userEmail={user.email} />
+            )}
           </ul>
-        </div>
-      </>
-      }
+              </div>
+
+        </>
+      )}
+  </div>
+   
+  </>
+)}
+
     </>
   );
 }
