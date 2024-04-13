@@ -5,7 +5,7 @@ import ModalReserve from "./ReserveModal";
 import RatingComponent from "./RatingComponent";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 
-export default function ParkingCard({ AvaliableParksFilter }) {
+export default function ParkingCard({ AvaliableParksFilter ,ReserveTime }) {
   console.log(AvaliableParksFilter);
   return (
     <>
@@ -63,7 +63,7 @@ export default function ParkingCard({ AvaliableParksFilter }) {
             </div>
             <div className=" col-lg-3 d-lg-flex gap-1 flex-lg-column justify-content-start text-center ">
               <div className="ps-2">
-                <ModalReserve />
+                <ModalReserve ReserveTime={ReserveTime} />
                 {/* <div className={`text-center  w-75 bgColor text-white  p-0  btn  ${classes.formBtn}`}>احجز</div> */}
               </div>
               <div className="d-flex flex-row  text-center justify-content-start ">

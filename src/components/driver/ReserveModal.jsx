@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import classes from "./../../styles/formStyles.module.css";
+import useLogInUserData from "../../../hook/useLogInUserData";
+import axiosInstanceParking from "../../axiosConfig/instanc";
+import { useSelector } from "react-redux";
 
-export default function ModalReserve() {
+export default function ModalReserve({ReserveTime}) {
+  const user = useLogInUserData();
+  const token = useSelector((state) => state.loggedIn.token);
+
+  // const token = useSelector((state) => state.loggedIn.token)
+// console.log(user.plateNumber)
+  // console.log(ReserveTime)
   const [registeUser, setRegisteUser] = useState({
     plateNumber: "",
   });
@@ -22,7 +31,25 @@ export default function ModalReserve() {
     }
     setRegisteUser({ ...registeUser, [name]: value });
   };
-  return (
+  const handlePayment = async ()=>{
+    console.log(token)
+
+  try {
+    const response = await axiosInstanceParking.post(`/reserve?from=${ReserveTime.from}&to=${ReserveTime.to}&plateNumber=${user.plateNumber}`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    // console.log(token)
+
+// console.log("gggggggggggggggggggggggggggggggggg",response)
+
+  }catch (error){
+    console.error("Error occurred while payment:", error);
+    if (error.response) {
+      console.error("Response data:", error.response.data);
+  }
+  }}
+    return (
     <>
       <div
         className="modal fade"
@@ -45,6 +72,7 @@ export default function ModalReserve() {
                 <input
                   type="text"
                   id="plateNumber"
+                  value={user.plateNumber}
                   name="plateNumber"
                   className={`${classes.input} px-2  form-control border-secondary shadow-none`}
                   onChange={registeValidation}
@@ -54,7 +82,9 @@ export default function ModalReserve() {
               </div>
             </div>
             <div className="modal-footer p-0">
-              <button className="btn bgColor text-white " data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+              <button 
+              onClick={handlePayment}
+               className="btn bgColor text-white " data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
                 تأكيد
               </button>
             </div>

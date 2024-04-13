@@ -15,7 +15,7 @@ import useSendCode from "../../../hook/useSendCode";
 
 export default function Header() {
   const user = useLogInUserData();
-  console.log(user)
+  // console.log(user)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.loggedIn.loggedIn);

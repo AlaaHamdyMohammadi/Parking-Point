@@ -13,7 +13,7 @@ import useSendCode from "../../../hook/useSendCode";
 import ConfimEmailPop from "../login-register/confirmEmailpop";
 import useLogInUserData from "../../../hook/useLogInUserData";
 
-export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
+export default function EndDateTime({ BookNow, onReserveChange, setIsSearch,onTimeChange }) {
   const user = useLogInUserData();
   const token = useSelector((state) => state.loggedIn.token);
   const [timeDifference, setTimeDifference] = useState({
@@ -39,6 +39,7 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch }) {
     }
 
     setSearchData(updatedData);
+    onTimeChange(updatedData)
   };
 
   const calculateTimeDifference = () => {

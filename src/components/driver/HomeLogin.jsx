@@ -16,6 +16,8 @@ export default function HomeLogin() {
   const [isSearch, setIsSearch] = useState(false);
   // const [SearchParks, setSearchParks] = useState([]);
   const [AvaliableParksFilter, setAvaliableParksFilter] = useState([]);
+  const [ReserveTime, setReserveTime] = useState({});
+
   const [isLoading, setIsLoading] = useState(true);
   function handlesetIsSearch() {
     setIsSearch(!isSearch);
@@ -35,7 +37,11 @@ export default function HomeLogin() {
   const handleReserveChange = (AvaliableParks) => {
     setAvaliableParksFilter(AvaliableParks);
   };
-  //console.log(AvaliableParksFilter, "AvaliableParks recive");
+  // console.log(AvaliableParksFilter, "AvaliableParks recive");
+  const handleTimeChange = (ReserveTimeR) => {
+    setReserveTime(ReserveTimeR);
+  };
+  // console.log(ReserveTime,"ReserveTime")
 
   useEffect(function () {
     setTimeout(() => {
@@ -85,7 +91,7 @@ export default function HomeLogin() {
                   <div className={` fs-5 pe-4 my-4  text-end  fw-bolder`}>ابحث عن اقرب موقف</div>
                   <div className={``}>{/* <SelectLocation /> */}</div>
                   <div className={`mb-2`}>
-                    <EndDateTime BookNow={BookNow} onReserveChange={handleReserveChange} setIsSearch={setIsSearch} />
+                    <EndDateTime BookNow={BookNow} onReserveChange={handleReserveChange} onTimeChange={handleTimeChange} setIsSearch={setIsSearch} />
                   </div>
                 </div>
               </div>
@@ -111,7 +117,7 @@ export default function HomeLogin() {
                 tabIndex="0"
                 style={{ maxHeight: "80vh" }}
               >
-                <ParkingCard AvaliableParksFilter={AvaliableParksFilter} />
+                <ParkingCard AvaliableParksFilter={AvaliableParksFilter} ReserveTime={ReserveTime}/>
               </div>
             </div>
           )}
