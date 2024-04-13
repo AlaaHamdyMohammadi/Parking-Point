@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { LuCalendarClock } from "react-icons/lu";
 import { PiCalendarCheckBold } from "react-icons/pi";
 import SpinnerLoad from "../../components/spinner/Spinner";
+import { LiaSearchSolid } from "react-icons/lia";
 
 const calculateTimeDifference = (fromDate, toDate) => {
   const from = new Date(fromDate);
@@ -38,31 +39,56 @@ export default function Sales() {
   const [data, setData] = useState(null);
   const token = useSelector((state) => state.loggedIn.token);
   const [isLoading, setIsLoading] = useState(true);
+  const [reserveSearch, setReserveSearch] = useState("");
+//   const search = (event) => {
+//     setReserveSearch(event || null);
+// console.log(reserveSearch)
+// console.log(event)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axiosInstanceParking.get("/reserve/me", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+//   };
 
-        setData(response.data.doc);
-        console.log(response, "res");
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setIsLoading(false); // Set isLoading to false regardless of success or failure
+  const handleSearch = (event) => {
+    setReserveSearch(event.target.value);
+    // fetchData();
+
+  }
+  const fetchData = async () => {
+    try {
+      let params = {};
+      if (reserveSearch) {
+        console.log(reserveSearch,"reserveSearch")
+        params = { searchField: "plateNumber", plateNumber: reserveSearch };
       }
-    };
+      // const response = await axiosInstanceParking.get(`/reserve/me/?searchField=plateNumber&plateNumber=${reserveSearch}`, {
+    
+      const response = await axiosInstanceParking.get(`/reserve/me`, {
+        headers: { Authorization: `Bearer ${token}` },
+      }, 
+   {
+        params: params,
+      }
+      );
+   
+      setData(response.data.doc);
+      console.log(response.data.doc, "res");
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setIsLoading(false); 
+    }
+  };
+  useEffect(() => {
+   
     fetchData();
-  }, [token]); // Make sure to include token in the dependency array
-
+  }, [token,reserveSearch]); 
+  console.log(data,"dataaaaaaaaaaaa")
   const ComponentPDF = useRef();
   const generatePDF = useReactToPrint({
     content: () => ComponentPDF.current,
     documentTitle: "الحجوزات",
     onAfterPrint: () => alert("تم الحفظ في ملف pdf"),
   });
+
 
   return (
     <>
@@ -71,9 +97,26 @@ export default function Sales() {
       ) : data && data.length > 0 ? (
         <div className="my-5  w-100 align-self-center">
           <div ref={ComponentPDF}>
-            <button className={`text-center  btnDownload w-25 animate  m-2 btn `} onClick={generatePDF}>
+
+            <div className="d-md-flex m-2 justify-content-between">
+            <div className="d-flex" role="search">
+        <input className="form-control me-2 text-secondary"
+         type="search" placeholder="ابحث برقم اللوحة" 
+        //  onChange={(e) => search(e.target.value)}
+         value={reserveSearch}
+         onChange={handleSearch}
+         aria-label="Search"/>
+        <button className="btn btn-outline-warning" type="submit">
+          <LiaSearchSolid/>
+        </button>
+      </div>
+            <button className={`text-center  btnDownload w-25 animate    btn `} onClick={generatePDF}>
               <FaRegFilePdf className="text-center   fs-5" /> تحميل
             </button>
+       
+            </div>
+   
+
             <div style={{ overflowX: "auto", overflowY: "auto", maxHeight: "600px" }}>
               <table className="table table-hover border rounded-3">
                 <thead className="bgColor border rounded-2 fs-5 text-white fw-bolder py-3">
@@ -100,6 +143,7 @@ export default function Sales() {
                 </thead>
                 <tbody className="pe-2">
                   {data.map((item, index) => (
+           
                     <tr key={index}>
                       <td className="p-4">{item.park.title}</td>
                       <td className="p-4 yellowcolor">
