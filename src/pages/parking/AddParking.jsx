@@ -10,6 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import CitySelect from "../../components/formFun/CitySelect";
 import classes from "./../../styles/formStyles.module.css";
 // import RegionInput from "../../components/formFun/RegionInput";
+import { Helmet } from "react-helmet";
 
 const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 const mapStyle = "mapbox://styles/alaahamdy2/clsp701hd005a01pkhrmygybf";
@@ -202,6 +203,9 @@ export default function AddParking() {
 
   return (
     <>
+        <Helmet>
+        <title>Parking Point | إضافة موقف</title>
+      </Helmet>
       <h3 className={`mt-4 text-center`}>لإضافة موقف يرجي ادخال البيانات الصحيحة</h3>
       <div className={`card w-75 align-self-center p-2 mb-5`}>
         <div className={`p-5`}>

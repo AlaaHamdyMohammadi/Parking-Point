@@ -3,12 +3,18 @@ import ParkingCard from "../../components/dashboader/ParkingCard";
 import ParkingFilter from "../../components/dashboader/ParkingFilter";
 import { useState } from "react";
 import useLogInUserData from "../../../hook/useLogInUserData";
+import { Helmet } from "react-helmet";
 
 export default function ParkingHome() {
   const [userParkings, setUserParkings] = useState([]);
   const user = useLogInUserData();
 
   return (
+    <>
+ 
+    <Helmet>
+    <title>Parking Point | الصفحة الرئيسية</title>
+  </Helmet>
     <div className={`d-flex flex-column m-md-5 m-2`}>
       <div className={`d-md-flex w-md-75 mb-5 pb-md-4 pb-1 border-bottom`}>
         <div className="mb-md-0 mb-3 col-6 col-md-5">
@@ -38,6 +44,7 @@ export default function ParkingHome() {
       <div className={`align-self-center w-75`}>
         <ParkingCard userParkings={userParkings} setUserParkings={setUserParkings} />
       </div>
-    </div>
+    </div> </>
   );
+ 
 }

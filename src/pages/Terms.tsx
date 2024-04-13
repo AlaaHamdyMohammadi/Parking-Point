@@ -1,9 +1,13 @@
 import React from "react";
 import Term from "../components/Terms/Term";
+import { Helmet } from "react-helmet";
 
 export default function Terms() {
   return (
     <>
+      <Helmet>
+        <title>Parking Point | الشروط و الأحكام</title>
+      </Helmet>
       <div className="p-5">
         {/* <Term title={"شروط الاتفاقية"} body={""} /> */}
         <div className="py-2">

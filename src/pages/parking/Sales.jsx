@@ -56,10 +56,10 @@ export default function Sales() {
   const fetchData = async () => {
     try {
       let params = {};
-      if (reserveSearch) {
+      // if (reserveSearch) {
         console.log(reserveSearch,"reserveSearch")
         params = { searchField: "plateNumber", plateNumber: reserveSearch };
-      }
+      // }
       // const response = await axiosInstanceParking.get(`/reserve/me/?searchField=plateNumber&plateNumber=${reserveSearch}`, {
     
       const response = await axiosInstanceParking.get(`/reserve/me`, {
