@@ -144,7 +144,7 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch,onTi
           </div>
           <div
             onClick={calculateTimeDifference}
-            className=" customRange mt-4  border-0 pointer text-center w-100 my-3 p-2 fw-semibold animate  rounded-2"
+            className=" customRange mt-4  border-0 pointer text-center w-100 my- p-2 fw-semibold animate  rounded-2"
           >
             {timeDifference.minutes > 0 || timeDifference.hours > 0 || timeDifference.days > 0
               ? ` ${timeDifference.days} يوم, ${timeDifference.hours}  ساعة, ${timeDifference.minutes} دقيقة`

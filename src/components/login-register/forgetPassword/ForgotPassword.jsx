@@ -29,23 +29,23 @@ const ForgotPassword = () => {
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (enterOtp) {
-  //     setShowEmailModal(false);
-  //   }
-  // }, [enterOtp]);
+  useEffect(() => {
+    // if (enterOtp) {
+    //   setShowEmailModal(false);
+    // }
+  }, [enterOtp]);
 
-  // useEffect(() => {
-  //   if (codeconfirmed) {
-  //     setShowEmailModal(false);
-  //   }
-  // }, [codeconfirmed]);
+  useEffect(() => {
+    // if (codeconfirmed) {
+    //   setShowEmailModal(false);
+    // }
+  }, [codeconfirmed]);
 
-  // useEffect(() => {
-  //   if (esc) {
-  //     // Implement your logic here for setting up after success
-  //   }
-  // }, [esc]);
+  useEffect(() => {
+    // if (esc) {
+    //   // Implement your logic here for setting up after success
+    // }
+  }, [esc]);
 
   const passwordRegx = /^[a-zA-Z0-9]{8,}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -88,16 +88,26 @@ const ForgotPassword = () => {
       setEmailError(true);
       toast.error("يرجى إدخال بريد إلكتروني صحيح");
     } else {
-      try {
+      // try {
+        
         const res = await axiosInstanceParking.post("/users/me/forget-password", {
           email,
-        });
-        setEnterOtp(true);
-        console.log(res.data, enterOtp);
-      } catch (error) {
-        toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
-        console.log("Error: ", error);
-      }
+        })
+        .then(
+          (res)=>{
+            toast.success("لا  حساب مسجل علي هذا");
+            setEnterOtp(true);
+
+            console.log(res.data, enterOtp);
+          }
+        )
+        .catch((error)=>{   toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
+        console.log("Error: ", error); })
+      
+      // }
+      //  .catch (error) => {
+      
+      // }
     }
   };
 
