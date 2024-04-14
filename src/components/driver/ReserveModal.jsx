@@ -7,10 +7,6 @@ import { useSelector } from "react-redux";
 export default function ModalReserve({ReserveTime}) {
   const user = useLogInUserData();
   const token = useSelector((state) => state.loggedIn.token);
-
-  // const token = useSelector((state) => state.loggedIn.token)
-// console.log(user.plateNumber)
-  // console.log(ReserveTime)
   const [registeUser, setRegisteUser] = useState({
     plateNumber: "",
   });
@@ -31,24 +27,29 @@ export default function ModalReserve({ReserveTime}) {
     }
     setRegisteUser({ ...registeUser, [name]: value });
   };
-  const handlePayment = async ()=>{
-    console.log(token)
 
+
+const handlePayment = async () => {
   try {
-    const response = await axiosInstanceParking.post(`/reserve?from=${ReserveTime.from}&to=${ReserveTime.to}&plateNumber=${user.plateNumber}`,
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    // console.log(token)
+    const response = await axiosInstanceParking.post(
+      `/reserve?from=${ReserveTime.from}&to=${ReserveTime.to}&plateNumber=${user.plateNumber}`,
+      null,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-// console.log("gggggggggggggggggggggggggggggggggg",response)
-
-  }catch (error){
+    console.log("Response:", response.data);
+  } catch (error) {
     console.error("Error occurred while payment:", error);
     if (error.response) {
       console.error("Response data:", error.response.data);
+    }
   }
-  }}
+};
+
     return (
     <>
       <div

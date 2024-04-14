@@ -99,32 +99,33 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch,onTi
   return (
     <>
       <form method="post" onSubmit={sendQuery}>
-        <div className={`${classes.customSelectWrapper} Gray container  text-center w-100 mx-2 mb-2  `}>
+      
+        <div className="container">
+        <div className={`${classes.customSelectWrapper} Gray   text-center w-100  mb-2  `}>
           <select
             id="cars"
             name="city"
-            className={`w-100  focus border border-0 rounded-2  p-1  pointer shadow-none customRange Gray `}
+            className={`w-100 Gray focus border border-0 rounded-2  p-1  pointer shadow-none customRange  `}
             onChange={handleInputChange}
             value={searchData.city}
           >
             <option value="" hidden className="text-danger">
               اختر الولاية
             </option>
-            <option value="مسقط">مسقط</option>
-            <option value="مطرح">مطرح</option>
-            <option value="السيب">السيب</option>
-            <option value="بوشر">بوشر</option>
-            <option value="العامرات">العامرات</option>
-            <option value="قريات">قريات</option>
+            <option className="text-black" value="مسقط">مسقط</option>
+            <option className="text-black" value="مطرح">مطرح</option>
+            <option className="text-black" value="السيب">السيب</option>
+            <option  className="text-black" value="بوشر">بوشر</option>
+            <option  className="text-black" value="العامرات">العامرات</option>
+            <option className="text-black" value="قريات">قريات</option>
           </select>
         </div>
-        <div className="container">
           <div className={BookNow ? "  d-none text-end  " : " text-end "}>
-            <label className="Gray pe-2 ">بداية من :</label>
-
+            <label className=" p-2 ">بداية من :</label>
+            {/* m-2 ms-3 p-1  */}
             <input
               icon={<FcOvertime />}
-              className=" customRange  focus Gray border-0 pointer text-center w-100 m-2 ms-3 p-1  rounded-2"
+              className=" customRange Gray focus  border-0 pointer text-center w-100  p-2 rounded-2"
               type="datetime-local"
               name="from"
               value={searchData.from}
@@ -132,9 +133,9 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch,onTi
             />
           </div>
           <div className="text-end ">
-            <label className="Gray pe-2">{BookNow ? "موعد نهاية الحجز :" : "إلي :"}</label>
+            <label className=" p-2">{BookNow ? "موعد نهاية الحجز :" : "إلي :"}</label>
             <input
-              className=" customRange  Gray focus border border-0 pointer text-center w-100 m-2 ms-3 p-1  rounded-2"
+              className=" customRange Gray  focus border border-0 pointer text-center w-100  p-2  rounded-2"
               type="datetime-local"
               name="to"
               value={searchData.to}
@@ -143,7 +144,7 @@ export default function EndDateTime({ BookNow, onReserveChange, setIsSearch,onTi
           </div>
           <div
             onClick={calculateTimeDifference}
-            className=" customRange mt-4 Gray border-0 pointer text-center w-100 m-2 ms-3 p-1 fw-semibold animate  rounded-2"
+            className=" customRange mt-4  border-0 pointer text-center w-100 my-3 p-2 fw-semibold animate  rounded-2"
           >
             {timeDifference.minutes > 0 || timeDifference.hours > 0 || timeDifference.days > 0
               ? ` ${timeDifference.days} يوم, ${timeDifference.hours}  ساعة, ${timeDifference.minutes} دقيقة`
