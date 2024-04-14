@@ -36,17 +36,29 @@ export default function ChangePassword() {
   const changPasswordValidation = (event) => {
     const { name, value } = event.target;
     if (name === "currentPassword") {
-      setErrors({ ...errors, currentPasswordErrors: value.length === 0 ? "ادخل رقمك السري القديم" : "" });
+      setErrors({
+        ...errors,
+        currentPasswordErrors:
+          value.length === 0 ? "ادخل رقمك السري القديم" : "",
+      });
       setCurrentPassword(value);
     }
     if (name === "password") {
-      setErrors({ ...errors, passwordErrors: value.length === 0 ? "ادخل رقمك السري الجديد" : "" });
+      setErrors({
+        ...errors,
+        passwordErrors: value.length === 0 ? "ادخل رقمك السري الجديد" : "",
+      });
       setpassword(value);
     }
     if (name === "confirmPassword") {
       setErrors({
         ...errors,
-        confirmPasswordErrors: value.length === 0 ? "يجب تاكيد الرقم السري" : value == password ? "" : "الرقم غير صحيح",
+        confirmPasswordErrors:
+          value.length === 0
+            ? "يجب تاكيد الرقم السري"
+            : value == password
+            ? ""
+            : "الرقم غير صحيح",
       });
       setConfirmPassword(value);
     }
@@ -76,23 +88,27 @@ export default function ChangePassword() {
   return (
     <main>
       <form method="post" className="pe-5" onSubmit={handleSubmit}>
-        <div className="col-md-5 ">
-          <label className="fs-5 py-1" htmlFor="currentPassword">
-            كلمة السر القديمة
-          </label>
-          <div className="d-flex justify-content-end">
-            <div className="d-flex flex-column w-100">
-              <input
-                type={showPasswordCurrent ? "text" : "password"}
-                id="currentPassword"
-                name="currentPassword"
-                className={`${classes.input} form-control border-secondary shadow-none`}
-                onChange={changPasswordValidation}
-                onBlur={changPasswordValidation}
-              />
-              <p className={`${classes.error} text-danger`}>{errors.currentPasswordErrors}</p>
-            </div>
-            {/* <button
+        <div className="d-md-flex">
+          <div className="col-12 col-md-6">
+            <div className=" ">
+              <label className="fs-5 py-1" htmlFor="currentPassword">
+                كلمة السر القديمة
+              </label>
+              <div className="d-flex justify-content-end">
+                <div className="d-flex flex-column w-100">
+                  <input
+                    type={showPasswordCurrent ? "text" : "password"}
+                    id="currentPassword"
+                    name="currentPassword"
+                    className={`${classes.input} form-control border-secondary shadow-none`}
+                    onChange={changPasswordValidation}
+                    onBlur={changPasswordValidation}
+                  />
+                  <p className={`${classes.error} text-danger`}>
+                    {errors.currentPasswordErrors}
+                  </p>
+                </div>
+                {/* <button
               type="button"
               className="btn Gray border border-0"
               style={{ position: "absolute", zIndex: "1" }}
@@ -100,62 +116,75 @@ export default function ChangePassword() {
             >
               {showPasswordCurrent ? <IoEyeOutline /> : <FaRegEyeSlash />}
             </button> */}
-          </div>
-        </div>
-        <div className="col-md-5">
-          <label className="fs-5  py-1" htmlFor="password">
-            كلمة السر الجديدة
-          </label>
-          <div className="d-flex justify-content-end">
-            <div className="d-flex flex-column w-100">
-              <input
-                type={showPasswordNew ? "text" : "password"}
-                id="password"
-                name="password"
-                className={`${classes.input} form-control border-secondary shadow-none`}
-                onChange={changPasswordValidation}
-                onBlur={changPasswordValidation}
-              />
-              <p className={`${classes.error} text-danger`}>{errors.passwordErrors}</p>
+              </div>
             </div>
-            <button
-              type="button"
-              className="btn Gray border border-0"
-              style={{ position: "absolute", zIndex: "1" }}
-              onClick={togglePasswordVisibilityNew}
-            >
-              {showPasswordNew ? <IoEyeOutline /> : <FaRegEyeSlash />}
-            </button>
-          </div>
-        </div>
-        <div className="col-md-5">
-          <label className="fs-5  py-1" htmlFor="confirmPassword">
-            تأكيد كلمه السر
-          </label>
-          <div className="d-flex justify-content-end">
-            <div className="d-flex flex-column w-100">
-              <input
-                type={showPasswordConfirm ? "text" : "password"}
-                id="confirmPassword"
-                name="confirmPassword"
-                className={`${classes.input} w-100 form-control border-secondary shadow-none`}
-                onChange={changPasswordValidation}
-                onBlur={changPasswordValidation}
-              />
-              <p className={`${classes.error} text-danger`}>{errors.confirmPasswordErrors}</p>
+            <div className="">
+              <label className="fs-5  py-1" htmlFor="password">
+                كلمة السر الجديدة
+              </label>
+              <div className="d-flex justify-content-end">
+                <div className="d-flex flex-column w-100">
+                  <input
+                    type={showPasswordNew ? "text" : "password"}
+                    id="password"
+                    name="password"
+                    className={`${classes.input} form-control border-secondary shadow-none`}
+                    onChange={changPasswordValidation}
+                    onBlur={changPasswordValidation}
+                  />
+                  <p className={`${classes.error} text-danger`}>
+                    {errors.passwordErrors}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  className="btn Gray border border-0"
+                  style={{ position: "absolute", zIndex: "1" }}
+                  onClick={togglePasswordVisibilityNew}
+                >
+                  {showPasswordNew ? <IoEyeOutline /> : <FaRegEyeSlash />}
+                </button>
+              </div>
             </div>
+            <div className="">
+              <label className="fs-5  py-1" htmlFor="confirmPassword">
+                تأكيد كلمه السر
+              </label>
+              <div className="d-flex justify-content-end">
+                <div className="d-flex flex-column w-100">
+                  <input
+                    type={showPasswordConfirm ? "text" : "password"}
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    className={`${classes.input} w-100 form-control border-secondary shadow-none`}
+                    onChange={changPasswordValidation}
+                    onBlur={changPasswordValidation}
+                  />
+                  <p className={`${classes.error} text-danger`}>
+                    {errors.confirmPasswordErrors}
+                  </p>
+                </div>
 
-            <button
-              type="button"
-              className="btn Gray border border-0"
-              style={{ position: "absolute", zIndex: "1" }}
-              onClick={togglePasswordVisibilityConfirm}
-            >
-              {showPasswordConfirm ? <IoEyeOutline /> : <FaRegEyeSlash />}
-            </button>
+                <button
+                  type="button"
+                  className="btn Gray border border-0"
+                  style={{ position: "absolute", zIndex: "1" }}
+                  onClick={togglePasswordVisibilityConfirm}
+                >
+                  {showPasswordConfirm ? <IoEyeOutline /> : <FaRegEyeSlash />}
+                </button>
+              </div>
+            </div>
+            <ToastContainer position="top-right" autoClose={5000} />
+          </div>
+          <div className="col-6 text-center  d-none d-md-block">
+            <img
+              style={{ width: "50vh", height: "50vh" }}
+              className="h-70 w-0"
+              src="./../../../public/images/Reset password-amico (1).png"
+            />
           </div>
         </div>
-        <ToastContainer position="top-right" autoClose={5000} />
 
         <input
           type="submit"

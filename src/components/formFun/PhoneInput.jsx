@@ -16,7 +16,7 @@ export default function PhoneInput({ classes, setPhoneNumberInfo, phoneNumberInf
                 <label htmlFor="email" className="mb-1 fs-5">رقم الهاتف</label>
                 <input
                     type={`text`}
-                    className={` ${classes.input} form-control border border-secondary shadow-none `}
+                    className={` ${classes.input} Gray form-control border border-secondary shadow-none `}
                     id="phoneNumber" name="phoneNumber"
                     value={phoneNumberInfo.phoneNumber}
                     onChange={phoneNumberValidation}

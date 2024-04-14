@@ -18,25 +18,25 @@ export default function CitySelect({ cityInfo, classes, setCityInfo, errors, set
     }
     return (
         <>
-            <label className="fs-5" htmlFor="city">
+            <label className="fs-5 mb-1" htmlFor="city">
                 الولاية
             </label>
             <select
                 id="city"
                 name="city"
                 value={cityInfo.city}
-                className={`${classes.input} form-control border-secondary shadow-none`}
+                className={`${classes.input} Gray form-control Gray  border-secondary shadow-none`}
                 onChange={cityValidation}
                 onBlur={cityValidation}>
-                <option value={` `} selected hidden>
+                <option  className="" value={` `} selected hidden>
                     حدد الولاية
                 </option>
-                <option value="مسقط">مسقط</option>
-                <option value="مطرح">مطرح</option>
-                <option value="السيب">السيب</option>
-                <option value="بوشر">بوشر</option>
-                <option value="العامرات">العامرات</option>
-                <option value="قريات">قريات</option>
+                <option className="text-black" value="مسقط">مسقط</option>
+                <option className="text-black" value="مطرح">مطرح</option>
+                <option className="text-black" value="السيب">السيب</option>
+                <option className="text-black" value="بوشر">بوشر</option>
+                <option className="text-black" value="العامرات">العامرات</option>
+                <option className="text-black" value="قريات">قريات</option>
             </select>
             <p className={`${classes.error} text-danger`}>{errors.cityErrors}</p>
         </>

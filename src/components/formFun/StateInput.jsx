@@ -13,11 +13,11 @@ export default function StateInput({ classes, setStateInfo, stateInfo, errors, s
     // }
     return (
         <>
-            <label className="fs-5" htmlFor="state">
+            <label className="fs-5 mb-1" htmlFor="state">
                 المحافظه
             </label>
             <input type="text" name="state" id="state" value={stateInfo.state} disabled
-                className={`${classes.input} form-control border border-secondary shadow-none`}
+                className={`${classes.input} Gray form-control border border-secondary shadow-none`}
                 onChange={stateValidation}
                 onBlur={stateValidation} />
             <p className={`${classes.error} text-danger`}>{errors.stateErrors}</p>

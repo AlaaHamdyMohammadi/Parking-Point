@@ -16,7 +16,7 @@ export default function EmailInput({ classes, setEmailInfo, emailInfo, errors, s
                 <label htmlFor="email" className="mb-1 fs-5">البريد الإلكتروني</label>
                 <input
                     type={`text`}
-                    className={` ${classes.input} form-control border border-secondary shadow-none `}
+                    className={` ${classes.input} Gray form-control border border-secondary shadow-none `}
                     id="email" name="email"
                     value={emailInfo.email}
                     onChange={emailValidation}
