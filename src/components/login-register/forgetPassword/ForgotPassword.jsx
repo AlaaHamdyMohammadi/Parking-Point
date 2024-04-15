@@ -1,60 +1,46 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./../../../styles/formStyles.module.css";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import axiosInstanceParking from "../../../axiosConfig/instanc";
+// import ForgotPasswordModal from "./ForgotPasswordModal";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-
 const ForgotPassword = () => {
-  const [registeUser, setRegisteUser] = useState({ email: "" });
+  const [registeUser, setRegisteUser] = React.useState({ email: "" });
   const [codeconfirmed, setCodeconfirmed] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [enterOtp, setEnterOtp] = useState(false);
   const [showEmailModal, setShowEmailModal] = useState(true);
-  const [esc, setEsc] = useState(false);
-  const [email, setEmail] = useState("");
-  const [token, setToken] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [esc, setEsc] = React.useState(false);
+  const [email, setEmail] = React.useState("");
+  const [token, setToken] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
   const [emailError, setEmailError] = useState(false);
-  const [errors, setErrors] = useState({
+
+  const [errors, setErrors] = React.useState({
     passwordErrors: "*",
     confirmPasswordErrors: "*",
     tokenErrors: "*",
   });
-
   const navigate = useNavigate();
 
   useEffect(() => {
-    // if (enterOtp) {
-    //   setShowEmailModal(false);
-    // }
+    console.log("enterOtp:", enterOtp);
   }, [enterOtp]);
 
-  useEffect(() => {
-    // if (codeconfirmed) {
-    //   setShowEmailModal(false);
-    // }
-  }, [codeconfirmed]);
-
-  useEffect(() => {
-    // if (esc) {
-    //   // Implement your logic here for setting up after success
-    // }
-  }, [esc]);
-
-  const passwordRegx = /^[a-zA-Z0-9]{8,}$/;
+  let passwordRegx = /^[a-zA-Z0-9]{8,}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const registeValidation = (event) => {
     const { name, value } = event.target;
     if (name === "password") {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
+      setErrors({
+        ...errors,
         passwordErrors:
           value.length === 0
             ? "يجب ادخال رقم سري"
@@ -63,72 +49,76 @@ const ForgotPassword = () => {
             : passwordRegx.test(value)
             ? ""
             : "يجب ادخال حرف كبير وحرف صغير ورقم بحد ادني",
-      }));
+      });
     }
     if (name === "confirmPassword") {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
+      setErrors({
+        ...errors,
         confirmPasswordErrors:
           value.length === 0
             ? "يجب تاكيد الرقم السري"
-            : value === registeUser.password
+            : value == registeUser.password
             ? ""
             : "الرقم غير صحيح",
-      }));
+      });
     }
-    setRegisteUser((prevUser) => ({ ...prevUser, [name]: value }));
+    setRegisteUser({ ...registeUser, [name]: value });
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword((prevShowPassword) => !prevShowPassword);
+    setShowPassword(!showPassword);
   };
 
-  const handleForgotPassword = async () => {
+  async function handleForgotPassword() {
     if (!emailRegex.test(email)) {
       setEmailError(true);
       toast.error("يرجى إدخال بريد إلكتروني صحيح");
     } else {
-      // try {
-        
-        const res = await axiosInstanceParking.post("/users/me/forget-password", {
-          email,
-        })
-        .then(
-          (res)=>{
-            toast.success("لا  حساب مسجل علي هذا");
-            setEnterOtp(true);
-
-            console.log(res.data, enterOtp);
+      try {
+        const res = await axiosInstanceParking.post(
+          "/users/me/forget-password",
+          {
+            email,
           }
-        )
-        .catch((error)=>{   toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
-        console.log("Error: ", error); })
-      
-      // }
-      //  .catch (error) => {
-      
-      // }
-    }
-  };
+        );
+        setEnterOtp((prevState) => {
+          console.log(res.data, !prevState); // Log the updated value of enterOtp
+          return !prevState;
+        });
+        // console.log(res.data, enterOtp);
+      } catch (error) {
+        toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
 
-  const handleToken = async () => {
+        console.log("Error: ", error);
+      }
+    }
+  }
+  async function handleToken() {
     try {
+      // console.log("Token before API call:", token);
+
       const res = await axiosInstanceParking.post("/users/me/validate-otp", {
         token,
         email,
       });
       setCodeconfirmed(true);
       setShowEmailModal(false);
-      console.log(res, "handletoken SUCCESS", codeconfirmed, showEmailModal);
+      console.log(res, "handletoken SUCCESS");
+      console.log(
+        codeconfirmed,
+        "codeconfirmed",
+        showEmailModal,
+        "ShowEmailModal"
+      );
     } catch (error) {
       if (error.response) {
         console.log("Error data:", error.response.data);
         toast.error("رمز التحقق غير صحيح");
       }
     }
-  };
+  }
 
-  const handleResetPassword = async () => {
+  async function handleResetPassword() {
     try {
       const res = await axiosInstanceParking.post("/users/me/reset-password", {
         token,
@@ -138,12 +128,11 @@ const ForgotPassword = () => {
       });
       console.log(res);
       setEsc(true);
-      toast.success("تم تفعيل كلمة السر بنجاح", {
-        onClose: () => {
-          navigate("/register");
-          window.location.reload();
-        },
-      });
+      // toast.success("تم تفعيل كلمة السر بنجاح");
+      // window.location.reload();
+      navigate("/register"); // Navigate to "/register" route without reloading
+      toast.success("تم تفعيل كلمة السر بنجاح");
+      // toast.success("تم تفعيل كلمة السر بنجاح");
     } catch (error) {
       if (error.response) {
         console.log("Error data:", error.response.data);
@@ -153,156 +142,195 @@ const ForgotPassword = () => {
         console.log("Error while setting up request:", error.message);
       }
     }
-  };
+  }
 
   return (
     <>
       {showEmailModal && (
-         <div
-         className="modal fade"
-         id="staticBackdrop"
-         data-bs-backdrop="static"
-         data-bs-keyboard="false"
-         tabIndex="-1"
-         aria-labelledby="staticBackdropLabel"
-         aria-hidden="true"
-       >
-         <div className="modal-dialog  modal-dialog-centered">
-           <div className="modal-content">
-             <div className="modal-header">
-               <button type="button" className="btn-close fs-6" data-bs-dismiss="modal" aria-label="Close"></button>
-             </div>
-             <div className="modal-body  p-0 px-4">
-               <div className=" d-flex ">
-                 <div className="d-flex flex-column  ">
-                   <label className=" pt-2">الرجاء إدخال عنوان بريدك الإلكتروني للبحث عن حسابك:</label>
-                   <input
-                     type="email"
-                     className={`${classes.input}  w-100 mt-2 form-control border-secondary shadow-none`}
-                     value={email}
-                     onChange={(e) => {
-                       setEmail(e.target.value);
-                       setEmailError(false);
-                       console.log("Email:", e.target.value);
-                     }}
-                   />
-                   {emailError && (
-                     <p className="text-danger">
-                       يرجى إدخال عنوان بريد إلكتروني
-                     </p>
-                   )}
-                 </div>
-                 <div className="text-start align-self-center">
-                   <img style={{ height: "100%", width: "10rem" }} src="./../../../public/images/notify-animate.svg" alt="" />
-                 </div>
-               </div>
- 
-               <div className="modal-footer p-0 m-0 d-flex justify-content-start">
-                 <input
-                   type="submit"
-                   value="بحث"
-                   onClick={() => {
-                     if (email.trim() === "") {
-                       setEmailError(true);
-                     } else {
-                       handleForgotPassword();
-                     }
-                   }}
-                   data-bs-toggle={enterOtp ? "modal" : ""}
-                   data-bs-target={enterOtp ? "#exampleModalToggle2" : ""}
-                   className={"text-center bgColor text-white btn"}
-                   disabled={email.trim() === ""}
-                 />
-     <button type="button" className="text-center  bgColor text-white btn"
-   data-bs-dismiss="modal">إلغاء</button>
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
+        <div
+          className="modal fade"
+          id="staticBackdrop"
+          data-bs-backdrop="static"
+          data-bs-keyboard="false"
+          tabIndex="-1"
+          aria-labelledby="staticBackdropLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog  modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button
+                  type="button"
+                  className="btn-close fs-6"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div className="modal-body  p-0 px-4">
+                <div className=" d-flex ">
+                  <div className="d-flex flex-column  ">
+                    <label className=" pt-2">
+                      الرجاء إدخال عنوان بريدك الإلكتروني للبحث عن حسابك:
+                    </label>
+                    <input
+                      type="email"
+                      className={`${classes.input}  w-100 mt-2 form-control border-secondary shadow-none`}
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        setEmailError(false);
+                        console.log("Email:", e.target.value);
+                      }}
+                    />
+                    {emailError && (
+                      <p className="text-danger">
+                        يرجى إدخال عنوان بريد إلكتروني
+                      </p>
+                    )}
+                  </div>
+                  <div className="text-start align-self-center">
+                    <img
+                      style={{ height: "100%", width: "10rem" }}
+                      src="./../../../public/images/notify-animate.svg"
+                      alt=""
+                    />
+                  </div>
+                </div>
+
+                <div className="modal-footer p-0 m-0 d-flex justify-content-start">
+                  <input
+                    type="submit"
+                    value="بحث"
+                    onClick={() => {
+                      if (email.trim() === "") {
+                        setEmailError(true);
+                      } else {
+                        handleForgotPassword();
+                      }
+                    }}
+                    data-bs-toggle={enterOtp ? "modal" : ""}
+                    data-bs-target={enterOtp ? "#exampleModalToggle2" : ""}
+                    className={"text-center bgColor text-white btn"}
+                    disabled={email.trim() === ""}
+                  />
+                  <button
+                    type="button"
+                    className="text-center  bgColor text-white btn"
+                    data-bs-dismiss="modal"
+                  >
+                    إلغاء
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
 
       {enterOtp && (
-       <div
-       className="modal fade"
-       id="exampleModalToggle2"
-       aria-hidden="true"
-       aria-labelledby="exampleModalToggleLabel2"
-       tabIndex="-1"
-     >
-       <div className="modal-dialog modal-dialog-centered">
-         <div className="modal-content">
-           <div className="modal-header">
-             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-           </div>
-           <div className="modal-body p-0">
-             <div className="d-flex">
-               <div className="text-end pe-3 align-self-center ">
-                 <label className=" pt-2">رمز التحقق:</label>
+        <div
+          className="modal fade"
+          id="exampleModalToggle2"
+          aria-hidden="true"
+          aria-labelledby="exampleModalToggleLabel2"
+          tabIndex="-1"
+        >
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div className="modal-body p-0">
+                <div className="d-flex">
+                  <div className="text-end pe-3 align-self-center ">
+                    <label className=" pt-2">رمز التحقق:</label>
 
-                 <input
-                   type="text"
-                   value={token}
-                   onChange={(e) => {
-                     setToken(e.target.value);
-                     console.log("Token:", e.target.value);
-                   }}
-                   onPaste={(e) => {
-                     const pastedText = e.clipboardData.getData("text");
-                     setToken(pastedText);
-                     console.log("Pasted Token:", pastedText);
-                   }}
-                   className={`${classes.input}  w-100 mt-2 form-control border-secondary shadow-none`}
-                 />
-                 {/* <ConfirmationCodeInput length={6} onConfirm={(code) => console.log("Confirmed:", code)} /> */}
-               </div>
-               <div className="  text-start align-self-center">
-                 <img
-                   style={{ height: "30%", width: "60%" }}
-                   src="./../../../public/images/emails-animate (1).svg"
-                   alt=""
-                 />
-               </div>
-             </div>
+                    <input
+                      type="text"
+                      value={token}
+                      onChange={(e) => {
+                        setToken(e.target.value);
+                        console.log("Token:", e.target.value);
+                      }}
+                      onPaste={(e) => {
+                        const pastedText = e.clipboardData.getData("text");
+                        setToken(pastedText);
+                        console.log("Pasted Token:", pastedText);
+                      }}
+                      className={`${classes.input}  w-100 mt-2 form-control border-secondary shadow-none`}
+                    />
+                    {/* <ConfirmationCodeInput length={6} onConfirm={(code) => console.log("Confirmed:", code)} /> */}
+                  </div>
+                  <div className="  text-start align-self-center">
+                    <img
+                      style={{ height: "30%", width: "60%" }}
+                      src="./../../../public/images/emails-animate (1).svg"
+                      alt=""
+                    />
+                  </div>
+                </div>
 
-             <p className="fs-6  px-4 text-justify-center">
-               لقد تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني المُسجّل
-               <span className={`${classes.resendcode}`}>{registeUser.email}</span> يُرجى فتح بريدك الإلكتروني و نسخ الرمز
-               المُرسل.
-             </p>
-             <div className="modal-footer p-0 px-3 m-0 justify-content-start">
-               <input
-                 type="submit"
-                 value="تأكيد"
-                 onClick={() => {
-                   handleToken();
-                 }}
-                 data-bs-toggle={codeconfirmed ? "modal" : ""}
-                 data-bs-target={codeconfirmed ? "#staticBackdrop" : ""}
-           
-                 className="text-center bgColor text-white btn"
-               />
-                     <button className="text-center  bgColor text-white btn" data-bs-target="#staticBackdrop" data-bs-toggle="modal" 
-                       onClick={() => {
-                         setShowEmailModal(true)
-                   ;
-                 }}>الرجوع</button>
-
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
+                <p className="fs-6  px-4 text-justify-center">
+                  لقد تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني المُسجّل
+                  <span className={`${classes.resendcode}`}>
+                    {registeUser.email}
+                  </span>{" "}
+                  يُرجى فتح بريدك الإلكتروني و نسخ الرمز المُرسل.
+                </p>
+                <div className="modal-footer p-0 px-3 m-0 justify-content-start">
+                  <input
+                    type="submit"
+                    value="تأكيد"
+                    onClick={() => {
+                      handleToken();
+                    }}
+                    data-bs-toggle={codeconfirmed ? "modal" : ""}
+                    data-bs-target={codeconfirmed ? "#staticBackdrop" : ""}
+                    className="text-center bgColor text-white btn"
+                  />
+                  <button
+                    className="text-center  bgColor text-white btn"
+                    data-bs-target="#staticBackdrop"
+                    data-bs-toggle="modal"
+                    onClick={() => {
+                      setShowEmailModal(true);
+                    }}
+                  >
+                    الرجوع
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
 
       {codeconfirmed && (
-        <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div className="modal-dialog modal-dialog-centered">
-    <div className="modal-content">
-    <div className="modal-header">
-                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div
+          className="modal fade"
+          id="staticBackdrop"
+          data-bs-backdrop="static"
+          data-bs-keyboard="false"
+          tabIndex="-1"
+          aria-labelledby="staticBackdropLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
               </div>
-      <div className="modal-body p-0">
+              <div className="modal-body p-0">
                 <div className="d-flex">
                   <div>
                     <div className="text-end pe-3 align-self-center ">
@@ -333,11 +361,17 @@ const ForgotPassword = () => {
                             style={{ position: "absolute", zIndex: "1" }}
                             onClick={togglePasswordVisibility}
                           >
-                            {showPassword ? <IoEyeOutline /> : <FaRegEyeSlash />}
+                            {showPassword ? (
+                              <IoEyeOutline />
+                            ) : (
+                              <FaRegEyeSlash />
+                            )}
                           </button>
                         </div>
                       </div>
-                      <p className={`${classes.error} text-danger`}>{errors.passwordErrors}</p>
+                      <p className={`${classes.error} text-danger`}>
+                        {errors.passwordErrors}
+                      </p>
                     </div>
                     <div className="text-end pe-3 align-self-center ">
                       <label className=" pb-2">تأكيد كلمة السر:</label>
@@ -366,17 +400,22 @@ const ForgotPassword = () => {
                             className="btn Gray border border-0"
                             style={{ position: "absolute", zIndex: "1" }}
                             onClick={togglePasswordVisibility}
-                          >
-                          </button>
+                          ></button>
                         </div>
                       </div>
-                      <p className={`${classes.error} text-danger`}>{errors.confirmPasswordErrors}</p>
+                      <p className={`${classes.error} text-danger`}>
+                        {errors.confirmPasswordErrors}
+                      </p>
                     </div>
                   </div>
 
                   <div className="  text-start align-self-center"></div>
                   <div className="  text-center align-self-center">
-                    <img style={{ height: "30%", width: "50%" }} src="./../../../public/images/account-animate.svg" alt="" />
+                    <img
+                      style={{ height: "30%", width: "50%" }}
+                      src="./../../../public/images/account-animate.svg"
+                      alt=""
+                    />
                   </div>
                 </div>
                 <div className="modal-footer p-0 px-3 m-0 justify-content-start">
@@ -387,16 +426,19 @@ const ForgotPassword = () => {
                     className="text-center bgColor text-white btn"
                     data-bs-dismiss={esc ? "modal" : ""}
                   />
- <button type="button" className="text-center  bgColor text-white btn"
-  data-bs-dismiss="modal">إلغاء</button>
-
+                  <button
+                    type="button"
+                    className="text-center  bgColor text-white btn"
+                    data-bs-dismiss="modal"
+                  >
+                    إلغاء
+                  </button>
                 </div>
               </div>
-
-    </div>
-  </div>
-</div>      )}
-
+            </div>
+          </div>
+        </div>
+      )}
       <ToastContainer position="top-right" autoClose={4000} />
     </>
   );
