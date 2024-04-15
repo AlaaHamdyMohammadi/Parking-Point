@@ -14,11 +14,11 @@ export default function PlateNumberInput({ classes, setPlateNumberInfo, plateNum
     }
     return (
         <>
-            <label className="fs-5" htmlFor="plateNumber">
+            <label className="fs-5 mb-1" htmlFor="plateNumber">
                 رقم اللوحة
             </label>
             <input type="text" name="plateNumber" id="plateNumber" value={plateNumberInfo.plateNumber}
-                className={`${classes.input} form-control border border-secondary shadow-none`}
+                className={`${classes.input} Gray form-control border border-secondary shadow-none`}
                 onChange={plateNumberValidation}
                 onBlur={plateNumberValidation} />
             <p className={`${classes.error} text-danger`}>{errors.plateNumberErrors}</p>

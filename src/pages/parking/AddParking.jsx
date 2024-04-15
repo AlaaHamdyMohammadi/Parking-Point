@@ -308,7 +308,7 @@ export default function AddParking() {
               {/* <button  className="btn bgColor text-white col-11 mb-2 m-auto">
               </button> */}
               <label htmlFor="location" className="mb-1 fs-5">
-                الموقع{" "}
+                الموقع{" "} 
               </label>
               {/*<div className="accordion my-2" id="accordionExample">
                 <div className="accordion-item">

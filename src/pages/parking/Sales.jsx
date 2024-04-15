@@ -1,11 +1,11 @@
 import { LiaCarSideSolid } from "react-icons/lia";
-import { SlCalender } from "react-icons/sl";
-import { MdOutlineWatchLater } from "react-icons/md";
+// import { SlCalender } from "react-icons/sl";
+// import { MdOutlineWatchLater } from "react-icons/md";
 import { LuParkingCircle } from "react-icons/lu";
 import { MdPriceCheck } from "react-icons/md";
 import { FaRegFilePdf } from "react-icons/fa6";
 import { useReactToPrint } from "react-to-print";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
 import { LuCalendarClock } from "react-icons/lu";
@@ -42,43 +42,34 @@ export default function Sales() {
   const token = useSelector((state) => state.loggedIn.token);
   const [isLoading, setIsLoading] = useState(true);
   const [reserveSearch, setReserveSearch] = useState("");
-//   const search = (event) => {
-//     setReserveSearch(event || null);
-// console.log(reserveSearch)
-// console.log(event)
 
-//   };
-
-  const handleSearch = (event) => {
-    setReserveSearch(event.target.value);
-    // fetchData();
-
-  }
   const fetchData = async () => {
     try {
       let params = {};
-      // if (reserveSearch) {
-        console.log(reserveSearch,"reserveSearch")
+      if (reserveSearch) {
         params = { searchField: "plateNumber", plateNumber: reserveSearch };
-      // }
-      // const response = await axiosInstanceParking.get(`/reserve/me/?searchField=plateNumber&plateNumber=${reserveSearch}`, {
-    
-      const response = await axiosInstanceParking.get(`/reserve/me`, {
-        headers: { Authorization: `Bearer ${token}` },
-      }, 
-   {
-        params: params,
       }
-      );
-   
+  
+      const response = await axiosInstanceParking.get("/reserve/me", {
+        headers: { Authorization: `Bearer ${token}` },
+        params: params, 
+      });
+  
       setData(response.data.doc);
       console.log(response.data.doc, "res");
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
+  
+  // Use useCallback to memoize the handleSearch function
+  const handleSearch = useCallback((event) => {
+    setReserveSearch(event.target.value);
+  }, []);
+  
+  
   useEffect(() => {
    
     fetchData();

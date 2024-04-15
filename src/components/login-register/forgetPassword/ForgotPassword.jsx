@@ -69,14 +69,12 @@ const ForgotPassword = () => {
     setShowPassword(!showPassword);
   };
 
-
   async function handleForgotPassword() {
     if (!emailRegex.test(email)) {
       setEmailError(true);
       toast.error("يرجى إدخال بريد إلكتروني صحيح");
     } else {
       try {
-       
         const res = await axiosInstanceParking.post(
           "/users/me/forget-password",
           {

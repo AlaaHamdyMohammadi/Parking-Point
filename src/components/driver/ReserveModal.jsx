@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import classes from "./../../styles/formStyles.module.css";
 import useLogInUserData from "../../../hook/useLogInUserData";
 import axiosInstanceParking from "../../axiosConfig/instanc";
@@ -7,10 +8,6 @@ import { useSelector } from "react-redux";
 export default function ModalReserve({ReserveTime}) {
   const user = useLogInUserData();
   const token = useSelector((state) => state.loggedIn.token);
-
-  // const token = useSelector((state) => state.loggedIn.token)
-// console.log(user.plateNumber)
-  // console.log(ReserveTime)
   const [registeUser, setRegisteUser] = useState({
     plateNumber: "",
   });
@@ -26,30 +23,38 @@ export default function ModalReserve({ReserveTime}) {
       setErrors({
         ...errors,
         plateNumberErrors:
-          value.length === 0 ? "يجب ادخال رقم لوحة السيارة" : plateNumberRegx.test(value) ? "" : "يجب ادخال رقم لوحة صحيح",
+          value.length === 0
+            ? "يجب ادخال رقم لوحة السيارة"
+            : plateNumberRegx.test(value)
+            ? ""
+            : "يجب ادخال رقم لوحة صحيح",
       });
     }
     setRegisteUser({ ...registeUser, [name]: value });
   };
-  const handlePayment = async ()=>{
-    console.log(token)
 
-  try {
-    const response = await axiosInstanceParking.post(`/reserve?from=${ReserveTime.from}&to=${ReserveTime.to}&plateNumber=${user.plateNumber}`,
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    // console.log(token)
+  //?from=${ReserveTime.from}&to=${ReserveTime.to}&plateNumber=${user.plateNumber}
+  const handlePayment = async () => {
+    try {
+      const response = await axiosInstanceParking.post(`/reserve`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        from: ReserveTime.from,
+        to: ReserveTime.to,
+        plateNumber: user.plateNumber,
+      });
 
-// console.log("gggggggggggggggggggggggggggggggggg",response)
+      console.log("Response:", response.data);
+    } catch (error) {
+      console.error("Error occurred while payment:", error);
+      if (error.response) {
+        console.error("Response data:", error.response.data);
+      }
+    }
+  };
 
-  }catch (error){
-    console.error("Error occurred while payment:", error);
-    if (error.response) {
-      console.error("Response data:", error.response.data);
-  }
-  }}
-    return (
+  return (
     <>
       <div
         className="modal fade"
@@ -61,8 +66,16 @@ export default function ModalReserve({ReserveTime}) {
         <div className="modal-dialog modal-sm modal-dialog-centered">
           <div className="modal-content ">
             <div className="modal-header p-1 m-0 ">
-              <h5 className="modal-title pe-2" id="exampleModalToggleLabel"></h5>
-              <button type="button" className="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
+              <h5
+                className="modal-title pe-2"
+                id="exampleModalToggleLabel"
+              ></h5>
+              <button
+                type="button"
+                className="btn-close m-0"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
             <div className="modal-body  p-2">
               <div className="">
@@ -78,13 +91,18 @@ export default function ModalReserve({ReserveTime}) {
                   onChange={registeValidation}
                   onBlur={registeValidation}
                 />
-                <p className={`${classes.error} text-danger`}>{errors.plateNumberErrors}</p>
+                <p className={`${classes.error} text-danger`}>
+                  {errors.plateNumberErrors}
+                </p>
               </div>
             </div>
             <div className="modal-footer p-0">
-              <button 
-              onClick={handlePayment}
-               className="btn bgColor text-white " data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+              <button
+                onClick={handlePayment}
+                className="btn bgColor text-white "
+                data-bs-target="#exampleModalToggle2"
+                data-bs-toggle="modal"
+              >
                 تأكيد
               </button>
             </div>
@@ -101,22 +119,37 @@ export default function ModalReserve({ReserveTime}) {
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
 
               <h1 className="modal-title fs-5" id="exampleModalToggleLabel2">
                 تأكيد الدفع
               </h1>
             </div>
-            <div className="modal-body">Hide this modal and show the first with the button below.</div>
+            <div className="modal-body">
+              Hide this modal and show the first with the button below.
+            </div>
             <div className="modal-footer">
-              <button className="btn  bgColor text-white" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
+              <button
+                className="btn  bgColor text-white"
+                data-bs-target="#exampleModalToggle"
+                data-bs-toggle="modal"
+              >
                 الرجوع{" "}
               </button>
             </div>
           </div>
         </div>
       </div>
-      <button className=" bgColor text-white w-100   p-0  btn " data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
+      <button
+        className=" bgColor text-white w-100   p-0  btn "
+        data-bs-target="#exampleModalToggle"
+        data-bs-toggle="modal"
+      >
         احجز{" "}
       </button>
     </>

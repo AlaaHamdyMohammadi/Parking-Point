@@ -35,7 +35,7 @@ function Register() {
       {isLoading ? (
         <SpinnerLoad />
       ) : (
-        <div className={`${classes.bg}`}>
+        <div  className={`${classes.bg}`}>
           <div className={`container pt-2`}>
             <div className={`row`}>
               <div className={`col-9 col-md-11`}></div>

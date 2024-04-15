@@ -13,11 +13,11 @@ export default function CarTypeInput({ classes, setCarTypeInfo, carTypeInfo, err
     }
     return (
         <>
-            <label className="fs-5" htmlFor="plateNumber">
+            <label className="fs-5 mb-1" htmlFor="plateNumber">
                 نوع المركبة
             </label>
             <input type="text" name="plateNumber" id="plateNumber" value={carTypeInfo.carType}
-                className={`${classes.input} form-control border border-secondary shadow-none`}
+                className={`${classes.input} Gray form-control border border-secondary shadow-none`}
                 onChange={plateNumberValidation}
                 onBlur={plateNumberValidation} disabled />
             <p className={`${classes.error} text-danger`}>{errors.carTypeErrors}</p>

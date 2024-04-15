@@ -14,7 +14,7 @@ export default function RegionInput({ classes, setRegionInfo, regionInfo, errors
     }
     return (
         <>
-            <label className="fs-5" htmlFor="region">
+            <label className="fs-5 mb-1" htmlFor="region">
                 المنطقه
             </label>
             <input
@@ -22,7 +22,7 @@ export default function RegionInput({ classes, setRegionInfo, regionInfo, errors
                 id="region"
                 name="region"
                 value={regionInfo.region}
-                className={`${classes.input} form-control border-secondary shadow-none`}
+                className={`${classes.input} Gray form-control border-secondary shadow-none`}
                 onChange={regionValidation}
                 onBlur={regionValidation} />
             <p className={`${classes.error} text-danger`}>{errors.regionErrors} </p>
