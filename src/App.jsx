@@ -18,6 +18,8 @@ import RenterGuard from "./components/guard/RenterGuard";
 import Fqa from "./pages/FQA";
 import LiveLocation from "./pages/Map";
 import Terms from "./pages/Terms";
+import SuccessPayment from "./pages/SuccessPayment";
+import CancelPayment from "./pages/CanclePayment";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,17 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home />, errorElement: <HandelErorr /> },
       { path: "/Terms", element: <Terms />, errorElement: <HandelErorr /> },
+      {
+        path: "/CancelPayment",
+        element: <CancelPayment />,
+        errorElement: <HandelErorr />,
+      },
+
+      {
+        path: "/SuccessPayment",
+        element: <SuccessPayment />,
+        errorElement: <HandelErorr />,
+      },
 
       { path: "*", element: <NotFound /> },
     ],
