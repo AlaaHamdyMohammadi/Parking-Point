@@ -41,7 +41,7 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
           park: ParkId,
           from: ReserveTime.from,
           to: ReserveTime.to,
-          plateNumber: user.plateNumber, // Change to use registeUser.plateNumber instead of user.plateNumber
+          plateNumber: user.plateNumber,
         },
         {
           headers: {
@@ -51,8 +51,33 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
       );
 
       const sessionID = response.data.sessionId;
+      localStorage.setItem("sessionID", sessionID);
       window.location.href = `https://uatcheckout.thawani.om/pay/${sessionID}?key=HGvTMLDssJghr9tlN9gr4DVYt0qyBy`;
-      console.log("Response:", sessionID);
+      // console.log("Response:", sessionID);
+      try {
+        const ReserveResponse = await axiosInstanceParking.post(
+          `/reserve/confirm-reservation`,
+          {
+            sessionId: localStorage.getItem("sessionID"),
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+          // console.log(ReserveResponse)
+        );
+        localStorage.removeItem("sessionID");
+
+        // alert(ReserveResponse);
+        // console.log(ReserveResponse, "ReserveResponse");
+        // console.log(ReserveResponse.data.reserve, "Reserve");
+      } catch (err) {
+        console.error("Error :", err);
+        if (err.response) {
+          console.error("Response data:", err.response.data);
+        }
+      }
     } catch (error) {
       console.error("Error occurred while payment:", error);
       if (error.response) {
@@ -60,25 +85,6 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
       }
     }
   };
-
-  //   try {
-  //     const response = await axiosInstanceParking.post(`/reserve`, null, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //       from: ReserveTime.from,
-  //       to: ReserveTime.to,
-  //       plateNumber: user.plateNumber,
-  //     });
-
-  //     console.log("Response:", response.data);
-  //   } catch (error) {
-  //     console.error("Error occurred while payment:", error);
-  //     if (error.response) {
-  //       console.error("Response data:", error.response.data);
-  //     }
-  //   }
-  // };
 
   return (
     <>
