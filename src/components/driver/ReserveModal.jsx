@@ -5,7 +5,7 @@ import useLogInUserData from "../../../hook/useLogInUserData";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
 
-export default function ModalReserve({ReserveTime}) {
+export default function ModalReserve({ ReserveTime, ParkId }) {
   const user = useLogInUserData();
   const token = useSelector((state) => state.loggedIn.token);
   const [registeUser, setRegisteUser] = useState({
@@ -15,7 +15,7 @@ export default function ModalReserve({ReserveTime}) {
     plateNumberErrors: "",
   });
   let plateNumberRegx = /^[0-9]{5,}$/;
-
+  // console.log(ReserveTime, "ReserveTime");
   const registeValidation = (event) => {
     const { name, value } = event.target;
 
@@ -33,19 +33,26 @@ export default function ModalReserve({ReserveTime}) {
     setRegisteUser({ ...registeUser, [name]: value });
   };
 
-  //?from=${ReserveTime.from}&to=${ReserveTime.to}&plateNumber=${user.plateNumber}
   const handlePayment = async () => {
     try {
-      const response = await axiosInstanceParking.post(`/reserve`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await axiosInstanceParking.post(
+        `/reserve`,
+        {
+          park: ParkId,
+          from: ReserveTime.from,
+          to: ReserveTime.to,
+          plateNumber: user.plateNumber, // Change to use registeUser.plateNumber instead of user.plateNumber
         },
-        from: ReserveTime.from,
-        to: ReserveTime.to,
-        plateNumber: user.plateNumber,
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      console.log("Response:", response.data);
+      const sessionID = response.data.sessionId;
+      window.location.href = `https://uatcheckout.thawani.om/pay/${sessionID}?key=HGvTMLDssJghr9tlN9gr4DVYt0qyBy`;
+      console.log("Response:", sessionID);
     } catch (error) {
       console.error("Error occurred while payment:", error);
       if (error.response) {
@@ -53,6 +60,25 @@ export default function ModalReserve({ReserveTime}) {
       }
     }
   };
+
+  //   try {
+  //     const response = await axiosInstanceParking.post(`/reserve`, null, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       from: ReserveTime.from,
+  //       to: ReserveTime.to,
+  //       plateNumber: user.plateNumber,
+  //     });
+
+  //     console.log("Response:", response.data);
+  //   } catch (error) {
+  //     console.error("Error occurred while payment:", error);
+  //     if (error.response) {
+  //       console.error("Response data:", error.response.data);
+  //     }
+  //   }
+  // };
 
   return (
     <>
