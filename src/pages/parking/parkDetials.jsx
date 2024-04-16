@@ -8,6 +8,7 @@ import SpinnerLoad from "../../components/spinner/Spinner";
 
 const ParkDetials = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [parkreserved, setParkreserved] = useState({});
 
   const token = useSelector((state) => state.loggedIn.token);
   const { parkId } = useParams();
@@ -19,7 +20,8 @@ const ParkDetials = () => {
         const res = await axiosInstanceParking.get(`/parkings/${parkId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log(res);
+        setParkreserved(res.data.doc);
+        console.log(res.data.doc);
       } catch (err) {
         console.error("Error :", err);
         if (err.response) {
@@ -137,15 +139,15 @@ const ParkDetials = () => {
                 <h4 className={`4 text-center`}>بيانات الموقف:</h4>
                 <div className="row p-2 my-2  justify-content-center">
                   <div className=" col-12 col-md-5  m-2 customRange     text-center   p-2 fw-semibold   rounded-2">
-                    esraa Lorem,
+                    {parkreserved.title}
                     {/* ipsum dolor sit amet consectetur adipisicing */}
                     {/* elit. Officiis, ipsam velit aperiam maiores soluta possimus? */}
                   </div>
                   <div className=" col-12 col-md-5 m-2 customRange    align-self-center text-center   p-2 fw-semibold   rounded-2">
-                    esraa
+                    {parkreserved.city}
                   </div>
                   <div className=" col-12 col-md-5 m-2 customRange     text-center   p-2 fw-semibold   rounded-2">
-                    esraa
+                    {parkreserved.address}
                   </div>
                   <div className=" col-12 col-md-5 m-2 customRange     text-center   p-2 fw-semibold   rounded-2">
                     esraa
