@@ -50,6 +50,8 @@ const ParkDetials = () => {
             <div className="w-75 my-5 ">
               <div className="d-flex justify-content-between  my-4">
                 {/* <div className="fs-5 fw-bolder">اختر الموقف المناسب</div> */}
+                {/* <div className="fs-5 fw-bolder">اختر الموقف المناسب</div> */}
+
                 <div className=" fw-bold"> العوده الي الصفحة الرئيسية ...</div>
                 <div className="pointer fs-5  ">
                   <Link to="/">
