@@ -50,16 +50,15 @@ const ParkDetials = () => {
             <div className="w-75 my-5 ">
               <div className="d-flex justify-content-between  my-4">
                 {/* <div className="fs-5 fw-bolder">اختر الموقف المناسب</div> */}
-                <div className=" fw-bold">المواقف الأقرب لك ....</div>
+                <div className=" fw-bold"> العوده الي الصفحة الرئيسية ...</div>
                 <div className="pointer fs-5  ">
                   <Link to="/">
                     <IoArrowRedoCircleOutline />
                   </Link>
                 </div>
               </div>
-              {/* <div className="  "> */}
+
               <div className={`card text-center borderCustom p-2 mb-5`}>
-                {/* <div className={``}> */}
                 <div className="row ">
                   <div
                     id="carouselExampleRide"
@@ -67,35 +66,26 @@ const ParkDetials = () => {
                     data-bs-ride="true"
                   >
                     <div className="carousel-inner">
-                      <div className="carousel-item active">
-                        <img
-                          style={{ height: "50vh", width: "30vh" }}
-                          src="./../../../public/images/404-error.png"
-                          className="d-block w-100"
-                          alt="..."
-                        />
-                      </div>
-                      <div className="carousel-item">
-                        <img
-                          style={{ height: "50vh", width: "30vh" }}
-                          src="./../../../public/images/Notify-amico (1).png"
-                          className="d-block w-100"
-                          alt="..."
-                        />
-                      </div>
-                      <div className="carousel-item">
-                        <img
-                          style={{ height: "50vh", width: "30vh" }}
-                          src="./../../../public/images/Rectangle4.png"
-                          className="d-block w-100"
-                          alt="..."
-                        />
-                      </div>
+                      {parkreserved.photos.map((photo, index) => (
+                        <div
+                          className={`carousel-item ${
+                            index === 0 ? "active" : ""
+                          }`}
+                          key={index}
+                        >
+                          <img
+                            src={`${axiosInstanceParking.defaults.baseURL}/parkings/${photo}`}
+                            style={{ height: "50vh", width: "30vh" }}
+                            className="d-block w-100"
+                            alt="..."
+                          />
+                        </div>
+                      ))}
                     </div>
                     <button
                       className="carousel-control-prev"
                       type="button"
-                      data-bs-target="#carouselExampleRide"
+                      data-bs-target={`#carouselExampleRide`}
                       data-bs-slide="prev"
                     >
                       <span
@@ -105,10 +95,9 @@ const ParkDetials = () => {
                       <span className="visually-hidden">Previous</span>
                     </button>
                     <button
-                      //   style={{ color: "green" , background: "green" }}
                       className="carousel-control-next"
                       type="button"
-                      data-bs-target="#carouselExampleRide"
+                      data-bs-target={`#carouselExampleRide`}
                       data-bs-slide="next"
                     >
                       <span
@@ -140,8 +129,6 @@ const ParkDetials = () => {
                 <div className="row p-2 my-2  justify-content-center">
                   <div className=" col-12 col-md-5  m-2 customRange     text-center   p-2 fw-semibold   rounded-2">
                     {parkreserved.title}
-                    {/* ipsum dolor sit amet consectetur adipisicing */}
-                    {/* elit. Officiis, ipsam velit aperiam maiores soluta possimus? */}
                   </div>
                   <div className=" col-12 col-md-5 m-2 customRange    align-self-center text-center   p-2 fw-semibold   rounded-2">
                     {parkreserved.city}
@@ -156,9 +143,7 @@ const ParkDetials = () => {
                 <div className="row  my-5  bg-warning justify-content-center">
                   mapppppppp
                 </div>
-                {/* </div> */}
               </div>
-              {/* </div> */}
             </div>
           </div>
         )}
