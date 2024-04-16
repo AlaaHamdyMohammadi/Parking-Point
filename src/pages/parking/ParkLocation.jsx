@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-
 import { useState, useEffect } from "react";
 import ReactMapGL, {
   Marker,
@@ -18,7 +17,8 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 const mapStyle = "mapbox://styles/alaahamdy2/clsp701hd005a01pkhrmygybf";
 
-const Map = ({ AvaliableParksFilter }) => {
+const ParkLocation = ({ location, title, address }) => {
+//   console.log(location);
   const [viewport, setViewport] = useState({
     width: "100%",
     height: "100%",
@@ -34,7 +34,7 @@ const Map = ({ AvaliableParksFilter }) => {
           ...prevViewport,
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
-        })); 
+        }));
       });
     } else {
       console.error("Geolocation is not supported by this browser.");
@@ -72,21 +72,16 @@ const Map = ({ AvaliableParksFilter }) => {
           offsetTop={-10}
         />
 
-        {AvaliableParksFilter.map((park, index) =>
-          park.location ? (
-            <Marker
-              key={index}
-              latitude={park.location.latitude}
-              longitude={park.location.longitude}
-              offsetLeft={-20}
-              offsetTop={-10}
-            >
-              <div style={{ color: "#f1a525", fontSize: "35px" }}>
-                <FaLocationDot />
-              </div>
-            </Marker>
-          ) : null
-        )}
+        <Marker
+          latitude={location.latitude}
+          longitude={location.longitude}
+          offsetLeft={-20}
+          offsetTop={-10}
+        >
+          <div style={{ color: "#f1a525", fontSize: "35px" }}>
+            <FaLocationDot />
+          </div>
+        </Marker>
 
         <div
           style={{
@@ -132,70 +127,51 @@ const Map = ({ AvaliableParksFilter }) => {
           </button>
         </div>
 
-        {AvaliableParksFilter.map((park, index) =>
-          park.location ? (
-            <Popup
-              key={index}
-              latitude={park.location.latitude}
-              longitude={park.location.longitude}
-              closeButton={true}
-              closeOnClick={false}
-            >
-              <div style={{ fontSize: 20 }}>{park.title}</div>
-            </Popup>
-          ) : null
-        )}
+        <Popup
+          latitude={location.latitude}
+          longitude={location.longitude}
+          closeButton={true}
+          closeOnClick={false}
+        >
+          <div style={{ fontSize: 20 }}>{title}</div>
+        </Popup>
 
-        {viewport && (
-          <Source
-            id="lineSource"
-            type="geojson"
-            data={{
-              type: "FeatureCollection",
-              features: [
-                {
-                  type: "Feature",
-                  geometry: {
-                    type: "Point",
-                    coordinates: [viewport.longitude, viewport.latitude],
-                  },
+        <Source
+          id="route"
+          type="geojson"
+          data={{
+            type: "FeatureCollection",
+            features: [
+              {
+                type: "Feature",
+                geometry: {
+                  type: "LineString",
+                  coordinates: [
+                    [viewport.longitude, viewport.latitude],
+                    [location.longitude, location.latitude],
+                  ],
                 },
-                ...AvaliableParksFilter.filter((park) => park.location).map(
-                  (park) => ({
-                    type: "Feature",
-                    geometry: {
-                      type: "LineString",
-                      coordinates: [
-                        [viewport.longitude, viewport.latitude],
-                        [park.location.longitude, park.location.latitude],
-                      ],
-                    },
-                    properties: {
-                      title: park.address,
-                    },
-                  })
-                ),
-              ],
+              },
+            ],
+          }}
+        >
+          <Layer
+            id="lineLayer"
+            type="line"
+            source="route"
+            layout={{
+              "line-join": "round",
+              "line-cap": "round",
             }}
-          >
-            <Layer
-              id="lineLayer"
-              type="line"
-              source="lineSource"
-              layout={{
-                "line-cap": "round",
-                "line-join": "round",
-              }}
-              paint={{
-                "line-color": "#331c41",
-                "line-width": 3,
-              }}
-            />
-          </Source>
-        )}
+            paint={{
+              "line-color": "#331c41",
+              "line-width": 3,
+            }}
+          />
+        </Source>
       </ReactMapGL>
     </div>
   );
 };
 
-export default Map;
+export default ParkLocation;

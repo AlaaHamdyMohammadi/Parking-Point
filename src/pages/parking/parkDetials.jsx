@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useParams } from "react-router-dom";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
 import { IoArrowRedoCircleOutline } from "react-icons/io5";
 import SpinnerLoad from "../../components/spinner/Spinner";
+import ParkLocation from "./ParkLocation";
 
 const ParkDetials = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +22,7 @@ const ParkDetials = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         setParkreserved(res.data.doc);
-        console.log(res.data.doc);
+        // console.log(res.data.doc.location);
       } catch (err) {
         console.error("Error :", err);
         if (err.response) {
@@ -142,8 +143,8 @@ const ParkDetials = () => {
                     esraa
                   </div>
                 </div>
-                <div className="row  my-5  bg-warning justify-content-center">
-                  mapppppppp
+                <div className="row my-5 justify-content-center">
+                  <ParkLocation location={parkreserved.location} title={parkreserved.title}/>
                 </div>
               </div>
             </div>
