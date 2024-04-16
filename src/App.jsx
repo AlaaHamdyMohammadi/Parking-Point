@@ -20,6 +20,7 @@ import LiveLocation from "./pages/Map";
 import Terms from "./pages/Terms";
 import SuccessPayment from "./pages/SuccessPayment";
 import CancelPayment from "./pages/CanclePayment";
+import ParkDetials from "./pages/parking/parkDetials";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,12 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home />, errorElement: <HandelErorr /> },
       { path: "/Terms", element: <Terms />, errorElement: <HandelErorr /> },
+      {
+        path: "/ParkDetials/:parkId",
+        element: <ParkDetials />,
+        errorElement: <HandelErorr />,
+      },
+
       {
         path: "/CancelPayment",
         element: <CancelPayment />,

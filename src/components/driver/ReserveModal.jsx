@@ -15,7 +15,8 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
     plateNumberErrors: "",
   });
   let plateNumberRegx = /^[0-9]{5,}$/;
-  // console.log(ReserveTime, "ReserveTime");
+  // alert(ReserveTime, "ReserveTime");
+  console.log(ReserveTime, "ReserveTime");
   const registeValidation = (event) => {
     const { name, value } = event.target;
 
@@ -53,31 +54,6 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
       const sessionID = response.data.sessionId;
       localStorage.setItem("sessionID", sessionID);
       window.location.href = `https://uatcheckout.thawani.om/pay/${sessionID}?key=HGvTMLDssJghr9tlN9gr4DVYt0qyBy`;
-      // console.log("Response:", sessionID);
-      try {
-        const ReserveResponse = await axiosInstanceParking.post(
-          `/reserve/confirm-reservation`,
-          {
-            sessionId: localStorage.getItem("sessionID"),
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-          // console.log(ReserveResponse)
-        );
-        localStorage.removeItem("sessionID");
-
-        // alert(ReserveResponse);
-        // console.log(ReserveResponse, "ReserveResponse");
-        // console.log(ReserveResponse.data.reserve, "Reserve");
-      } catch (err) {
-        console.error("Error :", err);
-        if (err.response) {
-          console.error("Response data:", err.response.data);
-        }
-      }
     } catch (error) {
       console.error("Error occurred while payment:", error);
       if (error.response) {
@@ -148,7 +124,7 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
         aria-labelledby="exampleModalToggleLabel2"
         tabIndex="-1"
       >
-        <div className="modal-dialog modal-dialog-centered">
+        {/* <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
               <button
@@ -175,7 +151,7 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       <button
         className=" bgColor text-white w-100   p-0  btn "

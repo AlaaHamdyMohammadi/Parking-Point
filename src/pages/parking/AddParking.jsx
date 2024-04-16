@@ -211,7 +211,9 @@ export default function AddParking() {
         <title>Parking Point | إضافة موقف</title>
       </Helmet>
       <h3 className={`mt-4 text-center`}>
-        لإضافة موقف يرجي ادخال البيانات الصحيحة
+        {!ParkingId
+          ? "        لإضافة موقف يرجي ادخال البيانات الصحيحة"
+          : "تعديل بيانات الموقف"}
       </h3>
       <div className={`card w-75 align-self-center p-2 mb-5`}>
         <div className={`p-5`}>
@@ -335,35 +337,37 @@ export default function AddParking() {
               </div>
               {/* <button  className="btn bgColor text-white col-11 mb-2 m-auto">
               </button> */}
-              {!ParkingId ? <>
-                <label htmlFor="location" className="mb-1 fs-5">
-                  الموقع{" "}
-                </label>
-                <div style={{ width: "100vw", height: "85vh" }}>
-                  <ReactMapGL
-                    {...parking}
-                    mapStyle={mapStyle}
-                    mapboxAccessToken={TOKEN}
-                    onViewportChange={setParking}
-                    dragPan={true}
-                  >
-                    <Marker
-                      draggable
-                      latitude={parking.location.latitude}
-                      longitude={parking.location.longitude}
-                      offsetLeft={-20}
-                      offsetTop={-10}
-                    />
+              {!ParkingId ? (
+                <>
+                  <label htmlFor="location" className="mb-1 fs-5">
+                    الموقع{" "}
+                  </label>
+                  <div style={{ width: "100vw", height: "85vh" }}>
+                    <ReactMapGL
+                      {...parking}
+                      mapStyle={mapStyle}
+                      mapboxAccessToken={TOKEN}
+                      onViewportChange={setParking}
+                      dragPan={true}
+                    >
+                      <Marker
+                        draggable
+                        latitude={parking.location.latitude}
+                        longitude={parking.location.longitude}
+                        offsetLeft={-20}
+                        offsetTop={-10}
+                      />
 
-                    <GeolocateControl
-                      positionOptions={{ enableHighAccuracy: true }}
-                      trackUserLocation={true}
-                      showUserLocation={true}
-                    />
-                    <FullscreenControl />
-                  </ReactMapGL>
-                </div>
-              </> : null}
+                      <GeolocateControl
+                        positionOptions={{ enableHighAccuracy: true }}
+                        trackUserLocation={true}
+                        showUserLocation={true}
+                      />
+                      <FullscreenControl />
+                    </ReactMapGL>
+                  </div>
+                </>
+              ) : null}
             </div>
             <div className="d-flex justify-content-center">
               {ParkingId ? (
@@ -372,8 +376,8 @@ export default function AddParking() {
                   value={`تعديل الموقف`}
                   className={
                     Object.values(errors).some((error) => error !== "")
-                      ? "btn bgColor text-white col-4 disabled"
-                      : "btn bgColor text-white col-4 "
+                      ? "btn bgColor text-white col-4 my-3 disabled"
+                      : "btn bgColor text-white col-4 my-3"
                   }
                   disabled={Object.values(parking).some(
                     (parking) => parking == ""
@@ -385,8 +389,8 @@ export default function AddParking() {
                   value={`إضافة موقف`}
                   className={
                     Object.values(errors).some((error) => error !== "")
-                      ? "btn bgColor text-white col-4 disabled"
-                      : "btn bgColor text-white col-4 "
+                      ? "btn bgColor text-white col-4 my-3 disabled"
+                      : "btn bgColor text-white col-4 my-3 "
                   }
                   disabled={Object.values(parking).some(
                     (parking) => parking == ""

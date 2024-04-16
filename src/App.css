@@ -19,7 +19,10 @@
 .customborder {
   border-color: var(--background);
 }
-
+.borderCustom{
+    border: 1.4px solid var(--bordercolor) !important;
+  border-radius: 6px;
+}
 .customRange {
   background: var(--lightgray);
 }

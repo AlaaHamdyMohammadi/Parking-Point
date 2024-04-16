@@ -1,15 +1,49 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import Spinner from "react-bootstrap/Spinner";
+import axiosInstanceParking from "../axiosConfig/instanc";
 
-export default function SuccessPayment() {
+const SuccessPayment = () => {
+  const token = useSelector((state) => state.loggedIn.token);
   const navigate = useNavigate();
+  const [parkId, setParkId] = useState("");
+
   useEffect(() => {
-    setTimeout(() => {
-      navigate("/");
-    }, 3000);
-  }, []);
+    const handlePayment = async () => {
+      try {
+        const ReserveResponse = await axiosInstanceParking.post(
+          `/reserve/confirm-reservation`,
+          {
+            sessionId: localStorage.getItem("sessionID"),
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        localStorage.removeItem("sessionID");
+        const newParkId = ReserveResponse.data.reserve.park;
+        setParkId(newParkId);
+        // alert(newParkId); // Use newParkId here
+        // console.log(ReserveResponse, "ReserveResponse");
+        // console.log(ReserveResponse.data.reserve, "Reserve");
+
+        setTimeout(() => {
+          navigate(`/ParkDetials/${newParkId}`);
+        }, 5000);
+      } catch (err) {
+        console.error("Error :", err);
+        if (err.response) {
+          console.error("Response data:", err.response.data);
+        }
+      }
+    };
+
+    handlePayment();
+  }, [navigate, token]);
+
   return (
     <>
       <div className="vh-75 d-flex justify-content-center align-items-center my-5">
@@ -36,8 +70,7 @@ export default function SuccessPayment() {
                 تم إتمام عملية الدفع بنجاح،يمكنك الآن الذهاب الي الموقف و
                 الاستمتاع بخدماتنا.
               </p>
-              {/* <button className="btn btn-outline-success">Back Home</button> */}
-              <p> الرئيسية...</p>
+              <p> تفاصيل الحجز...</p>
               <Spinner animation="border" variant="success" size="lg" />;
             </div>
           </div>
@@ -45,4 +78,6 @@ export default function SuccessPayment() {
       </div>
     </>
   );
-}
+};
+
+export default SuccessPayment;

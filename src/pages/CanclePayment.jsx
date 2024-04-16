@@ -8,7 +8,7 @@ export default function CancelPayment() {
   useEffect(() => {
     setTimeout(() => {
       navigate("/");
-    }, 3000);
+    }, 5000);
   }, []);
   return (
     <>
