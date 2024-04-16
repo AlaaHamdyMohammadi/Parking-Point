@@ -8,7 +8,6 @@ const SuccessPayment = () => {
   const token = useSelector((state) => state.loggedIn.token);
   const navigate = useNavigate();
   const [parkId, setParkId] = useState("");
-
   useEffect(() => {
     const handlePayment = async () => {
       try {
@@ -24,14 +23,17 @@ const SuccessPayment = () => {
           }
         );
         localStorage.removeItem("sessionID");
-        const newParkId = ReserveResponse.data.reserve.park;
-        setParkId(newParkId);
-        // alert(newParkId); // Use newParkId here
-        // console.log(ReserveResponse, "ReserveResponse");
-        // console.log(ReserveResponse.data.reserve, "Reserve");
 
+        const newParkId = ReserveResponse.data.reserve.park;
+        const From = ReserveResponse.data.reserve.time.from;
+        const To = ReserveResponse.data.reserve.time.to;
+        const price = ReserveResponse.data.reserve.price;
+
+        setParkId(newParkId);
         setTimeout(() => {
-          navigate(`/ParkDetials/${newParkId}`);
+          navigate(
+            `/ParkDetials/${newParkId}?from=${From}&to=${To}&price=${price}`
+          );
         }, 5000);
       } catch (err) {
         console.error("Error :", err);
@@ -43,6 +45,42 @@ const SuccessPayment = () => {
 
     handlePayment();
   }, [navigate, token]);
+
+  // useEffect(() => {
+  //   const handlePayment = async () => {
+  //     try {
+  //       const ReserveResponse = await axiosInstanceParking.post(
+  //         `/reserve/confirm-reservation`,
+  //         {
+  //           sessionId: localStorage.getItem("sessionID"),
+  //         },
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       localStorage.removeItem("sessionID");
+  //       setreserveDetials(ReserveResponse.data.reserve);
+  //       const newParkId = ReserveResponse.data.reserve.park;
+  //       setParkId(newParkId);
+  //       // alert(newParkId); // Use newParkId here
+  //       // console.log(ReserveResponse, "ReserveResponse");
+  //       // console.log(ReserveResponse.data.reserve, "Reserve");
+
+  //       setTimeout(() => {
+  //         navigate(`/ParkDetials/${newParkId}`);
+  //       }, 5000);
+  //     } catch (err) {
+  //       console.error("Error :", err);
+  //       if (err.response) {
+  //         console.error("Response data:", err.response.data);
+  //       }
+  //     }
+  //   };
+
+  //   handlePayment();
+  // }, [navigate, token]);
 
   return (
     <>
