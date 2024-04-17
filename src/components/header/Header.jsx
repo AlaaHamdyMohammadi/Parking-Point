@@ -33,14 +33,14 @@ export default function Header() {
   return (
     <>
       <nav
-        className={`navColor p-2 d-flex w-100 justify-content-between navbar-expand-lg shadow`}
+        className={`navColor p-1 d-flex gap-5 w-100 justify-content-between navbar-expand-lg shadow`}
       >
         {isLoggedIn ? (
-          <div className="position-relative">
+          <div className="position-relative d-flex justify-content-center align-items-center   col-1">
             <div className="btn-group border-0">
               <button
                 type="button"
-                className=" mx-5  navcolor fs-5 border-0 text-white dropdown-toggle dropdown-toggle-split"
+                className="   navcolor fs-5 border-0 text-white dropdown-toggle dropdown-toggle-split"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               ></button>
@@ -98,8 +98,8 @@ export default function Header() {
                     ? `${axiosInstanceParking.defaults.baseURL}/users/${user.photo}`
                     : "/images/defaultpersonjpg.jpg"
                 }
-                className="rounded-circle position-absolute top-0 start-0"
-                style={{ height: "5vh", width: "5vh" }}
+                className="rounded-circle position-absolute top-0"
+                style={{ height: "4vh", width: "4vh", marginTop: "5px" }}
                 alt="..."
               />
             </Link>
@@ -121,20 +121,20 @@ export default function Header() {
 
         {isLoggedIn ? (
           <div
-            className="collapse navbar-collapse flex-grow-0 mx-4 "
+            className="collapse navbar-collapse col-2 d-flex justify-content-center flex-grow-0  "
             id="navbarSupportedContent"
           >
-            <ul className="navbar-nav  mb-2 mb-lg-0 col-4 flex justify-content-between">
-              <li className="nav-item">
-                <Link to={`/`} className="navbar-brand text-end">
+            <div className="navbar-nav mb-lg-0">
+              <div className="nav-item ">
+                <Link to={`/`} className="navbar-brand ">
                   <img
-                    src="./../../../images/logo3.png"
-                    style={{ height: "5vh", width: "5vh" }}
-                    className={`${classes.logo}`}
+                    src="/images/logo3.png"
+                    style={{ height: "6vh", width: "6vh" }}
+                    className={`${classes.logo} me-5  `}
                   />
                 </Link>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
         ) : (
           <div className="col-10  " id="navbarSupportedContent">
