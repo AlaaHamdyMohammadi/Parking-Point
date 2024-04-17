@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
 import { IoArrowRedoCircleOutline } from "react-icons/io5";
@@ -12,18 +12,26 @@ import { FaStar } from "react-icons/fa";
 // import StarRating from "../../components/StarRating";
 
 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 const ParkDetials = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [parkreserved, setParkreserved] = useState({});
-
   const token = useSelector((state) => state.loggedIn.token);
-  const { parkId } = useParams();
-  //   const { parkId } = useParams();
+
+  let query = useQuery();
+  let from = query.get("from");
+  let to = query.get("to");
+  let price = query.get("price");
+  let newParkId = query.get("newParkId");
+
+  // console.log("query", query);
   useEffect(() => {
-    // alert(parkId);
-    const editParking = async () => {
+    alert(newParkId);
+    const getReservedPark = async () => {
       try {
-        const res = await axiosInstanceParking.get(`/parkings/${parkId}`, {
+        const res = await axiosInstanceParking.get(`/parkings/${newParkId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setParkreserved(res.data.doc);
@@ -36,13 +44,41 @@ const ParkDetials = () => {
       }
     };
 
-    if (parkId) {
-      editParking(); // Invoke editParking only if parkId exists
+    if (newParkId) {
+      getReservedPark();
     }
     setTimeout(() => {
       setIsLoading(false);
     }, 1500);
-  }, [parkId, token]);
+  }, [newParkId, token]);
+
+  //
+  const [timeDifference, setTimeDifference] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+  });
+
+  useEffect(() => {
+    if (from && to) {
+      calculateTimeDifference();
+    }
+  }, [from, to]);
+
+  const calculateTimeDifference = () => {
+    const startTime = new Date(from).getTime();
+    const endTime = new Date(to).getTime();
+
+    const timeDifference = Math.abs(endTime - startTime);
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+    const minutes = Math.floor(
+      (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+    );
+
+    setTimeDifference({ hours, minutes, days });
+  };
+
   return (
     <div>
       <>
@@ -55,13 +91,10 @@ const ParkDetials = () => {
           <div className="d-flex justify-content-center ">
             <div className="w-75 my-5 ">
               <div className="d-flex justify-content-between  my-4">
-                {/* <div className="fs-5 fw-bolder">اختر الموقف المناسب</div> */}
-                {/* <div className="fs-5 fw-bolder">اختر الموقف المناسب</div> */}
-
                 <div className=" fw-bold"> العوده الي الصفحة الرئيسية ...</div>
                 <div className="pointer fs-5  ">
                   <Link to="/">
-                    <IoArrowRedoCircleOutline />
+                    <IoArrowRedoCircleOutline className="text-black" />
                   </Link>
                 </div>
               </div>
@@ -116,25 +149,42 @@ const ParkDetials = () => {
                     </button>
                   </div>
                 </div>
-                <h4 className={`4 text-center`}>بيانات الحجز:</h4>
-                <div className="row p-2 my-2 g  justify-content-center">
-                  <div className=" col-12 col-md-5  m-2 customRange     text-center   p-2 fw-semibold   rounded-2">
-                    esraa Lorem,
-                    {/* ipsum dolor sit amet consectetur adipisicing */}
-                    {/* elit. Officiis, ipsam velit aperiam maiores soluta possimus? */}
+                <h4 className={`text-center`}>بيانات الحجز:</h4>
+                <div className="row  m-2  justify-content-center">
+                  {/* <div className=" col-12 col-md-5  m-2 customRange     text-center   p-2 fw-semibold   rounded-2">
+                    من: {from}
                   </div>
                   <div className=" col-12 col-md-5 m-2 customRange    align-self-center text-center   p-2 fw-semibold   rounded-2">
-                    esraa
+                    إلي: {to}
+                  </div> */}
+                  <div className=" col-12 col-md-5  m-2 customRange text-center p-2 fw-semibold rounded-2">
+                    من: {from ? new Date(from).toLocaleString() : ""}
+                  </div>
+                  <div className=" col-12 col-md-5 m-2 customRange align-self-center text-center p-2 fw-semibold rounded-2">
+                    إلي: {to ? new Date(to).toLocaleString() : ""}
+                  </div>
+                  {/* <div className="col-12 col-md-5 m-2 customRange align-self-center text-center p-2 fw-semibold rounded-2">
+                    إلي:{" "}
+                    {to
+                      ? `${new Date(to).toLocaleTimeString()} ${new Date(
+                          to
+                        ).toLocaleDateString()}`
+                      : ""}
+                  </div> */}
+
+                  <div className="col-12 col-md-5 m-2 customRange text-center p-2 fw-semibold rounded-2">
+                    {timeDifference.minutes > 0 ||
+                    timeDifference.hours > 0 ||
+                    timeDifference.days > 0
+                      ? `مدة الحجز: ${timeDifference.days} يوم, ${timeDifference.hours} ساعة, ${timeDifference.minutes} دقيقة`
+                      : " مدة الركن"}
                   </div>
                   <div className=" col-12 col-md-5 m-2 customRange     text-center   p-2 fw-semibold   rounded-2">
-                    esraa
-                  </div>
-                  <div className=" col-12 col-md-5 m-2 customRange     text-center   p-2 fw-semibold   rounded-2">
-                    esraa
+                    التكلفة: {price} $
                   </div>
                 </div>
-                <h4 className={`4 text-center`}>بيانات الموقف:</h4>
-                <div className="row p-2 my-2  justify-content-center">
+                <h4 className={`text-center`}>بيانات الموقف:</h4>
+                <div className="row  m-2  justify-content-center">
                   <div className=" col-12 col-md-5  m-2 customRange     text-center   p-2 fw-semibold   rounded-2">
                     {parkreserved.title}
                   </div>
