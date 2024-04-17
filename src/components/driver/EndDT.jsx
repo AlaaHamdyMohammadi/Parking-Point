@@ -180,7 +180,7 @@ export default function EndDateTime({
           <div className={`text-end`}>
             <button
               type="submit"
-              className={`text-center bgColor text-white btn m-2 mx-3 ${classes.formBtn}`}
+              className={`text-center bgColor text-white btn  my-3 ${classes.formBtn}`}
               disabled={user.isEmailConfirmed == false && true}
             >
               اعرض المواقف

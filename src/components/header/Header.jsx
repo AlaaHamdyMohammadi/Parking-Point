@@ -29,10 +29,12 @@ export default function Header() {
     dispatch(logout());
     navigate("/");
   };
-  const handleChange = useSendCode()
+  const handleChange = useSendCode();
   return (
     <>
-      <nav className={`navColor p-2 d-flex w-100 justify-content-between navbar-expand-lg shadow`}>
+      <nav
+        className={`navColor p-2 d-flex w-100 justify-content-between navbar-expand-lg shadow`}
+      >
         {isLoggedIn ? (
           <div className="position-relative">
             <div className="btn-group border-0">
@@ -53,7 +55,10 @@ export default function Header() {
                     </Link>
                   </li>
                   <li>
-                    <Link to={`/Profile/editOwnerProfile`} className="dropdown-item">
+                    <Link
+                      to={`/Profile/editOwnerProfile`}
+                      className="dropdown-item"
+                    >
                       <span className="ps-2">
                         <IoPerson />
                       </span>
@@ -61,7 +66,10 @@ export default function Header() {
                     </Link>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="mailto:parkingpoint@outlook.com">
+                    <a
+                      className="dropdown-item"
+                      href="mailto:parkingpoint@outlook.com"
+                    >
                       <span className="ps-2">
                         <MdContactSupport />
                       </span>
@@ -69,7 +77,11 @@ export default function Header() {
                     </a>
                   </li>
                   <li>
-                    <div role="button" className="dropdown-item  text-danger border-top" onClick={logdedout}>
+                    <div
+                      role="button"
+                      className="dropdown-item  text-danger border-top"
+                      onClick={logdedout}
+                    >
                       <span className="ps-2 text-danger">
                         <IoIosLogOut />
                       </span>
@@ -93,13 +105,25 @@ export default function Header() {
             </Link>
           </div>
         ) : (
-          <Link to={`/`} className="navbar-brand">
-            <img src="./../../../images/logo3.png" className={`${classes.logo} mx-4`} />
-          </Link>
+          <div>
+            <Link
+              to={`/`}
+              className="navbar-brand text-center align-self-center"
+            >
+              <img
+                style={{ height: "6vh", width: "6vh" }}
+                src="./../../../images/logo3.png"
+                className={`${classes.logo} mx-4 mt-2  `}
+              />
+            </Link>
+          </div>
         )}
 
         {isLoggedIn ? (
-          <div className="collapse navbar-collapse flex-grow-0 mx-4 " id="navbarSupportedContent">
+          <div
+            className="collapse navbar-collapse flex-grow-0 mx-4 "
+            id="navbarSupportedContent"
+          >
             <ul className="navbar-nav  mb-2 mb-lg-0 col-4 flex justify-content-between">
               <li className="nav-item">
                 <Link to={`/`} className="navbar-brand text-end">
@@ -113,12 +137,12 @@ export default function Header() {
             </ul>
           </div>
         ) : (
-          <div className="col-3 " id="navbarSupportedContent">
-            <ul className="navbar-nav  mb-2 mb-lg-0 w-100 d-flex flex-row gap-4">
-              <li className="nav-item fw-bold">
+          <div className="col-10  " id="navbarSupportedContent">
+            <div className="navbar-nav pt-2 px-4  justify-content-end mb-lg-0 w-100 d-flex flex-row gap-3">
+              <div className="nav-item fw-bold">
                 <Link
                   to={`/register`}
-                  className="nav-link active text-white"
+                  className="nav-link   active  text-white"
                   aria-current="page"
                   onClick={() => {
                     displayLogin();
@@ -126,11 +150,11 @@ export default function Header() {
                 >
                   تسجيل الدخول
                 </Link>
-              </li>
-              <li className="nav-item fw-bold">
+              </div>
+              <div className="nav-item fw-bold">
                 <Link
                   to={`/register`}
-                  className="nav-link active text-white"
+                  className="nav-link active ms-4  text-white"
                   aria-current="page"
                   onClick={() => {
                     displayRegester();
@@ -138,44 +162,43 @@ export default function Header() {
                 >
                   التسجيل
                 </Link>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
         )}
       </nav>
-      {(isLoggedIn && user.role === 'renter') && (
-  <>
-  <div>
-  {(!user.isActivated || !user.isEmailConfirmed)  && (
+      {isLoggedIn && user.role === "renter" && (
         <>
-
-            <div className="alert alert-danger" role="alert">
-
-          <div>لكي تتمكن من اضافة موقف</div>
-          <ul>
-            {user.isActivated === false && (
-              <li>يرجى التواصل مع الدعم لتأكيد الهوية</li>
-            )}
-            {user.isEmailConfirmed === false && (
+          <div>
+            {(!user.isActivated || !user.isEmailConfirmed) && (
               <>
-                <li>يرجى تأكيد البريد الالكتروني</li>
-                <div className={`${classes.resendcode} pointer fs-6 fw-bold mt-md-1`}
-                  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={handleChange}>
-                  - اضغط هنا للتأكيد
+                <div className="alert alert-danger" role="alert">
+                  <div>لكي تتمكن من اضافة موقف</div>
+                  <ul>
+                    {user.isActivated === false && (
+                      <li>يرجى التواصل مع الدعم لتأكيد الهوية</li>
+                    )}
+                    {user.isEmailConfirmed === false && (
+                      <>
+                        <li>يرجى تأكيد البريد الالكتروني</li>
+                        <div
+                          className={`${classes.resendcode} pointer fs-6 fw-bold mt-md-1`}
+                          data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop"
+                          onClick={handleChange}
+                        >
+                          - اضغط هنا للتأكيد
+                        </div>
+                        <ConfimEmailPop userEmail={user.email} />
+                      </>
+                    )}
+                  </ul>
                 </div>
-                <ConfimEmailPop userEmail={user.email} />
               </>
             )}
-          </ul>
-              </div>
-
+          </div>
         </>
       )}
-  </div>
-   
-  </>
-)}
-
     </>
   );
 }

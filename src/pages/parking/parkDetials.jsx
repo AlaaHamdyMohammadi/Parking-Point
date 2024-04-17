@@ -145,12 +145,27 @@ const ParkDetials = () => {
                 </div>
                 <h4 className={`text-center`}>بيانات الحجز:</h4>
                 <div className="row  m-2  justify-content-center">
-                  <div className=" col-12 col-md-5  m-2 customRange     text-center   p-2 fw-semibold   rounded-2">
+                  {/* <div className=" col-12 col-md-5  m-2 customRange     text-center   p-2 fw-semibold   rounded-2">
                     من: {from}
                   </div>
                   <div className=" col-12 col-md-5 m-2 customRange    align-self-center text-center   p-2 fw-semibold   rounded-2">
                     إلي: {to}
+                  </div> */}
+                  <div className=" col-12 col-md-5  m-2 customRange text-center p-2 fw-semibold rounded-2">
+                    من: {from ? new Date(from).toLocaleString() : ""}
                   </div>
+                  <div className=" col-12 col-md-5 m-2 customRange align-self-center text-center p-2 fw-semibold rounded-2">
+                    إلي: {to ? new Date(to).toLocaleString() : ""}
+                  </div>
+                  {/* <div className="col-12 col-md-5 m-2 customRange align-self-center text-center p-2 fw-semibold rounded-2">
+                    إلي:{" "}
+                    {to
+                      ? `${new Date(to).toLocaleTimeString()} ${new Date(
+                          to
+                        ).toLocaleDateString()}`
+                      : ""}
+                  </div> */}
+
                   <div className="col-12 col-md-5 m-2 customRange text-center p-2 fw-semibold rounded-2">
                     {timeDifference.minutes > 0 ||
                     timeDifference.hours > 0 ||

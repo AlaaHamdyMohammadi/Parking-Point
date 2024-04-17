@@ -65,7 +65,7 @@ export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
               <div className="mb-0 customfs  Gray">
                 <div>
                   <span className=" fw-semibold"> الأماكن المتاحه: </span>
-                  {item.avaliable} 55
+                  {item.avaliable}
                 </div>
               </div>
               <div className="mb-0 customfs Gray">
