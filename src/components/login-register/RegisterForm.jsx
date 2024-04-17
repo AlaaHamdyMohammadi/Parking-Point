@@ -16,6 +16,7 @@ import ConfirmationCodeInput from "./confirmEmail";
 import { login } from "../../store/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ConfimEmailPop from "./confirmEmailpop";
+import NameLastInputs from "../formFun/NameLastInputs";
 export default function RegisterForm({ setShowFormStatus }) {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const dispatch = useDispatch();
@@ -71,14 +72,22 @@ export default function RegisterForm({ setShowFormStatus }) {
       setErrors({
         ...errors,
         confirmPasswordErrors:
-          value.length === 0 ? "يجب تاكيد الرقم السري" : value == registeUser.password ? "" : "الرقم غير صحيح",
+          value.length === 0
+            ? "يجب تاكيد الرقم السري"
+            : value == registeUser.password
+            ? ""
+            : "الرقم غير صحيح",
       });
     }
     if (name === "role") {
       setErrors({
         ...errors,
         roleErrors:
-          value.length === 0 ? "يجب اختيار النوع" : roleRegx.test(value) ? "" : "يجب اختيار من واحد من الاختيارات المقدمة",
+          value.length === 0
+            ? "يجب اختيار النوع"
+            : roleRegx.test(value)
+            ? ""
+            : "يجب اختيار من واحد من الاختيارات المقدمة",
       });
     }
     if (registeUser.role === "renter") {
@@ -86,7 +95,11 @@ export default function RegisterForm({ setShowFormStatus }) {
         setErrors({
           ...errors,
           nationaleIdErrors:
-            value.length === 0 ? "يجب ادخال رقم الهوية" : regionRegx.test(value) ? "" : "يجب ادخال ثلاثة احرف بحد ادني",
+            value.length === 0
+              ? "يجب ادخال رقم الهوية"
+              : regionRegx.test(value)
+              ? ""
+              : "يجب ادخال ثلاثة احرف بحد ادني",
         });
       }
     }
@@ -125,14 +138,32 @@ export default function RegisterForm({ setShowFormStatus }) {
         setShowEmailModal(true);
       } catch (error) {
         if (error.response.request.response.includes(registeUser.email)) {
-          setErrors({ ...errors, emailErrors: "البريد الاليكتروني مستخدم من قبل" });
-        } else if (error.response.request.response.includes(registeUser.phoneNumber)) {
-          setErrors({ ...errors, phoneNumberErrors: "رقم الجوال مستخدم من قبل" });
-        } else if (error.response.request.response.includes(registeUser.plateNumber)) {
-          setErrors({ ...errors, plateNumberErrors: "رقم اللوحة مستخدم من قيل" });
+          setErrors({
+            ...errors,
+            emailErrors: "البريد الاليكتروني مستخدم من قبل",
+          });
+        } else if (
+          error.response.request.response.includes(registeUser.phoneNumber)
+        ) {
+          setErrors({
+            ...errors,
+            phoneNumberErrors: "رقم الجوال مستخدم من قبل",
+          });
+        } else if (
+          error.response.request.response.includes(registeUser.plateNumber)
+        ) {
+          setErrors({
+            ...errors,
+            plateNumberErrors: "رقم اللوحة مستخدم من قيل",
+          });
           console.log("signup request not successful", error.response.request);
-        } else if (error.response.request.response.includes(registeUser.nationaleId)) {
-          setErrors({ ...errors, nationaleIdErrors: "رقم الهوية مستخدم من قبل" });
+        } else if (
+          error.response.request.response.includes(registeUser.nationaleId)
+        ) {
+          setErrors({
+            ...errors,
+            nationaleIdErrors: "رقم الهوية مستخدم من قبل",
+          });
         } else {
           console.log("signup request not successful", error.response.request);
         }
@@ -170,6 +201,15 @@ export default function RegisterForm({ setShowFormStatus }) {
               setErrors={setErrors}
             />
           </div>
+          <div className={`d-md-flex d-block`}>
+            <NameLastInputs
+              nameInfo={registeUser}
+              classes={classes}
+              setNameInfo={setRegisteUser}
+              errors={errors}
+              setErrors={setErrors}
+            />
+          </div>
           <div className="mt-2">
             <EmailInput
               emailInfo={registeUser}
@@ -192,7 +232,9 @@ export default function RegisterForm({ setShowFormStatus }) {
               onBlur={registeValidation}
             />
 
-            <p className={`${classes.error} text-danger`}>{errors.passwordErrors}</p>
+            <p className={`${classes.error} text-danger`}>
+              {errors.passwordErrors}
+            </p>
           </div>
           <div className="mt-4">
             <label className="fs-5" htmlFor="confirmPassword">
@@ -206,7 +248,9 @@ export default function RegisterForm({ setShowFormStatus }) {
               onChange={registeValidation}
               onBlur={registeValidation}
             />
-            <p className={`${classes.error} text-danger`}>{errors.confirmPasswordErrors}</p>
+            <p className={`${classes.error} text-danger`}>
+              {errors.confirmPasswordErrors}
+            </p>
           </div>
           <div className="mt-4">
             <PhoneInput
@@ -281,7 +325,9 @@ export default function RegisterForm({ setShowFormStatus }) {
                     ? `btn bgColor text-white col-4 disabled`
                     : `${classes.formBtn} text-center bgColor text-white btn mt-5`
                 }
-                disabled={Object.values(errors).some((registerUser) => registerUser !== "")}
+                disabled={Object.values(errors).some(
+                  (registerUser) => registerUser !== ""
+                )}
               />
               <ConfimEmailPop userEmail={registeUser.email} />
             </>
@@ -329,7 +375,9 @@ export default function RegisterForm({ setShowFormStatus }) {
                   onChange={registeValidation}
                   onBlur={registeValidation}
                 />
-                <p className={`${classes.error} text-danger`}>{errors.nationaleIdErrors}</p>
+                <p className={`${classes.error} text-danger`}>
+                  {errors.nationaleIdErrors}
+                </p>
               </div>
               <div>
                 <input
@@ -342,7 +390,9 @@ export default function RegisterForm({ setShowFormStatus }) {
                       ? `btn bgColor text-white col-4 disabled`
                       : `${classes.formBtn} text-center bgColor text-white btn mt-5`
                   }
-                  disabled={Object.values(errors).some((registerUser) => registerUser !== "")}
+                  disabled={Object.values(errors).some(
+                    (registerUser) => registerUser !== ""
+                  )}
                 />
                 <ConfimEmailPop userEmail={registeUser.email} />
               </div>

@@ -30,7 +30,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home />, errorElement: <HandelErorr /> },
       { path: "/Terms", element: <Terms />, errorElement: <HandelErorr /> },
       {
-        path: "/ParkDetials/:parkId",
+        path: "/ParkDetials/",
         element: <ParkDetials />,
         errorElement: <HandelErorr />,
       },

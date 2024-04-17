@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
 import { IoArrowRedoCircleOutline } from "react-icons/io5";
@@ -14,18 +14,19 @@ const ParkDetials = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [parkreserved, setParkreserved] = useState({});
   const token = useSelector((state) => state.loggedIn.token);
-  const { parkId } = useParams();
-  //   const { parkId } = useParams();
+
   let query = useQuery();
   let from = query.get("from");
   let to = query.get("to");
   let price = query.get("price");
+  let newParkId = query.get("newParkId");
+
   // console.log("query", query);
   useEffect(() => {
-    // alert(parkId);
-    const editParking = async () => {
+    alert(newParkId);
+    const getReservedPark = async () => {
       try {
-        const res = await axiosInstanceParking.get(`/parkings/${parkId}`, {
+        const res = await axiosInstanceParking.get(`/parkings/${newParkId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setParkreserved(res.data.doc);
@@ -38,13 +39,13 @@ const ParkDetials = () => {
       }
     };
 
-    if (parkId) {
-      editParking();
+    if (newParkId) {
+      getReservedPark();
     }
     setTimeout(() => {
       setIsLoading(false);
     }, 1500);
-  }, [parkId, token]);
+  }, [newParkId, token]);
 
   //
   const [timeDifference, setTimeDifference] = useState({
