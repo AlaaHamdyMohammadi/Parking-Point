@@ -229,10 +229,10 @@ function ParkingAddress({ address }) {
     <p className="mb-0 customfs">
       <div style={{}}>
         <span className="fw-semibold">العنوان: </span>
-        {seeMore ? address : `${address.slice(0, 50)}...`}
+        {seeMore ? address : `${address.slice(0, 50)}${address.length > 50 ? "..." : ""}`}
       </div>
 
-      <button
+      {address.length > 50 && <button
         onClick={() => setSeeMore(!seeMore)}
         style={{
           marginLeft: "10px",
@@ -244,7 +244,7 @@ function ParkingAddress({ address }) {
         }}
       >
         {seeMore ? "عرض الأقل" : "عرض المزيد"}
-      </button> 
+      </button>}
     </p>
   );
 }
