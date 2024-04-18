@@ -11,7 +11,6 @@ import ParkRating from "./ParkRating";
 import { FaStar } from "react-icons/fa";
 // import StarRating from "../../components/StarRating";
 
-
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
@@ -27,20 +26,20 @@ const ParkDetials = () => {
   let price = query.get("price");
   let newParkId = query.get("newParkId");
 
-  console.log("query", query);
+  // console.log("query", query, from, to, price, newParkId);
 
   useEffect(() => {
+    console.log(newParkId);
     const getReservedPark = async () => {
       try {
-        const res = await axiosInstanceParking.get(
-          `/parkings/admin/${newParkId}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        setParkreserved(res.data.doc);
+        const res = await axiosInstanceParking.get(`/parkings/${newParkId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setParkreserved(res.data.park);
+        console.log(res.data.park);
+
         // Reload the page after successful response
-        window.location.reload();
+        // window.location.reload();
       } catch (err) {
         console.error("Error :", err);
         if (err.response) {
@@ -51,6 +50,7 @@ const ParkDetials = () => {
 
     if (newParkId) {
       getReservedPark();
+      console.log("parkreserved", parkreserved);
     }
     setTimeout(() => {
       setIsLoading(false);
@@ -111,21 +111,23 @@ const ParkDetials = () => {
                     data-bs-ride="true"
                   >
                     <div className="carousel-inner">
-                      {parkreserved.photos.map((photo, index) => (
-                        <div
-                          className={`carousel-item ${
-                            index === 0 ? "active" : ""
-                          }`}
-                          key={index}
-                        >
-                          <img
-                            src={`${axiosInstanceParking.defaults.baseURL}/parkings/${photo}`}
-                            style={{ height: "50vh", width: "30vh" }}
-                            className="d-block w-100"
-                            alt="..."
-                          />
-                        </div>
-                      ))}
+                      {parkreserved &&
+                        parkreserved.photos &&
+                        parkreserved.photos.map((photo, index) => (
+                          <div
+                            className={`carousel-item ${
+                              index === 0 ? "active" : ""
+                            }`}
+                            key={index}
+                          >
+                            <img
+                              src={`${axiosInstanceParking.defaults.baseURL}/parkings/${photo}`}
+                              style={{ height: "50vh", width: "30vh" }}
+                              className="d-block w-100"
+                              alt="..."
+                            />
+                          </div>
+                        ))}
                     </div>
                     <button
                       className="carousel-control-prev"

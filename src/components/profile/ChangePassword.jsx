@@ -112,14 +112,14 @@ export default function ChangePassword() {
                     {errors.currentPasswordErrors}
                   </p>
                 </div>
-                {/* <button
-              type="button"
-              className="btn Gray border border-0"
-              style={{ position: "absolute", zIndex: "1" }}
-              onClick={togglePasswordVisibilityCurrent}
-            >
-              {showPasswordCurrent ? <IoEyeOutline /> : <FaRegEyeSlash />}
-            </button> */}
+                <button
+                  type="button"
+                  className="btn Gray border border-0"
+                  style={{ position: "absolute", zIndex: "1" }}
+                  onClick={togglePasswordVisibilityCurrent}
+                >
+                  {showPasswordCurrent ? <IoEyeOutline /> : <FaRegEyeSlash />}
+                </button>
               </div>
             </div>
             <div className="">
