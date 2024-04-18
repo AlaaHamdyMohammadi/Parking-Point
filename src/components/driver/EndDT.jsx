@@ -51,14 +51,6 @@ export default function EndDateTime({
     const startTime = new Date(searchData.from).getTime();
     const endTime = new Date(searchData.to).getTime();
 
-    // console.log(startTime);
-    // console.log(endTime);
-
-    // if (isNaN(startTime) || isNaN(endTime)) {
-    //   toast.error("يجب ادخال تاريخ الحجز");
-    //   return;
-    // }
-
     if (startTime >= endTime) {
       toast.error("يجب أن يكون تاريخ انتهاء الحجز  بعد تاريخ البدء.");
       return;
