@@ -12,7 +12,8 @@ export default function SimplePagination({ setCurrentPage, currentPage, pagesPag
     };
 
     return (
-        <main className="d-flex items-center ">
+        <main className="d-flex justify-content-cente">
+            <div className="d-flex">
             <IconButton
            className="mx-2" 
                 size="sm"
@@ -35,6 +36,7 @@ export default function SimplePagination({ setCurrentPage, currentPage, pagesPag
             >
                 <ArrowLeftIcon strokeWidth={2} style={{width:'1vw', height:'1vw'}}/>
             </IconButton>
+            </div>
         </main>
     );
 }
