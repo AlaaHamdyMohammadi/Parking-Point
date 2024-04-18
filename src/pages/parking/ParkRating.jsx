@@ -46,13 +46,16 @@ const ParkRating = ({ parkId }) => {
               type="radio"
               name="rating"
               value={ratingValue}
-              onChange={() => {setRating(ratingValue); handleRating(ratingValue);}}
+              onChange={() => {
+                setRating(ratingValue);
+                handleRating(ratingValue);
+              }}
               style={{ display: "none" }}
             />
             <FaStar
               className="star"
               color={ratingValue <= (hover || rating) ? "#f1a525" : "#331c41"}
-              size={20}
+              size={15}
               onMouseEnter={() => setHover(ratingValue)}
               onMouseLeave={() => setHover(rating)}
             />

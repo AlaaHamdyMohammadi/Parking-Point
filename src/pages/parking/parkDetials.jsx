@@ -193,7 +193,7 @@ const ParkDetials = () => {
                     </div>
                   </div>
                 </div>
-                <div className="row my-5 justify-content-center">
+                <div className="row my-3 px-3 justify-content-center">
                   <ParkLocation
                     location={parkreserved.location}
                     title={parkreserved.title}
