@@ -61,30 +61,30 @@ export default function AddParking() {
     }
   }, [parking]);
 
-  // useEffect(() => {
-  //   const editParking = async () => {
-  //     const res = await axiosInstanceParking.get(`/parkings/${ParkingId}`, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     setParking({
-  //       city: res.data.doc.city,
-  //       title: res.data.doc.title,
-  //       address: res.data.doc.address,
-  //       user: res.data.doc.user,
-  //       photos: res.data.doc.photos,
-  //       capacity: res.data.doc.capacity,
-  //       location: {
-  //         longitude: res.data.doc.longitude,
-  //         latitude: res.data.doc.latitude,
-  //       },
-  //     });
-  //     console.log(setParking);
-  //     setImgArr(res.data.doc.photos);
-  //   };
-  //   if (ParkingId) {
-  //     editParking();
-  //   }
-  // }, [ParkingId, token]);
+  useEffect(() => {
+    const editParking = async () => {
+      const res = await axiosInstanceParking.get(`/parkings/${ParkingId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setParking({
+        city: res.data.doc.city,
+        title: res.data.doc.title,
+        address: res.data.doc.address,
+        user: res.data.doc.user,
+        photos: res.data.doc.photos,
+        capacity: res.data.doc.capacity,
+        location: {
+          longitude: res.data.doc.longitude,
+          latitude: res.data.doc.latitude,
+        },
+      });
+      console.log(setParking);
+      setImgArr(res.data.doc.photos);
+    };
+    if (ParkingId) {
+      editParking();
+    }
+  }, [ParkingId, token]);
   const [errors, setErrors] = useState({
     photosErrors: "",
     cityErrors: "",

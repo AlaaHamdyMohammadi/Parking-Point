@@ -15,6 +15,7 @@ import { LiaSearchSolid } from "react-icons/lia";
 import { Helmet } from "react-helmet";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SimplePagination from "../../components/pagination/SimplePagination";
 const calculateTimeDifference = (fromDate, toDate) => {
   const from = new Date(fromDate);
   const to = new Date(toDate);
@@ -38,6 +39,8 @@ const formatDateString = (dateString) => {
 };
 
 export default function Sales() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [responseLength, setResponseLength] =useState(0);
   const [data, setData] = useState(null);
   const token = useSelector((state) => state.loggedIn.token);
   const [isLoading, setIsLoading] = useState(true);
@@ -54,7 +57,7 @@ export default function Sales() {
         headers: { Authorization: `Bearer ${token}` },
         params: params, 
       });
-  
+      setResponseLength(response.data.allItems);
       setData(response.data.doc);
       console.log(response.data.doc, "res");
     } catch (error) {
@@ -63,7 +66,7 @@ export default function Sales() {
       setIsLoading(false);
     }
   };
-  
+  console.log(responseLength);
   // Use useCallback to memoize the handleSearch function
   const handleSearch = useCallback((event) => {
     setReserveSearch(event.target.value);
@@ -73,7 +76,7 @@ export default function Sales() {
   useEffect(() => {
    
     fetchData();
-  }, [token,reserveSearch]); 
+  }, [token,reserveSearch,currentPage]); 
   console.log(data,"dataaaaaaaaaaaa")
   const ComponentPDF = useRef();
   const generatePDF = useReactToPrint({
@@ -167,6 +170,11 @@ export default function Sales() {
 
         </div>
       )}
+         <SimplePagination
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+          pagesPagination={responseLength}
+        />
     </>
   );
 }
