@@ -11,6 +11,8 @@ import { MdClose } from "react-icons/md";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import CitySelect from "../../components/formFun/CitySelect";
 import classes from "./../../styles/formStyles.module.css";
 // import RegionInput from "../../components/formFun/RegionInput";
@@ -61,30 +63,30 @@ export default function AddParking() {
     }
   }, [parking]);
 
-  // useEffect(() => {
-  //   const editParking = async () => {
-  //     const res = await axiosInstanceParking.get(`/parkings/${ParkingId}`, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     setParking({
-  //       city: res.data.doc.city,
-  //       title: res.data.doc.title,
-  //       address: res.data.doc.address,
-  //       user: res.data.doc.user,
-  //       photos: res.data.doc.photos,
-  //       capacity: res.data.doc.capacity,
-  //       location: {
-  //         longitude: res.data.doc.longitude,
-  //         latitude: res.data.doc.latitude,
-  //       },
-  //     });
-  //     console.log(setParking);
-  //     setImgArr(res.data.doc.photos);
-  //   };
-  //   if (ParkingId) {
-  //     editParking();
-  //   }
-  // }, [ParkingId, token]);
+  useEffect(() => {
+    const editParking = async () => {
+      const res = await axiosInstanceParking.get(`/parkings/${ParkingId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setParking({
+        city: res.data.doc.city,
+        title: res.data.doc.title,
+        address: res.data.doc.address,
+        user: res.data.doc.user,
+        photos: res.data.doc.photos,
+        capacity: res.data.doc.capacity,
+        location: {
+          longitude: res.data.doc.longitude,
+          latitude: res.data.doc.latitude,
+        },
+      });
+      console.log(setParking);
+      setImgArr(res.data.doc.photos);
+    };
+    if (ParkingId) {
+      editParking();
+    }
+  }, [ParkingId, token]);
   const [errors, setErrors] = useState({
     photosErrors: "",
     cityErrors: "",
@@ -186,6 +188,8 @@ export default function AddParking() {
 
           .then((res) => {
             console.log("update request successful", res.data);
+            toast.success("تم تحديث الموقف بنجاح");
+
             navigate("/");
           })
           .catch((err) => {
@@ -199,6 +203,8 @@ export default function AddParking() {
           })
           .then((res) => {
             console.log("Post request successful", res.data);
+            toast.success("تم إضافة الموقف بنجاح");
+
             navigate("/");
           })
           .catch((err) => {
@@ -401,6 +407,7 @@ export default function AddParking() {
                   )}
                 />
               )}
+              <ToastContainer position="top-right" autoClose={2000} />
             </div>
           </form>
         </div>

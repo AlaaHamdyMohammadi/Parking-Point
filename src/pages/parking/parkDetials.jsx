@@ -10,6 +10,7 @@ import ParkLocation from "./ParkLocation";
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
+
 const ParkDetials = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [parkreserved, setParkreserved] = useState({});
@@ -21,16 +22,20 @@ const ParkDetials = () => {
   let price = query.get("price");
   let newParkId = query.get("newParkId");
 
-  // console.log("query", query);
+  console.log("query", query);
+
   useEffect(() => {
-    alert(newParkId);
     const getReservedPark = async () => {
       try {
-        const res = await axiosInstanceParking.get(`/parkings/${newParkId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await axiosInstanceParking.get(
+          `/parkings/admin/${newParkId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setParkreserved(res.data.doc);
-        // console.log(res.data.doc.location);
+        // Reload the page after successful response
+        window.location.reload();
       } catch (err) {
         console.error("Error :", err);
         if (err.response) {
@@ -47,7 +52,6 @@ const ParkDetials = () => {
     }, 1500);
   }, [newParkId, token]);
 
-  //
   const [timeDifference, setTimeDifference] = useState({
     days: 0,
     hours: 0,
@@ -146,26 +150,12 @@ const ParkDetials = () => {
                 </div>
                 <h4 className={`text-center`}>بيانات الحجز:</h4>
                 <div className="row  m-2  justify-content-center">
-                  {/* <div className=" col-12 col-md-5  m-2 customRange     text-center   p-2 fw-semibold   rounded-2">
-                    من: {from}
-                  </div>
-                  <div className=" col-12 col-md-5 m-2 customRange    align-self-center text-center   p-2 fw-semibold   rounded-2">
-                    إلي: {to}
-                  </div> */}
                   <div className=" col-12 col-md-5  m-2 customRange text-center p-2 fw-semibold rounded-2">
                     من: {from ? new Date(from).toLocaleString() : ""}
                   </div>
                   <div className=" col-12 col-md-5 m-2 customRange align-self-center text-center p-2 fw-semibold rounded-2">
                     إلي: {to ? new Date(to).toLocaleString() : ""}
                   </div>
-                  {/* <div className="col-12 col-md-5 m-2 customRange align-self-center text-center p-2 fw-semibold rounded-2">
-                    إلي:{" "}
-                    {to
-                      ? `${new Date(to).toLocaleTimeString()} ${new Date(
-                          to
-                        ).toLocaleDateString()}`
-                      : ""}
-                  </div> */}
 
                   <div className="col-12 col-md-5 m-2 customRange text-center p-2 fw-semibold rounded-2">
                     {timeDifference.minutes > 0 ||

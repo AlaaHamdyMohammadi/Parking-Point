@@ -12,9 +12,13 @@ import CitySelect from "../formFun/CitySelect";
 import StateInput from "../formFun/StateInput";
 import PlateNumberInput from "../formFun/PlateNumberInput";
 import NameLastInputs from "../formFun/NameLastInputs";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 export default function Setting() {
   const token = useSelector((state) => state.loggedIn.token);
   const user = useLogInUserData();
+  const navigate = useNavigate();
 
   const [userInfo, setUserInfo] = useState({
     firstName: user.firstName,
@@ -50,7 +54,14 @@ export default function Setting() {
         await axiosInstanceParking.patch(`/users/me`, userInfo, {
           headers: { Authorization: `Bearer ${token}` },
         });
+        toast.success("تم تحديث بيناتك بنجاح");
+        setTimeout(() => {
+          navigate(`/`);
+        }, 2000);
+        // location.reload();
       } catch (error) {
+        toast.error("حدث خطأ ! يرجى إعاده المحاولة");
+
         console.error("not login", error);
       }
     }
@@ -180,6 +191,7 @@ export default function Setting() {
               )}
             />
           </div>
+          <ToastContainer position="top-right" autoClose={2000} />
         </div>
       </form>
     </main>
