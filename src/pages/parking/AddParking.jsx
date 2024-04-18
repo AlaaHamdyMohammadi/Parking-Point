@@ -172,13 +172,15 @@ export default function AddParking() {
       formData.append("title", parking.title);
       formData.append("address", parking.address);
       formData.append("capacity", parking.capacity);
-      if (currentLocation) {
-        formData.append("latitude", currentLocation.latitude);
-        formData.append("longitude", currentLocation.longitude);
-      } else {
-        formData.append("latitude", parking.location.latitude);
-        formData.append("longitude", parking.location.longitude);
-      }
+      formData.append("latitude", parking.latitude);
+      formData.append("longitude", parking.longitude);
+      // if (currentLocation) {
+      //   formData.append("latitude", currentLocation.latitude);
+      //   formData.append("longitude", currentLocation.longitude);
+      // } else {
+      //   formData.append("latitude", parking.location.latitude);
+      //   formData.append("longitude", parking.location.longitude);
+      // }
       uploadFile(imgArr, formData);
       if (ParkingId) {
         axiosInstanceParking
