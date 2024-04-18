@@ -33,7 +33,7 @@ export default function RegisterForm({ setShowFormStatus }) {
     state: "مسقط",
     region: "",
     plateNumber: "",
-    nationaleId: "",
+    nationalId: "",
   });
   const [errors, setErrors] = useState({
     fristNameErrors: "*",
@@ -48,7 +48,7 @@ export default function RegisterForm({ setShowFormStatus }) {
     stateErrors: "",
     regionErrors: "",
     plateNumberErrors: "",
-    nationaleIdErrors: "",
+    nationalIdErrors: "",
   });
   let passwordRegx = /^[a-zA-Z0-9]{8,}$/;
   let roleRegx = /^(renter|driver)$/;
@@ -91,10 +91,10 @@ export default function RegisterForm({ setShowFormStatus }) {
       });
     }
     if (registeUser.role === "renter") {
-      if (name === "nationaleId") {
+      if (name === "nationalId") {
         setErrors({
           ...errors,
-          nationaleIdErrors:
+          nationalIdErrors:
             value.length === 0
               ? "يجب ادخال رقم الهوية"
               : regionRegx.test(value)
@@ -125,7 +125,7 @@ export default function RegisterForm({ setShowFormStatus }) {
           formData.append("city", registeUser.city);
           formData.append("state", registeUser.state);
           formData.append("region", registeUser.region);
-          formData.append("nationaleId", registeUser.nationaleId);
+          formData.append("nationalId", registeUser.nationalId);
         }
         if (registeUser.role == "driver") {
           formData.append("carType", registeUser.carType);
@@ -158,11 +158,11 @@ export default function RegisterForm({ setShowFormStatus }) {
           });
           console.log("signup request not successful", error.response.request);
         } else if (
-          error.response.request.response.includes(registeUser.nationaleId)
+          error.response.request.response.includes(registeUser.nationalId)
         ) {
           setErrors({
             ...errors,
-            nationaleIdErrors: "رقم الهوية مستخدم من قبل",
+            nationalIdErrors: "رقم الهوية مستخدم من قبل",
           });
         } else {
           console.log("signup request not successful", error.response.request);
@@ -364,19 +364,19 @@ export default function RegisterForm({ setShowFormStatus }) {
                 />
               </div>
               <div className="mt-4">
-                <label className="fs-5" htmlFor="nationaleId">
+                <label className="fs-5" htmlFor="nationalId">
                   رقم الهوية
                 </label>
                 <input
                   type="text"
-                  id="nationaleId"
-                  name="nationaleId"
+                  id="nationalId"
+                  name="nationalId"
                   className={`${classes.input} form-control border-secondary shadow-none`}
                   onChange={registeValidation}
                   onBlur={registeValidation}
                 />
                 <p className={`${classes.error} text-danger`}>
-                  {errors.nationaleIdErrors}
+                  {errors.nationalIdErrors}
                 </p>
               </div>
               <div>
