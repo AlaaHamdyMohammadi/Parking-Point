@@ -21,8 +21,12 @@ const calculateTimeDifference = (fromDate, toDate) => {
   const differenceInMilliseconds = Math.abs(to - from);
 
   const days = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((differenceInMilliseconds % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((differenceInMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+  const hours = Math.floor(
+    (differenceInMilliseconds % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  const minutes = Math.floor(
+    (differenceInMilliseconds % (1000 * 60 * 60)) / (1000 * 60)
+  );
 
   return `${days} يوم ${hours} ساعة ${minutes} دقيقة`;
 };
@@ -31,7 +35,9 @@ const formatDateString = (dateString) => {
   const date = new Date(dateString);
   const hours = date.getHours().toString().padStart(2, "0");
   const minutes = date.getMinutes().toString().padStart(2, "0");
-  return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date
+  return `${date.getFullYear()}-${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}-${date
     .getDate()
     .toString()
     .padStart(2, "0")}T${hours}:${minutes}`;
@@ -49,12 +55,12 @@ export default function Sales() {
       if (reserveSearch) {
         params = { searchField: "plateNumber", plateNumber: reserveSearch };
       }
-  
+
       const response = await axiosInstanceParking.get("/reserve/me", {
         headers: { Authorization: `Bearer ${token}` },
-        params: params, 
+        params: params,
       });
-  
+
       setData(response.data.doc);
       console.log(response.data.doc, "res");
     } catch (error) {
@@ -63,26 +69,22 @@ export default function Sales() {
       setIsLoading(false);
     }
   };
-  
+
   // Use useCallback to memoize the handleSearch function
   const handleSearch = useCallback((event) => {
     setReserveSearch(event.target.value);
   }, []);
-  
-  
+
   useEffect(() => {
-   
     fetchData();
-  }, [token,reserveSearch]); 
-  console.log(data,"dataaaaaaaaaaaa")
+  }, [token, reserveSearch]);
+  console.log(data, "dataaaaaaaaaaaa");
   const ComponentPDF = useRef();
   const generatePDF = useReactToPrint({
     content: () => ComponentPDF.current,
     documentTitle: "الحجوزات",
-    onAfterPrint: () =>
-    toast.success(' pdf تم الحفظ الملف ') ,
+    onAfterPrint: () => toast.success(" pdf تم الحفظ الملف "),
   });
-
 
   return (
     <>
@@ -93,63 +95,84 @@ export default function Sales() {
         <SpinnerLoad />
       ) : data && data.length > 0 ? (
         <div className="my-5  w-100 align-self-center">
-          
-
-            <div className="d-lg-flex d-md-flex m-2 gap-5 justify-content-between">
-            <button className={`text-center my-2 btnDownload w-100 animate    btn `} onClick={generatePDF}>
+          <div className="d-lg-flex d-md-flex m-2 gap-5 justify-content-between">
+            <button
+              className={`text-center my-2 btnDownload w-100 animate    btn `}
+              onClick={generatePDF}
+            >
               <FaRegFilePdf className="text-center   fs-5" /> تحميل
             </button>
             <div className="d-flex w-100 my-2" role="search">
-        <input className="form-control  fs-6 btnDownload  opacity-50 text-body-secondary "
-         type="search" placeholder="ابحث برقم اللوحة" 
-        //  onChange={(e) => search(e.target.value)}
-         value={reserveSearch}
-         onChange={handleSearch}
-         aria-label="Search"/>
-        <button className="btn btn-outline-warning" type="submit">
-          <LiaSearchSolid/>
-        </button>
-      </div>
-      
-       
+              <input
+                className="form-control  fs-6 btnDownload  opacity-50 text-body-secondary "
+                type="search"
+                placeholder="ابحث برقم اللوحة"
+                //  onChange={(e) => search(e.target.value)}
+                value={reserveSearch}
+                onChange={handleSearch}
+                aria-label="Search"
+              />
+              <button className="btn btn-outline-warning" type="submit">
+                <LiaSearchSolid />
+              </button>
             </div>
-   
-            <div ref={ComponentPDF}>
-            <div style={{ overflowX: "auto", overflowY: "auto", maxHeight: "600px" }}>
+          </div>
+
+          <div ref={ComponentPDF}>
+            <div
+              style={{
+                overflowX: "auto",
+                overflowY: "auto",
+                maxHeight: "600px",
+              }}
+            >
               <table className="table table-hover border rounded-3">
                 <thead className="bgColor border rounded-2 fs-6 text-white fw-bolder py-3">
-                  <th className="p-1 px-2 ">
+                  <th className="p-1 ">
                     <LuParkingCircle className="me-1 mb-1  text-white fs-1 bgColor" />
                     الموقف
                   </th>
-                  <th className="p-1 px-2 ">
+                  <th className="p-1 ">
                     <LiaCarSideSolid className="me-1 mb-1 text-center text-white fs-1 bgColor" />
                     رقم اللوحة
                   </th>
-                  <th className="p-1 px-2 ">
+                  <th className="p-1 ">
                     <PiCalendarCheckBold className="me-1 mb-1 text-center text-white fs-1 bgColor" />
                     مدة الحجز
                   </th>
-                  <th className="p-1 px-2 ">
+                  <th className="p-1 ">
                     <LuCalendarClock className="me-1 mb-1 text-center text-white fs-1 bgColor" />
-                    بداية الحجز : نهاية الحجز
+                    من:
                   </th>
-                  <th className="p-1 px-2 ">
+                  <th className="p-1 ">
+                    <LuCalendarClock className="me-1 mb-1 text-center text-white fs-1 bgColor" />
+                    إلي:
+                  </th>
+                  <th className="p-1 ">
                     <MdPriceCheck className="mb-1 text-center text-white fs-1 bgColor" />
                     التكلفة
                   </th>
                 </thead>
                 <tbody className="pe-2">
                   {data.map((item, index) => (
-           
                     <tr key={index}>
                       <td className="p-4">{item.park.title}</td>
                       <td className="p-4 yellowcolor">
                         <span>{item.plateNumber}</span>
                       </td>
-                      <td className="p-4">{calculateTimeDifference(item.time.from, item.time.to)}</td>
                       <td className="p-4">
-                        {formatDateString(item.time.from)} : {formatDateString(item.time.to)}
+                        {calculateTimeDifference(item.time.from, item.time.to)}
+                      </td>
+                      <td className="p-4">
+                        {item.time.from
+                          ? new Date(item.time.from).toLocaleString()
+                          : ""}
+                      </td>
+                      <td className="p-4">
+                        {item.time.to
+                          ? new Date(item.time.to).toLocaleString()
+                          : ""}
+                        {/* {formatDateString(item.time.from)} : {formatDateString(item.time.to)} */}
                       </td>
                       <td className="p-4 yellowcolor">{item.price} $</td>
                     </tr>
@@ -160,11 +183,9 @@ export default function Sales() {
           </div>
           <ToastContainer position="top-right" autoClose={50000} />
         </div>
-
       ) : (
-        <div className="fs-3 fw-bold text-center "> 
-        <p className="my-5 py-5">لا يوجد حجوزات حتى الان </p>
-
+        <div className="fs-3 fw-bold text-center ">
+          <p className="my-5 py-5">لا يوجد حجوزات حتى الان </p>
         </div>
       )}
     </>

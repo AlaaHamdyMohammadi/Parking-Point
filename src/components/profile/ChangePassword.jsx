@@ -79,6 +79,10 @@ export default function ChangePassword() {
           headers: { Authorization: `Bearer ${token}` },
         });
         toast.success("لقد تم تغيير كلمة السر بنجاح  !");
+
+        setTimeout(() => {
+          navigate(`/`);
+        }, 3000);
       } catch (error) {
         toast.error("كلمة السر الحالية غير صحيحة");
         console.error("not login", error);
@@ -175,7 +179,7 @@ export default function ChangePassword() {
                 </button>
               </div>
             </div>
-            <ToastContainer position="top-right" autoClose={5000} />
+            <ToastContainer position="top-right" autoClose={3000} />
           </div>
           <div className="col-6 text-center  d-none d-md-block">
             <img
