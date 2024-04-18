@@ -14,28 +14,28 @@ export default function SimplePagination({ setCurrentPage, currentPage, pagesPag
     return (
         <main className="d-flex justify-content-cente">
             <div className="d-flex">
-            <IconButton
-           className="mx-2" 
-                size="sm"
-                variant="outlined"
-                onClick={prev}
-                disabled={currentPage === 1}
-            >
-                <ArrowRightIcon strokeWidth={3} style={{width:'1vw', height:'1vw'}}/>
-            </IconButton>
-            <Typography color="gray" className="font-normal">
-                Page <strong className="text-gray-900">{currentPage}</strong>of
-                <strong className="text-gray-900">{allPages}</strong>
-            </Typography>
-            <IconButton
-            className="mx-2" 
-                size="sm"
-                variant="outlined"
-                onClick={next}
-                disabled={currentPage === allPages}
-            >
-                <ArrowLeftIcon strokeWidth={2} style={{width:'1vw', height:'1vw'}}/>
-            </IconButton>
+                <IconButton
+                    className="mx-2"
+                    size="sm"
+                    variant="outlined"
+                    onClick={prev}
+                    disabled={currentPage === 1}
+                >
+                    <ArrowRightIcon strokeWidth={3} style={{ width: '1vw', height: '1vw' }} />
+                </IconButton>
+                <Typography color="gray" className="font-normal">
+                    Page <strong className="text-gray-900">{currentPage}</strong>of
+                    <strong className="text-gray-900">{allPages}</strong>
+                </Typography>
+                <IconButton
+                    className="mx-2"
+                    size="sm"
+                    variant="outlined"
+                    onClick={next}
+                    disabled={currentPage === allPages}
+                >
+                    <ArrowLeftIcon strokeWidth={2} style={{ width: '1vw', height: '1vw' }} />
+                </IconButton>
             </div>
         </main>
     );
