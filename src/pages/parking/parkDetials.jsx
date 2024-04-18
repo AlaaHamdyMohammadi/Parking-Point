@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useLocation } from "react-router-dom";
@@ -6,6 +7,10 @@ import { useSelector } from "react-redux";
 import { IoArrowRedoCircleOutline } from "react-icons/io5";
 import SpinnerLoad from "../../components/spinner/Spinner";
 import ParkLocation from "./ParkLocation";
+import ParkRating from "./ParkRating";
+import { FaStar } from "react-icons/fa";
+// import StarRating from "../../components/StarRating";
+
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -189,11 +194,14 @@ const ParkDetials = () => {
                   <div className=" col-12 col-md-5 m-2 customRange     text-center   p-2 fw-semibold   rounded-2">
                     {parkreserved.address}
                   </div>
-                  <div className=" col-12 col-md-5 m-2 customRange     text-center   p-2 fw-semibold   rounded-2">
-                    esraa
+                  <div className=" col-12 col-md-5 m-2 customRange border-none text-center   p-2 fw-semibold   rounded-2">
+                    <div className="d-flex justify-content-evenly align-self-center">
+                      <h5 className="fs-5">أضف تقييمك ؟</h5>
+                      <ParkRating parkId={parkreserved._id} />
+                    </div>
                   </div>
                 </div>
-                <div className="row p-2 my-3 justify-content-center">
+                <div className="row my-5 justify-content-center">
                   <ParkLocation
                     location={parkreserved.location}
                     title={parkreserved.title}
