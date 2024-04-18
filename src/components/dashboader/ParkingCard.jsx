@@ -229,22 +229,26 @@ function ParkingAddress({ address }) {
     <p className="mb-0 customfs">
       <div style={{}}>
         <span className="fw-semibold">العنوان: </span>
-        {seeMore ? address : `${address.slice(0, 50)}${address.length > 50 ? "..." : ""}`}
+        {seeMore
+          ? address
+          : `${address.slice(0, 30)}${address.length > 30 ? "..." : ""}`}
       </div>
 
-      {address.length > 50 && <button
-        onClick={() => setSeeMore(!seeMore)}
-        style={{
-          marginLeft: "10px",
-          border: "none",
-          background: "none",
-          color: "#291336",
-          textDecoration: "underline",
-          fontWeight: "bold",
-        }}
-      >
-        {seeMore ? "عرض الأقل" : "عرض المزيد"}
-      </button>}
+      {address.length > 30 && (
+        <button
+          onClick={() => setSeeMore(!seeMore)}
+          style={{
+            marginLeft: "10px",
+            border: "none",
+            background: "none",
+            color: "#291336",
+            textDecoration: "underline",
+            fontWeight: "bold",
+          }}
+        >
+          {seeMore ? "عرض الأقل" : "عرض المزيد"}
+        </button>
+      )}
     </p>
   );
 }

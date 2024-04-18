@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import { useEffect, useRef, useState } from "react";
-import ReactMapGL, {
-  Marker,
-  FullscreenControl,
-  GeolocateControl,
-} from "react-map-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
+// import ReactMapGL, {
+//   Marker,
+//   FullscreenControl,
+//   GeolocateControl,
+// } from "react-map-gl";
+// import "mapbox-gl/dist/mapbox-gl.css";
 import { MdClose } from "react-icons/md";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
@@ -43,25 +43,6 @@ export default function AddParking() {
     zoom: 10,
   });
 
-  useEffect(() => {
-    // alert(token);
-
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setParking((prevViewport) => ({
-          ...prevViewport,
-          location: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          },
-        }));
-      });
-      //   console.log("latitude", parking.latitude);
-      //   console.log("longitude", parking.longitude);
-    } else {
-      console.error("Geolocation is not supported by this browser.");
-    }
-  }, [parking]);
 
   useEffect(() => {
     const editParking = async () => {
@@ -69,19 +50,20 @@ export default function AddParking() {
         headers: { Authorization: `Bearer ${token}` },
       });
       setParking({
-        city: res.data.doc.city,
-        title: res.data.doc.title,
-        address: res.data.doc.address,
-        user: res.data.doc.user,
-        photos: res.data.doc.photos,
-        capacity: res.data.doc.capacity,
+        city: res.data.park.city,
+        title: res.data.park.title,
+        address: res.data.park.address,
+        user: res.data.park.user,
+        photos: res.data.park.photos,
+        capacity: res.data.park.capacity,
         location: {
-          longitude: res.data.doc.longitude,
-          latitude: res.data.doc.latitude,
+          longitude: res.data.park.longitude,
+          latitude: res.data.park.latitude,
         },
       });
-      console.log(setParking);
-      setImgArr(res.data.doc.photos);
+      // console.log(setParking);
+      // console.log(res);
+      setImgArr(res.data.park.photos);
     };
     if (ParkingId) {
       editParking();
@@ -347,7 +329,7 @@ export default function AddParking() {
               </div>
               {/* <button  className="btn bgColor text-white col-11 mb-2 m-auto">
               </button> */}
-              {!ParkingId ? (
+              {/*!ParkingId ? (
                 <>
                   <label htmlFor="location" className="mb-1 fs-5">
                     الموقع{" "}
@@ -377,7 +359,7 @@ export default function AddParking() {
                     </ReactMapGL>
                   </div>
                 </>
-              ) : null}
+              ) : null*/}
             </div>
             <div className="d-flex justify-content-center">
               {ParkingId ? (
@@ -415,3 +397,57 @@ export default function AddParking() {
     </>
   );
 }
+
+// function Map(){
+//   useEffect(() => {
+//     // alert(token);
+
+//     if ("geolocation" in navigator) {
+//       navigator.geolocation.getCurrentPosition((position) => {
+//         setParking((prevViewport) => ({
+//           ...prevViewport,
+//           location: {
+//             latitude: position.coords.latitude,
+//             longitude: position.coords.longitude,
+//           },
+//         }));
+//       });
+//       //   console.log("latitude", parking.latitude);
+//       //   console.log("longitude", parking.longitude);
+//     } else {
+//       console.error("Geolocation is not supported by this browser.");
+//     }
+//   }, [parking]);
+
+//   return (
+//     <>
+//       <label htmlFor="location" className="mb-1 fs-5">
+//         الموقع{" "}
+//       </label>
+//       <div style={{ width: "100vw", height: "85vh" }}>
+//         <ReactMapGL
+//           {...parking}
+//           mapStyle={mapStyle}
+//           mapboxAccessToken={TOKEN}
+//           onViewportChange={setParking}
+//           dragPan={true}
+//         >
+//           <Marker
+//             draggable
+//             latitude={parking.location.latitude}
+//             longitude={parking.location.longitude}
+//             offsetLeft={-20}
+//             offsetTop={-10}
+//           />
+
+//           <GeolocateControl
+//             positionOptions={{ enableHighAccuracy: true }}
+//             trackUserLocation={true}
+//             showUserLocation={true}
+//           />
+//           <FullscreenControl />
+//         </ReactMapGL>
+//       </div>
+//     </>
+//   );
+// }
