@@ -134,39 +134,38 @@ export default function RegisterForm({ setShowFormStatus }) {
         const res = await axiosInstanceParking.post(`/users/signup`, formData);
         console.log("signup request successful", res.data);
         dispatch(login(res.data.token));
-
         setShowEmailModal(true);
       } catch (error) {
-        // if (error.response.request.response.includes(registeUser.email)) {
-        //   setErrors({
-        //     ...errors,
-        //     emailErrors: "البريد الاليكتروني مستخدم من قبل",
-        //   });
-        // } else if (
-        //   error.response.request.response.includes(registeUser.phoneNumber)
-        // ) {
-        //   setErrors({
-        //     ...errors,
-        //     phoneNumberErrors: "رقم الجوال مستخدم من قبل",
-        //   });
-        // } else if (
-        //   error.response.request.response.includes(registeUser.plateNumber)
-        // ) {
-        //   setErrors({
-        //     ...errors,
-        //     plateNumberErrors: "رقم اللوحة مستخدم من قيل",
-        //   });
-        //   console.log("signup request not successful", error.response.request);
-        // } else if (
-        //   error.response.request.response.includes(registeUser.nationaleId)
-        // ) {
-        //   setErrors({
-        //     ...errors,
-        //     nationaleIdErrors: "رقم الهوية مستخدم من قبل",
-        //   });
-        // } else {
-        console.log("signup request not successful", error.response.request);
-        // }
+        if (error.response.request.response.includes(registeUser.email)) {
+          setErrors({
+            ...errors,
+            emailErrors: "البريد الاليكتروني مستخدم من قبل",
+          });
+        } else if (
+          error.response.request.response.includes(registeUser.phoneNumber)
+        ) {
+          setErrors({
+            ...errors,
+            phoneNumberErrors: "رقم الجوال مستخدم من قبل",
+          });
+        } else if (
+          error.response.request.response.includes(registeUser.plateNumber)
+        ) {
+          setErrors({
+            ...errors,
+            plateNumberErrors: "رقم اللوحة مستخدم من قيل",
+          });
+          console.log("signup request not successful", error.response.request);
+        } else if (
+          error.response.request.response.includes(registeUser.nationalId)
+        ) {
+          setErrors({
+            ...errors,
+            nationalIdErrors: "رقم الهوية مستخدم من قبل",
+          });
+        } else {
+          console.log("signup request not successful", error.response.request);
+        }
       }
     }
   };
@@ -203,9 +202,9 @@ export default function RegisterForm({ setShowFormStatus }) {
           </div>
           <div className={`d-md-flex d-block`}>
             <NameLastInputs
-              nameInfo={registeUser}
+              lastNameInfo={registeUser}
               classes={classes}
-              setNameInfo={setRegisteUser}
+              setLastNameInfo={setRegisteUser}
               errors={errors}
               setErrors={setErrors}
             />
