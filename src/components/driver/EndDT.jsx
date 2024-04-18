@@ -89,7 +89,7 @@ export default function EndDateTime({
         )
         .then((response) => {
           onReserveChange(response.data.parks);
-          // console.log("Response:", response.data.parks);
+          console.log("Response:", response.data.parks);
           setIsSearch(true);
         })
         .catch((error) => {
