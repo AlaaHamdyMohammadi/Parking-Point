@@ -82,7 +82,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                               src={`${axiosInstanceParking.defaults.baseURL}/parkings/${photo}`}
                               style={{ width: "3vh", height: "18vh" }}
                               className="d-block w-100"
-                              alt="..."
+                              alt={parking.title}
                             />
                           </div>
                         ))}
