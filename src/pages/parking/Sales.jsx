@@ -53,13 +53,13 @@ export default function Sales() {
         params = { searchField: "plateNumber", plateNumber: reserveSearch };
       }
   
-      const response = await axiosInstanceParking.get("/reserve/me", {
+      const response = await axiosInstanceParking.get(`/reserve/me?page=${currentPage}`, {
         headers: { Authorization: `Bearer ${token}` },
         params: params, 
       });
       setResponseLength(response.data.allItems);
       setData(response.data.doc);
-      console.log(response.data.doc, "res");
+      console.log(response.data, "res");
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
