@@ -40,7 +40,7 @@ const formatDateString = (dateString) => {
 
 export default function Sales() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [responseLength, setResponseLength] =useState(0);
+  const [responseLength, setResponseLength] = useState(0);
   const [data, setData] = useState(null);
   const token = useSelector((state) => state.loggedIn.token);
   const [isLoading, setIsLoading] = useState(true);
@@ -52,10 +52,10 @@ export default function Sales() {
       if (reserveSearch) {
         params = { searchField: "plateNumber", plateNumber: reserveSearch };
       }
-  
+
       const response = await axiosInstanceParking.get(`/reserve/me?page=${currentPage}`, {
         headers: { Authorization: `Bearer ${token}` },
-        params: params, 
+        params: params,
       });
       setResponseLength(response.data.allItems);
       setData(response.data.doc);
@@ -71,19 +71,19 @@ export default function Sales() {
   const handleSearch = useCallback((event) => {
     setReserveSearch(event.target.value);
   }, []);
-  
-  
+
+
   useEffect(() => {
-   
+
     fetchData();
-  }, [token,reserveSearch,currentPage]); 
-  console.log(data,"dataaaaaaaaaaaa")
+  }, [token, reserveSearch, currentPage]);
+  console.log(data, "dataaaaaaaaaaaa")
   const ComponentPDF = useRef();
   const generatePDF = useReactToPrint({
     content: () => ComponentPDF.current,
     documentTitle: "الحجوزات",
     onAfterPrint: () =>
-    toast.success(' pdf تم الحفظ الملف ') ,
+      toast.success(' pdf تم الحفظ الملف '),
   });
 
 
@@ -96,28 +96,28 @@ export default function Sales() {
         <SpinnerLoad />
       ) : data && data.length > 0 ? (
         <div className="my-5  w-100 align-self-center">
-          
 
-            <div className="d-lg-flex d-md-flex m-2 gap-5 justify-content-between">
+
+          <div className="d-lg-flex d-md-flex m-2 gap-5 justify-content-between">
             <button className={`text-center my-2 btnDownload w-100 animate    btn `} onClick={generatePDF}>
               <FaRegFilePdf className="text-center   fs-5" /> تحميل
             </button>
             <div className="d-flex w-100 my-2" role="search">
-        <input className="form-control  fs-6 btnDownload  opacity-50 text-body-secondary "
-         type="search" placeholder="ابحث برقم اللوحة" 
-        //  onChange={(e) => search(e.target.value)}
-         value={reserveSearch}
-         onChange={handleSearch}
-         aria-label="Search"/>
-        <button className="btn btn-outline-warning" type="submit">
-          <LiaSearchSolid/>
-        </button>
-      </div>
-      
-       
+              <input className="form-control  fs-6 btnDownload  opacity-50 text-body-secondary "
+                type="search" placeholder="ابحث برقم اللوحة"
+                //  onChange={(e) => search(e.target.value)}
+                value={reserveSearch}
+                onChange={handleSearch}
+                aria-label="Search" />
+              <button className="btn btn-outline-warning" type="submit">
+                <LiaSearchSolid />
+              </button>
             </div>
-   
-            <div ref={ComponentPDF}>
+
+
+          </div>
+
+          <div ref={ComponentPDF}>
             <div style={{ overflowX: "auto", overflowY: "auto", maxHeight: "600px" }}>
               <table className="table table-hover border rounded-3">
                 <thead className="bgColor border rounded-2 fs-6 text-white fw-bolder py-3">
@@ -144,7 +144,7 @@ export default function Sales() {
                 </thead>
                 <tbody className="pe-2">
                   {data.map((item, index) => (
-           
+
                     <tr key={index}>
                       <td className="p-4">{item.park.title}</td>
                       <td className="p-4 yellowcolor">
@@ -165,16 +165,16 @@ export default function Sales() {
         </div>
 
       ) : (
-        <div className="fs-3 fw-bold text-center "> 
-        <p className="my-5 py-5">لا يوجد حجوزات حتى الان </p>
+        <div className="fs-3 fw-bold text-center ">
+          <p className="my-5 py-5">لا يوجد حجوزات حتى الان </p>
 
         </div>
       )}
-         <SimplePagination
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-          pagesPagination={responseLength}
-        />
+      <SimplePagination
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+        pagesPagination={responseLength}
+      />
     </>
   );
 }

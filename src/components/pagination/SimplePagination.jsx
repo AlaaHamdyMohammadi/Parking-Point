@@ -12,26 +12,28 @@ export default function SimplePagination({ setCurrentPage, currentPage, pagesPag
     };
 
     return (
-        <main className="flex items-center gap-8">
+        <main className="d-flex items-center ">
             <IconButton
+           className="mx-2" 
                 size="sm"
                 variant="outlined"
                 onClick={prev}
                 disabled={currentPage === 1}
             >
-                <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" />
+                <ArrowRightIcon strokeWidth={3} style={{width:'1vw', height:'1vw'}}/>
             </IconButton>
             <Typography color="gray" className="font-normal">
                 Page <strong className="text-gray-900">{currentPage}</strong>of
                 <strong className="text-gray-900">{allPages}</strong>
             </Typography>
             <IconButton
+            className="mx-2" 
                 size="sm"
                 variant="outlined"
                 onClick={next}
                 disabled={currentPage === allPages}
             >
-                <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+                <ArrowLeftIcon strokeWidth={2} style={{width:'1vw', height:'1vw'}}/>
             </IconButton>
         </main>
     );
