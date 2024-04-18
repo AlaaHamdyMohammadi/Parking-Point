@@ -70,6 +70,7 @@ export default function Sales() {
       setData(response.data.doc);
       console.log(response.data, "res");
     } catch (error) {
+      toast.error("حدث خطأ ! برجاء المحاولة في وقت لاحق");
       console.error("Error fetching data:", error);
     } finally {
       setIsLoading(false);
@@ -132,34 +133,34 @@ export default function Sales() {
                 maxHeight: "600px",
               }}
             >
-              <table className="table table-hover border rounded-3">
-                <thead className="bgColor border rounded-2 fs-6 text-white fw-bolder py-3">
+              <table className="table table-hover border my-3 rounded-3">
+                <thead className="bgColor border rounded-2 fs-6 text-white ">
                   <th className="p-1 ">
-                    <LuParkingCircle className="me-1 mb-1  text-white fs-1 bgColor" />
+                    <LuParkingCircle className="me-1 mb-1  text-white fs-2 bgColor" />
                     الموقف
                   </th>
                   <th className="p-1 ">
-                    <LiaCarSideSolid className="me-1 mb-1 text-center text-white fs-1 bgColor" />
+                    <LiaCarSideSolid className="me-1 mb-1 text-center text-white fs-2 bgColor" />
                     رقم اللوحة
                   </th>
                   <th className="p-1 ">
-                    <PiCalendarCheckBold className="me-1 mb-1 text-center text-white fs-1 bgColor" />
+                    <PiCalendarCheckBold className="me-1 mb-1 text-center text-white fs-2 bgColor" />
                     مدة الحجز
                   </th>
                   <th className="p-1 ">
-                    <LuCalendarClock className="me-1 mb-1 text-center text-white fs-1 bgColor" />
-                    من:
+                    <LuCalendarClock className="me-1 mb-1 text-center text-white fs-2 bgColor" />
+                    بداية الحجز:
                   </th>
                   <th className="p-1 ">
-                    <LuCalendarClock className="me-1 mb-1 text-center text-white fs-1 bgColor" />
-                    إلي:
+                    <LuCalendarClock className="me-1 mb-1 text-center text-white fs-2 bgColor" />
+                    نهاية الحجز:
                   </th>
                   <th className="p-1 ">
-                    <MdPriceCheck className="mb-1 text-center text-white fs-1 bgColor" />
+                    <MdPriceCheck className="mb-1 text-center text-white fs-2 bgColor" />
                     التكلفة
                   </th>
                 </thead>
-                <tbody className="pe-2">
+                <tbody className="p">
                   {data.map((item, index) => (
                     <tr key={index}>
                       <td className="p-4">{item.park.title}</td>
