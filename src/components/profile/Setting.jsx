@@ -71,9 +71,9 @@ export default function Setting() {
             </div>
             <div className="col-md-6 col-12">
               <NameLastInputs
-                nameInfo={userInfo}
+                lastNameInfo={userInfo}
                 classes={classes}
-                setNameInfo={setUserInfo}
+                setLastNameInfo={setUserInfo}
                 errors={errors}
                 setErrors={setErrors}
               />
