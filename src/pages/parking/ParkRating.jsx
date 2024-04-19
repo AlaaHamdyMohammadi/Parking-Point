@@ -6,6 +6,7 @@ import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import axiosInstanceParking from "../../axiosConfig/instanc";
+import { toast, ToastContainer } from "react-toastify";
 
 const ParkRating = ({ parkId }) => {
   const [rating, setRating] = useState(0);
@@ -26,6 +27,7 @@ const ParkRating = ({ parkId }) => {
           },
         }
       );
+      toast.success("تم إضافة تقييمك بنجاح!شكرا لك");
       console.log("response:", response);
     } catch (error) {
       console.error("Error occurred :", error);
@@ -46,19 +48,23 @@ const ParkRating = ({ parkId }) => {
               type="radio"
               name="rating"
               value={ratingValue}
-              onChange={() => {setRating(ratingValue); handleRating(ratingValue);}}
+              onChange={() => {
+                setRating(ratingValue);
+                handleRating(ratingValue);
+              }}
               style={{ display: "none" }}
             />
             <FaStar
               className="star"
               color={ratingValue <= (hover || rating) ? "#f1a525" : "#331c41"}
-              size={20}
+              size={15}
               onMouseEnter={() => setHover(ratingValue)}
               onMouseLeave={() => setHover(rating)}
             />
           </label>
         );
       })}
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };
