@@ -94,6 +94,7 @@ export default function Setting() {
                 setEmailInfo={setUserInfo}
                 errors={errors}
                 setErrors={setErrors}
+                disabled={true}
               />
             </div>
             {user.role === "driver" && (

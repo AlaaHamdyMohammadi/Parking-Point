@@ -216,6 +216,7 @@ export default function RegisterForm({ setShowFormStatus }) {
               setEmailInfo={setRegisteUser}
               errors={errors}
               setErrors={setErrors}
+              disabled={false}
             />
           </div>
           <div className="mt-4">
