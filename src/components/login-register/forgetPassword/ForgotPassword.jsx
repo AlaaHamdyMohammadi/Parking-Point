@@ -81,11 +81,8 @@ const ForgotPassword = () => {
             email,
           }
         );
-        setEnterOtp((prevState) => {
-          console.log(res.data, !prevState); // Log the updated value of enterOtp
-          return !prevState;
-        });
-        // console.log(res.data, enterOtp);
+        setEnterOtp(true);
+        console.log(res.data, enterOtp);
       } catch (error) {
         toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
 
