@@ -74,7 +74,7 @@ export default function EndDateTime({
 
   const sendQuery = (e) => {
     e.preventDefault();
-    console.log(searchData);
+    //console.log(searchData);
     const startTime = new Date(searchData.from).getTime();
     const endTime = new Date(searchData.to).getTime();
     if (startTime >= endTime) {
@@ -95,7 +95,7 @@ export default function EndDateTime({
         )
         .then((response) => {
           onReserveChange(response.data.parks);
-          console.log("Response:", response.data.parks);
+          //console.log("Response:", response.data.parks);
           setIsSearch(true);
         })
         .catch((error) => {

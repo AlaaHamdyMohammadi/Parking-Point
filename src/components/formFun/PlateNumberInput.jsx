@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 export default function PlateNumberInput({ classes, setPlateNumberInfo, plateNumberInfo, errors, setErrors }) {
     let plateNumberRegx = /^[0-9]{1,5}[a-z]{1,2}$/;

@@ -1,16 +1,14 @@
 import { useState } from "react";
 import classes from "./../../styles/formStyles.module.css";
 import axiosInstanceParking from "../../axiosConfig/instanc";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login, logout } from "../../store/slices/authSlice";
 import { toast, ToastContainer } from "react-toastify";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa6";
 export default function ChangePassword() {
   const token = useSelector((state) => state.loggedIn.token);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [currentPassword, setCurrentPassword] = useState("");
   const [password, setpassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -185,7 +183,7 @@ export default function ChangePassword() {
             <img
               style={{ width: "50vh", height: "50vh" }}
               className="h-70 w-0"
-              src="./../../../public/images/Reset password-amico (1).png"
+              src="/images/Reset password-amico (1).png"
             />
           </div>
         </div>

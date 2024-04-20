@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 
-export default function StateInput({ classes, setStateInfo, stateInfo, errors, setErrors, role }) {
+export default function StateInput({ classes, setStateInfo, stateInfo, errors, setErrors }) {
     let stateRegx = /^(مسقط)$/;
     const stateValidation = (event) => {
         const { name, value } = event.target

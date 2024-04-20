@@ -71,7 +71,7 @@ export default function Sales() {
         );
         setResponseLength(response.data.allItems);
         setData(response.data.doc);
-        console.log(response.data, "res");
+        //console.log(response.data, "res");
       } else if (user.role == "renter") {
         const response = await axiosInstanceParking.get(
           `/parkings/myparks-reservations?page=${currentPage}`,
@@ -82,7 +82,7 @@ export default function Sales() {
         );
         setResponseLength(response.data.allItems);
         setData(response.data.data);
-        console.log(response.data, "res");
+        //console.log(response.data, "res");
       }
     } catch (error) {
       toast.error("حدث خطأ ! برجاء المحاولة في وقت لاحق");
@@ -91,7 +91,7 @@ export default function Sales() {
       setIsLoading(false);
     }
   };
-  console.log(responseLength);
+  //console.log(responseLength);
   // Use useCallback to memoize the handleSearch function
   const handleSearch = useCallback((event) => {
     setReserveSearch(event.target.value);
@@ -100,7 +100,7 @@ export default function Sales() {
   useEffect(() => {
     fetchData();
   }, [token, reserveSearch, currentPage]);
-  console.log(data, "dataaaaaaaaaaaa");
+  //console.log(data, "data");
   const ComponentPDF = useRef();
   const generatePDF = useReactToPrint({
     content: () => ComponentPDF.current,

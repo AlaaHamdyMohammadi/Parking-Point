@@ -8,7 +8,7 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(function () {
-    console.log("work");
+    //console.log("work");
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);

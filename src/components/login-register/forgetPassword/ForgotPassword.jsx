@@ -6,10 +6,8 @@ import classes from "./../../../styles/formStyles.module.css";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import axiosInstanceParking from "../../../axiosConfig/instanc";
-// import ForgotPasswordModal from "./ForgotPasswordModal";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
 const ForgotPassword = () => {
   const [registeUser, setRegisteUser] = React.useState({ email: "" });
   const [codeconfirmed, setCodeconfirmed] = useState(false);
@@ -29,12 +27,11 @@ const ForgotPassword = () => {
     confirmPasswordErrors: "*",
     tokenErrors: "*",
   });
-  // const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("enterOtp:", enterOtp);
-    // handleForgotPassword();
-  }, [showEmailModal, enterOtp, esc, confirmPassword]);
+  // useEffect(() => {
+  //   console.log("enterOtp:", enterOtp);
+  //   // handleForgotPassword();
+  // }, [showEmailModal, enterOtp, esc, confirmPassword]);
 
   let passwordRegx = /^[a-zA-Z0-9]{8,}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -72,94 +69,38 @@ const ForgotPassword = () => {
     setShowPassword(!showPassword);
   };
 
-  // async function handleForgotPassword() {
-  //   if (!emailRegex.test(email)) {
-  //     setEmailError(true);
-  //     toast.error("يرجى إدخال بريد إلكتروني صحيح");
-  //   } else {
-  //     try {
-  //       const res = await axiosInstanceParking.post(
-  //         "/users/me/forget-password",
-  //         {
-  //           email,
-  //         }
-  //       );
-  //       setEnterOtp(true);
-  //       // setEnterOtp((prevState) => {
-  //       //   console.log(res.data, !prevState); // Log the updated value of enterOtp
-  //       //   return !prevState;
-  //       // });
-  //       console.log(res.data, enterOtp);
-  //     } catch (error) {
-  //       toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
-
-  //       console.log("Error: ", error);
-  //     }
-  //   }
-  // }
-
-  // async function handleForgotPassword() {
-  //   if (!emailRegex.test(email)) {
-  //     setEmailError(true);
-  //     toast.error("يرجى إدخال بريد إلكتروني صحيح");
-  //   } else {
-  //     axiosInstanceParking
-  //       .post("/users/me/forget-password", {
-  //         email,
-  //       })
-  //       .then((res) => {
-  //         setEnterOtp(true);
-
-  //         console.log(res.data, enterOtp);
-  //       })
-  //       .catch((error) => {
-  //         toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
-  //         console.log("Error: ", error);
-  //       });
-  //   }
-  // }
   async function handleForgotPassword() {
     if (!emailRegex.test(email)) {
       setEmailError(true);
       toast.error("يرجى إدخال بريد إلكتروني صحيح");
     } else {
-      axiosInstanceParking
-        .post("/users/me/forget-password", {
-          email,
-        })
-        .then((res) => {
-          // Use setEnterOtp as a callback function
-          setEnterOtp((prevState) => {
-            // console.log(res.data,); // Log the updated value of enterOtp
-            return !prevState;
-          });
-          setShowEmailModal((prevState) => {
-            // console.log(res.data, !prevState); // Log the updated value of enterOtp
-            return !prevState;
-          });
-          setCodeconfirmed((prevState) => {
-            // console.log(res.data, !prevState); // Log the updated value of enterOtp
-            return !prevState;
-          });
-          // setShowEmailModal(false);
-          // setCodeconfirmed(false);
-        })
-        .then(() => {
-          console.log("enterOtp", enterOtp); //
-          console.log("showEmailModal", showEmailModal);
-          console.log("confirmPassword", confirmPassword);
-        })
-        .catch((error) => {
-          toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
-          console.log("Error: ", error);
+      try {
+        const res = await axiosInstanceParking.post(
+          "/users/me/forget-password",
+          {
+            email,
+          }
+        );
+        //console.log(res.data);
+        // setEnterOtp(true);
+        // setEnterOtp((prevState) => !prevState);
+        setEnterOtp((prevState) => {
+          //console.log("prevState:", prevState);
+          return !prevState;
         });
+        //console.log(enterOtp);
+      } catch (error) {
+        toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
+
+        console.log("Error: ", error);
+      }
     }
   }
-  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>."); //
+  //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>.");
 
-  console.log("enterOtp", enterOtp); //
-  console.log("showEmailModal", showEmailModal);
-  console.log("confirmPassword", confirmPassword);
+  //console.log("enterOtp", enterOtp); //
+  //console.log("showEmailModal", showEmailModal);
+  //console.log("confirmPassword", confirmPassword);
   async function handleToken() {
     try {
       // console.log("Token before API call:", token);
@@ -171,13 +112,13 @@ const ForgotPassword = () => {
       setCodeconfirmed(true);
       // setShowEmailModal(false);
       setEnterOtp(false);
-      console.log(res, "handletoken SUCCESS");
-      console.log(
-        codeconfirmed,
-        "codeconfirmed",
-        showEmailModal,
-        "ShowEmailModal"
-      );
+      //console.log(res, "handletoken SUCCESS");
+      // console.log(
+      //   codeconfirmed,
+      //   "codeconfirmed",
+      //   showEmailModal,
+      //   "ShowEmailModal"
+      // );
     } catch (error) {
       if (error.response) {
         console.log("Error data:", error.response.data);
@@ -194,7 +135,7 @@ const ForgotPassword = () => {
         password,
         confirmPassword,
       });
-      console.log(res);
+      //console.log(res);
       setCodeconfirmed(false);
       setEsc(true);
       setTimeout(() => {
@@ -203,7 +144,7 @@ const ForgotPassword = () => {
       toast.success("تم تفعيل كلمة السر بنجاح");
     } catch (error) {
       if (error.response) {
-        console.log("Error data:", error.response.data);
+        //console.log("Error data:", error.response.data);
       } else if (error.request) {
         console.log("No response received from server:", error.request);
       } else {
@@ -247,7 +188,7 @@ const ForgotPassword = () => {
                       onChange={(e) => {
                         setEmail(e.target.value);
                         setEmailError(false);
-                        console.log("Email:", e.target.value);
+                        //console.log("Email:", e.target.value);
                       }}
                     />
                     {emailError && (
@@ -259,7 +200,7 @@ const ForgotPassword = () => {
                   <div className="text-start align-self-center">
                     <img
                       style={{ height: "100%", width: "10rem" }}
-                      src="./../../../public/images/notify-animate.svg"
+                      src="/images/notify-animate.svg"
                       alt=""
                     />
                   </div>
@@ -324,12 +265,12 @@ const ForgotPassword = () => {
                       value={token}
                       onChange={(e) => {
                         setToken(e.target.value);
-                        console.log("Token:", e.target.value);
+                        //console.log("Token:", e.target.value);
                       }}
                       onPaste={(e) => {
                         const pastedText = e.clipboardData.getData("text");
                         setToken(pastedText);
-                        console.log("Pasted Token:", pastedText);
+                        //console.log("Pasted Token:", pastedText);
                       }}
                       className={`${classes.input}  w-100 mt-2 form-control border-secondary shadow-none`}
                     />
@@ -338,7 +279,7 @@ const ForgotPassword = () => {
                   <div className="  text-start align-self-center">
                     <img
                       style={{ height: "30%", width: "60%" }}
-                      src="./../../../public/images/emails-animate (1).svg"
+                      src="/images/emails-animate (1).svg"
                       alt=""
                     />
                   </div>
@@ -348,7 +289,7 @@ const ForgotPassword = () => {
                   لقد تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني المُسجّل
                   <span className={`${classes.resendcode}`}>
                     {registeUser.email}
-                  </span>{" "}
+                  </span>
                   يُرجى فتح بريدك الإلكتروني و نسخ الرمز المُرسل.
                 </p>
                 <div className="modal-footer p-0 px-3 m-0 justify-content-start">
@@ -415,7 +356,7 @@ const ForgotPassword = () => {
                             onChange={(e) => {
                               registeValidation;
                               setPassword(e.target.value);
-                              console.log("Password:", e.target.value);
+                              //console.log("Password:", e.target.value);
                             }}
                             className={`${classes.input} form-control border-secondary shadow-none`}
                             style={{
@@ -455,7 +396,7 @@ const ForgotPassword = () => {
                             onChange={(e) => {
                               registeValidation;
                               setConfirmPassword(e.target.value);
-                              console.log("ConfirmPassword:", e.target.value);
+                              //console.log("ConfirmPassword:", e.target.value);
                             }}
                             className={`${classes.input} form-control border-secondary shadow-none`}
                             style={{
@@ -482,7 +423,7 @@ const ForgotPassword = () => {
                   <div className="  text-center align-self-center">
                     <img
                       style={{ height: "30%", width: "50%" }}
-                      src="./../../../public/images/account-animate.svg"
+                      src="/images/account-animate.svg"
                       alt=""
                     />
                   </div>

@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+/* eslint-disable react/prop-types */
+import { useState, useRef } from "react";
 import classes from "./../../styles/formStyles.module.css";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +16,7 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
   const handleChange = async (index, value) => {
     const newConfirmationCode = [...confirmationCode];
     newConfirmationCode[index] = value;
-    console.log(newConfirmationCode);
+    //console.log(newConfirmationCode);
     setConfirmationCode(newConfirmationCode);
     // Check if all inputs are filled, then trigger onConfirm callback
     if (newConfirmationCode.every((code) => code !== "")) {
@@ -59,8 +60,8 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
     const pastedData = clipboardData.getData("text").trim();
     const newConfirmationCode = pastedData.split("").slice(0, length);
     setConfirmationCode(newConfirmationCode);
-    console.log(newConfirmationCode);
-    console.log(confirmationCode);
+    //console.log(newConfirmationCode);
+    //console.log(confirmationCode);
     if (newConfirmationCode.every((code) => code !== "")) {
       onConfirm(newConfirmationCode.join(""));
       try {

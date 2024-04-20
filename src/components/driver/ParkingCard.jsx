@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 import ModalReserve from "./ReserveModal";
 
 import RatingComponent from "./RatingComponent";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 
 export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
-  console.log(AvaliableParksFilter);
+  //console.log(AvaliableParksFilter);
   return (
     <>
       {AvaliableParksFilter.map((item, index) => (
@@ -71,7 +72,7 @@ export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
               <div className="mb-0 customfs Gray">
                 <div>
                   <span className=" fw-semibold"> العنوان: </span>
-                  {item.address}
+                  <ParkingAddress address={item.address} />
                 </div>
               </div>
             </div>
@@ -88,5 +89,35 @@ export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
         </div>
       ))}
     </>
+  );
+}
+function ParkingAddress({ address }) {
+  const [seeMore, setSeeMore] = useState(false);
+
+  return (
+    <p className="mb-0 customfs">
+      <div style={{}}>
+        <span className="fw-semibold">العنوان: </span>
+        {seeMore
+          ? address
+          : `${address.slice(0, 30)}${address.length > 30 ? "..." : ""}`}
+      </div>
+
+      {address.length > 30 && (
+        <button
+          onClick={() => setSeeMore(!seeMore)}
+          style={{
+            marginLeft: "10px",
+            border: "none",
+            background: "none",
+            color: "#291336",
+            textDecoration: "underline",
+            fontWeight: "bold",
+          }}
+        >
+          {seeMore ? "عرض الأقل" : "عرض المزيد"}
+        </button>
+      )}
+    </p>
   );
 }

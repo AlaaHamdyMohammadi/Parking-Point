@@ -22,7 +22,7 @@ function Register() {
     setShowFormStatus(false);
   }
   useEffect(function () {
-    console.log("work");
+    //console.log("work");
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);

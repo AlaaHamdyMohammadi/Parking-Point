@@ -31,7 +31,7 @@ export default function Setting() {
     plateNumber: user.plateNumber,
     carType: user.carType,
   });
-  console.log(userInfo);
+  //console.log(userInfo);
   const [errors, setErrors] = useState({
     fristNameErrors: "",
     lastNameErrors: "",

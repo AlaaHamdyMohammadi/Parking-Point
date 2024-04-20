@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import ConfirmationCodeInput from "./confirmEmail";
 import classes from "./../../styles/formStyles.module.css";
 import CountdownTimer from "./CountdownTimer";
@@ -27,7 +28,7 @@ const handleChange=useSendCode()
               <div className="text-center">
                 <img
                   style={{ height: "16rem", width: "16rem" }}
-                  src="./../../../public/images/Mail sent-amico (1).png"
+                  src="/images/Mail sent-amico (1).png"
                   alt=""
                 />
               </div>
