@@ -2,8 +2,8 @@
 
 export default function NameLastInputs({
   classes,
-  setnameInfo,
-  nameInfo,
+  setLastNameInfo,
+  lastNameInfo,
   errors,
   setErrors,
 }) {
@@ -17,18 +17,18 @@ export default function NameLastInputs({
     //         value.length === 0 ? "يجب ادخال الاسم الاول" : nameRegx.test(value) ? "" : "يجب ادخال ثلاثة احرف بحد ادني",
     //     });
     //   }
-    // if (name === "lastName") {
-    setErrors({
-      ...errors,
-      lastNameErrors:
-        value.length === 0
-          ? "يجب ادخال الاسم الاخير"
-          : nameRegx.test(value)
-          ? ""
-          : "يجب ادخال ثلاثة احرف بحد ادني",
-    });
-    // }
-    setnameInfo({ ...nameInfo, [name]: value });
+    if (name === "lastName") {
+      setErrors({
+        ...errors,
+        lastNameErrors:
+          value.length === 0
+            ? "يجب ادخال الاسم الاخير"
+            : nameRegx.test(value)
+            ? ""
+            : "يجب ادخال ثلاثة احرف بحد ادني",
+      });
+    }
+    setLastNameInfo({ ...lastNameInfo, [name]: value });
   };
   return (
     <>
@@ -40,7 +40,7 @@ export default function NameLastInputs({
           className={`${classes.input} Gray form-control border-secondary shadow-none`}
           type="text"
           name="lastName"
-          value={nameInfo.lastName}
+          value={lastNameInfo.lastName}
           id="lastName"
           onChange={lastNameValidation}
           onBlur={lastNameValidation}

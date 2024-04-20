@@ -117,9 +117,10 @@ export default function AddParking() {
         titleErrors:
           value.length === 0
             ? "يجب ادخال اسم الموقف"
-            : /^[A-Za-z0-9\u0600-\u06FF]{3,}$/.test(value)
-            ? ""
-            : "يجب ادخال ثلاثة احرف بحد ادني",
+            : // : /^[A-Za-z0-9\u0600-\u06FF]{3,}$/.test(value)
+              // ? ""
+              // : "يجب ادخال ثلاثة احرف بحد ادني",
+              "",
       });
     }
     if (name === "address") {
@@ -157,8 +158,8 @@ export default function AddParking() {
           },
         }));
       });
-      //console.log("latitude160", parking.latitude);
-      //console.log("longitude161", parking.longitude);
+      // console.log("latitude160", parking.latitude);
+      // console.log("longitude161", parking.longitude);
     } else {
       console.error("Geolocation is not supported by this browser.");
     }
@@ -176,8 +177,8 @@ export default function AddParking() {
       formData.append("address", parking.address);
       formData.append("capacity", parking.capacity);
       // if (currentLocation) {
-      // formData.append("latitude", currentLocation.latitude);
-      // formData.append("longitude", currentLocation.longitude);
+      //   formData.append("latitude", currentLocation.latitude);
+      //   formData.append("longitude", currentLocation.longitude);
       // } else {
       formData.append("latitude", parking.location.latitude);
       formData.append("longitude", parking.location.longitude);
@@ -192,8 +193,10 @@ export default function AddParking() {
           .then((res) => {
             console.log("update request successful", res.data);
             toast.success("تم تحديث الموقف بنجاح");
-
-            navigate("/");
+            setTimeout(() => {
+              navigate("/");
+            }, 2000);
+            // navigate("/");
           })
           .catch((err) => {
             console.error("Error during parking request:", err);
@@ -208,8 +211,10 @@ export default function AddParking() {
           .then((res) => {
             console.log("Post request successful", res.data);
             toast.success("تم إضافة الموقف بنجاح");
-
-            navigate("/");
+            setTimeout(() => {
+              navigate("/");
+            }, 2000);
+            // navigate("/");
           })
           .catch((err) => {
             toast.error("حدث خطأ ! يرجى المحاولة مرة أخرى");
