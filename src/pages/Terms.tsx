@@ -8,7 +8,20 @@ export default function Terms() {
       <Helmet>
         <title>Parking Point | الشروط و الأحكام</title>
       </Helmet>
-      <div className="p-5">
+      <div className="w-100">
+        <figure className="figure">
+
+        <img
+          src="./../../public/Terms-and-Conditions.jpg"
+          
+          // src="./../../public/terms-conditions-folder-tab-computer-keyboard-40378260.webp"
+          alt=""
+          className=" w-100" />
+          <figcaption className="figure-caption fw-bolder p-5 text-end">
+           <h1>الشروط و الأحكام:</h1></figcaption>
+</figure>
+      </div>
+      <div className=" px-5">
         {/* <Term title={"شروط الاتفاقية"} body={""} /> */}
         <div className="py-2">
           <h4>شروط الاتفاقية</h4>
