@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
@@ -15,11 +16,12 @@ const ForgotPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [enterOtp, setEnterOtp] = useState(false);
   const [showEmailModal, setShowEmailModal] = useState(true);
+  const [confirmPassword, setConfirmPassword] = useState(false);
+
   const [esc, setEsc] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [token, setToken] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("");
   const [emailError, setEmailError] = useState(false);
 
   const [errors, setErrors] = React.useState({
@@ -27,11 +29,12 @@ const ForgotPassword = () => {
     confirmPasswordErrors: "*",
     tokenErrors: "*",
   });
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     console.log("enterOtp:", enterOtp);
-  }, [enterOtp]);
+    // handleForgotPassword();
+  }, [showEmailModal, enterOtp, esc, confirmPassword]);
 
   let passwordRegx = /^[a-zA-Z0-9]{8,}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -69,6 +72,52 @@ const ForgotPassword = () => {
     setShowPassword(!showPassword);
   };
 
+  // async function handleForgotPassword() {
+  //   if (!emailRegex.test(email)) {
+  //     setEmailError(true);
+  //     toast.error("يرجى إدخال بريد إلكتروني صحيح");
+  //   } else {
+  //     try {
+  //       const res = await axiosInstanceParking.post(
+  //         "/users/me/forget-password",
+  //         {
+  //           email,
+  //         }
+  //       );
+  //       setEnterOtp(true);
+  //       // setEnterOtp((prevState) => {
+  //       //   console.log(res.data, !prevState); // Log the updated value of enterOtp
+  //       //   return !prevState;
+  //       // });
+  //       console.log(res.data, enterOtp);
+  //     } catch (error) {
+  //       toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
+
+  //       console.log("Error: ", error);
+  //     }
+  //   }
+  // }
+
+  // async function handleForgotPassword() {
+  //   if (!emailRegex.test(email)) {
+  //     setEmailError(true);
+  //     toast.error("يرجى إدخال بريد إلكتروني صحيح");
+  //   } else {
+  //     axiosInstanceParking
+  //       .post("/users/me/forget-password", {
+  //         email,
+  //       })
+  //       .then((res) => {
+  //         setEnterOtp(true);
+
+  //         console.log(res.data, enterOtp);
+  //       })
+  //       .catch((error) => {
+  //         toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
+  //         console.log("Error: ", error);
+  //       });
+  //   }
+  // }
   async function handleForgotPassword() {
     if (!emailRegex.test(email)) {
       setEmailError(true);
@@ -90,6 +139,11 @@ const ForgotPassword = () => {
       }
     }
   }
+  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>."); //
+
+  console.log("enterOtp", enterOtp); //
+  console.log("showEmailModal", showEmailModal);
+  console.log("confirmPassword", confirmPassword);
   async function handleToken() {
     try {
       // console.log("Token before API call:", token);
@@ -99,7 +153,8 @@ const ForgotPassword = () => {
         email,
       });
       setCodeconfirmed(true);
-      setShowEmailModal(false);
+      // setShowEmailModal(false);
+      setEnterOtp(false);
       console.log(res, "handletoken SUCCESS");
       console.log(
         codeconfirmed,
@@ -124,12 +179,12 @@ const ForgotPassword = () => {
         confirmPassword,
       });
       console.log(res);
+      setCodeconfirmed(false);
       setEsc(true);
-      // toast.success("تم تفعيل كلمة السر بنجاح");
-      // window.location.reload();
-      navigate("/register"); // Navigate to "/register" route without reloading
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
       toast.success("تم تفعيل كلمة السر بنجاح");
-      // toast.success("تم تفعيل كلمة السر بنجاح");
     } catch (error) {
       if (error.response) {
         console.log("Error data:", error.response.data);
@@ -224,6 +279,7 @@ const ForgotPassword = () => {
         </div>
       )}
 
+      {/* {enterOtp? ():()} */}
       {enterOtp && (
         <div
           className="modal fade"

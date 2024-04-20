@@ -27,13 +27,19 @@ export default function EndDateTime({
     minutes: 0,
   });
 
+  // const [searchData, setSearchData] = useState({
+  //   city: "",
+
+  //   from: BookNow ? new Date().toISOString().slice(0, 16) : null,
+  //   to: null,
+  // });
   const [searchData, setSearchData] = useState({
     city: "",
-
-    from: BookNow ? new Date().toISOString().slice(0, 16) : null,
+    from: BookNow ? new Date(Date.now()) : "",
+    // Set default value to current date and time if BookNow is true
     to: null,
   });
-
+  // .toISOString().slice(0, 16)
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     let updatedData = { ...searchData };

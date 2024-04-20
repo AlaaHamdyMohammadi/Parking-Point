@@ -1,12 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import { useEffect, useRef, useState } from "react";
-// import ReactMapGL, {
-//   Marker,
-//   FullscreenControl,
-//   GeolocateControl,
-// } from "react-map-gl";
-// import "mapbox-gl/dist/mapbox-gl.css";
+import ReactMapGL, {
+  Marker,
+  FullscreenControl,
+  GeolocateControl,
+} from "react-map-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
 import { MdClose } from "react-icons/md";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
@@ -42,7 +43,6 @@ export default function AddParking() {
     },
     zoom: 10,
   });
-
 
   useEffect(() => {
     const editParking = async () => {
@@ -143,6 +143,27 @@ export default function AddParking() {
     setParking({ ...parking, [name]: value });
   }
 
+  ////////////////
+  useEffect(() => {
+    // alert(token);
+
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setParking((prevViewport) => ({
+          ...prevViewport,
+          location: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          },
+        }));
+      });
+      //console.log("latitude160", parking.latitude);
+      //console.log("longitude161", parking.longitude);
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  }, [parking]);
+  /////////////
   function handleSubmit(event) {
     const hasErrors = Object.values(errors).some((error) => error !== "");
     const isEmpty = Object.values(parking).some((parking) => parking === "");
@@ -154,13 +175,13 @@ export default function AddParking() {
       formData.append("title", parking.title);
       formData.append("address", parking.address);
       formData.append("capacity", parking.capacity);
-      if (currentLocation) {
-        formData.append("latitude", currentLocation.latitude);
-        formData.append("longitude", currentLocation.longitude);
-      } else {
-        formData.append("latitude", parking.location.latitude);
-        formData.append("longitude", parking.location.longitude);
-      }
+      // if (currentLocation) {
+      // formData.append("latitude", currentLocation.latitude);
+      // formData.append("longitude", currentLocation.longitude);
+      // } else {
+      formData.append("latitude", parking.location.latitude);
+      formData.append("longitude", parking.location.longitude);
+      // }
       uploadFile(imgArr, formData);
       if (ParkingId) {
         axiosInstanceParking
@@ -176,9 +197,10 @@ export default function AddParking() {
           })
           .catch((err) => {
             console.error("Error during parking request:", err);
+            toast.error("حدث خطأ ! يرجى المحاولة مرة أخرى");
           });
       } else if (!ParkingId) {
-        alert(token);
+        // alert(token);
         axiosInstanceParking
           .post(`/parkings`, formData, {
             headers: { Authorization: `Bearer ${token}` },
@@ -190,6 +212,7 @@ export default function AddParking() {
             navigate("/");
           })
           .catch((err) => {
+            toast.error("حدث خطأ ! يرجى المحاولة مرة أخرى");
             console.error("Error during parking request:", err);
           });
       }
@@ -204,7 +227,7 @@ export default function AddParking() {
       </Helmet>
       <h3 className={`mt-4 text-center`}>
         {!ParkingId
-          ? "        لإضافة موقف يرجي ادخال البيانات الصحيحة"
+          ? "لإضافة موقف يرجي ادخال البيانات الصحيحة"
           : "تعديل بيانات الموقف"}
       </h3>
       <div className={`card w-75 align-self-center p-2 mb-5`}>
@@ -307,7 +330,6 @@ export default function AddParking() {
                   setErrors={setErrors}
                 />
               </div>
-
               <div className="form-group mb-3 col-12 col-md-6 ">
                 <label htmlFor="capacity" className="mb-1 fs-5">
                   السعة
@@ -329,7 +351,7 @@ export default function AddParking() {
               </div>
               {/* <button  className="btn bgColor text-white col-11 mb-2 m-auto">
               </button> */}
-              {/*!ParkingId ? (
+              {!ParkingId ? (
                 <>
                   <label htmlFor="location" className="mb-1 fs-5">
                     الموقع{" "}
@@ -359,7 +381,9 @@ export default function AddParking() {
                     </ReactMapGL>
                   </div>
                 </>
-              ) : null*/}
+              ) : (
+                ""
+              )}
             </div>
             <div className="d-flex justify-content-center">
               {ParkingId ? (
@@ -398,7 +422,7 @@ export default function AddParking() {
   );
 }
 
-// function Map(){
+// function Map() {
 //   useEffect(() => {
 //     // alert(token);
 
@@ -418,6 +442,8 @@ export default function AddParking() {
 //       console.error("Geolocation is not supported by this browser.");
 //     }
 //   }, [parking]);
+//   // console.log("longitude", parking.longitude);
+//   // console.log("latitude", parking.latitude);
 
 //   return (
 //     <>

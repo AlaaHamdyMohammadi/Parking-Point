@@ -30,6 +30,7 @@ const ParkRating = ({ parkId }) => {
       toast.success("تم إضافة تقييمك بنجاح!شكرا لك");
       console.log("response:", response);
     } catch (error) {
+      toast.error("لقد قمت بتقييم الموقف سابقأ");
       console.error("Error occurred :", error);
       if (error.response) {
         console.error("Response data:", error.response.data);
