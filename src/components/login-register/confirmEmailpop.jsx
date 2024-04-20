@@ -6,8 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import useSendCode from "../../../hook/useSendCode";
 
 export default function ConfimEmailPop({ userEmail }) {
-
-const handleChange=useSendCode()
+  const handleChange = useSendCode();
   return (
     <>
       <div
@@ -22,7 +21,12 @@ const handleChange=useSendCode()
         <div className="modal-dialog  modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
-              <button type="button" className="btn-close fs-6" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button
+                type="button"
+                className="btn-close fs-6"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
             <div className="modal-body ">
               <div className="text-center">
@@ -36,13 +40,19 @@ const handleChange=useSendCode()
                 <ConfirmationCodeInput length={6} onConfirm={(code) => code} />
               </div>
               <p className="fs-6 pt-2 px-2 text-end text-justify">
-                شكرا لتسجيلك معنا! لقد تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني المُسجّل
-                <span className={`${classes.resendcode} px-1`}>{userEmail}</span> يُرجى فتح بريدك الإلكتروني 
-                  ونسخ الرمز المُرسل
+                شكرا لتسجيلك معنا! لقد تم إرسال رمز التحقق إلى عنوان بريدك
+                الإلكتروني المُسجّل
+                <span className={`${classes.resendcode} px-1`}>
+                  {userEmail}
+                </span>{" "}
+                يُرجى فتح بريدك الإلكتروني ونسخ الرمز المُرسل
               </p>
             </div>
             <div className="modal-footer d-flex  justify-content-between">
-              <div className={`${classes.resendcode} pointer  fw-semibold`} onClick={handleChange}>
+              <div
+                className={`${classes.resendcode} pointer  fw-semibold`}
+                onClick={handleChange}
+              >
                 إعادة إرسال رمز التأكيد
               </div>
 
