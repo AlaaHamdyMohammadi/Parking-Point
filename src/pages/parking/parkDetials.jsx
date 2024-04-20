@@ -34,14 +34,14 @@ const ParkDetials = () => {
   // console.log("query", query, from, to, price, newParkId);
 
   useEffect(() => {
-    console.log(newParkId);
+    //console.log(newParkId);
     const getReservedPark = async () => {
       try {
         const res = await axiosInstanceParking.get(`/parkings/${newParkId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setParkreserved(res.data.park);
-        console.log(res.data.park);
+        //console.log(res.data.park);
 
         // Reload the page after successful response
         // window.location.reload();
@@ -55,7 +55,7 @@ const ParkDetials = () => {
 
     if (newParkId) {
       getReservedPark();
-      console.log("parkreserved", parkreserved);
+      //console.log("parkreserved", parkreserved);
     }
     setTimeout(() => {
       setIsLoading(false);

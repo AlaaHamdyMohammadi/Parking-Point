@@ -38,7 +38,7 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
   const handlePayment = async () => {
     // console.log("ReserveTime", ReserveTime);
     try {
-      console.log("ReserveTime", ReserveTime);
+      //console.log("ReserveTime", ReserveTime);
 
       const response = await axiosInstanceParking.post(
         `/reserve`,
@@ -54,7 +54,7 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
           },
         }
       );
-      console.log("ReserveTime", ReserveTime);
+      //console.log("ReserveTime", ReserveTime);
       const sessionID = response.data.sessionId;
       localStorage.setItem("sessionID", sessionID);
       window.location.href = `https://uatcheckout.thawani.om/pay/${sessionID}?key=HGvTMLDssJghr9tlN9gr4DVYt0qyBy`;

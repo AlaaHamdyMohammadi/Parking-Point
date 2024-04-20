@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 export default function CitySelect({ cityInfo, classes, setCityInfo, errors, setErrors }) {
     let cityRegx = /^(مسقط|مطرح|السيب|بوشر|العامرات|قريات)$/;

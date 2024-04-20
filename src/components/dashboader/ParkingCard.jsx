@@ -34,7 +34,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        console.log("update request successful", res.data);
+        //console.log("update request successful", res.data);
         getMyParkings();
       })
       .catch((err) => {
@@ -73,7 +73,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                     >
                       <div className="carousel-inner  ">
                         {parking.photos.map((photo, index) => {
-                            console.log(`URL for image ${index}: http://localhost:3000/img/parkings/${photo}`)// Debugging URL
+                            //console.log(`URL for image ${index}: http://localhost:3000/img/parkings/${photo}`)// Debugging URL
 
                           return (<div
                             className={`carousel-item ${

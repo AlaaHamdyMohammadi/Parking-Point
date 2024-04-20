@@ -1,4 +1,3 @@
-import { LiaSearchLocationSolid } from "react-icons/lia";
 import { FaSearchLocation } from "react-icons/fa";
 
 export default function SearchInput() {

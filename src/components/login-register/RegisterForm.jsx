@@ -11,7 +11,6 @@ import EmailInput from "../formFun/EmailInput";
 import PhoneInput from "../formFun/PhoneInput";
 import PlateNumberInput from "../formFun/PlateNumberInput";
 import CarTypeInput from "../formFun/CarTypeInput";
-// import ModalEmail from "./emailConfirm";
 import ConfirmationCodeInput from "./confirmEmail";
 import { login } from "../../store/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -132,7 +131,7 @@ export default function RegisterForm({ setShowFormStatus }) {
           formData.append("plateNumber", registeUser.plateNumber);
         }
         const res = await axiosInstanceParking.post(`/users/signup`, formData);
-        console.log("signup request successful", res.data);
+        //console.log("signup request successful", res.data);
         dispatch(login(res.data.token));
         setShowEmailModal(true);
       } catch (error) {
@@ -155,7 +154,7 @@ export default function RegisterForm({ setShowFormStatus }) {
             ...errors,
             plateNumberErrors: "رقم اللوحة مستخدم من قيل",
           });
-          console.log("signup request not successful", error.response.request);
+          //console.log("signup request not successful", error.response.request);
         } else if (
           error.response.request.response.includes(registeUser.nationalId)
         ) {
@@ -164,12 +163,12 @@ export default function RegisterForm({ setShowFormStatus }) {
             nationalIdErrors: "رقم الهوية مستخدم من قبل",
           });
         } else {
-          console.log("signup request not successful", error.response.request);
+          //console.log("signup request not successful", error.response.request);
         }
       }
     }
   };
-  console.log(registeUser);
+  //console.log(registeUser);
 
   const [isDriver, setIsDriver] = useState(false);
   const [isOwner, setIsOwner] = useState(false);

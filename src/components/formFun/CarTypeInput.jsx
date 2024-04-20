@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 
-export default function CarTypeInput({ classes, setCarTypeInfo, carTypeInfo, errors, setErrors, role }) {
+export default function CarTypeInput({ classes, setCarTypeInfo, carTypeInfo, errors, setErrors }) {
     let carTypeRegx = /^(سيارة)$/;
     const plateNumberValidation = (event) => {
         const { name, value } = event.target

@@ -191,7 +191,7 @@ export default function AddParking() {
           })
 
           .then((res) => {
-            console.log("update request successful", res.data);
+            //console.log("update request successful", res.data);
             toast.success("تم تحديث الموقف بنجاح");
             setTimeout(() => {
               navigate("/");
@@ -209,7 +209,7 @@ export default function AddParking() {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then((res) => {
-            console.log("Post request successful", res.data);
+            //console.log("Post request successful", res.data);
             toast.success("تم إضافة الموقف بنجاح");
             setTimeout(() => {
               navigate("/");

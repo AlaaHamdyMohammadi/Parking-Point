@@ -70,8 +70,7 @@ export default function SidebarProfile() {
               >
                 <Link to={`/Profile`}>
                   <div className="pe-2">
-                    console.log(`URL for image :
-                    http://localhost:3000/img/parkings/${user.photo}`)
+                   
                     <img
                       src={
                         user.photo

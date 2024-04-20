@@ -6,10 +6,8 @@ import classes from "./../../../styles/formStyles.module.css";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import axiosInstanceParking from "../../../axiosConfig/instanc";
-// import ForgotPasswordModal from "./ForgotPasswordModal";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
 const ForgotPassword = () => {
   const [registeUser, setRegisteUser] = React.useState({ email: "" });
   const [codeconfirmed, setCodeconfirmed] = useState(false);
@@ -29,7 +27,6 @@ const ForgotPassword = () => {
     confirmPasswordErrors: "*",
     tokenErrors: "*",
   });
-  // const navigate = useNavigate();
 
   // useEffect(() => {
   //   console.log("enterOtp:", enterOtp);
@@ -84,14 +81,14 @@ const ForgotPassword = () => {
             email,
           }
         );
-        console.log(res.data);
+        //console.log(res.data);
         // setEnterOtp(true);
         // setEnterOtp((prevState) => !prevState);
         setEnterOtp((prevState) => {
-          console.log("prevState:", prevState);
+          //console.log("prevState:", prevState);
           return !prevState;
         });
-        console.log(enterOtp);
+        //console.log(enterOtp);
       } catch (error) {
         toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
 
@@ -147,7 +144,7 @@ const ForgotPassword = () => {
       toast.success("تم تفعيل كلمة السر بنجاح");
     } catch (error) {
       if (error.response) {
-        console.log("Error data:", error.response.data);
+        //console.log("Error data:", error.response.data);
       } else if (error.request) {
         console.log("No response received from server:", error.request);
       } else {
@@ -191,7 +188,7 @@ const ForgotPassword = () => {
                       onChange={(e) => {
                         setEmail(e.target.value);
                         setEmailError(false);
-                        console.log("Email:", e.target.value);
+                        //console.log("Email:", e.target.value);
                       }}
                     />
                     {emailError && (
@@ -268,7 +265,7 @@ const ForgotPassword = () => {
                       value={token}
                       onChange={(e) => {
                         setToken(e.target.value);
-                        console.log("Token:", e.target.value);
+                        //console.log("Token:", e.target.value);
                       }}
                       onPaste={(e) => {
                         const pastedText = e.clipboardData.getData("text");
@@ -359,7 +356,7 @@ const ForgotPassword = () => {
                             onChange={(e) => {
                               registeValidation;
                               setPassword(e.target.value);
-                              console.log("Password:", e.target.value);
+                              //console.log("Password:", e.target.value);
                             }}
                             className={`${classes.input} form-control border-secondary shadow-none`}
                             style={{

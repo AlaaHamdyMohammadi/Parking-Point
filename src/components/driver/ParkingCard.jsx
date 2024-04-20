@@ -7,7 +7,7 @@ import RatingComponent from "./RatingComponent";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 
 export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
-  console.log(AvaliableParksFilter);
+  //console.log(AvaliableParksFilter);
   return (
     <>
       {AvaliableParksFilter.map((item, index) => (

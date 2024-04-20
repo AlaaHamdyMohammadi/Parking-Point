@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { IconButton, Typography } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 export default function SimplePagination({

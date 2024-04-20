@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 export default function NameInputs({ classes, setNameInfo, nameInfo, errors, setErrors }) {
     let nameRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;

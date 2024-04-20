@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 export default function RegionInput({ classes, setRegionInfo, regionInfo, errors, setErrors }) {
     let regionRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;

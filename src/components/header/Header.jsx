@@ -5,7 +5,6 @@ import { changLog } from "../../store/slices/login";
 import { IoPerson } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
 import { MdContactSupport } from "react-icons/md";
-import { IoBagCheckSharp } from "react-icons/io5";
 import { logout } from "../../store/slices/authSlice";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import useLogInUserData from "../../../hook/useLogInUserData";
@@ -112,7 +111,7 @@ export default function Header() {
             >
               <img
                 style={{ height: "6vh", width: "6vh" }}
-                src="./../../../images/logo3.png"
+                src="/images/logo3.png"
                 className={`${classes.logo} mx-4 mt-2  `}
               />
             </Link>

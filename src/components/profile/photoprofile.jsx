@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useRef, useState } from "react";
 import { BsPersonFillCheck } from "react-icons/bs";
 import { TbCameraPlus } from "react-icons/tb";
@@ -37,7 +38,7 @@ useEffect(() => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        console.log("update request successful", res.data);
+        //console.log("update request successful", res.data);
         setImage(file);
       })
       .catch((err) => {
@@ -54,7 +55,7 @@ useEffect(() => {
         <div className="position-absolute top-100 start-50 translate-middle">
           <div>
             <img
-              src={image ? showImages(image) : '/images/defaultpersonjpg.jpg'}
+              src={image ? showImages(image) : '/defaultpersonjpg.jpg'}
               className="rounded-circle position-relative"
               style={{ height: "20vh", width: "20vh" }}
               alt="..."

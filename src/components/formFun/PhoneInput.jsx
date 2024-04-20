@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 export default function PhoneInput({ classes, setPhoneNumberInfo, phoneNumberInfo, errors, setErrors }) {
     let phoneRegx = /^(?:(?:\+|00)968)?(9[1-9]\d{6})$/;
