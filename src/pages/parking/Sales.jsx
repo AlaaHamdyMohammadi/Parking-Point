@@ -53,7 +53,10 @@ export default function Sales() {
   const [isLoading, setIsLoading] = useState(true);
   const [reserveSearch, setReserveSearch] = useState("");
   const user = useLogInUserData();
+<<<<<<< Updated upstream
   const token = useSelector((state) => state.loggedIn.token);
+=======
+>>>>>>> Stashed changes
 
   const fetchData = async () => {
     try {
