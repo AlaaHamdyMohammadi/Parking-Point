@@ -171,15 +171,6 @@ export default function Sales() {
                           <span>{item.plateNumber}</span>
                         </td>
 
-                        {/* <td className="p-4">
-                          {item.time.from
-                            ? new Date(item.time.from).toLocaleString()
-                            : ""}
-                        
-                          {item.time.to
-                            ? new Date(item.time.to).toLocaleString()
-                            : ""}
-                        </td> */}
                         <td className="p-4">
                           {calculateTimeDifference(
                             item.time.from,
@@ -279,7 +270,7 @@ export default function Sales() {
               </table>
             </div>
           </div>
-          <ToastContainer position="top-right" autoClose={50000} />
+          <ToastContainer position="top-right" autoClose={2000} />
         </div>
       ) : (
         <div className="fs-3 fw-bold text-center ">
