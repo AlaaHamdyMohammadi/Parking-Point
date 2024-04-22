@@ -69,9 +69,7 @@ export default function Sales() {
           }
         );
         setData(response.data.data);
-
-        // setResponseLength(response.data.length);
-        // console.log(response.data.length, "res");
+        setResponseLength(response.data.total);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
