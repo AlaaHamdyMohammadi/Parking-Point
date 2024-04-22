@@ -34,18 +34,6 @@ const calculateTimeDifference = (fromDate, toDate) => {
   return `${days} يوم ${hours} ساعة ${minutes} دقيقة`;
 };
 
-const formatDateString = (dateString) => {
-  const date = new Date(dateString);
-  const hours = date.getHours().toString().padStart(2, "0");
-  const minutes = date.getMinutes().toString().padStart(2, "0");
-  return `${date.getFullYear()}-${(date.getMonth() + 1)
-    .toString()
-    .padStart(2, "0")}-${date
-    .getDate()
-    .toString()
-    .padStart(2, "0")}T${hours}:${minutes}`;
-};
-
 export default function Sales() {
   const [currentPage, setCurrentPage] = useState(1);
   const [responseLength, setResponseLength] = useState(0);
@@ -124,6 +112,9 @@ export default function Sales() {
             >
               <FaRegFilePdf className="text-center   fs-5" /> تحميل
             </button>
+            <button className={`text-center my-2 btnDownload w-100     btn `}>
+              {responseLength} حجز
+            </button>
             <div className="d-flex w-100 my-2" role="search">
               <input
                 className="form-control  fs-6 btnDownload  opacity-50 text-body-secondary "
@@ -179,6 +170,16 @@ export default function Sales() {
                         <td className="p-4 yellowcolor">
                           <span>{item.plateNumber}</span>
                         </td>
+
+                        {/* <td className="p-4">
+                          {item.time.from
+                            ? new Date(item.time.from).toLocaleString()
+                            : ""}
+                        
+                          {item.time.to
+                            ? new Date(item.time.to).toLocaleString()
+                            : ""}
+                        </td> */}
                         <td className="p-4">
                           {calculateTimeDifference(
                             item.time.from,
@@ -186,9 +187,33 @@ export default function Sales() {
                           )}
                         </td>
                         <td className="p-4">
-                          {formatDateString(item.time.from)} :{" "}
-                          {formatDateString(item.time.to)}
+                          {item.time.from
+                            ? new Date(item.time.from).toLocaleString("ar", {
+                                day: "numeric",
+                                month: "numeric",
+                                year: "numeric",
+                                hour: "numeric",
+                                minute: "numeric",
+                                // second: "numeric",
+                                hour12: true,
+                              })
+                            : ""}
+                          <span className="text-warning fs-2 fw-semibold">
+                            :
+                          </span>
+                          {item.time.to
+                            ? new Date(item.time.to).toLocaleString("ar", {
+                                day: "numeric",
+                                month: "numeric",
+                                year: "numeric",
+                                hour: "numeric",
+                                minute: "numeric",
+                                // second: "numeric",
+                                hour12: true,
+                              })
+                            : ""}
                         </td>
+
                         <td className="p-4 yellowcolor">{item.price} $</td>
                       </tr>
                     ))}
@@ -207,10 +232,43 @@ export default function Sales() {
                             item.reservation.time.to
                           )}
                         </td>
-                        <td className="p-4">
-                          {formatDateString(item.reservation.time.from)} :{" "}
-                          {formatDateString(item.reservation.time.to)}
+
+                        <td className="p-1 pt-4">
+                          {/* {formatDateString(item.reservation.time.from)} :{" "} */}
+                          {item.reservation.time.from
+                            ? new Date(
+                                item.reservation.time.from
+                              ).toLocaleString("ar", {
+                                day: "numeric",
+                                month: "numeric",
+                                year: "numeric",
+                                hour: "numeric",
+                                minute: "numeric",
+                                // second: "numeric",
+                                hour12: true,
+                              })
+                            : ""}
+                          <span className="text-warning fs-2 fw-semibold">
+                            :
+                          </span>
+
+                          {item.reservation.time.to
+                            ? new Date(item.reservation.time.to).toLocaleString(
+                                "ar",
+                                {
+                                  day: "numeric",
+                                  month: "numeric",
+                                  year: "numeric",
+                                  hour: "numeric",
+                                  minute: "numeric",
+                                  second: "numeric",
+                                  // hour12: true,
+                                }
+                              )
+                            : ""}
+                          {/* {formatDateString(item.reservation.time.to)} */}
                         </td>
+
                         <td className="p-4 yellowcolor">
                           {item.reservation.price} $
                         </td>

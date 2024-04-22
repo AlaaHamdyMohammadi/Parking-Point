@@ -15,7 +15,7 @@ export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
           <div className="col-lg-4 col-md-4 col-sm-4">
             <div
               id={`carouselExampleInterval${index}`}
-              className="carousel slide"
+              className="carousel slide mt-3 me-2"
               data-bs-ride="carousel"
             >
               <div className="carousel-inner  ">
