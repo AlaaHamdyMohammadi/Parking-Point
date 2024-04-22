@@ -73,7 +73,7 @@ export default function LoginForm() {
         <p className={`text-danger`}>{isTrueErrors}</p>
         <div>
           <label htmlFor="email" className="fs-5">
-            اسم المستخدم
+            البريد الالكتروني
           </label>
           <input
             type="email"
