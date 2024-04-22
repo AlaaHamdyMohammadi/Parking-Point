@@ -43,8 +43,8 @@ export default function SidebarProfile() {
     toast.error("يرجى التواصل مع الدعم  ");
   };
   const handleChange = useSendCode();
-  console.log(user.photo);
-  console.log(user);
+  // console.log(user.photo);
+  // console.log(user);
 
   return (
     <>
@@ -76,7 +76,13 @@ export default function SidebarProfile() {
                     <img
                       src={
                         user.photo
+<<<<<<< Updated upstream
                           ? `${axiosInstanceParking.defaults.baseURL}/img/users/${user.photo}`
+=======
+                          ? // `http://localhost:3000/img/users/user-1713572596309843.1664422927789.jpeg`
+                            // `${axiosInstanceParking.defaults.baseURL}/img/users/${user.photo}`
+                            `http://localhost:3000/img/users/${user.photo}`
+>>>>>>> Stashed changes
                           : "/images/defaultpersonjpg.jpg"
                       }
                       className=" border rounded-circle"

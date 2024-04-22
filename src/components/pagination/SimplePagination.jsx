@@ -7,6 +7,7 @@ export default function SimplePagination({
   pagesPagination,
 }) {
   let allPages = Math.ceil(pagesPagination / 10);
+  // alert(allPages);
   const next = () => {
     if (currentPage === allPages) return;
     setCurrentPage(currentPage + 1);

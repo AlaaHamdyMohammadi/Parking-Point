@@ -136,6 +136,10 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                         <span className=" fw-semibold"> السعة: </span>
                         {parking.capacity}
                       </p>
+                      {/* <p className="mb-0 customfs  ">
+                        <span className=" fw-semibold"> الاماكن المتاحة: </span>
+                        {parking.availableCapacity}
+                      </p> */}
                       <p className="">
                         <small className="text-body-secondary">
                           الإضافة:{" "}
@@ -226,7 +230,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
             ))
           ) : (
             <div className="fs-3 fw-semibold text-center">
-              <p className="my-5 py-5">لم يتم إضافة موقف حتى الان</p>
+              <p className="my-5 py-5">لا يوجد مواقف حتى الان</p>
             </div>
           )}
         </>

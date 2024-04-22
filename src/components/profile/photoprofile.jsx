@@ -61,7 +61,7 @@ export default function Photoprofile() {
             <img
               src={image ? showImages(image) : "/defaultpersonjpg.jpg"}
               className="rounded-circle position-relative"
-              style={{ height: "20vh", width: "20vh" }}
+              style={{ height: "18vh", width: "18vh", marginRight: "30px" }}
               alt="..."
             />
             <input
@@ -72,10 +72,12 @@ export default function Photoprofile() {
               style={{ display: "none" }}
             />
             <div role="button">
-              <TbCameraPlus
-                className="position-absolute top-50 start-0 fs-3 btn-yellow text-light rounded-circle p-1"
-                onClick={clickImgInput}
-              />
+              <div className="ms-5">
+                <TbCameraPlus
+                  className="position-absolute top-50 start-0 fs-2 ms-1  btn-yellow text-light rounded-circle p-1"
+                  onClick={clickImgInput}
+                />
+              </div>
             </div>
           </div>
           <p className="mt-2 Gray">

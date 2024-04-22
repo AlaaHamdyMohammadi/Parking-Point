@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { LiaCarSideSolid } from "react-icons/lia";
 // import { SlCalender } from "react-icons/sl";
 // import { MdOutlineWatchLater } from "react-icons/md";
@@ -17,7 +16,6 @@ import { Helmet } from "react-helmet";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SimplePagination from "../../components/pagination/SimplePagination";
-import useLogInUserData from "../../../hook/useLogInUserData";
 const calculateTimeDifference = (fromDate, toDate) => {
   const from = new Date(fromDate);
   const to = new Date(toDate);
@@ -34,26 +32,25 @@ const calculateTimeDifference = (fromDate, toDate) => {
   return `${days} يوم ${hours} ساعة ${minutes} دقيقة`;
 };
 
-// const formatDateString = (dateString) => {
-//   const date = new Date(dateString);
-//   const hours = date.getHours().toString().padStart(2, "0");
-//   const minutes = date.getMinutes().toString().padStart(2, "0");
-//   return `${date.getFullYear()}-${(date.getMonth() + 1)
-//     .toString()
-//     .padStart(2, "0")}-${date
-//     .getDate()
-//     .toString()
-//     .padStart(2, "0")}T${hours}:${minutes}`;
-// };
+const formatDateString = (dateString) => {
+  const date = new Date(dateString);
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  return `${date.getFullYear()}-${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}-${date
+    .getDate()
+    .toString()
+    .padStart(2, "0")}T${hours}:${minutes}`;
+};
 
 export default function Sales() {
   const [currentPage, setCurrentPage] = useState(1);
   const [responseLength, setResponseLength] = useState(0);
   const [data, setData] = useState(null);
+  const token = useSelector((state) => state.loggedIn.token);
   const [isLoading, setIsLoading] = useState(true);
   const [reserveSearch, setReserveSearch] = useState("");
-  const user = useLogInUserData();
-  const token = useSelector((state) => state.loggedIn.token);
 
   const fetchData = async () => {
     try {
@@ -61,6 +58,7 @@ export default function Sales() {
       if (reserveSearch) {
         params = { searchField: "plateNumber", plateNumber: reserveSearch };
       }
+<<<<<<< Updated upstream
       if (user.role == "driver") {
         const response = await axiosInstanceParking.get(
           `/reserve/me?page=${currentPage}`,
@@ -84,14 +82,26 @@ export default function Sales() {
         setData(response.data.data);
         console.log(response.data.length, "res");
       }
+=======
+
+      const response = await axiosInstanceParking.get(
+        `/reserve/me?page=${currentPage}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          params: params,
+        }
+      );
+      setResponseLength(response.data.allItems);
+      setData(response.data.doc);
+      console.log(response.data, "res");
+>>>>>>> Stashed changes
     } catch (error) {
-      toast.error("حدث خطأ ! برجاء المحاولة في وقت لاحق");
       console.error("Error fetching data:", error);
     } finally {
       setIsLoading(false);
     }
   };
-  //console.log(responseLength);
+  console.log(responseLength);
   // Use useCallback to memoize the handleSearch function
   const handleSearch = useCallback((event) => {
     setReserveSearch(event.target.value);
@@ -100,7 +110,7 @@ export default function Sales() {
   useEffect(() => {
     fetchData();
   }, [token, reserveSearch, currentPage]);
-  //console.log(data, "data");
+  console.log(data, "dataaaaaaaaaaaa");
   const ComponentPDF = useRef();
   const generatePDF = useReactToPrint({
     content: () => ComponentPDF.current,
@@ -148,100 +158,47 @@ export default function Sales() {
                 maxHeight: "600px",
               }}
             >
-              <table className="table table-hover border my-3 rounded-3">
-                <thead className="bgColor border rounded-2 fs-6 text-white ">
-                  <th className="p-1 ">
-                    <LuParkingCircle className="me-1 mb-1  text-white fs-2 bgColor" />
+              <table className="table table-hover border rounded-3">
+                <thead className="bgColor border rounded-2 fs-6 text-white fw-bolder py-3">
+                  <th className="p-1 px-2 ">
+                    <LuParkingCircle className="me-1 mb-1  text-white fs-1 bgColor" />
                     الموقف
                   </th>
-                  <th className="p-1 ">
-                    <LiaCarSideSolid className="me-1 mb-1 text-center text-white fs-2 bgColor" />
+                  <th className="p-1 px-2 ">
+                    <LiaCarSideSolid className="me-1 mb-1 text-center text-white fs-1 bgColor" />
                     رقم اللوحة
                   </th>
-                  <th className="p-1 ">
-                    <PiCalendarCheckBold className="me-1 mb-1 text-center text-white fs-2 bgColor" />
+                  <th className="p-1 px-2 ">
+                    <PiCalendarCheckBold className="me-1 mb-1 text-center text-white fs-1 bgColor" />
                     مدة الحجز
                   </th>
-                  <th className="p-1 ">
-                    <LuCalendarClock className="me-1 mb-1 text-center text-white fs-2 bgColor" />
-                    بداية الحجز:
+                  <th className="p-1 px-2 ">
+                    <LuCalendarClock className="me-1 mb-1 text-center text-white fs-1 bgColor" />
+                    بداية الحجز : نهاية الحجز
                   </th>
-                  <th className="p-1 ">
-                    <LuCalendarClock className="me-1 mb-1 text-center text-white fs-2 bgColor" />
-                    نهاية الحجز:
-                  </th>
-                  <th className="p-1 ">
-                    <MdPriceCheck className="mb-1 text-center text-white fs-2 bgColor" />
+                  <th className="p-1 px-2 ">
+                    <MdPriceCheck className="mb-1 text-center text-white fs-1 bgColor" />
                     التكلفة
                   </th>
                 </thead>
-                {user.role === "renter" ? (
-                  <tbody className="p">
-                    {data.map((item, index) => (
-                      <tr key={index}>
-                        <td className="p-4">{item.park.title}</td>
-                        <td className="p-4 yellowcolor">
-                          <span>{item.reservation.user.plateNumber}</span>
-                        </td>
-                        <td className="p-4">
-                          {calculateTimeDifference(
-                            item.reservation.time.from,
-                            item.reservation.time.to
-                          )}
-                        </td>
-                        <td className="p-4">
-                          {item.reservation.time.from
-                            ? new Date(
-                                item.reservation.time.from
-                              ).toLocaleString()
-                            : ""}
-                        </td>
-                        <td className="p-4">
-                          {item.reservation.time.to
-                            ? new Date(
-                                item.reservation.time.to
-                              ).toLocaleString()
-                            : ""}
-                          {/* {formatDateString(item.time.from)} : {formatDateString(item.time.to)} */}
-                        </td>
-                        <td className="p-4 yellowcolor">
-                          {item.reservation.price} $
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                ) : (
-                  <tbody className="p">
-                    {data.map((item, index) => (
-                      <tr key={index}>
-                        <td className="p-4">{item.park.title}</td>
-                        <td className="p-4 yellowcolor">
-                          <span>{item.plateNumber}</span>
-                        </td>
-                        <td className="p-4">
-                          {calculateTimeDifference(
-                            item.time.from,
-                            item.time.to
-                          )}
-                        </td>
-                        <td className="p-4">
-                          {item.time.from
-                            ? new Date(item.time.from).toLocaleString()
-                            : ""}
-                        </td>
-                        <td className="p-4">
-                          {item.time.to
-                            ? new Date(item.time.to).toLocaleString()
-                            : ""}
-                          {/* {formatDateString(item.time.from)} : {formatDateString(item.time.to)} */}
-                        </td>
-                        <td className="p-4 yellowcolor">{item.price} $</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                )}
-
-                {/*  */}
+                <tbody className="pe-2">
+                  {data.map((item, index) => (
+                    <tr key={index}>
+                      <td className="p-4">{item.park.title}</td>
+                      <td className="p-4 yellowcolor">
+                        <span>{item.plateNumber}</span>
+                      </td>
+                      <td className="p-4">
+                        {calculateTimeDifference(item.time.from, item.time.to)}
+                      </td>
+                      <td className="p-4">
+                        {formatDateString(item.time.from)} :{" "}
+                        {formatDateString(item.time.to)}
+                      </td>
+                      <td className="p-4 yellowcolor">{item.price} $</td>
+                    </tr>
+                  ))}
+                </tbody>
               </table>
             </div>
           </div>

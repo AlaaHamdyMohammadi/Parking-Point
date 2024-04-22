@@ -94,6 +94,7 @@ export default function EndDateTime({
         })
         .catch((error) => {
           console.error("Error", error);
+          toast.error("حدث خطأ!يرجى إدخال بينات صحيحة وإعادة المحاولة");
         });
     }
   };

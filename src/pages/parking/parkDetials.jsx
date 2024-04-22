@@ -103,8 +103,8 @@ const ParkDetials = () => {
           <SpinnerLoad />
         ) : (
           <div className="d-flex justify-content-center ">
-            <div className="w-75 my-5 ">
-              <div className="d-flex justify-content-between  my-4">
+            <div className="w-75 my-5">
+              <div className="d-flex justify-content-between px-5 my-4">
                 <button
                   className={`text-center my-2  borderCustom w-25 animate    btn `}
                   onClick={generatePDF}
@@ -119,8 +119,15 @@ const ParkDetials = () => {
                 </div>
               </div>
 
+<<<<<<< Updated upstream
               <div className={`card text-center borderCustom p-2 mb-5`}>
                 <div className="row mx-5 p-3">
+=======
+              <div
+                className={`card text-center borderCustom p-2 px-5 mx-5 mb-5`}
+              >
+                <div className="row p-5 ">
+>>>>>>> Stashed changes
                   <div
                     id="carouselExampleRide"
                     className="carousel slide f"
