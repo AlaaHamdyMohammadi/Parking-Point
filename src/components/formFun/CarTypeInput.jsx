@@ -32,7 +32,7 @@ export default function CarTypeInput({
         type="text"
         name="plateNumber"
         id="plateNumber"
-        value={carTypeInfo.carType}
+        value={`سيارة`}
         className={`${classes.input}  form-control border border-secondary shadow-none`}
         onChange={plateNumberValidation}
         onBlur={plateNumberValidation}

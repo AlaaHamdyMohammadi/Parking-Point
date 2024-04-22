@@ -1,7 +1,5 @@
-/* eslint-disable react/prop-types */
 import ConfirmationCodeInput from "./confirmEmail";
 import classes from "./../../styles/formStyles.module.css";
-// import CountdownTimer from "./CountdownTimer";
 import "react-toastify/dist/ReactToastify.css";
 import useSendCode from "../../../hook/useSendCode";
 import CountdownTimer from "./CountdownTimer";
@@ -40,7 +38,7 @@ export default function ConfimEmailPop({ userEmail }) {
               <div className="text-center">
                 <ConfirmationCodeInput length={6} onConfirm={(code) => code} />
               </div>
-              <p className="fs-6 pt-2 px-2 text-end text-justify">
+              <p className="fs-6 pt-2 px-2 text-justify">
                 شكرا لتسجيلك معنا! لقد تم إرسال رمز التحقق إلى عنوان بريدك
                 الإلكتروني المُسجّل
                 <span className={`${classes.resendcode} px-1`}>

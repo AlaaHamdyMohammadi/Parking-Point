@@ -168,7 +168,7 @@ export default function Setting() {
                     type="text"
                     name="nationaleId"
                     id="nationaleId"
-                    value={user.nationaleId}
+                    value={user.nationalId}
                     disabled
                     className={`${classes.input} form-control border border-secondary shadow-none`}
                   />
