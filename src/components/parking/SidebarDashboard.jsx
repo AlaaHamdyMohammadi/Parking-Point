@@ -75,11 +75,9 @@ export default function SidebarProfile() {
                   <div className="pe-2">
                     <img
                       src={
-                        // user.photo
-                        //   ?
-                        `http://localhost:3000/img/users/user-1713572596309843.1664422927789.jpeg`
-                        // : // ? `${axiosInstanceParking.defaults.baseURL}/users/${user.photo}`
-                        // "/images/defaultpersonjpg.jpg"
+                        user.photo
+                          ? `${axiosInstanceParking.defaults.baseURL}/img/users/${user.photo}`
+                          : "/images/defaultpersonjpg.jpg"
                       }
                       className=" border rounded-circle"
                       style={{ width: "6vh", height: "6vh" }}
@@ -189,7 +187,7 @@ export default function SidebarProfile() {
                 <img
                   src={
                     user.photo
-                      ? `${axiosInstanceParking.defaults.baseURL}/users/${user.photo}`
+                      ? `${axiosInstanceParking.defaults.baseURL}/img/users/${user.photo}`
                       : "/images/defaultpersonjpg.jpg"
                   }
                   className=" border rounded-circle"

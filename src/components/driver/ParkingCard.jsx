@@ -26,7 +26,7 @@ export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
                     key={index}
                   >
                     <img
-                      src={`${axiosInstanceParking.defaults.baseURL}/parkings/${photo}`}
+                      src={`${axiosInstanceParking.defaults.baseURL}/img/parkings/${photo}`}
                       style={{ width: "3vh", height: "18vh" }}
                       className="d-block w-100"
                       alt="..."
@@ -63,15 +63,14 @@ export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
           <div className="col-8 d-flex    align-items-center">
             <div className="card-body col-lg-8 ">
               <div className="card-title fw-bolder mb-0">{item.title}</div>
-              <div className="mb-0 customfs  Gray">
+              <div className="mb-0 customfs  ">
                 <div>
                   <span className=" fw-semibold"> الأماكن المتاحه: </span>
-                  {item.avaliable}
+                  {item.availableCapacity}
                 </div>
               </div>
-              <div className="mb-0 customfs Gray">
+              <div className="mb-0 customfs ">
                 <div>
-                  <span className=" fw-semibold"> العنوان: </span>
                   <ParkingAddress address={item.address} />
                 </div>
               </div>

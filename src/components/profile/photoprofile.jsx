@@ -11,9 +11,9 @@ export default function Photoprofile() {
   const token = useSelector((state) => state.loggedIn.token);
   const [image, setImage] = useState(null);
   const profileImgRef = useRef(null);
-useEffect(() => {
-  setImage(user.photo)
-}, [user.photo]);
+  useEffect(() => {
+    setImage(user.photo);
+  }, [user.photo]);
   const clickImgInput = () => {
     profileImgRef.current.click();
   };
@@ -25,10 +25,10 @@ useEffect(() => {
     try {
       return URL.createObjectURL(image);
     } catch (err) {
-      return `${axiosInstanceParking.defaults.baseURL}/users/${image}`;
+      return `${axiosInstanceParking.defaults.baseURL}/img/users/${image}`;
     }
   }
-  
+
   const uploadUserImg = (event) => {
     const file = event.target.files[0];
     const formData = new FormData();
@@ -50,12 +50,16 @@ useEffect(() => {
     <>
       <div className="d-flex flex-column position-relative border rounded-3">
         <div className="row" style={{ height: "45vh" }}>
-          <img src="/images/bg2.gif" className="w-100" style={{ height: "45vh" }} />
+          <img
+            src="/images/bg2.gif"
+            className="w-100"
+            style={{ height: "45vh" }}
+          />
         </div>
         <div className="position-absolute top-100 start-50 translate-middle">
           <div>
             <img
-              src={image ? showImages(image) : '/defaultpersonjpg.jpg'}
+              src={image ? showImages(image) : "/defaultpersonjpg.jpg"}
               className="rounded-circle position-relative"
               style={{ height: "20vh", width: "20vh" }}
               alt="..."
@@ -76,7 +80,10 @@ useEffect(() => {
           </div>
           <p className="mt-2 Gray">
             <BsPersonFillCheck className="editIcon2" />
-            <span className=""> {`عضو منذ ${new Date(user.createdAt).toLocaleDateString()}`}</span>
+            <span className="">
+              {" "}
+              {`عضو منذ ${new Date(user.createdAt).toLocaleDateString()}`}
+            </span>
           </p>
         </div>
       </div>

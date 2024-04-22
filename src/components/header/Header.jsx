@@ -94,7 +94,7 @@ export default function Header() {
               <img
                 src={
                   user.photo
-                    ? `${axiosInstanceParking.defaults.baseURL}/users/${user.photo}`
+                    ? `${axiosInstanceParking.defaults.baseURL}/img/users/${user.photo}`
                     : "/images/defaultpersonjpg.jpg"
                 }
                 className="rounded-circle position-absolute top-0"

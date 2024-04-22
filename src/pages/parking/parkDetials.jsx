@@ -120,7 +120,7 @@ const ParkDetials = () => {
               </div>
 
               <div className={`card text-center borderCustom p-2 mb-5`}>
-                <div className="row ">
+                <div className="row mx-5 p-3">
                   <div
                     id="carouselExampleRide"
                     className="carousel slide f"
@@ -137,7 +137,7 @@ const ParkDetials = () => {
                             key={index}
                           >
                             <img
-                              src={`${axiosInstanceParking.defaults.baseURL}/parkings/${photo}`}
+                              src={`${axiosInstanceParking.defaults.baseURL}/img/parkings/${photo}`}
                               style={{ height: "50vh", width: "30vh" }}
                               className="d-block w-100"
                               alt="..."

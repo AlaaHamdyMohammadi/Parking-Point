@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import ConfirmationCodeInput from "./confirmEmail";
 import classes from "./../../styles/formStyles.module.css";
-import CountdownTimer from "./CountdownTimer";
+// import CountdownTimer from "./CountdownTimer";
 import "react-toastify/dist/ReactToastify.css";
 import useSendCode from "../../../hook/useSendCode";
 
@@ -55,10 +55,10 @@ export default function ConfimEmailPop({ userEmail }) {
               >
                 إعادة إرسال رمز التأكيد
               </div>
-
+              {/* 
               <span className="text-secondary  ">
                 إرسال الرمز خلال <CountdownTimer /> دقائق
-              </span>
+              </span> */}
             </div>
           </div>
         </div>

@@ -37,7 +37,7 @@ export default function NameLastInputs({
           الأسم الاخير
         </label>
         <input
-          className={`${classes.input} Gray form-control border-secondary shadow-none`}
+          className={`${classes.input}  form-control border-secondary shadow-none`}
           type="text"
           name="lastName"
           value={lastNameInfo.lastName}

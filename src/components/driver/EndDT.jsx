@@ -27,12 +27,6 @@ export default function EndDateTime({
     minutes: 0,
   });
 
-  // const [searchData, setSearchData] = useState({
-  //   city: "",
-
-  //   from: BookNow ? new Date().toISOString().slice(0, 16) : null,
-  //   to: null,
-  // });
   const [searchData, setSearchData] = useState({
     city: "",
     from: BookNow ? new Date(Date.now()) : "",
@@ -95,7 +89,7 @@ export default function EndDateTime({
         )
         .then((response) => {
           onReserveChange(response.data.parks);
-          //console.log("Response:", response.data.parks);
+          console.log("Response:", response.data.parks);
           setIsSearch(true);
         })
         .catch((error) => {

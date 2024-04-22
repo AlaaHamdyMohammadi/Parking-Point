@@ -71,7 +71,7 @@ export default function Sales() {
         );
         setResponseLength(response.data.allItems);
         setData(response.data.doc);
-        //console.log(response.data, "res");
+        console.log(response.data, "res");
       } else if (user.role == "renter") {
         const response = await axiosInstanceParking.get(
           `/parkings/myparks-reservations?page=${currentPage}`,
@@ -80,9 +80,9 @@ export default function Sales() {
             params: params,
           }
         );
-        setResponseLength(response.data.allItems);
+        setResponseLength(response.data.length);
         setData(response.data.data);
-        //console.log(response.data, "res");
+        console.log(response.data.length, "res");
       }
     } catch (error) {
       toast.error("حدث خطأ ! برجاء المحاولة في وقت لاحق");
