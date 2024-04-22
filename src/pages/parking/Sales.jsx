@@ -104,7 +104,7 @@ export default function Sales() {
       {isLoading ? (
         <SpinnerLoad />
       ) : data ? (
-        <div className="my-5  w-100 align-self-center">
+        <div className="  w-100 align-self-center">
           <div className="d-lg-flex d-md-flex m-2 gap-5 justify-content-between">
             <button
               className={`text-center my-2 btnDownload w-100 animate    btn `}
@@ -139,7 +139,7 @@ export default function Sales() {
                 maxHeight: "600px",
               }}
             >
-              <table className="table table-hover border rounded-3">
+              <table className="table table-hover border my-1 rounded-3">
                 <thead className="bgColor border rounded-2 fs-6 text-white fw-bolder py-3">
                   <th className="p-1 px-2 ">
                     <LuParkingCircle className="me-1 mb-1  text-white fs-1 bgColor" />
