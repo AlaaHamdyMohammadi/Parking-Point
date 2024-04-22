@@ -15,7 +15,6 @@ const ForgotPassword = () => {
   const [enterOtp, setEnterOtp] = useState(false);
   const [showEmailModal, setShowEmailModal] = useState(true);
   const [confirmPassword, setConfirmPassword] = useState(false);
-
   const [esc, setEsc] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [token, setToken] = React.useState("");
@@ -81,14 +80,14 @@ const ForgotPassword = () => {
             email,
           }
         );
-        //console.log(res.data);
-        // setEnterOtp(true);
+        console.log(res.data);
+        setEnterOtp(true);
         // setEnterOtp((prevState) => !prevState);
-        setEnterOtp((prevState) => {
-          //console.log("prevState:", prevState);
-          return !prevState;
-        });
-        //console.log(enterOtp);
+        // setEnterOtp((prevState) => {
+        //   //console.log("prevState:", prevState);
+        //   return !prevState;
+        // });
+        console.log(enterOtp);
       } catch (error) {
         toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
 
@@ -97,6 +96,7 @@ const ForgotPassword = () => {
     }
   }
   //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>.");
+  console.log(enterOtp);
 
   //console.log("enterOtp", enterOtp); //
   //console.log("showEmailModal", showEmailModal);

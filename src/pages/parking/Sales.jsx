@@ -69,9 +69,10 @@ export default function Sales() {
           }
         );
         setData(response.data.data);
+        setResponseLength(response.data.total);
 
-        // setResponseLength(response.data.length);
-        // console.log(response.data.length, "res");
+        console.log(response.data.total);
+        console.log(response, "res");
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -113,22 +114,25 @@ export default function Sales() {
               <FaRegFilePdf className="text-center   fs-5" /> تحميل
             </button>
             <button className={`text-center my-2 btnDownload w-100     btn `}>
-              {responseLength} حجز
+              {responseLength}حجوزات
             </button>
-            <div className="d-flex w-100 my-2" role="search">
-              <input
-                className="form-control  fs-6 btnDownload  opacity-50 text-body-secondary "
-                type="search"
-                placeholder="ابحث برقم اللوحة"
-                //  onChange={(e) => search(e.target.value)}
-                value={reserveSearch}
-                onChange={handleSearch}
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-warning" type="submit">
-                <LiaSearchSolid />
-              </button>
-            </div>
+
+            {user.role == "driver" && (
+              <div className="d-flex w-100 my-2" role="search">
+                <input
+                  className="form-control  fs-6 btnDownload  opacity-50 text-body-secondary "
+                  type="search"
+                  placeholder="ابحث برقم اللوحة"
+                  //  onChange={(e) => search(e.target.value)}
+                  value={reserveSearch}
+                  onChange={handleSearch}
+                  aria-label="Search"
+                />
+                <button className="btn btn-outline-warning" type="submit">
+                  <LiaSearchSolid />
+                </button>
+              </div>
+            )}
           </div>
 
           <div ref={ComponentPDF}>
@@ -177,7 +181,7 @@ export default function Sales() {
                             item.time.to
                           )}
                         </td>
-                        <td className="p-4">
+                        <td className="p-1">
                           {item.time.from
                             ? new Date(item.time.from).toLocaleString("ar", {
                                 day: "numeric",
@@ -224,7 +228,7 @@ export default function Sales() {
                           )}
                         </td>
 
-                        <td className="p-1 pt-4">
+                        <td className="p-1">
                           {/* {formatDateString(item.reservation.time.from)} :{" "} */}
                           {item.reservation.time.from
                             ? new Date(
