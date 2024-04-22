@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useRef, useState } from "react";
 import { BsPersonFillCheck } from "react-icons/bs";
 import { TbCameraPlus } from "react-icons/tb";
@@ -10,9 +11,9 @@ export default function Photoprofile() {
   const token = useSelector((state) => state.loggedIn.token);
   const [image, setImage] = useState(null);
   const profileImgRef = useRef(null);
-useEffect(() => {
-  setImage(user.photo)
-}, [user.photo]);
+  useEffect(() => {
+    setImage(user.photo);
+  }, [user.photo]);
   const clickImgInput = () => {
     profileImgRef.current.click();
   };
@@ -24,10 +25,10 @@ useEffect(() => {
     try {
       return URL.createObjectURL(image);
     } catch (err) {
-      return `${axiosInstanceParking.defaults.baseURL}/users/${image}`;
+      return `${axiosInstanceParking.defaults.baseURL}/img/users/${image}`;
     }
   }
-  
+
   const uploadUserImg = (event) => {
     const file = event.target.files[0];
     const formData = new FormData();
@@ -37,7 +38,7 @@ useEffect(() => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        console.log("update request successful", res.data);
+        //console.log("update request successful", res.data);
         setImage(file);
       })
       .catch((err) => {
@@ -49,14 +50,18 @@ useEffect(() => {
     <>
       <div className="d-flex flex-column position-relative border rounded-3">
         <div className="row" style={{ height: "45vh" }}>
-          <img src="/images/bg2.gif" className="w-100" style={{ height: "45vh" }} />
+          <img
+            src="/images/bg2.gif"
+            className="w-100"
+            style={{ height: "45vh" }}
+          />
         </div>
         <div className="position-absolute top-100 start-50 translate-middle">
           <div>
             <img
-              src={image ? showImages(image) : '/images/defaultpersonjpg.jpg'}
+              src={image ? showImages(image) : "/defaultpersonjpg.jpg"}
               className="rounded-circle position-relative"
-              style={{ height: "20vh", width: "20vh" }}
+              style={{ height: "18vh", width: "18vh", marginRight: "30px" }}
               alt="..."
             />
             <input
@@ -67,15 +72,20 @@ useEffect(() => {
               style={{ display: "none" }}
             />
             <div role="button">
-              <TbCameraPlus
-                className="position-absolute top-50 start-0 fs-3 btn-yellow text-light rounded-circle p-1"
-                onClick={clickImgInput}
-              />
+              <div className="ms-5">
+                <TbCameraPlus
+                  className="position-absolute top-50 start-0 fs-2 ms-1  btn-yellow text-light rounded-circle p-1"
+                  onClick={clickImgInput}
+                />
+              </div>
             </div>
           </div>
           <p className="mt-2 Gray">
             <BsPersonFillCheck className="editIcon2" />
-            <span className=""> {`عضو منذ ${new Date(user.createdAt).toLocaleDateString()}`}</span>
+            <span className="">
+              {" "}
+              {`عضو منذ ${new Date(user.createdAt).toLocaleDateString()}`}
+            </span>
           </p>
         </div>
       </div>

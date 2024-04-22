@@ -40,7 +40,7 @@ export default function HomeLogout() {
             <div
               className={`col-12 col-md-6 d-flex align-items-center justify-content-center bgColor`}
             >
-              <img src="./images/cars.png" className={`w-75`} alt="" />
+              <img src="/images/cars.png" className={`w-75`} alt="" />
             </div>
           </div>
           <div className={`row`}>
@@ -48,7 +48,7 @@ export default function HomeLogout() {
               className={`col-12 col-md-6 d-flex align-items-center justify-content-center `}
             >
               <img
-                src="./images/Parking.gif"
+                src="/images/Parking.gif"
                 className={`w-75 rounded`}
                 alt=""
               />

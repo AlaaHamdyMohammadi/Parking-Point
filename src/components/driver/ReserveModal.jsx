@@ -1,22 +1,23 @@
 /* eslint-disable react/prop-types */
+
 import { useState } from "react";
 import classes from "./../../styles/formStyles.module.css";
 import useLogInUserData from "../../../hook/useLogInUserData";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 export default function ModalReserve({ ReserveTime, ParkId }) {
   const user = useLogInUserData();
   const token = useSelector((state) => state.loggedIn.token);
   const [registeUser, setRegisteUser] = useState({
-    plateNumber: "",
+    plateNumber: user.plateNumber, // Set default value to user's plateNumber
   });
   const [errors, setErrors] = useState({
     plateNumberErrors: "",
   });
-  let plateNumberRegx = /^[0-9]{5,}$/;
-  // alert(ReserveTime, "ReserveTime");
-  console.log(ReserveTime, "ReserveTime");
+  let plateNumberRegx = /^[0-9]{1,5}[a-z]{1,2}$/;
+
   const registeValidation = (event) => {
     const { name, value } = event.target;
 
@@ -30,19 +31,22 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
             ? ""
             : "يجب ادخال رقم لوحة صحيح",
       });
+      setRegisteUser({ ...registeUser, [name]: value }); // Update the plateNumber state
     }
-    setRegisteUser({ ...registeUser, [name]: value });
   };
 
   const handlePayment = async () => {
+    // console.log("ReserveTime", ReserveTime);
     try {
+      //console.log("ReserveTime", ReserveTime);
+
       const response = await axiosInstanceParking.post(
         `/reserve`,
         {
           park: ParkId,
           from: ReserveTime.from,
           to: ReserveTime.to,
-          plateNumber: user.plateNumber,
+          plateNumber: registeUser.plateNumber, // Use updated plateNumber from state
         },
         {
           headers: {
@@ -50,7 +54,7 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
           },
         }
       );
-
+      //console.log("ReserveTime", ReserveTime);
       const sessionID = response.data.sessionId;
       localStorage.setItem("sessionID", sessionID);
       window.location.href = `https://uatcheckout.thawani.om/pay/${sessionID}?key=HGvTMLDssJghr9tlN9gr4DVYt0qyBy`;
@@ -61,6 +65,10 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
       }
     }
   };
+
+  useEffect(() => {
+    setRegisteUser({ ...registeUser, plateNumber: user.plateNumber });
+  }, [user.plateNumber]); // Update the plateNumber when user's plateNumber changes
 
   return (
     <>
@@ -85,7 +93,7 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body  p-2">
+            <div className="modal-body p-2">
               <div className="">
                 <label className="fw-semibold pb-2" htmlFor="plateNumber">
                   يجب تاكيد رقم اللوحة الخاصه بسيارة الركن
@@ -93,11 +101,10 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
                 <input
                   type="text"
                   id="plateNumber"
-                  value={user.plateNumber}
+                  value={registeUser.plateNumber} // Bind to registeUser.plateNumber state
                   name="plateNumber"
-                  className={`${classes.input} px-2  form-control border-secondary shadow-none`}
+                  className={`${classes.input} px-2 form-control border-secondary shadow-none`}
                   onChange={registeValidation}
-                  onBlur={registeValidation}
                 />
                 <p className={`${classes.error} text-danger`}>
                   {errors.plateNumberErrors}
@@ -107,7 +114,7 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
             <div className="modal-footer p-0">
               <button
                 onClick={handlePayment}
-                className="btn bgColor text-white "
+                className="btn bgColor text-white"
                 data-bs-target="#exampleModalToggle2"
                 data-bs-toggle="modal"
               >
@@ -123,42 +130,13 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
         aria-hidden="true"
         aria-labelledby="exampleModalToggleLabel2"
         tabIndex="-1"
-      >
-        {/* <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-
-              <h1 className="modal-title fs-5" id="exampleModalToggleLabel2">
-                تأكيد الدفع
-              </h1>
-            </div>
-            <div className="modal-body">
-              Hide this modal and show the first with the button below.
-            </div>
-            <div className="modal-footer">
-              <button
-                className="btn  bgColor text-white"
-                data-bs-target="#exampleModalToggle"
-                data-bs-toggle="modal"
-              >
-                الرجوع{" "}
-              </button>
-            </div>
-          </div>
-        </div> */}
-      </div>
+      ></div>
       <button
-        className=" bgColor text-white w-100   p-0  btn "
+        className="bgColor text-white w-100 p-0 btn"
         data-bs-target="#exampleModalToggle"
         data-bs-toggle="modal"
       >
-        احجز{" "}
+        احجز
       </button>
     </>
   );

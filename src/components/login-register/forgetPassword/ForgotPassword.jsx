@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
@@ -5,21 +6,19 @@ import classes from "./../../../styles/formStyles.module.css";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import axiosInstanceParking from "../../../axiosConfig/instanc";
-// import ForgotPasswordModal from "./ForgotPasswordModal";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
 const ForgotPassword = () => {
   const [registeUser, setRegisteUser] = React.useState({ email: "" });
   const [codeconfirmed, setCodeconfirmed] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [enterOtp, setEnterOtp] = useState(false);
   const [showEmailModal, setShowEmailModal] = useState(true);
+  const [confirmPassword, setConfirmPassword] = useState(false);
   const [esc, setEsc] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [token, setToken] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("");
   const [emailError, setEmailError] = useState(false);
 
   const [errors, setErrors] = React.useState({
@@ -27,11 +26,11 @@ const ForgotPassword = () => {
     confirmPasswordErrors: "*",
     tokenErrors: "*",
   });
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("enterOtp:", enterOtp);
-  }, [enterOtp]);
+  // useEffect(() => {
+  //   console.log("enterOtp:", enterOtp);
+  //   // handleForgotPassword();
+  // }, [showEmailModal, enterOtp, esc, confirmPassword]);
 
   let passwordRegx = /^[a-zA-Z0-9]{8,}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -81,11 +80,14 @@ const ForgotPassword = () => {
             email,
           }
         );
-        setEnterOtp((prevState) => {
-          console.log(res.data, !prevState); // Log the updated value of enterOtp
-          return !prevState;
-        });
-        // console.log(res.data, enterOtp);
+        console.log(res.data);
+        setEnterOtp(true);
+        // setEnterOtp((prevState) => !prevState);
+        // setEnterOtp((prevState) => {
+        //   //console.log("prevState:", prevState);
+        //   return !prevState;
+        // });
+        console.log(enterOtp);
       } catch (error) {
         toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
 
@@ -93,6 +95,12 @@ const ForgotPassword = () => {
       }
     }
   }
+  //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>.");
+  console.log(enterOtp);
+
+  //console.log("enterOtp", enterOtp); //
+  //console.log("showEmailModal", showEmailModal);
+  //console.log("confirmPassword", confirmPassword);
   async function handleToken() {
     try {
       // console.log("Token before API call:", token);
@@ -102,14 +110,15 @@ const ForgotPassword = () => {
         email,
       });
       setCodeconfirmed(true);
-      setShowEmailModal(false);
-      console.log(res, "handletoken SUCCESS");
-      console.log(
-        codeconfirmed,
-        "codeconfirmed",
-        showEmailModal,
-        "ShowEmailModal"
-      );
+      // setShowEmailModal(false);
+      setEnterOtp(false);
+      //console.log(res, "handletoken SUCCESS");
+      // console.log(
+      //   codeconfirmed,
+      //   "codeconfirmed",
+      //   showEmailModal,
+      //   "ShowEmailModal"
+      // );
     } catch (error) {
       if (error.response) {
         console.log("Error data:", error.response.data);
@@ -126,16 +135,16 @@ const ForgotPassword = () => {
         password,
         confirmPassword,
       });
-      console.log(res);
+      //console.log(res);
+      setCodeconfirmed(false);
       setEsc(true);
-      // toast.success("تم تفعيل كلمة السر بنجاح");
-      // window.location.reload();
-      navigate("/register"); // Navigate to "/register" route without reloading
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
       toast.success("تم تفعيل كلمة السر بنجاح");
-      // toast.success("تم تفعيل كلمة السر بنجاح");
     } catch (error) {
       if (error.response) {
-        console.log("Error data:", error.response.data);
+        //console.log("Error data:", error.response.data);
       } else if (error.request) {
         console.log("No response received from server:", error.request);
       } else {
@@ -179,7 +188,7 @@ const ForgotPassword = () => {
                       onChange={(e) => {
                         setEmail(e.target.value);
                         setEmailError(false);
-                        console.log("Email:", e.target.value);
+                        //console.log("Email:", e.target.value);
                       }}
                     />
                     {emailError && (
@@ -191,7 +200,7 @@ const ForgotPassword = () => {
                   <div className="text-start align-self-center">
                     <img
                       style={{ height: "100%", width: "10rem" }}
-                      src="./../../../public/images/notify-animate.svg"
+                      src="/images/notify-animate.svg"
                       alt=""
                     />
                   </div>
@@ -227,6 +236,7 @@ const ForgotPassword = () => {
         </div>
       )}
 
+      {/* {enterOtp? ():()} */}
       {enterOtp && (
         <div
           className="modal fade"
@@ -255,12 +265,12 @@ const ForgotPassword = () => {
                       value={token}
                       onChange={(e) => {
                         setToken(e.target.value);
-                        console.log("Token:", e.target.value);
+                        //console.log("Token:", e.target.value);
                       }}
                       onPaste={(e) => {
                         const pastedText = e.clipboardData.getData("text");
                         setToken(pastedText);
-                        console.log("Pasted Token:", pastedText);
+                        //console.log("Pasted Token:", pastedText);
                       }}
                       className={`${classes.input}  w-100 mt-2 form-control border-secondary shadow-none`}
                     />
@@ -269,7 +279,7 @@ const ForgotPassword = () => {
                   <div className="  text-start align-self-center">
                     <img
                       style={{ height: "30%", width: "60%" }}
-                      src="./../../../public/images/emails-animate (1).svg"
+                      src="/images/emails-animate (1).svg"
                       alt=""
                     />
                   </div>
@@ -279,7 +289,7 @@ const ForgotPassword = () => {
                   لقد تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني المُسجّل
                   <span className={`${classes.resendcode}`}>
                     {registeUser.email}
-                  </span>{" "}
+                  </span>
                   يُرجى فتح بريدك الإلكتروني و نسخ الرمز المُرسل.
                 </p>
                 <div className="modal-footer p-0 px-3 m-0 justify-content-start">
@@ -346,7 +356,7 @@ const ForgotPassword = () => {
                             onChange={(e) => {
                               registeValidation;
                               setPassword(e.target.value);
-                              console.log("Password:", e.target.value);
+                              //console.log("Password:", e.target.value);
                             }}
                             className={`${classes.input} form-control border-secondary shadow-none`}
                             style={{
@@ -386,7 +396,7 @@ const ForgotPassword = () => {
                             onChange={(e) => {
                               registeValidation;
                               setConfirmPassword(e.target.value);
-                              console.log("ConfirmPassword:", e.target.value);
+                              //console.log("ConfirmPassword:", e.target.value);
                             }}
                             className={`${classes.input} form-control border-secondary shadow-none`}
                             style={{
@@ -413,7 +423,7 @@ const ForgotPassword = () => {
                   <div className="  text-center align-self-center">
                     <img
                       style={{ height: "30%", width: "50%" }}
-                      src="./../../../public/images/account-animate.svg"
+                      src="/images/account-animate.svg"
                       alt=""
                     />
                   </div>

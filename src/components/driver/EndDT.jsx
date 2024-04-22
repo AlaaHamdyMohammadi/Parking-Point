@@ -29,11 +29,11 @@ export default function EndDateTime({
 
   const [searchData, setSearchData] = useState({
     city: "",
-
-    from: BookNow ? new Date().toISOString().slice(0, 16) : null,
+    from: BookNow ? new Date(Date.now()) : "",
+    // Set default value to current date and time if BookNow is true
     to: null,
   });
-
+  // .toISOString().slice(0, 16)
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     let updatedData = { ...searchData };
@@ -68,7 +68,7 @@ export default function EndDateTime({
 
   const sendQuery = (e) => {
     e.preventDefault();
-    console.log(searchData);
+    //console.log(searchData);
     const startTime = new Date(searchData.from).getTime();
     const endTime = new Date(searchData.to).getTime();
     if (startTime >= endTime) {
@@ -94,6 +94,7 @@ export default function EndDateTime({
         })
         .catch((error) => {
           console.error("Error", error);
+          toast.error("حدث خطأ!يرجى إدخال بينات صحيحة وإعادة المحاولة");
         });
     }
   };

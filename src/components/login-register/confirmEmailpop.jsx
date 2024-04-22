@@ -1,12 +1,13 @@
+/* eslint-disable react/prop-types */
 import ConfirmationCodeInput from "./confirmEmail";
 import classes from "./../../styles/formStyles.module.css";
-import CountdownTimer from "./CountdownTimer";
+// import CountdownTimer from "./CountdownTimer";
 import "react-toastify/dist/ReactToastify.css";
 import useSendCode from "../../../hook/useSendCode";
+import CountdownTimer from "./CountdownTimer";
 
 export default function ConfimEmailPop({ userEmail }) {
-
-const handleChange=useSendCode()
+  const handleChange = useSendCode();
   return (
     <>
       <div
@@ -21,13 +22,18 @@ const handleChange=useSendCode()
         <div className="modal-dialog  modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
-              <button type="button" className="btn-close fs-6" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button
+                type="button"
+                className="btn-close fs-6"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
             <div className="modal-body ">
               <div className="text-center">
                 <img
                   style={{ height: "16rem", width: "16rem" }}
-                  src="./../../../public/images/Mail sent-amico (1).png"
+                  src="/images/Mail sent-amico (1).png"
                   alt=""
                 />
               </div>
@@ -35,19 +41,25 @@ const handleChange=useSendCode()
                 <ConfirmationCodeInput length={6} onConfirm={(code) => code} />
               </div>
               <p className="fs-6 pt-2 px-2 text-end text-justify">
-                شكرا لتسجيلك معنا! لقد تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني المُسجّل
-                <span className={`${classes.resendcode} px-1`}>{userEmail}</span> يُرجى فتح بريدك الإلكتروني 
-                  ونسخ الرمز المُرسل
+                شكرا لتسجيلك معنا! لقد تم إرسال رمز التحقق إلى عنوان بريدك
+                الإلكتروني المُسجّل
+                <span className={`${classes.resendcode} px-1`}>
+                  {userEmail}
+                </span>{" "}
+                يُرجى فتح بريدك الإلكتروني ونسخ الرمز المُرسل
               </p>
             </div>
             <div className="modal-footer d-flex  justify-content-between">
-              <div className={`${classes.resendcode} pointer  fw-semibold`} onClick={handleChange}>
+              <div
+                className={`${classes.resendcode} pointer  fw-semibold`}
+                onClick={handleChange}
+              >
                 إعادة إرسال رمز التأكيد
               </div>
-
               <span className="text-secondary  ">
                 إرسال الرمز خلال <CountdownTimer /> دقائق
-              </span>
+              </span>{" "}
+              *
             </div>
           </div>
         </div>

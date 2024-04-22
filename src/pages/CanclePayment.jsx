@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-// import Spinner from "react-bootstrap/Spinner";
 
 export default function CancelPayment() {
   const navigate = useNavigate();

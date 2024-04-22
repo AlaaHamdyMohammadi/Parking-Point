@@ -18,7 +18,7 @@ const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 const mapStyle = "mapbox://styles/alaahamdy2/clsp701hd005a01pkhrmygybf";
 
 const ParkLocation = ({ location, title, address }) => {
-//   console.log(location);
+  //   console.log(location);
   const [viewport, setViewport] = useState({
     width: "100%",
     height: "100%",

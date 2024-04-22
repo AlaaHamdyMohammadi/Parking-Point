@@ -24,7 +24,6 @@ export default function LoginForm() {
   });
   //
   const [showPassword, setShowPassword] = useState(false);
-  const [showModal, setShowModal] = React.useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -62,19 +61,11 @@ export default function LoginForm() {
         navigate("/");
       } catch (error) {
         toast.error("من فضلك ادخل بيانات صحيحة");
-        console.error( error);
+        console.error(error);
       }
     }
   };
   // console.log(isTrueErrors);
-
-  function handleOpenModal() {
-    setShowModal(true);
-    console.log("click");
-  }
-  function handleCloseModal() {
-    setShowModal(false);
-  }
 
   return (
     <div>
@@ -82,7 +73,7 @@ export default function LoginForm() {
         <p className={`text-danger`}>{isTrueErrors}</p>
         <div>
           <label htmlFor="email" className="fs-5">
-            اسم المستخدم
+            البريد الالكتروني
           </label>
           <input
             type="email"

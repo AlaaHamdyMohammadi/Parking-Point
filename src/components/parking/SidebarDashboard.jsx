@@ -42,11 +42,16 @@ export default function SidebarProfile() {
   const handleUnactive = () => {
     toast.error("يرجى التواصل مع الدعم  ");
   };
-  const handleChange=useSendCode()
+  const handleChange = useSendCode();
+  // console.log(user.photo);
+  // console.log(user);
+
   return (
     <>
       {isSmallScreen && (
-        <div className={`${classes.sidebar} position-fixed top-0 start-0 z-1 transition`}>
+        <div
+          className={`${classes.sidebar} position-fixed top-0 start-0 z-1 transition`}
+        >
           <GiHamburgerMenu
             className="position-fixed fs-1 p-1 pointer mx-2 mt-2  end-0 z-1 transition  dropdown-toggle"
             data-bs-toggle="offcanvas"
@@ -71,7 +76,7 @@ export default function SidebarProfile() {
                     <img
                       src={
                         user.photo
-                          ? `${axiosInstanceParking.defaults.baseURL}/users/${user.photo}`
+                          ? `${axiosInstanceParking.defaults.baseURL}/img/users/${user.photo}`
                           : "/images/defaultpersonjpg.jpg"
                       }
                       className=" border rounded-circle"
@@ -110,31 +115,37 @@ export default function SidebarProfile() {
             <div className="offcanvas-body pe-2">
               {user.role == "renter" && (
                 <>
-                  {(!user.isActivated || !user.isEmailConfirmed) ? (
-                  <div
-                  className={`${classes.unactive}  fs-5 d-block`}
-                  onClick={handleUnactive}
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  data-bs-custom-class={`${classes.customTooltip}`}
-                  title="يرجى التواصل مع الدعم"
-                >
-                  <span>
-                    <HiLockClosed className="  editIcon p-2" />
-                  </span>
-                  <span className="icon-text ps-2  "> {isWide ? "إضافة موقف" : ""} </span>
-                </div>
+                  {!user.isActivated || !user.isEmailConfirmed ? (
+                    <div
+                      className={`${classes.unactive}  fs-5 d-block`}
+                      onClick={handleUnactive}
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="top"
+                      data-bs-custom-class={`${classes.customTooltip}`}
+                      title="يرجى التواصل مع الدعم"
+                    >
+                      <span>
+                        <HiLockClosed className="  editIcon p-2" />
+                      </span>
+                      <span className="icon-text ps-2  ">
+                        {" "}
+                        {isWide ? "إضافة موقف" : ""}{" "}
+                      </span>
+                    </div>
                   ) : (
                     <SideBareLink
-                    href={`/Profile/parking`}
-                    icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
-                    text="إضافة موقف"
-                  />
-                  
+                      href={`/Profile/parking`}
+                      icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
+                      text="إضافة موقف"
+                    />
                   )}
                   <ToastContainer position="top-right" autoClose={10000} />
 
-                  <SideBareLink href={`/`} icon={<LuParkingSquareOff className="  editIcon p-2" />} text="المواقف" />
+                  <SideBareLink
+                    href={`/`}
+                    icon={<LuParkingSquareOff className="  editIcon p-2" />}
+                    text="المواقف"
+                  />
                 </>
               )}
               <SideBareLink
@@ -176,7 +187,7 @@ export default function SidebarProfile() {
                 <img
                   src={
                     user.photo
-                      ? `${axiosInstanceParking.defaults.baseURL}/users/${user.photo}`
+                      ? `${axiosInstanceParking.defaults.baseURL}/img/users/${user.photo}`
                       : "/images/defaultpersonjpg.jpg"
                   }
                   className=" border rounded-circle"
@@ -212,30 +223,35 @@ export default function SidebarProfile() {
             )}
           </div>
 
-          <div className={isWide ? "ps-3 sidebar transition" : "sidebar transition"}>
+          <div
+            className={
+              isWide ? "ps-3 sidebar transition" : "sidebar transition"
+            }
+          >
             {user.role == "renter" && (
               <>
-                {(!user.isActivated || !user.isEmailConfirmed) ? (
-                   <div
-                   className={`${classes.unactive}  fs-5 d-block`}
-                   onClick={handleUnactive}
-                   data-bs-toggle="tooltip"
-                   data-bs-placement="top"
-                   data-bs-custom-class={`${classes.customTooltip}`}
-                   title="يرجى التواصل مع الدعم   "
-                 >
-                   <span>
-                     <HiLockClosed className="  editIcon p-2" />
-                   </span>
-                   <span className="icon-text ps-2  ">{isWide ? "إضافة موقف" : ""}</span>
-                 </div>
-                
+                {!user.isActivated || !user.isEmailConfirmed ? (
+                  <div
+                    className={`${classes.unactive}  fs-5 d-block`}
+                    onClick={handleUnactive}
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-custom-class={`${classes.customTooltip}`}
+                    title="يرجى التواصل مع الدعم   "
+                  >
+                    <span>
+                      <HiLockClosed className="  editIcon p-2" />
+                    </span>
+                    <span className="icon-text ps-2  ">
+                      {isWide ? "إضافة موقف" : ""}
+                    </span>
+                  </div>
                 ) : (
                   <SideBareLink
-                  href={`/Profile/parking`}
-                  icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
-                  text={isWide ? "إضافة موقف" : ""}
-                />
+                    href={`/Profile/parking`}
+                    icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
+                    text={isWide ? "إضافة موقف" : ""}
+                  />
                 )}
                 <ToastContainer position="top-right" autoClose={10000} />
 

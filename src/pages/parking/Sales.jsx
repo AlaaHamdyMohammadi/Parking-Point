@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { LiaCarSideSolid } from "react-icons/lia";
 // import { SlCalender } from "react-icons/sl";
 // import { MdOutlineWatchLater } from "react-icons/md";
@@ -16,6 +17,7 @@ import { Helmet } from "react-helmet";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SimplePagination from "../../components/pagination/SimplePagination";
+import useLogInUserData from "../../../hook/useLogInUserData";
 const calculateTimeDifference = (fromDate, toDate) => {
   const from = new Date(fromDate);
   const to = new Date(toDate);
@@ -32,18 +34,6 @@ const calculateTimeDifference = (fromDate, toDate) => {
   return `${days} يوم ${hours} ساعة ${minutes} دقيقة`;
 };
 
-const formatDateString = (dateString) => {
-  const date = new Date(dateString);
-  const hours = date.getHours().toString().padStart(2, "0");
-  const minutes = date.getMinutes().toString().padStart(2, "0");
-  return `${date.getFullYear()}-${(date.getMonth() + 1)
-    .toString()
-    .padStart(2, "0")}-${date
-    .getDate()
-    .toString()
-    .padStart(2, "0")}T${hours}:${minutes}`;
-};
-
 export default function Sales() {
   const [currentPage, setCurrentPage] = useState(1);
   const [responseLength, setResponseLength] = useState(0);
@@ -51,6 +41,7 @@ export default function Sales() {
   const token = useSelector((state) => state.loggedIn.token);
   const [isLoading, setIsLoading] = useState(true);
   const [reserveSearch, setReserveSearch] = useState("");
+  const user = useLogInUserData();
 
   const fetchData = async () => {
     try {
@@ -58,24 +49,38 @@ export default function Sales() {
       if (reserveSearch) {
         params = { searchField: "plateNumber", plateNumber: reserveSearch };
       }
+      if (user.role == "driver") {
+        const response = await axiosInstanceParking.get(
+          `/reserve/me?page=${currentPage}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+            params: params,
+          }
+        );
+        setData(response.data.doc);
+        setResponseLength(response.data.allItems);
+        console.log(response, "res");
+      } else if (user.role == "renter") {
+        const response = await axiosInstanceParking.get(
+          `/parkings/myparks-reservations?page=${currentPage}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+            params: params,
+          }
+        );
+        setData(response.data.data);
+        setResponseLength(response.data.total);
 
-      const response = await axiosInstanceParking.get(
-        `/reserve/me?page=${currentPage}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-          params: params,
-        }
-      );
-      setResponseLength(response.data.allItems);
-      setData(response.data.doc);
-      console.log(response.data, "res");
+        console.log(response.data.total);
+        console.log(response, "res");
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
       setIsLoading(false);
     }
   };
-  console.log(responseLength);
+  // console.log(responseLength);
   // Use useCallback to memoize the handleSearch function
   const handleSearch = useCallback((event) => {
     setReserveSearch(event.target.value);
@@ -99,8 +104,8 @@ export default function Sales() {
       </Helmet>
       {isLoading ? (
         <SpinnerLoad />
-      ) : data && data.length > 0 ? (
-        <div className="my-5  w-100 align-self-center">
+      ) : data ? (
+        <div className="  w-100 align-self-center">
           <div className="d-lg-flex d-md-flex m-2 gap-5 justify-content-between">
             <button
               className={`text-center my-2 btnDownload w-100 animate    btn `}
@@ -108,20 +113,26 @@ export default function Sales() {
             >
               <FaRegFilePdf className="text-center   fs-5" /> تحميل
             </button>
-            <div className="d-flex w-100 my-2" role="search">
-              <input
-                className="form-control  fs-6 btnDownload  opacity-50 text-body-secondary "
-                type="search"
-                placeholder="ابحث برقم اللوحة"
-                //  onChange={(e) => search(e.target.value)}
-                value={reserveSearch}
-                onChange={handleSearch}
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-warning" type="submit">
-                <LiaSearchSolid />
-              </button>
-            </div>
+            <button className={`text-center my-2 btnDownload w-100     btn `}>
+              {responseLength}حجوزات
+            </button>
+
+            {user.role == "driver" && (
+              <div className="d-flex w-100 my-2" role="search">
+                <input
+                  className="form-control  fs-6 btnDownload  opacity-50 text-body-secondary "
+                  type="search"
+                  placeholder="ابحث برقم اللوحة"
+                  //  onChange={(e) => search(e.target.value)}
+                  value={reserveSearch}
+                  onChange={handleSearch}
+                  aria-label="Search"
+                />
+                <button className="btn btn-outline-warning" type="submit">
+                  <LiaSearchSolid />
+                </button>
+              </div>
+            )}
           </div>
 
           <div ref={ComponentPDF}>
@@ -132,62 +143,138 @@ export default function Sales() {
                 maxHeight: "600px",
               }}
             >
-              <table className="table table-hover border rounded-3">
+              <table className="table table-hover border my-1 rounded-3">
                 <thead className="bgColor border rounded-2 fs-6 text-white fw-bolder py-3">
-                  <th className="p-1 ">
+                  <th className="p-1 px-2 ">
                     <LuParkingCircle className="me-1 mb-1  text-white fs-1 bgColor" />
                     الموقف
                   </th>
-                  <th className="p-1 ">
+                  <th className="p-1 px-2 ">
                     <LiaCarSideSolid className="me-1 mb-1 text-center text-white fs-1 bgColor" />
                     رقم اللوحة
                   </th>
-                  <th className="p-1 ">
+                  <th className="p-1 px-2 ">
                     <PiCalendarCheckBold className="me-1 mb-1 text-center text-white fs-1 bgColor" />
                     مدة الحجز
                   </th>
-                  <th className="p-1 ">
+                  <th className="p-1 px-2 ">
                     <LuCalendarClock className="me-1 mb-1 text-center text-white fs-1 bgColor" />
-                    من:
+                    بداية الحجز : نهاية الحجز
                   </th>
-                  <th className="p-1 ">
-                    <LuCalendarClock className="me-1 mb-1 text-center text-white fs-1 bgColor" />
-                    إلي:
-                  </th>
-                  <th className="p-1 ">
+                  <th className="p-1 px-2 ">
                     <MdPriceCheck className="mb-1 text-center text-white fs-1 bgColor" />
                     التكلفة
                   </th>
                 </thead>
-                <tbody className="pe-2">
-                  {data.map((item, index) => (
-                    <tr key={index}>
-                      <td className="p-4">{item.park.title}</td>
-                      <td className="p-4 yellowcolor">
-                        <span>{item.plateNumber}</span>
-                      </td>
-                      <td className="p-4">
-                        {calculateTimeDifference(item.time.from, item.time.to)}
-                      </td>
-                      <td className="p-4">
-                        {item.time.from
-                          ? new Date(item.time.from).toLocaleString()
-                          : ""}
-                      </td>
-                      <td className="p-4">
-                        {item.time.to
-                          ? new Date(item.time.to).toLocaleString()
-                          : ""}
-                        {/* {formatDateString(item.time.from)} : {formatDateString(item.time.to)} */}
-                      </td>
-                      <td className="p-4 yellowcolor">{item.price} $</td>
-                    </tr>
-                  ))}
-                </tbody>
+                {user.role == "driver" ? (
+                  <tbody className="pe-2">
+                    {data.map((item, index) => (
+                      <tr key={index}>
+                        <td className="p-4">{item.park.title}</td>
+                        <td className="p-4 yellowcolor">
+                          <span>{item.plateNumber}</span>
+                        </td>
+
+                        <td className="p-4">
+                          {calculateTimeDifference(
+                            item.time.from,
+                            item.time.to
+                          )}
+                        </td>
+                        <td className="p-1">
+                          {item.time.from
+                            ? new Date(item.time.from).toLocaleString("ar", {
+                                day: "numeric",
+                                month: "numeric",
+                                year: "numeric",
+                                hour: "numeric",
+                                minute: "numeric",
+                                // second: "numeric",
+                                hour12: true,
+                              })
+                            : ""}
+                          <span className="text-warning fs-2 fw-semibold">
+                            :
+                          </span>
+                          {item.time.to
+                            ? new Date(item.time.to).toLocaleString("ar", {
+                                day: "numeric",
+                                month: "numeric",
+                                year: "numeric",
+                                hour: "numeric",
+                                minute: "numeric",
+                                // second: "numeric",
+                                hour12: true,
+                              })
+                            : ""}
+                        </td>
+
+                        <td className="p-4 yellowcolor">{item.price} $</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                ) : (
+                  <tbody className="pe-2">
+                    {data.map((item, index) => (
+                      <tr key={index}>
+                        <td className="p-4">{item.park.title}</td>
+                        <td className="p-4 yellowcolor">
+                          <span>{item.reservation.user.plateNumber}</span>
+                        </td>
+                        <td className="p-4">
+                          {calculateTimeDifference(
+                            item.reservation.time.from,
+                            item.reservation.time.to
+                          )}
+                        </td>
+
+                        <td className="p-1">
+                          {/* {formatDateString(item.reservation.time.from)} :{" "} */}
+                          {item.reservation.time.from
+                            ? new Date(
+                                item.reservation.time.from
+                              ).toLocaleString("ar", {
+                                day: "numeric",
+                                month: "numeric",
+                                year: "numeric",
+                                hour: "numeric",
+                                minute: "numeric",
+                                // second: "numeric",
+                                hour12: true,
+                              })
+                            : ""}
+                          <span className="text-warning fs-2 fw-semibold">
+                            :
+                          </span>
+
+                          {item.reservation.time.to
+                            ? new Date(item.reservation.time.to).toLocaleString(
+                                "ar",
+                                {
+                                  day: "numeric",
+                                  month: "numeric",
+                                  year: "numeric",
+                                  hour: "numeric",
+                                  minute: "numeric",
+                                  second: "numeric",
+                                  // hour12: true,
+                                }
+                              )
+                            : ""}
+                          {/* {formatDateString(item.reservation.time.to)} */}
+                        </td>
+
+                        <td className="p-4 yellowcolor">
+                          {item.reservation.price} $
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                )}
               </table>
             </div>
           </div>
-          <ToastContainer position="top-right" autoClose={50000} />
+          <ToastContainer position="top-right" autoClose={2000} />
         </div>
       ) : (
         <div className="fs-3 fw-bold text-center ">
