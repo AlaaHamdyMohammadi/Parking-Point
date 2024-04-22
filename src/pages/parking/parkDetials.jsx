@@ -119,15 +119,8 @@ const ParkDetials = () => {
                 </div>
               </div>
 
-<<<<<<< Updated upstream
               <div className={`card text-center borderCustom p-2 mb-5`}>
                 <div className="row mx-5 p-3">
-=======
-              <div
-                className={`card text-center borderCustom p-2 px-5 mx-5 mb-5`}
-              >
-                <div className="row p-5 ">
->>>>>>> Stashed changes
                   <div
                     id="carouselExampleRide"
                     className="carousel slide f"

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { LiaCarSideSolid } from "react-icons/lia";
 // import { SlCalender } from "react-icons/sl";
 // import { MdOutlineWatchLater } from "react-icons/md";
@@ -16,6 +17,7 @@ import { Helmet } from "react-helmet";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SimplePagination from "../../components/pagination/SimplePagination";
+import useLogInUserData from "../../../hook/useLogInUserData";
 const calculateTimeDifference = (fromDate, toDate) => {
   const from = new Date(fromDate);
   const to = new Date(toDate);
@@ -51,6 +53,7 @@ export default function Sales() {
   const token = useSelector((state) => state.loggedIn.token);
   const [isLoading, setIsLoading] = useState(true);
   const [reserveSearch, setReserveSearch] = useState("");
+  const user = useLogInUserData();
 
   const fetchData = async () => {
     try {
@@ -58,7 +61,6 @@ export default function Sales() {
       if (reserveSearch) {
         params = { searchField: "plateNumber", plateNumber: reserveSearch };
       }
-<<<<<<< Updated upstream
       if (user.role == "driver") {
         const response = await axiosInstanceParking.get(
           `/reserve/me?page=${currentPage}`,
@@ -67,9 +69,9 @@ export default function Sales() {
             params: params,
           }
         );
-        setResponseLength(response.data.allItems);
         setData(response.data.doc);
-        console.log(response.data, "res");
+        setResponseLength(response.data.allItems);
+        console.log(response, "res");
       } else if (user.role == "renter") {
         const response = await axiosInstanceParking.get(
           `/parkings/myparks-reservations?page=${currentPage}`,
@@ -78,30 +80,18 @@ export default function Sales() {
             params: params,
           }
         );
-        setResponseLength(response.data.length);
         setData(response.data.data);
-        console.log(response.data.length, "res");
-      }
-=======
 
-      const response = await axiosInstanceParking.get(
-        `/reserve/me?page=${currentPage}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-          params: params,
-        }
-      );
-      setResponseLength(response.data.allItems);
-      setData(response.data.doc);
-      console.log(response.data, "res");
->>>>>>> Stashed changes
+        // setResponseLength(response.data.length);
+        // console.log(response.data.length, "res");
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
       setIsLoading(false);
     }
   };
-  console.log(responseLength);
+  // console.log(responseLength);
   // Use useCallback to memoize the handleSearch function
   const handleSearch = useCallback((event) => {
     setReserveSearch(event.target.value);
@@ -125,7 +115,7 @@ export default function Sales() {
       </Helmet>
       {isLoading ? (
         <SpinnerLoad />
-      ) : data && data.length > 0 ? (
+      ) : data ? (
         <div className="my-5  w-100 align-self-center">
           <div className="d-lg-flex d-md-flex m-2 gap-5 justify-content-between">
             <button
@@ -181,24 +171,53 @@ export default function Sales() {
                     التكلفة
                   </th>
                 </thead>
-                <tbody className="pe-2">
-                  {data.map((item, index) => (
-                    <tr key={index}>
-                      <td className="p-4">{item.park.title}</td>
-                      <td className="p-4 yellowcolor">
-                        <span>{item.plateNumber}</span>
-                      </td>
-                      <td className="p-4">
-                        {calculateTimeDifference(item.time.from, item.time.to)}
-                      </td>
-                      <td className="p-4">
-                        {formatDateString(item.time.from)} :{" "}
-                        {formatDateString(item.time.to)}
-                      </td>
-                      <td className="p-4 yellowcolor">{item.price} $</td>
-                    </tr>
-                  ))}
-                </tbody>
+                {user.role == "driver" ? (
+                  <tbody className="pe-2">
+                    {data.map((item, index) => (
+                      <tr key={index}>
+                        <td className="p-4">{item.park.title}</td>
+                        <td className="p-4 yellowcolor">
+                          <span>{item.plateNumber}</span>
+                        </td>
+                        <td className="p-4">
+                          {calculateTimeDifference(
+                            item.time.from,
+                            item.time.to
+                          )}
+                        </td>
+                        <td className="p-4">
+                          {formatDateString(item.time.from)} :{" "}
+                          {formatDateString(item.time.to)}
+                        </td>
+                        <td className="p-4 yellowcolor">{item.price} $</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                ) : (
+                  <tbody className="pe-2">
+                    {data.map((item, index) => (
+                      <tr key={index}>
+                        <td className="p-4">{item.park.title}</td>
+                        <td className="p-4 yellowcolor">
+                          <span>{item.reservation.user.plateNumber}</span>
+                        </td>
+                        <td className="p-4">
+                          {calculateTimeDifference(
+                            item.reservation.time.from,
+                            item.reservation.time.to
+                          )}
+                        </td>
+                        <td className="p-4">
+                          {formatDateString(item.reservation.time.from)} :{" "}
+                          {formatDateString(item.reservation.time.to)}
+                        </td>
+                        <td className="p-4 yellowcolor">
+                          {item.reservation.price} $
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                )}
               </table>
             </div>
           </div>
