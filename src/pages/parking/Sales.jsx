@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { LiaCarSideSolid } from "react-icons/lia";
 // import { SlCalender } from "react-icons/sl";
 // import { MdOutlineWatchLater } from "react-icons/md";
@@ -33,27 +34,26 @@ const calculateTimeDifference = (fromDate, toDate) => {
   return `${days} يوم ${hours} ساعة ${minutes} دقيقة`;
 };
 
-const formatDateString = (dateString) => {
-  const date = new Date(dateString);
-  const hours = date.getHours().toString().padStart(2, "0");
-  const minutes = date.getMinutes().toString().padStart(2, "0");
-  return `${date.getFullYear()}-${(date.getMonth() + 1)
-    .toString()
-    .padStart(2, "0")}-${date
-    .getDate()
-    .toString()
-    .padStart(2, "0")}T${hours}:${minutes}`;
-};
+// const formatDateString = (dateString) => {
+//   const date = new Date(dateString);
+//   const hours = date.getHours().toString().padStart(2, "0");
+//   const minutes = date.getMinutes().toString().padStart(2, "0");
+//   return `${date.getFullYear()}-${(date.getMonth() + 1)
+//     .toString()
+//     .padStart(2, "0")}-${date
+//     .getDate()
+//     .toString()
+//     .padStart(2, "0")}T${hours}:${minutes}`;
+// };
 
 export default function Sales() {
-  const user = useLogInUserData();
-
   const [currentPage, setCurrentPage] = useState(1);
   const [responseLength, setResponseLength] = useState(0);
   const [data, setData] = useState(null);
-  const token = useSelector((state) => state.loggedIn.token);
   const [isLoading, setIsLoading] = useState(true);
   const [reserveSearch, setReserveSearch] = useState("");
+  const user = useLogInUserData();
+  const token = useSelector((state) => state.loggedIn.token);
 
   const fetchData = async () => {
     try {
@@ -71,18 +71,18 @@ export default function Sales() {
         );
         setResponseLength(response.data.allItems);
         setData(response.data.doc);
-        console.log(response.data, "res");
+        //console.log(response.data, "res");
       } else if (user.role == "renter") {
         const response = await axiosInstanceParking.get(
-          `/parking/myparks-reservations?page=${currentPage}`,
+          `/parkings/myparks-reservations?page=${currentPage}`,
           {
             headers: { Authorization: `Bearer ${token}` },
             params: params,
           }
         );
         setResponseLength(response.data.allItems);
-        setData(response.data.doc);
-        console.log(response.data, "res");
+        setData(response.data.data);
+        //console.log(response.data, "res");
       }
     } catch (error) {
       toast.error("حدث خطأ ! برجاء المحاولة في وقت لاحق");
@@ -91,7 +91,7 @@ export default function Sales() {
       setIsLoading(false);
     }
   };
-  console.log(responseLength);
+  //console.log(responseLength);
   // Use useCallback to memoize the handleSearch function
   const handleSearch = useCallback((event) => {
     setReserveSearch(event.target.value);
@@ -100,7 +100,7 @@ export default function Sales() {
   useEffect(() => {
     fetchData();
   }, [token, reserveSearch, currentPage]);
-  console.log(data, "dataaaaaaaaaaaa");
+  //console.log(data, "data");
   const ComponentPDF = useRef();
   const generatePDF = useReactToPrint({
     content: () => ComponentPDF.current,
@@ -175,31 +175,73 @@ export default function Sales() {
                     التكلفة
                   </th>
                 </thead>
-                <tbody className="p">
-                  {data.map((item, index) => (
-                    <tr key={index}>
-                      <td className="p-4">{item.park.title}</td>
-                      <td className="p-4 yellowcolor">
-                        <span>{item.plateNumber}</span>
-                      </td>
-                      <td className="p-4">
-                        {calculateTimeDifference(item.time.from, item.time.to)}
-                      </td>
-                      <td className="p-4">
-                        {item.time.from
-                          ? new Date(item.time.from).toLocaleString()
-                          : ""}
-                      </td>
-                      <td className="p-4">
-                        {item.time.to
-                          ? new Date(item.time.to).toLocaleString()
-                          : ""}
-                        {/* {formatDateString(item.time.from)} : {formatDateString(item.time.to)} */}
-                      </td>
-                      <td className="p-4 yellowcolor">{item.price} $</td>
-                    </tr>
-                  ))}
-                </tbody>
+                {user.role === "renter" ? (
+                  <tbody className="p">
+                    {data.map((item, index) => (
+                      <tr key={index}>
+                        <td className="p-4">{item.park.title}</td>
+                        <td className="p-4 yellowcolor">
+                          <span>{item.reservation.user.plateNumber}</span>
+                        </td>
+                        <td className="p-4">
+                          {calculateTimeDifference(
+                            item.reservation.time.from,
+                            item.reservation.time.to
+                          )}
+                        </td>
+                        <td className="p-4">
+                          {item.reservation.time.from
+                            ? new Date(
+                                item.reservation.time.from
+                              ).toLocaleString()
+                            : ""}
+                        </td>
+                        <td className="p-4">
+                          {item.reservation.time.to
+                            ? new Date(
+                                item.reservation.time.to
+                              ).toLocaleString()
+                            : ""}
+                          {/* {formatDateString(item.time.from)} : {formatDateString(item.time.to)} */}
+                        </td>
+                        <td className="p-4 yellowcolor">
+                          {item.reservation.price} $
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                ) : (
+                  <tbody className="p">
+                    {data.map((item, index) => (
+                      <tr key={index}>
+                        <td className="p-4">{item.park.title}</td>
+                        <td className="p-4 yellowcolor">
+                          <span>{item.plateNumber}</span>
+                        </td>
+                        <td className="p-4">
+                          {calculateTimeDifference(
+                            item.time.from,
+                            item.time.to
+                          )}
+                        </td>
+                        <td className="p-4">
+                          {item.time.from
+                            ? new Date(item.time.from).toLocaleString()
+                            : ""}
+                        </td>
+                        <td className="p-4">
+                          {item.time.to
+                            ? new Date(item.time.to).toLocaleString()
+                            : ""}
+                          {/* {formatDateString(item.time.from)} : {formatDateString(item.time.to)} */}
+                        </td>
+                        <td className="p-4 yellowcolor">{item.price} $</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                )}
+
+                {/*  */}
               </table>
             </div>
           </div>

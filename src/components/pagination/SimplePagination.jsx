@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { IconButton, Typography } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 export default function SimplePagination({
@@ -6,6 +7,7 @@ export default function SimplePagination({
   pagesPagination,
 }) {
   let allPages = Math.ceil(pagesPagination / 10);
+  // alert(allPages);
   const next = () => {
     if (currentPage === allPages) return;
     setCurrentPage(currentPage + 1);

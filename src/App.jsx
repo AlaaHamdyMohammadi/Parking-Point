@@ -18,7 +18,6 @@ import RenterGuard from "./components/guard/RenterGuard";
 import Fqa from "./pages/FQA";
 import LiveLocation from "./pages/Map";
 import Terms from "./pages/Terms";
-// import SuccessPayment from "./pages/SuccessPayment";
 import CancelPayment from "./pages/CanclePayment";
 import ParkDetials from "./pages/parking/parkDetials";
 import SuccessPayment from "./pages/SuccessPayment";

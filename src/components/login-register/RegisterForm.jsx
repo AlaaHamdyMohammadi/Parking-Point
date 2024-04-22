@@ -11,12 +11,13 @@ import EmailInput from "../formFun/EmailInput";
 import PhoneInput from "../formFun/PhoneInput";
 import PlateNumberInput from "../formFun/PlateNumberInput";
 import CarTypeInput from "../formFun/CarTypeInput";
-// import ModalEmail from "./emailConfirm";
 import ConfirmationCodeInput from "./confirmEmail";
 import { login } from "../../store/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ConfimEmailPop from "./confirmEmailpop";
 import NameLastInputs from "../formFun/NameLastInputs";
+import { IoEyeOutline } from "react-icons/io5";
+import { FaRegEyeSlash } from "react-icons/fa6";
 export default function RegisterForm({ setShowFormStatus }) {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const dispatch = useDispatch();
@@ -132,7 +133,7 @@ export default function RegisterForm({ setShowFormStatus }) {
           formData.append("plateNumber", registeUser.plateNumber);
         }
         const res = await axiosInstanceParking.post(`/users/signup`, formData);
-        console.log("signup request successful", res.data);
+        //console.log("signup request successful", res.data);
         dispatch(login(res.data.token));
         setShowEmailModal(true);
       } catch (error) {
@@ -155,7 +156,7 @@ export default function RegisterForm({ setShowFormStatus }) {
             ...errors,
             plateNumberErrors: "رقم اللوحة مستخدم من قيل",
           });
-          console.log("signup request not successful", error.response.request);
+          //console.log("signup request not successful", error.response.request);
         } else if (
           error.response.request.response.includes(registeUser.nationalId)
         ) {
@@ -164,12 +165,13 @@ export default function RegisterForm({ setShowFormStatus }) {
             nationalIdErrors: "رقم الهوية مستخدم من قبل",
           });
         } else {
-          console.log("signup request not successful", error.response.request);
+          //console.log("signup request not successful", error.response.request);
         }
       }
     }
   };
-  console.log(registeUser);
+  //console.log(registeUser);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [isDriver, setIsDriver] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
@@ -186,7 +188,9 @@ export default function RegisterForm({ setShowFormStatus }) {
     }
   };
   const token = useSelector((state) => state.loggedIn.token);
-
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <>
       <form action="" method="post" onSubmit={handleSubmit} className="my-5">
@@ -216,21 +220,31 @@ export default function RegisterForm({ setShowFormStatus }) {
               setEmailInfo={setRegisteUser}
               errors={errors}
               setErrors={setErrors}
+              disabled={false}
             />
           </div>
           <div className="mt-4">
             <label className="fs-5" htmlFor="password">
               كلمة السر
             </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              className={`${classes.input} form-control border-secondary shadow-none`}
-              onChange={registeValidation}
-              onBlur={registeValidation}
-            />
-
+            <div className="d-flex  w-100 justify-content-end">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                className={`${classes.input} form-control border-secondary shadow-none`}
+                onChange={registeValidation}
+                onBlur={registeValidation}
+              />
+              <button
+                type="button"
+                className="btn Gray border border-0"
+                style={{ position: "absolute", zIndex: "1" }}
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? <IoEyeOutline /> : <FaRegEyeSlash />}
+              </button>
+            </div>
             <p className={`${classes.error} text-danger`}>
               {errors.passwordErrors}
             </p>

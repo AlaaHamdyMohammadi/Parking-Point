@@ -34,7 +34,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        console.log("update request successful", res.data);
+        //console.log("update request successful", res.data);
         getMyParkings();
       })
       .catch((err) => {
@@ -72,20 +72,33 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                       data-bs-ride="carousel"
                     >
                       <div className="carousel-inner  ">
-                        {parking.photos.map((photo, index) => (
-                          <div
-                            className="carousel-item  active"
-                            data-bs-interval="10000"
-                            key={index}
-                          >
-                            <img
-                              src={`${axiosInstanceParking.defaults.baseURL}/parkings/${photo}`}
-                              style={{ width: "3vh", height: "18vh" }}
-                              className="d-block w-100"
-                              alt={parking.title}
-                            />
-                          </div>
-                        ))}
+                        {parking.photos.map((photo, index) => {
+                          //console.log(`URL for image ${index}: http://localhost:3000/img/parkings/${photo}`)// Debugging URL
+
+                          return (
+                            <div
+                              className={`carousel-item ${
+                                index === 0 ? "active" : ""
+                              }`}
+                              data-bs-interval="10000"
+                              key={index}
+                            >
+                              <img
+                                src={`${axiosInstanceParking.defaults.baseURL}/img/parkings/${photo}`}
+                                style={{ width: "3vh", height: "18vh" }}
+                                className="d-block w-100"
+                                alt={parking.title}
+                              />
+                            </div>
+                          );
+                        })}
+
+                        {/*<img
+                          src={`http://localhost:3000/img/parkings/${parking.photos}`}
+                          style={{ width: "3vh", height: "18vh" }}
+                          className="d-block w-100"
+                          alt={parking.title}
+                        />*/}
                       </div>
                       <button
                         className="carousel-control-prev"
@@ -123,6 +136,10 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                         <span className=" fw-semibold"> السعة: </span>
                         {parking.capacity}
                       </p>
+                      {/* <p className="mb-0 customfs  ">
+                        <span className=" fw-semibold"> الاماكن المتاحة: </span>
+                        {parking.availableCapacity}
+                      </p> */}
                       <p className="">
                         <small className="text-body-secondary">
                           الإضافة:{" "}
@@ -213,7 +230,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
             ))
           ) : (
             <div className="fs-3 fw-semibold text-center">
-              <p className="my-5 py-5">لم يتم إضافة موقف حتى الان</p>
+              <p className="my-5 py-5">لا يوجد مواقف حتى الان</p>
             </div>
           )}
         </>
@@ -229,22 +246,26 @@ function ParkingAddress({ address }) {
     <p className="mb-0 customfs">
       <div style={{}}>
         <span className="fw-semibold">العنوان: </span>
-        {seeMore ? address : `${address.slice(0, 50)}${address.length > 50 ? "..." : ""}`}
+        {seeMore
+          ? address
+          : `${address.slice(0, 30)}${address.length > 30 ? "..." : ""}`}
       </div>
 
-      {address.length > 50 && <button
-        onClick={() => setSeeMore(!seeMore)}
-        style={{
-          marginLeft: "10px",
-          border: "none",
-          background: "none",
-          color: "#291336",
-          textDecoration: "underline",
-          fontWeight: "bold",
-        }}
-      >
-        {seeMore ? "عرض الأقل" : "عرض المزيد"}
-      </button>}
+      {address.length > 30 && (
+        <button
+          onClick={() => setSeeMore(!seeMore)}
+          style={{
+            marginLeft: "10px",
+            border: "none",
+            background: "none",
+            color: "#291336",
+            textDecoration: "underline",
+            fontWeight: "bold",
+          }}
+        >
+          {seeMore ? "عرض الأقل" : "عرض المزيد"}
+        </button>
+      )}
     </p>
   );
 }

@@ -1,14 +1,10 @@
 import { SlSocialInstagram } from "react-icons/sl";
-import { SlSocialLinkedin } from "react-icons/sl";
-// import { SlSocialTwitter } from "react-icons/sl";
 import { TfiEmail } from "react-icons/tfi";
 import { Link } from "react-router-dom";
 import { BsTwitterX } from "react-icons/bs";
-// import { ImWhatsapp } from "react-icons/im";
 import { FaWhatsapp } from "react-icons/fa6";
 
 const whatsappNumber = '+96877344277';
-// const whatsappNumber = '+201098235324';
 
 export default function Footer() {
   const whatsappUrl = `https://wa.me/${whatsappNumber}`;
@@ -63,7 +59,7 @@ export default function Footer() {
     // //   <div className="d-lg-flex justify-content-evenly">
     // //     <div className=" col-lg-3 col-md-3 col-sm-12 p-3">
     // //       <div className="d-flex animate transition ">
-    // //         <img src="./../../../public/parkingpointlogo2.png" style={{ height: "5rem", width: "5rem" }} />
+    // //         <img src="/parkingpointlogo2.png" style={{ height: "5rem", width: "5rem" }} />
     // //         <span className=" yellowcolor align-self-center">
     // //           <h5>parking point</h5>
     // //         </span>

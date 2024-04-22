@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 import ModalReserve from "./ReserveModal";
 
 import RatingComponent from "./RatingComponent";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 
 export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
-  console.log(AvaliableParksFilter);
+  //console.log(AvaliableParksFilter);
   return (
     <>
       {AvaliableParksFilter.map((item, index) => (
@@ -25,7 +26,7 @@ export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
                     key={index}
                   >
                     <img
-                      src={`${axiosInstanceParking.defaults.baseURL}/parkings/${photo}`}
+                      src={`${axiosInstanceParking.defaults.baseURL}/img/parkings/${photo}`}
                       style={{ width: "3vh", height: "18vh" }}
                       className="d-block w-100"
                       alt="..."
@@ -62,23 +63,21 @@ export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
           <div className="col-8 d-flex    align-items-center">
             <div className="card-body col-lg-8 ">
               <div className="card-title fw-bolder mb-0">{item.title}</div>
-              <div className="mb-0 customfs  Gray">
+              <div className="mb-0 customfs  ">
                 <div>
                   <span className=" fw-semibold"> الأماكن المتاحه: </span>
-                  {item.avaliable}
+                  {item.availableCapacity}
                 </div>
               </div>
-              <div className="mb-0 customfs Gray">
+              <div className="mb-0 customfs ">
                 <div>
-                  <span className=" fw-semibold"> العنوان: </span>
-                  {item.address}
+                  <ParkingAddress address={item.address} />
                 </div>
               </div>
             </div>
             <div className=" col-lg-3 d-lg-flex gap-1 flex-lg-column justify-content-start text-center ">
               <div className="ps-2">
                 <ModalReserve ParkId={item._id} ReserveTime={ReserveTime} />
-                {/* <div className={`text-center  w-75 bgColor text-white  p-0  btn  ${classes.formBtn}`}>احجز</div> */}
               </div>
               <div className="d-flex flex-row  text-center justify-content-start ">
                 <RatingComponent rating={item.rate} />
@@ -88,5 +87,35 @@ export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
         </div>
       ))}
     </>
+  );
+}
+function ParkingAddress({ address }) {
+  const [seeMore, setSeeMore] = useState(false);
+
+  return (
+    <p className="mb-0 customfs">
+      <div style={{}}>
+        <span className="fw-semibold">العنوان: </span>
+        {seeMore
+          ? address
+          : `${address.slice(0, 30)}${address.length > 30 ? "..." : ""}`}
+      </div>
+
+      {address.length > 30 && (
+        <button
+          onClick={() => setSeeMore(!seeMore)}
+          style={{
+            marginLeft: "10px",
+            border: "none",
+            background: "none",
+            color: "#291336",
+            textDecoration: "underline",
+            fontWeight: "bold",
+          }}
+        >
+          {seeMore ? "عرض الأقل" : "عرض المزيد"}
+        </button>
+      )}
+    </p>
   );
 }
