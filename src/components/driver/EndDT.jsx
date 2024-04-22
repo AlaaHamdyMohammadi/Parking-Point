@@ -30,10 +30,10 @@ export default function EndDateTime({
   const [searchData, setSearchData] = useState({
     city: "",
 
-    from: BookNow ? new Date().toISOString().slice(0, 16) : null,
+    from: BookNow ? new Date() : null,
     to: null,
   });
-
+  // .toISOString().slice(0, 16)
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     let updatedData = { ...searchData };

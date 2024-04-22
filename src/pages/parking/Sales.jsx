@@ -16,6 +16,7 @@ import { Helmet } from "react-helmet";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SimplePagination from "../../components/pagination/SimplePagination";
+import useLogInUserData from "../../../hook/useLogInUserData";
 const calculateTimeDifference = (fromDate, toDate) => {
   const from = new Date(fromDate);
   const to = new Date(toDate);
@@ -45,6 +46,8 @@ const formatDateString = (dateString) => {
 };
 
 export default function Sales() {
+  const user = useLogInUserData();
+
   const [currentPage, setCurrentPage] = useState(1);
   const [responseLength, setResponseLength] = useState(0);
   const [data, setData] = useState(null);
@@ -58,17 +61,29 @@ export default function Sales() {
       if (reserveSearch) {
         params = { searchField: "plateNumber", plateNumber: reserveSearch };
       }
-
-      const response = await axiosInstanceParking.get(
-        `/reserve/me?page=${currentPage}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-          params: params,
-        }
-      );
-      setResponseLength(response.data.allItems);
-      setData(response.data.doc);
-      console.log(response.data, "res");
+      if (user.role == "driver") {
+        const response = await axiosInstanceParking.get(
+          `/reserve/me?page=${currentPage}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+            params: params,
+          }
+        );
+        setResponseLength(response.data.allItems);
+        setData(response.data.doc);
+        console.log(response.data, "res");
+      } else if (user.role == "renter") {
+        const response = await axiosInstanceParking.get(
+          `/parking/myparks-reservations?page=${currentPage}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+            params: params,
+          }
+        );
+        setResponseLength(response.data.allItems);
+        setData(response.data.doc);
+        console.log(response.data, "res");
+      }
     } catch (error) {
       toast.error("حدث خطأ ! برجاء المحاولة في وقت لاحق");
       console.error("Error fetching data:", error);
