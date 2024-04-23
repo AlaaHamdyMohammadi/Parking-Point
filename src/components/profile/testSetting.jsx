@@ -1,20 +1,7 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import useLogInUserData from "../../../hook/useLogInUserData";
-import axiosInstanceParking from "../../axiosConfig/instanc";
-import NameInputs from "../formFun/nameInputs";
-import PhoneInput from "../formFun/PhoneInput";
-import EmailInput from "../formFun/EmailInput";
-import CarTypeInput from "../formFun/CarTypeInput";
-import classes from "./../../styles/formStyles.module.css";
-import RegionInput from "../formFun/RegionInput";
-import CitySelect from "../formFun/CitySelect";
+import { ToastContainer } from "react-toastify";
 import StateInput from "../formFun/StateInput";
-import PlateNumberInput from "../formFun/PlateNumberInput";
-import NameLastInputs from "../formFun/NameLastInputs";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import RegionInput from "../formFun/RegionInput";
+
 export default function Setting() {
   const token = useSelector((state) => state.loggedIn.token);
   const user = useLogInUserData();
