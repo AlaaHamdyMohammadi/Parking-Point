@@ -3,21 +3,22 @@
 import { useState } from "react";
 import classes from "./../../styles/formStyles.module.css";
 import axiosInstanceParking from "../../axiosConfig/instanc";
-import CitySelect from "../formFun/CitySelect";
-import StateInput from "../formFun/StateInput";
-import RegionInput from "../formFun/RegionInput";
-import NameInputs from "../formFun/nameInputs";
-import EmailInput from "../formFun/EmailInput";
-import PhoneInput from "../formFun/PhoneInput";
-import PlateNumberInput from "../formFun/PlateNumberInput";
-import CarTypeInput from "../formFun/CarTypeInput";
+
 import ConfirmationCodeInput from "./confirmEmail";
 import { login } from "../../store/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ConfimEmailPop from "./confirmEmailpop";
-import NameLastInputs from "../formFun/NameLastInputs";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa6";
+import NameInputs from "../FormsValidations/formFun/NameInputs";
+import NameLastInputs from "../FormsValidations/formFun/NameLastInputs";
+import EmailInput from "../FormsValidations/formFun/EmailInput";
+import PhoneInput from "../FormsValidations/formFun/PhoneInput";
+import PlateNumberInput from "../FormsValidations/formFun/PlateNumberInput";
+import CarTypeInput from "../FormsValidations/formFun/CarTypeInput";
+import StateInput from "../FormsValidations/formFun/StateInput";
+import CitySelect from "../FormsValidations/formFun/CitySelect";
+import RegionInput from "../FormsValidations/formFun/RegionInput";
 export default function RegisterForm({ setShowFormStatus }) {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const dispatch = useDispatch();

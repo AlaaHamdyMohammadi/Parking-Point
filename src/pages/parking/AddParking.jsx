@@ -14,10 +14,9 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import CitySelect from "../../components/formFun/CitySelect";
 import classes from "./../../styles/formStyles.module.css";
-// import RegionInput from "../../components/formFun/RegionInput";
 import { Helmet } from "react-helmet";
+import CitySelect from "../../components/FormsValidations/formFun/CitySelect";
 
 const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 const mapStyle = "mapbox://styles/alaahamdy2/clsp701hd005a01pkhrmygybf";
