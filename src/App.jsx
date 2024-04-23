@@ -5,7 +5,6 @@ import DefaultLayout from "./layout/DefaultLayout";
 import Home from "./pages/Home";
 import Register from "./pages/register";
 import Layout from "./layout/Layout";
-import HandelErorr from "./pages/handelErorr";
 import AddParking from "./pages/parking/AddParking";
 import OwnerProfile from "./pages/parking/OwnerProfile";
 import EditProfile from "./pages/parking/EditProfile";
@@ -21,6 +20,7 @@ import Terms from "./pages/Terms";
 import CancelPayment from "./pages/CanclePayment";
 import ParkDetials from "./pages/parking/parkDetials";
 import SuccessPayment from "./pages/SuccessPayment";
+import HandelErorr from "./pages/HandelErorr";
 
 const router = createBrowserRouter([
   {
