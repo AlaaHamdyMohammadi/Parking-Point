@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
+import classes from "./../../styles/header_2.module.css";
 
 export default function Header_2() {
   return (
-    <nav className={`shadow d-flex   justify-content-end`}>
+    <nav
+      className={`shadow ${classes.heightCustom} d-flex   justify-content-end`}
+    >
       <div className="">
         <Link to={`/`}>
-          <img src="/parkingpointlogo2.png" className={` mt-1  p-1 mx-4`} />
+          <img
+            src="/parkingpointlogo2.png"
+            className={`${classes.logo} mt-1  p-1 mx-4`}
+          />
         </Link>
       </div>
     </nav>
