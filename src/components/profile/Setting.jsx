@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import useLogInUserData from "../../../hook/useLogInUserData";
 import { useState } from "react";
 import axiosInstanceParking from "../../axiosConfig/instanc";
-import NameInputs from "../formFun/nameInputs";
+// import NameInputs from "../formFun/nameInputs";
 import PhoneInput from "../formFun/PhoneInput";
 import EmailInput from "../formFun/EmailInput";
 import CarTypeInput from "../formFun/CarTypeInput";
