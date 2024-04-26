@@ -43,9 +43,6 @@ export default function SidebarProfile() {
     toast.error("يرجى التواصل مع الدعم  ");
   };
   const handleChange = useSendCode();
-  // console.log(user.photo);
-  // console.log(user);
-
   return (
     <>
       {isSmallScreen && (
@@ -86,25 +83,12 @@ export default function SidebarProfile() {
                 </Link>
                 <div className={`${classes.unactive} d-flex flex-column`}>
                   <Link to={`/Profile`}>
-                    <div className="yellowcolor pt-1">
-                      {user.firstName} {user.lastName}{" "}
+                    <div className={`yellowcolor ms-2 ${classes.userName}`}>
+                      {user.firstName} {user.lastName}
                     </div>
                   </Link>
-                  {/* {user.isEmailConfirmed ? (
-                    <div className="fs-6">
-                      <MdVerified className="mx-1" />
-                      <span>تم تأكيد الأيميل</span>
-                    </div>
-                  ) : (
-                    <div className=" fs-6 pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={handleChange}>
-                      <MdOutlineAdsClick className="mx-1 " />
-                      <span>تأكيد الأيميل</span>
-                    </div>
-                  )}
-                  <ConfimEmailPop userEmail={user.email} /> */}
                 </div>
               </div>
-
               <button
                 type="button"
                 className={`btn-close  text-secondary text-start`}
@@ -128,8 +112,8 @@ export default function SidebarProfile() {
                         <HiLockClosed className="  editIcon p-2" />
                       </span>
                       <span className="icon-text ps-2  ">
-                        {" "}
-                        {isWide ? "إضافة موقف" : ""}{" "}
+                        
+                        {isWide ? "إضافة موقف" : ""}
                       </span>
                     </div>
                   ) : (
@@ -177,8 +161,6 @@ export default function SidebarProfile() {
             setWide(true);
           }}
           className={`${classes.sidebar} pe-2 position-fixed pt-2 top-0 end-0 z-1 transition whiteSpace h-100 overflow-x-hidden bgColor 
-         
-         
           `}
         >
           <div className={`d-flex mt-md-2 fs-5 fw-bold gap-2 `}>
@@ -199,25 +181,10 @@ export default function SidebarProfile() {
               <>
                 <div className={`${classes.unactive} d-flex flex-column`}>
                   <Link to={`/Profile`}>
-                    <div className="yellowcolor  ms-2">
+                    <div className={`yellowcolor ms-2 ${classes.userName}`}>
                       {user.firstName} {user.lastName}
-                    </div>{" "}
+                    </div>
                   </Link>
-                  {/* {user.isEmailConfirmed ? (
-                    <div className="fs-6">
-                      <MdVerified className="mx-1" />
-                      <span>تم تأكيد الأيميل</span>
-                    </div>
-                  ) : (
-                    <div className="fs-6 pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={handleChange}> 
-                      <MdOutlineAdsClick className="mx-1 " />
-                      <span>تأكيد الأيميل</span>
-                      <ConfimEmailPop userEmail={user.email} />
-
-                    </div>
-                    
-
-                  )} */}
                 </div>
               </>
             )}

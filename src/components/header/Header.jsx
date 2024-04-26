@@ -29,7 +29,8 @@ export default function Header() {
   };
   const handleChange = useSendCode();
   return (
-    <main className="navColor p-1 shadow">
+    <main >
+      <div className="navColor p-1 shadow">
     <nav className={`container d-flex navbar-expand-lg justify-content-between`}>
         {isLoggedIn ? (
           <div className="position-relative d-flex justify-content-center align-items-center   col-1">
@@ -163,6 +164,7 @@ export default function Header() {
           </div>
         )}
       </nav>
+      </div>
       {isLoggedIn && user.role === "renter" && (
         <>
           <div>
