@@ -11,7 +11,6 @@ import SpinnerLoad from "../../components/spinner/Spinner";
 import ParkLocation from "./ParkLocation";
 import ParkRating from "./ParkRating";
 import { FaStar } from "react-icons/fa";
-// import StarRating from "../../components/StarRating";
 import { FaRegFilePdf } from "react-icons/fa6";
 import { useReactToPrint } from "react-to-print";
 import { toast, ToastContainer } from "react-toastify";
@@ -30,21 +29,13 @@ const ParkDetials = () => {
   let to = query.get("to");
   let price = query.get("price");
   let newParkId = query.get("newParkId");
-
-  // console.log("query", query, from, to, price, newParkId);
-
   useEffect(() => {
-    //console.log(newParkId);
     const getReservedPark = async () => {
       try {
         const res = await axiosInstanceParking.get(`/parkings/${newParkId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setParkreserved(res.data.park);
-        //console.log(res.data.park);
-
-        // Reload the page after successful response
-        // window.location.reload();
       } catch (err) {
         console.error("Error :", err);
         if (err.response) {
@@ -55,7 +46,6 @@ const ParkDetials = () => {
 
     if (newParkId) {
       getReservedPark();
-      //console.log("parkreserved", parkreserved);
     }
     setTimeout(() => {
       setIsLoading(false);
@@ -104,7 +94,7 @@ const ParkDetials = () => {
         ) : (
           <div className="d-flex justify-content-center ">
             <div className="w-75 my-5">
-              <div className="d-flex justify-content-between px-5 my-4">
+              <div className="d-flex justify-content-between  my-4">
                 <button
                   className={`text-center my-2  borderCustom w-25 animate    btn `}
                   onClick={generatePDF}
