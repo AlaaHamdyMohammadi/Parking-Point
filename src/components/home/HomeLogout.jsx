@@ -29,7 +29,7 @@ export default function HomeLogout() {
               className={`col-12 col-md-6 d-flex align-items-center bgColor justify-content-center`}
             >
               <div className={`w-75`}>
-                <div className={`fs-3 mb-5 text-light`}>
+                <div className={`fs-3 my-5 text-light`}>
                   اركن في أقرب موقف لك
                 </div>
                 <Link to={`/register`}>
