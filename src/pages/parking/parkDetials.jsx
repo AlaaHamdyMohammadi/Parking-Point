@@ -105,11 +105,11 @@ const ParkDetials = () => {
 
                 {/* <div className="pointer fs-5  "> */}
                 <button
-                  className={`text-center my-2 borderCustom w-50 animate    btn `}
+                  className={`text-center text-black my-2 borderCustom w-50 animate    btn `}
                 >
                   <Link to="/">
-                    <IoArrowRedoCircleOutline className="text-center  text-black fs-5" />
                     الصفحة الرئيسية
+                    <IoArrowRedoCircleOutline className="text-center  text-black fs-5" />
                   </Link>
                 </button>
                 {/* <IoArrowRedoCircleOutline className="text-black" /> */}
