@@ -39,6 +39,7 @@ export default function EmailInput({
           name="email"
           value={emailInfo.email}
           onChange={emailValidation}
+          onBlur={emailValidation}
           disabled={disabled}
         />
         <p className={`${classes.error} text-danger`}>{errors.emailErrors} </p>

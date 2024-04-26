@@ -70,7 +70,6 @@ export default function Sales() {
         );
         setData(response.data.data);
         setResponseLength(response.data.total);
-
         console.log(response.data.total);
         console.log(response, "res");
       }

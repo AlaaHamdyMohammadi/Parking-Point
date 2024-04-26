@@ -14,7 +14,6 @@ import useSendCode from "../../../hook/useSendCode";
 
 export default function Header() {
   const user = useLogInUserData();
-  // console.log(user)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.loggedIn.loggedIn);
@@ -30,10 +29,9 @@ export default function Header() {
   };
   const handleChange = useSendCode();
   return (
-    <>
-      <nav
-        className={`navColor p-1 d-flex gap-5 w-100 justify-content-between navbar-expand-lg shadow`}
-      >
+    <main >
+      <div className="navColor p-1 shadow">
+    <nav className={`container d-flex navbar-expand-lg justify-content-between`}>
         {isLoggedIn ? (
           <div className="position-relative d-flex justify-content-center align-items-center   col-1">
             <div className="btn-group border-0">
@@ -136,12 +134,12 @@ export default function Header() {
             </div>
           </div>
         ) : (
-          <div className="col-10  " id="navbarSupportedContent">
-            <div className="navbar-nav pt-2 px-4  justify-content-end mb-lg-0 w-100 d-flex flex-row gap-3">
+          <div className="" id="navbarSupportedContent">
+            <div className="navbar-nav pt-2 justify-content mb-lg-0 w-100 d-flex flex-row gap-3">
               <div className="nav-item fw-bold">
                 <Link
                   to={`/register`}
-                  className="nav-link   active  text-white"
+                  className="nav-link active text-white"
                   aria-current="page"
                   onClick={() => {
                     displayLogin();
@@ -166,6 +164,7 @@ export default function Header() {
           </div>
         )}
       </nav>
+      </div>
       {isLoggedIn && user.role === "renter" && (
         <>
           <div>
@@ -198,6 +197,6 @@ export default function Header() {
           </div>
         </>
       )}
-    </>
+    </main>
   );
 }

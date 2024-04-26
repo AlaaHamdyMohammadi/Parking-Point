@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./../../styles/formStyles.module.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useDispatch } from "react-redux";
 import { loggedInState, login } from "../../store/slices/authSlice";
@@ -22,13 +22,11 @@ export default function LoginForm() {
     emailErrors: "",
     passwordErrors: "",
   });
-  //
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  //
   const loginValidation = (event) => {
     const { name, value } = event.target;
     if (name === "email") {
@@ -65,10 +63,9 @@ export default function LoginForm() {
       }
     }
   };
-  // console.log(isTrueErrors);
-
   return (
-    <div>
+    <main>
+    {/* <main style={{minHeight:'100vw'}}> */}
       <form method="post" onSubmit={handleSubmit} className="fs-4 mb-5">
         <p className={`text-danger`}>{isTrueErrors}</p>
         <div>
@@ -129,15 +126,14 @@ export default function LoginForm() {
         />
       </form>
       <ToastContainer position="top-right" autoClose={50000} />
-      <Link
-        to={``}
-        className={`mt-5`}
+      <div
+        className={`my-5 text-primary text-decoration-underline`} role="button"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
       >
         نسيت كلمه السر ؟
-      </Link>
+      </div>
       <ForgotPassword />
-    </div>
+    </main>
   );
 }

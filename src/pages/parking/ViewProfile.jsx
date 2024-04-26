@@ -74,7 +74,7 @@ export default function ViewProfile() {
               <div className="col-12 col-md-4">
                 <Info
                   lable="نوع المركبة"
-                  info={user.carType}
+                  info={`سيارة`}
                   icon={
                     <LiaCarSideSolid className="me-1 mb-1 text-center yellowcolor fs-3 " />
                   }

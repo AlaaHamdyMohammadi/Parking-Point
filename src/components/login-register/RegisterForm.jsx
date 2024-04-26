@@ -134,9 +134,10 @@ export default function RegisterForm({ setShowFormStatus }) {
           formData.append("plateNumber", registeUser.plateNumber);
         }
         const res = await axiosInstanceParking.post(`/users/signup`, formData);
-        //console.log("signup request successful", res.data);
+        console.log("signup request successful", res.data);
         dispatch(login(res.data.token));
         setShowEmailModal(true);
+        setShowFormStatus(false);
       } catch (error) {
         if (error.response.request.response.includes(registeUser.email)) {
           setErrors({

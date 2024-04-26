@@ -20,10 +20,7 @@
   --bs-tooltip-color: var(--bs-white);
 }
 .userName {
-  border: 2px solid var(--yellow);
-  border-radius: 50%;
-  width: 3vw;
-  height: 3vw;
+ font-size: 16px;
 }
 .sidebarIcon {
   color: var(--iconColor) !important;
