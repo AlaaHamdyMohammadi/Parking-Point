@@ -104,15 +104,15 @@ const ParkDetials = () => {
                 {/* <div className=" fw-bold"> العوده الي الصفحة الرئيسية ...</div> */}
 
                 {/* <div className="pointer fs-5  "> */}
-                <Link to="/">
-                  <button
-                    className={`text-center my-2  borderCustom w-50 animate    btn `}
-                  >
+                <button
+                  className={`text-center my-2  borderCustom w-50 animate    btn `}
+                >
+                  <Link to="/">
                     <IoArrowRedoCircleOutline className="text-center   fs-5" />
                     الصفحة الرئيسية
-                  </button>
-                  {/* <IoArrowRedoCircleOutline className="text-black" /> */}
-                </Link>
+                  </Link>
+                </button>
+                {/* <IoArrowRedoCircleOutline className="text-black" /> */}
                 {/* </div> */}
               </div>
 
