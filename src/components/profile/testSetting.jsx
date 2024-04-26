@@ -1,20 +1,7 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import useLogInUserData from "../../../hook/useLogInUserData";
-import axiosInstanceParking from "../../axiosConfig/instanc";
-import PhoneInput from "../FormsValidations/formFun/PhoneInput";
-import EmailInput from "../FormsValidations/formFun/EmailInput";
-import CarTypeInput from "../FormsValidations/formFun/CarTypeInput";
-import classes from "./../../styles/formStyles.module.css";
-import RegionInput from "../FormsValidations/formFun/RegionInput";
-import CitySelect from "../FormsValidations/formFun/CitySelect";
-import StateInput from "../FormsValidations/formFun/StateInput";
-import PlateNumberInput from "../FormsValidations/formFun/PlateNumberInput";
-import NameLastInputs from "../FormsValidations/formFun/NameLastInputs";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
-import NameInputs from "../FormsValidations/formFun/NameInputs";
+import { ToastContainer } from "react-toastify";
+import StateInput from "../formFun/StateInput";
+import RegionInput from "../formFun/RegionInput";
+
 export default function Setting() {
   const token = useSelector((state) => state.loggedIn.token);
   const user = useLogInUserData();
@@ -168,7 +155,7 @@ export default function Setting() {
                     type="text"
                     name="nationaleId"
                     id="nationaleId"
-                    value={user.nationalId}
+                    value={user.nationaleId}
                     disabled
                     className={`${classes.input} form-control border border-secondary shadow-none`}
                   />

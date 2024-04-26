@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-
+ 
 export default function NameInputs({
   classes,
   setNameInfo,
