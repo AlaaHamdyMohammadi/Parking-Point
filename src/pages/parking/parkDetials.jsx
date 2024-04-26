@@ -108,8 +108,10 @@ const ParkDetials = () => {
                   className={`text-center text-black my-2 borderCustom w-50 animate    btn `}
                 >
                   <Link to="/">
-                    الصفحة الرئيسية
-                    <IoArrowRedoCircleOutline className="text-center  text-black fs-5" />
+                    <p className=" text-black">
+                      الصفحة الرئيسية
+                      <IoArrowRedoCircleOutline className="text-center  text-black fs-5" />
+                    </p>
                   </Link>
                 </button>
                 {/* <IoArrowRedoCircleOutline className="text-black" /> */}
