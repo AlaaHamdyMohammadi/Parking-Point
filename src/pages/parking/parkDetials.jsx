@@ -99,7 +99,8 @@ const ParkDetials = () => {
                   className={`text-center my-2  borderCustom w-50 animate    btn `}
                   onClick={generatePDF}
                 >
-                  <FaRegFilePdf className="text-center   fs-5" /> تحميل
+                  تحميل
+                  <FaRegFilePdf className="text-center  mx-3 fs-5" />
                 </button>
                 {/* <div className=" fw-bold"> العوده الي الصفحة الرئيسية ...</div> */}
 
@@ -110,7 +111,7 @@ const ParkDetials = () => {
                   <Link to="/" className="nonLine">
                     <p className=" text-black">
                       الصفحة الرئيسية
-                      <IoArrowRedoCircleOutline className="text-center mx-3 text-black fs-5" />
+                      <IoArrowRedoCircleOutline className="text-center mx-3 pt-2 text-black fs-5" />
                     </p>
                   </Link>
                 </button>
