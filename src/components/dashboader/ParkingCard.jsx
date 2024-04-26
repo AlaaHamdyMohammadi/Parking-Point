@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
 import SpinnerLoad from "../../components/spinner/Spinner";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function ParkingCard({ userParkings, setUserParkings }) {
   const token = useSelector((state) => state.loggedIn.token);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,8 +35,12 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        //console.log("update request successful", res.data);
         getMyParkings();
+        if (disabled == false) {
+          toast.success("تم إعادة تنشيط الموقف بنجاح ! في انتظار المراجعة...");
+        } else if (disabled == true) {
+          toast.success("تم إلغاء تنشيط الموقف بنجاح !");
+        }
       })
       .catch((err) => {
         console.error("Error during parking request:", err);
@@ -73,8 +78,6 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                     >
                       <div className="carousel-inner  ">
                         {parking.photos.map((photo, index) => {
-                          //console.log(`URL for image ${index}: http://localhost:3000/img/parkings/${photo}`)// Debugging URL
-
                           return (
                             <div
                               className={`carousel-item ${
@@ -92,13 +95,6 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                             </div>
                           );
                         })}
-
-                        {/*<img
-                          src={`http://localhost:3000/img/parkings/${parking.photos}`}
-                          style={{ width: "3vh", height: "18vh" }}
-                          className="d-block w-100"
-                          alt={parking.title}
-                        />*/}
                       </div>
                       <button
                         className="carousel-control-prev"
@@ -136,21 +132,13 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                         <span className=" fw-semibold"> السعة: </span>
                         {parking.capacity}
                       </p>
-                      {/* <p className="mb-0 customfs  ">
-                        <span className=" fw-semibold"> الاماكن المتاحة: </span>
-                        {parking.availableCapacity}
-                      </p> */}
+
                       <p className="">
                         <small className="text-body-secondary">
                           الإضافة:{" "}
                           {new Date(parking.createdAt).toLocaleDateString()}
                         </small>
                       </p>
-                      {/* <p className="">
-                  <small className="text-body-secondary">
-                   تعديل: {new Date(parking.updatedAt).toLocaleDateString()}
-                  </small>
-                </p> */}
                     </div>
                     <div className=" d-flex gap-2  py-2 w-100 justify-content-between ">
                       <div className=" d-lg-flex gap-3 flex-lg-column  text-center ">
