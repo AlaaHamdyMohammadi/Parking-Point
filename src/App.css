@@ -108,7 +108,10 @@
 .showSidebar {
   width: 60px;
 }
+.nonLine{
+    text-decoration: none;
 
+}
 .slide-in-right {
   animation-name: slideInRight;
   animation-duration: 2s;
