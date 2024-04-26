@@ -96,15 +96,22 @@ const ParkDetials = () => {
             <div className="w-75 my-5">
               <div className="d-flex justify-content-between  my-4">
                 <button
-                  className={`text-center my-2  borderCustom w-25 animate    btn `}
+                  className={`text-center my-2  borderCustom w-50 animate    btn `}
                   onClick={generatePDF}
                 >
                   <FaRegFilePdf className="text-center   fs-5" /> تحميل
                 </button>
                 {/* <div className=" fw-bold"> العوده الي الصفحة الرئيسية ...</div> */}
+
                 <div className="pointer fs-5  ">
                   <Link to="/">
-                    <IoArrowRedoCircleOutline className="text-black" />
+                    <button
+                      className={`text-center my-2  borderCustom w-50 animate    btn `}
+                    >
+                      <IoArrowRedoCircleOutline className="text-center   fs-5" />
+                      الصفحة الرئيسية
+                    </button>
+                    {/* <IoArrowRedoCircleOutline className="text-black" /> */}
                   </Link>
                 </div>
               </div>
