@@ -1,7 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { LiaCarSideSolid } from "react-icons/lia";
-// import { SlCalender } from "react-icons/sl";
-// import { MdOutlineWatchLater } from "react-icons/md";
 import { LuParkingCircle } from "react-icons/lu";
 import { MdPriceCheck } from "react-icons/md";
 import { FaRegFilePdf } from "react-icons/fa6";
@@ -79,8 +77,6 @@ export default function Sales() {
       setIsLoading(false);
     }
   };
-  // console.log(responseLength);
-  // Use useCallback to memoize the handleSearch function
   const handleSearch = useCallback((event) => {
     setReserveSearch(event.target.value);
   }, []);
@@ -103,7 +99,7 @@ export default function Sales() {
       </Helmet>
       {isLoading ? (
         <SpinnerLoad />
-      ) : data ? (
+      ) : data && data.length > 0 ? (
         <div className="  w-100 align-self-center">
           <div className="d-lg-flex d-md-flex m-2 gap-5 justify-content-between">
             <button
@@ -122,7 +118,6 @@ export default function Sales() {
                   className="form-control  fs-6 btnDownload  opacity-50 text-body-secondary "
                   type="search"
                   placeholder="ابحث برقم اللوحة"
-                  //  onChange={(e) => search(e.target.value)}
                   value={reserveSearch}
                   onChange={handleSearch}
                   aria-label="Search"
