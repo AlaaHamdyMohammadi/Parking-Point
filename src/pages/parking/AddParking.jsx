@@ -190,30 +190,25 @@ export default function AddParking() {
           })
 
           .then((res) => {
-            //console.log("update request successful", res.data);
             toast.success("تم تحديث الموقف بنجاح");
             setTimeout(() => {
               navigate("/");
             }, 2000);
-            // navigate("/");
           })
           .catch((err) => {
             console.error("Error during parking request:", err);
             toast.error("حدث خطأ ! يرجى المحاولة مرة أخرى");
           });
       } else if (!ParkingId) {
-        // alert(token);
         axiosInstanceParking
           .post(`/parkings`, formData, {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then((res) => {
-            //console.log("Post request successful", res.data);
             toast.success("تم إضافة الموقف بنجاح");
             setTimeout(() => {
               navigate("/");
             }, 2000);
-            // navigate("/");
           })
           .catch((err) => {
             toast.error("حدث خطأ ! يرجى المحاولة مرة أخرى");
@@ -234,7 +229,7 @@ export default function AddParking() {
           ? "لإضافة موقف يرجي ادخال البيانات الصحيحة"
           : "تعديل بيانات الموقف"}
       </h3>
-      <div className={`card w-75 align-self-center p-2 mb-5`}>
+      <div className={`card w-md-75 w-100 align-self-center p-2 mb-5`}>
         <div className={`p-5`}>
           <h5 className={`text-secondary text-center`}>
             يمكن إضافة ثلاث صور فقط
@@ -308,7 +303,6 @@ export default function AddParking() {
                 </p>
               </div>
               <div className="form-group mb-3 col-12 col-md-6 ">
-                {/* <RegionInput regionInfo={parking} classes={classes} setRegionInfo={setParking} errors={errors} setErrors={setErrors}/> */}
                 <label htmlFor="address" className="mb-1 fs-5">
                   العنوان
                 </label>
@@ -353,14 +347,12 @@ export default function AddParking() {
                   {errors.capacityErrors}
                 </p>
               </div>
-              {/* <button  className="btn bgColor text-white col-11 mb-2 m-auto">
-              </button> */}
               {!ParkingId ? (
                 <>
                   <label htmlFor="location" className="mb-1 fs-5">
                     الموقع{" "}
                   </label>
-                  <div style={{ width: "100vw", height: "85vh" }}>
+                  <div style={{ width: "100vw", height: "35vh" }}>
                     <ReactMapGL
                       {...parking}
                       mapStyle={mapStyle}
@@ -396,8 +388,8 @@ export default function AddParking() {
                   value={`تعديل الموقف`}
                   className={
                     Object.values(errors).some((error) => error !== "")
-                      ? "btn bgColor text-white col-4 my-3 disabled"
-                      : "btn bgColor text-white col-4 my-3"
+                      ? "btn bgColor text-white col-10 my-3 disabled"
+                      : "btn bgColor text-white col-10 my-3"
                   }
                   disabled={Object.values(parking).some(
                     (parking) => parking == ""
@@ -409,8 +401,8 @@ export default function AddParking() {
                   value={`إضافة موقف`}
                   className={
                     Object.values(errors).some((error) => error !== "")
-                      ? "btn bgColor text-white col-4 my-3 disabled"
-                      : "btn bgColor text-white col-4 my-3 "
+                      ? "btn bgColor text-white col-10 my-3 disabled"
+                      : "btn bgColor text-white col-10 my-3 "
                   }
                   disabled={Object.values(parking).some(
                     (parking) => parking == ""
