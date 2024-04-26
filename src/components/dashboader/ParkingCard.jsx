@@ -37,9 +37,9 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
       .then((res) => {
         getMyParkings();
         if (disabled == false) {
-          toast.success("تم إعادة تنشيط الموقف بنجاح ! في انتظار المراجعة...");
+          toast.success("تم إعادة تنشيط الموقف بنجاح! في انتظار المراجعة...");
         } else if (disabled == true) {
-          toast.success("تم إلغاء تنشيط الموقف بنجاح !");
+          toast.success(" تم إلغاء تنشيط الموقف بنجاح! في انتظار المراجعة...");
         }
       })
       .catch((err) => {
@@ -122,6 +122,8 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                       </button>
                     </div>
                   </div>
+                  <ToastContainer position="top-right" autoClose={2000} />
+
                   <div className="col-lg-8 pe-3 col-sm-12 d-lg-flex gap-4">
                     <div className="col-lg-6 col-sm-12  align-items-center">
                       <h5>{parking.title}</h5>
