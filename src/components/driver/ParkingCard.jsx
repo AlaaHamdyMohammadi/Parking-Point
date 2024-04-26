@@ -98,10 +98,10 @@ function ParkingAddress({ address }) {
         <span className="fw-semibold">العنوان: </span>
         {seeMore
           ? address
-          : `${address.slice(0, 30)}${address.length > 30 ? "..." : ""}`}
+          : `${address.slice(0, 20)}${address.length > 20 ? "..." : ""}`}
       </div>
 
-      {address.length > 30 && (
+      {address.length > 20 && (
         <button
           onClick={() => setSeeMore(!seeMore)}
           style={{
