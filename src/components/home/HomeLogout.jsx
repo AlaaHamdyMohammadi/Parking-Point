@@ -56,9 +56,9 @@ export default function HomeLogout() {
             <div
               className={`col-12 col-md-6 d-flex align-items-center justify-content-center`}
             >
-              <div className={`col-7`}>
+              <div className={`col-md-7 col-10`}>
                 <div className={`fs-1 fw-bold mb-3`}>نبذه عنا</div>
-                <div className={`${classes.font}`}>
+                <div className={`${classes.font} `}>
                   موقع الكتروني لحجز مواقف للسيارات هو نظام يستخدم لحجز المواقف
                   المتاحة من قبل المنازل و المباني وتيسير عملية حجزها. يهدف
                   المشروع إلى تحسين تجربة مستخدمي السيارات في العثور على مواقف
