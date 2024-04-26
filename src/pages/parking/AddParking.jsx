@@ -388,8 +388,8 @@ export default function AddParking() {
                   value={`تعديل الموقف`}
                   className={
                     Object.values(errors).some((error) => error !== "")
-                      ? "btn bgColor text-white col-10 my-3 disabled"
-                      : "btn bgColor text-white col-10 my-3"
+                      ? "btn bgColor text-white col-md-4 col-10 my-3 disabled"
+                      : "btn bgColor text-white col-md-4 col-10 my-3"
                   }
                   disabled={Object.values(parking).some(
                     (parking) => parking == ""
@@ -401,8 +401,8 @@ export default function AddParking() {
                   value={`إضافة موقف`}
                   className={
                     Object.values(errors).some((error) => error !== "")
-                      ? "btn bgColor text-white col-10 my-3 disabled"
-                      : "btn bgColor text-white col-10 my-3 "
+                      ? "btn bgColor text-white col-md-4 col-10 my-3 disabled"
+                      : "btn bgColor text-white col-md-4 col-10 my-3 "
                   }
                   disabled={Object.values(parking).some(
                     (parking) => parking == ""
