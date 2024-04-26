@@ -1,6 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
 import { useEffect, useRef, useState } from "react";
 import ReactMapGL, {
   Marker,
@@ -60,8 +57,7 @@ export default function AddParking() {
           latitude: res.data.park.latitude,
         },
       });
-      // console.log(setParking);
-      // console.log(res);
+
       setImgArr(res.data.park.photos);
     };
     if (ParkingId) {
@@ -143,10 +139,7 @@ export default function AddParking() {
     setParking({ ...parking, [name]: value });
   }
 
-  ////////////////
   useEffect(() => {
-    // alert(token);
-
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         setParking((prevViewport) => ({
@@ -157,13 +150,10 @@ export default function AddParking() {
           },
         }));
       });
-      // console.log("latitude160", parking.latitude);
-      // console.log("longitude161", parking.longitude);
     } else {
       console.error("Geolocation is not supported by this browser.");
     }
   }, [parking]);
-  /////////////
   function handleSubmit(event) {
     const hasErrors = Object.values(errors).some((error) => error !== "");
     const isEmpty = Object.values(parking).some((parking) => parking === "");
@@ -175,13 +165,10 @@ export default function AddParking() {
       formData.append("title", parking.title);
       formData.append("address", parking.address);
       formData.append("capacity", parking.capacity);
-      // if (currentLocation) {
-      //   formData.append("latitude", currentLocation.latitude);
-      //   formData.append("longitude", currentLocation.longitude);
-      // } else {
+
       formData.append("latitude", parking.location.latitude);
       formData.append("longitude", parking.location.longitude);
-      // }
+
       uploadFile(imgArr, formData);
       if (ParkingId) {
         axiosInstanceParking
@@ -190,30 +177,25 @@ export default function AddParking() {
           })
 
           .then((res) => {
-            //console.log("update request successful", res.data);
-            toast.success("تم تحديث الموقف بنجاح");
+            toast.success("تم تحديث الموقف بنجاح ! في انتظار المراجعة...");
             setTimeout(() => {
               navigate("/");
             }, 2000);
-            // navigate("/");
           })
           .catch((err) => {
             console.error("Error during parking request:", err);
             toast.error("حدث خطأ ! يرجى المحاولة مرة أخرى");
           });
       } else if (!ParkingId) {
-        // alert(token);
         axiosInstanceParking
           .post(`/parkings`, formData, {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then((res) => {
-            //console.log("Post request successful", res.data);
-            toast.success("تم إضافة الموقف بنجاح");
+            toast.success("تم إضافة الموقف بنجاح ! في انتظار المراجعة...");
             setTimeout(() => {
               navigate("/");
             }, 2000);
-            // navigate("/");
           })
           .catch((err) => {
             toast.error("حدث خطأ ! يرجى المحاولة مرة أخرى");
