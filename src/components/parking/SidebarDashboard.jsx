@@ -77,7 +77,7 @@ export default function SidebarProfile() {
                           : "/images/defaultpersonjpg.jpg"
                       }
                       className=" border rounded-circle"
-                      style={{ width: "6vh", height: "6vh" }}
+                      style={{ width: "5vh", height: "5vh" }}
                     />
                   </div>
                 </Link>
@@ -112,7 +112,6 @@ export default function SidebarProfile() {
                         <HiLockClosed className="  editIcon p-2" />
                       </span>
                       <span className="icon-text ps-2  ">
-                        
                         {isWide ? "إضافة موقف" : ""}
                       </span>
                     </div>
