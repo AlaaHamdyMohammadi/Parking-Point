@@ -103,17 +103,17 @@ const ParkDetials = () => {
                 </button>
                 {/* <div className=" fw-bold"> العوده الي الصفحة الرئيسية ...</div> */}
 
-                <div className="pointer fs-5  ">
-                  <Link to="/">
-                    <button
-                      className={`text-center my-2  borderCustom w-50 animate    btn `}
-                    >
-                      <IoArrowRedoCircleOutline className="text-center   fs-5" />
-                      الصفحة الرئيسية
-                    </button>
-                    {/* <IoArrowRedoCircleOutline className="text-black" /> */}
-                  </Link>
-                </div>
+                {/* <div className="pointer fs-5  "> */}
+                <Link to="/">
+                  <button
+                    className={`text-center my-2  borderCustom w-50 animate    btn `}
+                  >
+                    <IoArrowRedoCircleOutline className="text-center   fs-5" />
+                    الصفحة الرئيسية
+                  </button>
+                  {/* <IoArrowRedoCircleOutline className="text-black" /> */}
+                </Link>
+                {/* </div> */}
               </div>
 
               <div className={`card text-center borderCustom p-2 mb-5`}>
