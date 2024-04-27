@@ -88,7 +88,7 @@ export default function AddParking() {
     try {
       return URL.createObjectURL(image);
     } catch (err) {
-      return `${axiosInstanceParking.defaults.baseURL}/parkings/${image}`;
+      return `${axiosInstanceParking.defaults.baseURL}/img/parkings/${image}`;
     }
   }
   const removeImage = (index) => {
