@@ -136,12 +136,12 @@ export default function RegisterForm({ setShowFormStatus }) {
           formData.append("plateNumber", registeUser.plateNumber);
         }
         const res = await axiosInstanceParking.post(`/users/signup`, formData);
-        console.log("signup request successful", res.data);
-        // dispatch(login(res.data.token));
-        // toast.success("تم التسجيل بنجاح !");
-
-        setShowEmailModal(true);
-        // setShowFormStatus(false);
+        toast.success("تم التسجيل بنجاح !شكرا لك");
+        setTimeout(() => {
+          setShowEmailModal(true);
+          setShowFormStatus(false);
+        }, 2000);
+        dispatch(login(res.data.token));
       } catch (error) {
         if (error.response.request.response.includes(registeUser.email)) {
           setErrors({
@@ -162,7 +162,6 @@ export default function RegisterForm({ setShowFormStatus }) {
             ...errors,
             plateNumberErrors: "رقم اللوحة مستخدم من قيل",
           });
-          //console.log("signup request not successful", error.response.request);
         } else if (
           error.response.request.response.includes(registeUser.nationalId)
         ) {
@@ -176,7 +175,6 @@ export default function RegisterForm({ setShowFormStatus }) {
       }
     }
   };
-  //console.log(registeUser);
   const [showPassword, setShowPassword] = useState(false);
 
   const [isDriver, setIsDriver] = useState(false);
@@ -417,8 +415,8 @@ export default function RegisterForm({ setShowFormStatus }) {
               </div>
             </>
           )}
-          <ToastContainer position="top-right" autoClose={2000} />
         </div>
+        <ToastContainer position="top-right" autoClose={2000} />
       </form>
     </>
   );
