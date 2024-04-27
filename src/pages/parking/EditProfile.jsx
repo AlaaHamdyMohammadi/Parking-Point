@@ -14,8 +14,8 @@ export default function EditProfile() {
   return (
     <>
       <Photoprofile />
-      <div className="mt-5 pe-5">
-        <button className="btn btn-outline-warning text-dark m-2" onClick={setting}>تعديل البيانات</button>
+      <div className="mt-5" style={{paddingRight: "40px"}}>
+        <button className=" btn btn-outline-warning text-dark m-2" onClick={setting}>تعديل البيانات</button>
         <button className="btn btn-outline-warning text-dark" onClick={changePassword}>تغيير كلمة السر</button>
       </div>
       {show ?

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import classes from "./../../styles/formStyles.module.css";
 import React, { useState } from "react";
 import axiosInstanceParking from "../../axiosConfig/instanc";
@@ -65,7 +65,6 @@ export default function LoginForm() {
   };
   return (
     <main>
-    {/* <main style={{minHeight:'100vw'}}> */}
       <form method="post" onSubmit={handleSubmit} className="fs-4 mb-5">
         <p className={`text-danger`}>{isTrueErrors}</p>
         <div>
@@ -80,6 +79,9 @@ export default function LoginForm() {
             onChange={loginValidation}
             onBlur={loginValidation}
           />
+          <p className={`${classes.error} text-danger`}>
+            {errors.emailErrors}
+          </p>
         </div>
         <div>
           <div className="mt-4">
@@ -87,7 +89,7 @@ export default function LoginForm() {
               كلمة السر
             </label>
             <div className="input-group">
-              <div className="d-flex  w-100 justify-content-end">
+              <div className="d-flex w-100 justify-content-end">
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
@@ -102,13 +104,16 @@ export default function LoginForm() {
                 />
                 <button
                   type="button"
-                  className="btn Gray border border-0"
+                  className="btn Gray border-0"
                   style={{ position: "absolute", zIndex: "1" }}
                   onClick={togglePasswordVisibility}
                 >
                   {showPassword ? <IoEyeOutline /> : <FaRegEyeSlash />}
                 </button>
               </div>
+              <p className={`${classes.error} text-danger`}>
+                {errors.passwordErrors}
+              </p>
             </div>
           </div>
         </div>

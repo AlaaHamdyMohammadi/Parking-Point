@@ -117,6 +117,8 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
                 className="btn bgColor text-white"
                 data-bs-target="#exampleModalToggle2"
                 data-bs-toggle="modal"
+                disabled={Object.values(errors).some(
+                  (userEmail) => userEmail !== "")}
               >
                 تأكيد
               </button>

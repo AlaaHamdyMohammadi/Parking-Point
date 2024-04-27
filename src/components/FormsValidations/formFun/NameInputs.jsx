@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
- 
 export default function NameInputs({
   classes,
   setNameInfo,
@@ -10,7 +9,6 @@ export default function NameInputs({
   let nameRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;
   const nameValidation = (event) => {
     const { name, value } = event.target;
-    // if (name === "firstName") {
     setErrors({
       ...errors,
       fristNameErrors:
@@ -20,14 +18,6 @@ export default function NameInputs({
           ? ""
           : "يجب ادخال ثلاثة احرف بحد ادني",
     });
-    // }
-    // if (name === "lastName") {
-    //   setErrors({
-    //     ...errors,
-    //     lastNameErrors:
-    //       value.length === 0 ? "يجب ادخال الاسم الاخير" : nameRegx.test(value) ? "" : "يجب ادخال ثلاثة احرف بحد ادني",
-    //   });
-    // }
     setNameInfo({ ...nameInfo, [name]: value });
   };
   return (
