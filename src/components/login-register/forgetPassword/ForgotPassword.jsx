@@ -197,7 +197,7 @@ const ForgotPassword = () => {
                   </div>
                   <div className="text-start align-self-center">
                     <img
-                      style={{ height: "100%", width: "10rem" }}
+                      style={{ height: "100%", width: "7rem" }}
                       src="/images/notify-animate.svg"
                       alt=""
                     />
