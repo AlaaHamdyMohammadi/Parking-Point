@@ -63,10 +63,11 @@ const ForgotPassword = () => {
         emailErrors:
           value.length === 0
             ? "يرجى إدخال بريد إلكتروني صحيح"
-            : value == email
+            : emailRegex.test(value)
             ? ""
-            : "الايميل غير صحيح",
+            : "من فضلك ادخل بريدك الاليكتروني",
       });
+      setEmail(value)
     }
     if (name === "otp") {
       setErrors({
@@ -89,10 +90,6 @@ const ForgotPassword = () => {
   };
 
   async function handleForgotPassword() {
-    if (!emailRegex.test(email)) {
-      // setEmailError(true);
-      toast.error("يرجى إدخال بريد إلكتروني صحيح");
-    } else {
       try {
         const res = await axiosInstanceParking.post(
           "/users/me/forget-password",
@@ -103,11 +100,13 @@ const ForgotPassword = () => {
         setEnterOtp(true);
         console.log(registeUser);
       } catch (error) {
-        toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
-
+        // toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
+        setErrors({
+          ...errors,
+          emailErrors:"لا يوجد حساب مسجل علي هذا البريد الالكتروني"
+        });
         console.log("Error: ", error);
       }
-    }
   }
   async function handleToken() {
     try {
@@ -187,15 +186,12 @@ const ForgotPassword = () => {
                       name="email"
                       className={`${classes.input}  w-100 mt-2 form-control border-secondary shadow-none`}
                       value={email}
-                      onChange={(e) => {
-                        // registeValidation;
-                        setEmail(e.target.value);
-                        // setEmailError(true);
-                      }}
+                      onChange={registeValidation}
+                      onBlur={registeValidation}
                     />
-                    {/* <p className={`${classes.error} text-danger`}>
+                    <p className={`${classes.error} text-danger`}>
                       {errors.emailErrors}
-                    </p> */}
+                    </p>
                   </div>
                   <div className="text-start align-self-center">
                     <img
@@ -216,7 +212,9 @@ const ForgotPassword = () => {
                     data-bs-toggle={enterOtp ? "modal" : ""}
                     data-bs-target={enterOtp ? "#exampleModalToggle2" : ""}
                     className={"text-center bgColor text-white btn"}
-                    disabled={email.trim() === ""} // Add disabled attribute based on email state
+                    // disabled={email.trim() === ""} // Add disabled attribute based on email state
+                    disabled={Object.values(errors.emailErrors).some(
+                      (userEmail) => userEmail !== "")}
                   />
                   <button
                     type="button"
