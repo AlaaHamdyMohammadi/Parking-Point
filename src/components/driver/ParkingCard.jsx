@@ -60,8 +60,8 @@ export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
               </button>
             </div>
           </div>
-          <div className="col-8 d-flex    align-items-center">
-            <div className="card-body col-lg-8 ">
+          <div className="col-8 d-lg-flex  align-items-center">
+            <div className="card-body col-lg-8">
               <div className="card-title fw-bolder mb-0">{item.title}</div>
               <div className="mb-0 customfs  ">
                 <div>
@@ -75,11 +75,11 @@ export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
                 </div>
               </div>
             </div>
-            <div className=" col-lg-3 d-lg-flex gap-1 flex-lg-column justify-content-start text-center ">
+            <div className=" col-lg-3 col-md-12 d-lg-flex gap-1 flex-lg-column justify-content-start text-center ">
               <div className="ps-2">
                 <ModalReserve ParkId={item._id} ReserveTime={ReserveTime} />
               </div>
-              <div className="d-flex flex-row  text-center justify-content-start ">
+              <div className="d-flex flex-row text-center justify-content-evenly">
                 <RatingComponent rating={item.rate} />
               </div>
             </div>
