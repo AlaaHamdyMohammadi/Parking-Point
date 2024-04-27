@@ -65,7 +65,12 @@ export default function LoginForm() {
   };
   return (
     <main>
-      <form method="post" onSubmit={handleSubmit} className="fs-4 mb-5">
+      <form
+        method="post"
+        onSubmit={handleSubmit}
+        className="fs-4 mb-5"
+        style={{ minHeight: "150vw" }}
+      >
         <p className={`text-danger`}>{isTrueErrors}</p>
         <div>
           <label htmlFor="email" className="fs-5">
@@ -79,9 +84,7 @@ export default function LoginForm() {
             onChange={loginValidation}
             onBlur={loginValidation}
           />
-          <p className={`${classes.error} text-danger`}>
-            {errors.emailErrors}
-          </p>
+          <p className={`${classes.error} text-danger`}>{errors.emailErrors}</p>
         </div>
         <div>
           <div className="mt-4">
@@ -132,7 +135,8 @@ export default function LoginForm() {
       </form>
       <ToastContainer position="top-right" autoClose={50000} />
       <div
-        className={`my-5 text-primary text-decoration-underline`} role="button"
+        className={`my-5 text-primary text-decoration-underline`}
+        role="button"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
       >

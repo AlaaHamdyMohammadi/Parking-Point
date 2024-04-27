@@ -6,7 +6,7 @@ export default function Layout() {
   return (
     <div>
       <Header_2 />
-      <div style={{ minHeight: "35.5vw" }}>
+      <div style={{ minHeight: "100vw" }}>
         <Outlet />
       </div>
       <Footer />
