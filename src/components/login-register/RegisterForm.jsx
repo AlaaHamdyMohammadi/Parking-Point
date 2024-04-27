@@ -138,7 +138,7 @@ export default function RegisterForm({ setShowFormStatus }) {
         const res = await axiosInstanceParking.post(`/users/signup`, formData);
         console.log("signup request successful", res.data);
         // dispatch(login(res.data.token));
-        toast.success("تم التسجيل الموقف بنجاح !");
+        // toast.success("تم التسجيل بنجاح !");
 
         setShowEmailModal(true);
         // setShowFormStatus(false);
