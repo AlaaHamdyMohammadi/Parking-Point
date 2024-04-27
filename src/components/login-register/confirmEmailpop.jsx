@@ -49,15 +49,15 @@ export default function ConfimEmailPop({ userEmail }) {
             </div>
             <div className="modal-footer d-flex  justify-content-between">
               <div
-                className={`${classes.resendcode} pointer  fw-semibold`}
+                className={`${classes.resendcode} pointer fs-6 fw-semibold`}
                 onClick={handleChange}
               >
                 إعادة إرسال رمز التأكيد
               </div>
-              <span className="text-secondary  ">
+              {/* <span className="text-secondary  ">
                 إرسال الرمز خلال <CountdownTimer /> دقائق
               </span>{" "}
-              *
+              * */}
             </div>
           </div>
         </div>
