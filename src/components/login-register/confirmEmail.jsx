@@ -31,12 +31,13 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
         );
         dispatch(login(res.data.token));
         dispatch(loggedInState());
-        toast.success("لقد تم تأكيد الأيميل بنجاح", {
+        toast.success(" لقد تم تأكيد الأيميل بنجاح! شكرا لك", {
           onClose: () => {
             window.location.reload();
           },
         });
       } catch (error) {
+        toast.error("حدث خطأ اثناء تأكيد الايميل");
         console.error("Error occurred while confirming email:", error);
         if (error.response) {
           toast.error("رمز التحقق غير صحيح");
