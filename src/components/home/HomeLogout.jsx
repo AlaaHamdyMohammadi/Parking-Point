@@ -38,14 +38,14 @@ export default function HomeLogout() {
               </div>
             </div>
             <div
-              className={`col-12 col-md-6 d-flex align-items-center justify-content-center bgColor`}
+              className={`col-12 col-md-6 d-flex align-items-center justify-content-center bgColor d-none d-md-block`}
             >
               <img src="/images/cars.png" className={`w-75`} alt="" />
             </div>
           </div>
           <div className={`row`}>
             <div
-              className={`col-12 col-md-6 d-flex align-items-center justify-content-center `}
+              className={`col-12 col-md-6 d-flex align-items-center justify-content-center`}
             >
               <img
                 src="/images/Parking.gif"
