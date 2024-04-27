@@ -99,7 +99,7 @@ export default function AddParking() {
       return updatedImgArr;
     });
   };
-
+  let capacityemailRegx = /^(1|2|3|4|5|6|7|8|9|10)$/;
   function validation(event) {
     const { name, value } = event.target;
     if (name === "photos") {
@@ -133,9 +133,18 @@ export default function AddParking() {
       });
     }
     if (name === "capacity") {
+      // setErrors({
+      //   ...errors,
+      //   capacityErrors: value.length === 0 ? "يجب ادخال السعة" : "",
+      // });
       setErrors({
         ...errors,
-        capacityErrors: value.length === 0 ? "يجب ادخال السعة" : "",
+        capacityErrors:
+          value.length === 0
+            ? "يجب ادخال السعة" 
+            : capacityemailRegx.test(value)
+            ? ""
+            :"سعة الموقف من 1 الي 10 فقط",
       });
     }
     setParking({ ...parking, [name]: value });
@@ -324,6 +333,7 @@ export default function AddParking() {
                 <input
                   type="number"
                   min={1}
+                  max={10}
                   value={parking.capacity}
                   onChange={validation}
                   onBlur={validation}
