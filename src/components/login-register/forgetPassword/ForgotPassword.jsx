@@ -40,11 +40,12 @@ const ForgotPassword = () => {
           value.length === 0
             ? "يجب ادخال رقم سري"
             : value.length <= 7
-            ? "يحب ادخال 8 احرف بحد ادني"
-            : passwordRegx.test(value)
-            ? ""
-            : "يجب ادخال حرف كبير وحرف صغير ورقم بحد ادني",
+              ? "يحب ادخال 8 احرف بحد ادني"
+              : passwordRegx.test(value)
+                ? ""
+                : "يجب ادخال حرف كبير وحرف صغير ورقم بحد ادني",
       });
+      setPassword(value)
     }
     if (name === "confirmPassword") {
       setErrors({
@@ -53,9 +54,10 @@ const ForgotPassword = () => {
           value.length === 0
             ? "يجب تاكيد الرقم السري"
             : value == registeUser.password
-            ? ""
-            : "الرقم غير صحيح",
+              ? ""
+              : "الرقم غير صحيح",
       });
+      setConfirmPassword(value)
     }
     if (name === "email") {
       setErrors({
@@ -64,8 +66,8 @@ const ForgotPassword = () => {
           value.length === 0
             ? "يرجى إدخال بريد إلكتروني صحيح"
             : emailRegex.test(value)
-            ? ""
-            : "من فضلك ادخل بريدك الاليكتروني",
+              ? ""
+              : "من فضلك ادخل بريدك الاليكتروني",
       });
       setEmail(value)
     }
@@ -75,12 +77,11 @@ const ForgotPassword = () => {
         tokenErrors:
           value.length === 0
             ? "يجب  ادخال رمز التحقق"
-            : value.length <= 5
-            ? "يجب ان إدخال رمز التحقق كاملا"
-            : value == token
-            ? ""
-            : "الرقم غير صحيح",
+            : value.length !== 6
+              ? "يجب ان إدخال رمز التحقق المرسل"
+              : ""
       });
+      setToken(value)
     }
     setRegisteUser({ ...registeUser, [name]: value });
   };
@@ -90,23 +91,23 @@ const ForgotPassword = () => {
   };
 
   async function handleForgotPassword() {
-      try {
-        const res = await axiosInstanceParking.post(
-          "/users/me/forget-password",
-          {
-            email,
-          }
-        );
-        setEnterOtp(true);
-        console.log(registeUser);
-      } catch (error) {
-        // toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
-        setErrors({
-          ...errors,
-          emailErrors:"لا يوجد حساب مسجل علي هذا البريد الالكتروني"
-        });
-        console.log("Error: ", error);
-      }
+    try {
+      const res = await axiosInstanceParking.post(
+        "/users/me/forget-password",
+        {
+          email,
+        }
+      );
+      setEnterOtp(true);
+      console.log(registeUser);
+    } catch (error) {
+      // toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
+      setErrors({
+        ...errors,
+        emailErrors: "لا يوجد حساب مسجل علي هذا البريد الالكتروني"
+      });
+      console.log("Error: ", error);
+    }
   }
   async function handleToken() {
     try {
@@ -118,8 +119,12 @@ const ForgotPassword = () => {
       setShowEmailModal(false);
     } catch (error) {
       if (error.response) {
+        setErrors({
+          ...errors,
+          tokenErrors: "الرمز غير صحيح او منتهي الصلاحية"
+        });
         console.log("Error data:", error.response.data);
-        toast.error("رمز التحقق غير صحيح");
+        // toast.error("رمز التحقق غير صحيح");
       }
     }
   }
@@ -258,10 +263,8 @@ const ForgotPassword = () => {
                       type="text"
                       name="otp"
                       value={token}
-                      onChange={(e) => {
-                        // registeValidation;
-                        setToken(e.target.value);
-                      }}
+                      onChange={registeValidation}
+                      onBlur={registeValidation}
                       onPaste={(e) => {
                         const pastedText = e.clipboardData.getData("text");
                         // registeValidation;
@@ -269,9 +272,9 @@ const ForgotPassword = () => {
                       }}
                       className={`${classes.input}  w-100 mt-2 form-control border-secondary shadow-none`}
                     />
-                    {/* <p className={`${classes.error} text-danger`}>
+                    <p className={`${classes.error} text-danger`}>
                       {errors.tokenErrors}
-                    </p> */}
+                    </p>
                   </div>
                   <div className="  text-start align-self-center">
                     <img
@@ -297,7 +300,8 @@ const ForgotPassword = () => {
                     data-bs-toggle={codeconfirmed ? "modal" : ""}
                     data-bs-target={codeconfirmed ? "#staticBackdrop" : ""}
                     className="text-center bgColor text-white btn"
-                    // disabled={!token || !email || codeconfirmed} // Add disabled attribute based on token, email, and codeconfirmed states
+                    disabled={Object.values(errors.tokenErrors).some(
+                      (token) => token !== "")}
                   />
                   <button
                     className="text-center  bgColor text-white btn"
@@ -362,7 +366,7 @@ const ForgotPassword = () => {
                           />
                           <button
                             type="button"
-                            className="btn Gray border border-0"
+                            className="btn Gray border-0"
                             style={{ position: "absolute", zIndex: "1" }}
                             onClick={togglePasswordVisibility}
                           >
@@ -401,7 +405,7 @@ const ForgotPassword = () => {
                           />
                           <button
                             type="button"
-                            className="btn Gray border border-0"
+                            className="btn Gray border-0"
                             style={{ position: "absolute", zIndex: "1" }}
                             onClick={togglePasswordVisibility}
                           ></button>
@@ -429,7 +433,8 @@ const ForgotPassword = () => {
                     onClick={handleResetPassword}
                     className="text-center bgColor text-white btn"
                     data-bs-dismiss={esc ? "modal" : ""}
-                    // disabled={!password || !confirmPassword || esc} // Add disabled attribute based on password, confirmPassword, and esc states
+                    disabled={Object.values(errors.passwordErrors||errors.confirmPasswordErrors).some(
+                      (password) => password !== "")}
                   />
                   <button
                     type="button"
