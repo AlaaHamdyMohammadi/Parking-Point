@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 import { BsTwitterX } from "react-icons/bs";
 import { FaWhatsapp } from "react-icons/fa6";
 
-const whatsappNumber = '+96877344277';
+const whatsappNumber = "+96877344277";
 
 export default function Footer() {
   const whatsappUrl = `https://wa.me/${whatsappNumber}`;
 
   return (
-    <footer className=" bgColor mb-0 z-3 position-absolute w-100 ">
+    <footer className=" bgColor mb-0 z-3 end-0 position-absolute w-100 ">
       <ul className="nav justify-content-center   py-3 mb-1">
         <li className="nav-item">
           <Link className=" px-2 hoverColor animate transition">الرئيسية</Link>
@@ -22,7 +22,10 @@ export default function Footer() {
           </Link>
         </li>
         <li className="nav-item">
-          <a className=" px-2 hoverColor animate transition" href="mailto:parkingpoint@outlook.com">
+          <a
+            className=" px-2 hoverColor animate transition"
+            href="mailto:parkingpoint@outlook.com"
+          >
             الدعم الفني
           </a>
         </li>
@@ -30,7 +33,10 @@ export default function Footer() {
 
       <ul className="list-unstyled d-flex justify-content-center text-center">
         <li className="ms-3">
-          <a className="link-body-emphasis" href="mailto:parkingpoint@outlook.com">
+          <a
+            className="link-body-emphasis"
+            href="mailto:parkingpoint@outlook.com"
+          >
             <TfiEmail className="fs-4 animate transition hoverColor" />
           </a>
         </li>
@@ -40,15 +46,17 @@ export default function Footer() {
           </Link>
         </li>
         <li className="ms-3">
-          <Link to={`https://www.instagram.com/_parkingpoint?igsh=Z2Qyeno1NGlseWZm&utm_source=qr`}>
+          <Link
+            to={`https://www.instagram.com/_parkingpoint?igsh=Z2Qyeno1NGlseWZm&utm_source=qr`}
+          >
             <SlSocialInstagram className="fs-4 animate  transition hoverColor" />
           </Link>
         </li>
         <li className="ms-3">
-      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-        <FaWhatsapp className="fs-3 animate transition hoverColor" />
-      </a>
-    </li>
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+            <FaWhatsapp className="fs-3 animate transition hoverColor" />
+          </a>
+        </li>
       </ul>
       <p className="text-center p-2 Gray  mb-0  transition navcolor">
         {`<Developed by<`}
