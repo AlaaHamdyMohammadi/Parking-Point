@@ -14,8 +14,8 @@ const ForgotPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [enterOtp, setEnterOtp] = useState(false);
   const [showEmailModal, setShowEmailModal] = useState(true);
-  const [confirmPassword, setConfirmPassword] = useState(false);
-  const [esc, setEsc] = React.useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [esc, setEsc] = useState(false);
   const [email, setEmail] = React.useState("");
   const [token, setToken] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -25,12 +25,8 @@ const ForgotPassword = () => {
     passwordErrors: "*",
     confirmPasswordErrors: "*",
     tokenErrors: "*",
+    emailErrors: "*",
   });
-
-  // useEffect(() => {
-  //   console.log("enterOtp:", enterOtp);
-  //   // handleForgotPassword();
-  // }, [showEmailModal, enterOtp, esc, confirmPassword]);
 
   let passwordRegx = /^[a-zA-Z0-9]{8,}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -61,6 +57,30 @@ const ForgotPassword = () => {
             : "الرقم غير صحيح",
       });
     }
+    if (name === "email") {
+      setErrors({
+        ...errors,
+        emailErrors:
+          value.length === 0
+            ? "يرجى إدخال بريد إلكتروني صحيح"
+            : value == email
+            ? ""
+            : "الايميل غير صحيح",
+      });
+    }
+    if (name === "otp") {
+      setErrors({
+        ...errors,
+        tokenErrors:
+          value.length === 0
+            ? "يجب  ادخال رمز التحقق"
+            : value.length <= 5
+            ? "يجب ان إدخال رمز التحقق كاملا"
+            : value == token
+            ? ""
+            : "الرقم غير صحيح",
+      });
+    }
     setRegisteUser({ ...registeUser, [name]: value });
   };
 
@@ -70,7 +90,7 @@ const ForgotPassword = () => {
 
   async function handleForgotPassword() {
     if (!emailRegex.test(email)) {
-      setEmailError(true);
+      // setEmailError(true);
       toast.error("يرجى إدخال بريد إلكتروني صحيح");
     } else {
       try {
@@ -80,14 +100,8 @@ const ForgotPassword = () => {
             email,
           }
         );
-        console.log(res.data);
         setEnterOtp(true);
-        // setEnterOtp((prevState) => !prevState);
-        // setEnterOtp((prevState) => {
-        //   //console.log("prevState:", prevState);
-        //   return !prevState;
-        // });
-        console.log(enterOtp);
+        console.log(registeUser);
       } catch (error) {
         toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
 
@@ -95,30 +109,14 @@ const ForgotPassword = () => {
       }
     }
   }
-  //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>.");
-  console.log(enterOtp);
-
-  //console.log("enterOtp", enterOtp); //
-  //console.log("showEmailModal", showEmailModal);
-  //console.log("confirmPassword", confirmPassword);
   async function handleToken() {
     try {
-      // console.log("Token before API call:", token);
-
       const res = await axiosInstanceParking.post("/users/me/validate-otp", {
         token,
         email,
       });
       setCodeconfirmed(true);
-      // setShowEmailModal(false);
-      setEnterOtp(false);
-      //console.log(res, "handletoken SUCCESS");
-      // console.log(
-      //   codeconfirmed,
-      //   "codeconfirmed",
-      //   showEmailModal,
-      //   "ShowEmailModal"
-      // );
+      setShowEmailModal(false);
     } catch (error) {
       if (error.response) {
         console.log("Error data:", error.response.data);
@@ -135,8 +133,6 @@ const ForgotPassword = () => {
         password,
         confirmPassword,
       });
-      //console.log(res);
-      setCodeconfirmed(false);
       setEsc(true);
       setTimeout(() => {
         window.location.reload();
@@ -144,10 +140,15 @@ const ForgotPassword = () => {
       toast.success("تم تفعيل كلمة السر بنجاح");
     } catch (error) {
       if (error.response) {
-        //console.log("Error data:", error.response.data);
+        toast.error("حدث خطأ! يرجى المحاولة مرة أخرى");
+        console.log("Error data:", error.response.data);
       } else if (error.request) {
+        toast.error("حدث خطأ! يرجى المحاولة مرة أخرى");
+
         console.log("No response received from server:", error.request);
       } else {
+        toast.error("حدث خطأ! يرجى المحاولة مرة أخرى");
+
         console.log("Error while setting up request:", error.message);
       }
     }
@@ -183,19 +184,18 @@ const ForgotPassword = () => {
                     </label>
                     <input
                       type="email"
+                      name="email"
                       className={`${classes.input}  w-100 mt-2 form-control border-secondary shadow-none`}
                       value={email}
                       onChange={(e) => {
+                        // registeValidation;
                         setEmail(e.target.value);
-                        setEmailError(false);
-                        //console.log("Email:", e.target.value);
+                        // setEmailError(true);
                       }}
                     />
-                    {emailError && (
-                      <p className="text-danger">
-                        يرجى إدخال عنوان بريد إلكتروني
-                      </p>
-                    )}
+                    {/* <p className={`${classes.error} text-danger`}>
+                      {errors.emailErrors}
+                    </p> */}
                   </div>
                   <div className="text-start align-self-center">
                     <img
@@ -211,16 +211,12 @@ const ForgotPassword = () => {
                     type="submit"
                     value="بحث"
                     onClick={() => {
-                      if (email.trim() === "") {
-                        setEmailError(true);
-                      } else {
-                        handleForgotPassword();
-                      }
+                      handleForgotPassword();
                     }}
                     data-bs-toggle={enterOtp ? "modal" : ""}
                     data-bs-target={enterOtp ? "#exampleModalToggle2" : ""}
                     className={"text-center bgColor text-white btn"}
-                    disabled={email.trim() === ""}
+                    disabled={email.trim() === ""} // Add disabled attribute based on email state
                   />
                   <button
                     type="button"
@@ -262,19 +258,22 @@ const ForgotPassword = () => {
 
                     <input
                       type="text"
+                      name="otp"
                       value={token}
                       onChange={(e) => {
+                        // registeValidation;
                         setToken(e.target.value);
-                        //console.log("Token:", e.target.value);
                       }}
                       onPaste={(e) => {
                         const pastedText = e.clipboardData.getData("text");
+                        // registeValidation;
                         setToken(pastedText);
-                        //console.log("Pasted Token:", pastedText);
                       }}
                       className={`${classes.input}  w-100 mt-2 form-control border-secondary shadow-none`}
                     />
-                    {/* <ConfirmationCodeInput length={6} onConfirm={(code) => console.log("Confirmed:", code)} /> */}
+                    {/* <p className={`${classes.error} text-danger`}>
+                      {errors.tokenErrors}
+                    </p> */}
                   </div>
                   <div className="  text-start align-self-center">
                     <img
@@ -287,9 +286,7 @@ const ForgotPassword = () => {
 
                 <p className="fs-6  px-4 text-justify-center">
                   لقد تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني المُسجّل
-                  <span className={`${classes.resendcode}`}>
-                    {registeUser.email}
-                  </span>
+                  <span className={`${classes.resendcode} mx-1`}>{email}</span>
                   يُرجى فتح بريدك الإلكتروني و نسخ الرمز المُرسل.
                 </p>
                 <div className="modal-footer p-0 px-3 m-0 justify-content-start">
@@ -302,6 +299,7 @@ const ForgotPassword = () => {
                     data-bs-toggle={codeconfirmed ? "modal" : ""}
                     data-bs-target={codeconfirmed ? "#staticBackdrop" : ""}
                     className="text-center bgColor text-white btn"
+                    // disabled={!token || !email || codeconfirmed} // Add disabled attribute based on token, email, and codeconfirmed states
                   />
                   <button
                     className="text-center  bgColor text-white btn"
@@ -356,7 +354,6 @@ const ForgotPassword = () => {
                             onChange={(e) => {
                               registeValidation;
                               setPassword(e.target.value);
-                              //console.log("Password:", e.target.value);
                             }}
                             className={`${classes.input} form-control border-secondary shadow-none`}
                             style={{
@@ -396,7 +393,6 @@ const ForgotPassword = () => {
                             onChange={(e) => {
                               registeValidation;
                               setConfirmPassword(e.target.value);
-                              //console.log("ConfirmPassword:", e.target.value);
                             }}
                             className={`${classes.input} form-control border-secondary shadow-none`}
                             style={{
@@ -435,6 +431,7 @@ const ForgotPassword = () => {
                     onClick={handleResetPassword}
                     className="text-center bgColor text-white btn"
                     data-bs-dismiss={esc ? "modal" : ""}
+                    // disabled={!password || !confirmPassword || esc} // Add disabled attribute based on password, confirmPassword, and esc states
                   />
                   <button
                     type="button"
