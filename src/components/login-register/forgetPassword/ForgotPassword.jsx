@@ -83,7 +83,7 @@ const ForgotPassword = () => {
       });
       setToken(value)
     }
-    setRegisteUser({ ...registeUser, [name]: value });
+    // setRegisteUser({ ...registeUser, [name]: value });
   };
 
   const togglePasswordVisibility = () => {
