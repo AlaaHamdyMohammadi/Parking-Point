@@ -6,8 +6,8 @@ export default function DefaultLayout() {
   return (
     <>
       <Header />
-      <div style={{minHeight:'35.5vw'}}>
-      <Outlet />
+      <div>
+        <Outlet />
       </div>
       <Footer />
     </>

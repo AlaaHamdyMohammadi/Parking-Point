@@ -164,7 +164,11 @@ export default function Sales() {
                   <tbody className="pe-2">
                     {data.map((item, index) => (
                       <tr key={index}>
-                        <td className="p-4">{item.park.title}</td>
+                        <td className="p-4">
+                          {item.park && item.park.title
+                            ? item.park.title
+                            : "غير معروف"}
+                        </td>
                         <td className="p-4 yellowcolor">
                           <span>{item.plateNumber}</span>
                         </td>

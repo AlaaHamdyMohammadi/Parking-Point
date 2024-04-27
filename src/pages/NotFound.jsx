@@ -6,7 +6,7 @@ export default function NotFound() {
     navigate(-1);
   };
   return (
-    <main>
+    <main style={{ height: "175vw" }}>
       <h2 className="text-center">الصفحة غير موجودة</h2>
       <div className="d-flex justify-content-center">
         <img src="/images/404-error.png" className="w-25" alt="" />
