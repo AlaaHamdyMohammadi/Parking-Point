@@ -64,13 +64,8 @@ export default function LoginForm() {
     }
   };
   return (
-    <main>
-      <form
-        method="post"
-        onSubmit={handleSubmit}
-        className="fs-4 mb-5"
-        style={{ minHeight: "150vw" }}
-      >
+    <main style={{ minHeight: "175vw" }}>
+      <form method="post" onSubmit={handleSubmit} className="fs-4 mb-5">
         <p className={`text-danger`}>{isTrueErrors}</p>
         <div>
           <label htmlFor="email" className="fs-5">
