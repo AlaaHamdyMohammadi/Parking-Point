@@ -74,7 +74,7 @@ const SuccessPayment = () => {
                 الاستمتاع بخدماتنا.
               </p>
               <p> تفاصيل الحجز...</p>
-              <Spinner animation="border" variant="success" size="lg" />;
+              <Spinner animation="border" variant="success" size="lg" />
             </div>
           </div>
         </div>
