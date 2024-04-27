@@ -19,6 +19,8 @@ import CarTypeInput from "../FormsValidations/formFun/CarTypeInput";
 import StateInput from "../FormsValidations/formFun/StateInput";
 import CitySelect from "../FormsValidations/formFun/CitySelect";
 import RegionInput from "../FormsValidations/formFun/RegionInput";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function RegisterForm({ setShowFormStatus }) {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const dispatch = useDispatch();
@@ -135,9 +137,11 @@ export default function RegisterForm({ setShowFormStatus }) {
         }
         const res = await axiosInstanceParking.post(`/users/signup`, formData);
         console.log("signup request successful", res.data);
-        dispatch(login(res.data.token));
+        // dispatch(login(res.data.token));
+        toast.success("تم التسجيل الموقف بنجاح !");
+
         setShowEmailModal(true);
-        setShowFormStatus(false);
+        // setShowFormStatus(false);
       } catch (error) {
         if (error.response.request.response.includes(registeUser.email)) {
           setErrors({
@@ -413,6 +417,7 @@ export default function RegisterForm({ setShowFormStatus }) {
               </div>
             </>
           )}
+          <ToastContainer position="top-right" autoClose={2000} />
         </div>
       </form>
     </>

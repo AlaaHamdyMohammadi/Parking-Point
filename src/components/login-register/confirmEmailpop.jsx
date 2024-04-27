@@ -1,4 +1,5 @@
-// // ConfimEmailPop.js
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import ConfirmationCodeInput from "./confirmEmail";
 import classes from "./../../styles/formStyles.module.css";
@@ -66,7 +67,7 @@ export default function ConfimEmailPop({ userEmail }) {
               >
                 إعادة إرسال رمز التأكيد
               </div>
-              <span className="text-secondary  ">
+              <span className="text-secondary fs-6 ">
                 إرسال الرمز خلال <CountdownTimer resetTimer={resetTimer} />{" "}
                 دقائق
               </span>
