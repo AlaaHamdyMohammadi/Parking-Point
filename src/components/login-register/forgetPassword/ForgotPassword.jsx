@@ -191,13 +191,16 @@ const ForgotPassword = () => {
                       onChange={registeValidation}
                       onBlur={registeValidation}
                     />
-                    <p className={`${classes.error} text-danger fs-6`}>
+                    <p
+                      className={`${classes.error} text-danger`}
+                      style={{ fontSize: "0.7rem" }}
+                    >
                       {errors.emailErrors}
                     </p>
                   </div>
                   <div className="text-start align-self-center">
                     <img
-                      style={{ height: "100%", width: "7rem" }}
+                      style={{ height: "100%", width: "6rem" }}
                       src="/images/notify-animate.svg"
                       alt=""
                     />
@@ -270,7 +273,10 @@ const ForgotPassword = () => {
                       }}
                       className={`${classes.input}  w-100 mt-2 form-control border-secondary shadow-none`}
                     />
-                    <p className={`${classes.error} text-danger fs-6`}>
+                    <p
+                      className={`${classes.error} text-danger `}
+                      style={{ fontSize: "0.7rem" }}
+                    >
                       {errors.tokenErrors}
                     </p>
                   </div>
@@ -377,7 +383,10 @@ const ForgotPassword = () => {
                           </button>
                         </div>
                       </div>
-                      <p className={`${classes.error} text-danger fs-6`}>
+                      <p
+                        className={`${classes.error} text-danger`}
+                        style={{ fontSize: "0.7rem" }}
+                      >
                         {errors.passwordErrors}
                       </p>
                     </div>
