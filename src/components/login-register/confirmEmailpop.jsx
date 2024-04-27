@@ -1,3 +1,5 @@
+// // ConfimEmailPop.js
+import React, { useState } from "react";
 import ConfirmationCodeInput from "./confirmEmail";
 import classes from "./../../styles/formStyles.module.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -5,7 +7,14 @@ import useSendCode from "../../../hook/useSendCode";
 import CountdownTimer from "./CountdownTimer";
 
 export default function ConfimEmailPop({ userEmail }) {
+  const [resetTimer, setResetTimer] = useState(false); // State to trigger timer reset
   const handleChange = useSendCode();
+
+  // Function to reset the timer
+  const handleResetTimer = () => {
+    setResetTimer((prev) => !prev);
+  };
+
   return (
     <>
       <div
@@ -50,14 +59,17 @@ export default function ConfimEmailPop({ userEmail }) {
             <div className="modal-footer d-flex  justify-content-between">
               <div
                 className={`${classes.resendcode} pointer fs-6 fw-semibold`}
-                onClick={handleChange}
+                onClick={() => {
+                  handleChange();
+                  handleResetTimer();
+                }}
               >
                 إعادة إرسال رمز التأكيد
               </div>
-              {/* <span className="text-secondary  ">
-                إرسال الرمز خلال <CountdownTimer /> دقائق
-              </span>{" "}
-              * */}
+              <span className="text-secondary  ">
+                إرسال الرمز خلال <CountdownTimer resetTimer={resetTimer} />{" "}
+                دقائق
+              </span>
             </div>
           </div>
         </div>
