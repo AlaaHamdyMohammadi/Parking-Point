@@ -153,7 +153,7 @@ export default function EndDateTime({
               {BookNow ? "موعد نهاية الحجز :" : "إلي :"}
             </label>
             <input
-              className=" customRange Gray  focus border border-0 pointer text-center w-100  p-2  rounded-2"
+              className=" customRange Gray  focus border-0 pointer text-center w-100  p-2  rounded-2"
               type="datetime-local"
               name="to"
               value={searchData.to}
