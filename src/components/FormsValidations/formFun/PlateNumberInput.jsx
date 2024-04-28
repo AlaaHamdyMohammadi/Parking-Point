@@ -7,7 +7,7 @@ export default function PlateNumberInput({
   errors,
   setErrors,
 }) {
-  let plateNumberRegx = /^[0-9]{1,5}[a-z]{1,2}$/;
+  let plateNumberRegx = /^[0-9\u0600-\u06FF]{1,5}[a-z\u0600-\u06FF]{1,2}$/;
   const plateNumberValidation = (event) => {
     const { name, value } = event.target;
     // if (role === "driver") {

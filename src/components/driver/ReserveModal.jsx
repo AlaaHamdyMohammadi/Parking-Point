@@ -16,7 +16,7 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
   const [errors, setErrors] = useState({
     plateNumberErrors: "",
   });
-  let plateNumberRegx = /^[0-9]{1,5}[a-z\u0600-\u06FF]{1,2}$/;
+  let plateNumberRegx = /^[0-9\u0600-\u06FF]{1,5}[a-z\u0600-\u06FF]{1,2}$/;
 
   const registeValidation = (event) => {
     const { name, value } = event.target;
