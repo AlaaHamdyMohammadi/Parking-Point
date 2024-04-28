@@ -102,28 +102,22 @@ const ParkDetials = () => {
                   تحميل
                   <FaRegFilePdf className="text-center  mx-3 fs-5" />
                 </button>
-                {/* <div className=" fw-bold"> العوده الي الصفحة الرئيسية ...</div> */}
 
-                {/* <div className="pointer fs-5  "> */}
                 <button
                   className={`text-center text-black my-2 borderCustom w-100 animate    btn `}
                 >
                   <Link to="/" className="nonLine text-black align-self-center">
-                    {/* <p className=" text-black align-self-center"> */}
                     الصفحة الرئيسية
                     <IoArrowRedoCircleOutline className="text-center mx-3  text-black fs-5" />
-                    {/* </p> */}
                   </Link>
                 </button>
-                {/* <IoArrowRedoCircleOutline className="text-black" /> */}
-                {/* </div> */}
               </div>
 
               <div className={`card text-center borderCustom p-2 mb-5`}>
-                <div className="row mx-5 p-3">
+                <div className="row ">
                   <div
                     id="carouselExampleRide"
-                    className="carousel slide f"
+                    className="carousel slide col-12"
                     data-bs-ride="true"
                   >
                     <div className="carousel-inner">
