@@ -275,7 +275,10 @@ export default function Sales() {
           <ToastContainer position="top-right" autoClose={2000} />
         </div>
       ) : (
-        <div className="fs-3 fw-bold text-center ">
+        <div
+          className="fs-3 fw-bold text-center "
+          style={{ minHeight: "95vw" }}
+        >
           <p className="my-5 py-5">لا يوجد حجوزات حتى الان </p>
         </div>
       )}

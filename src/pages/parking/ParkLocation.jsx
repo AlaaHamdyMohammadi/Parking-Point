@@ -56,7 +56,7 @@ const ParkLocation = ({ location, title, address }) => {
   };
 
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
+    <div style={{ width: "100vw", height: "45vh" }}>
       <ReactMapGL
         {...viewport}
         mapStyle={mapStyle}

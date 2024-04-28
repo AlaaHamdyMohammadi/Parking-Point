@@ -94,36 +94,30 @@ const ParkDetials = () => {
         ) : (
           <div className="d-flex justify-content-center ">
             <div className="w-75 my-5">
-              <div className="d-flex justify-content-between gap-4 my-4">
+              <div className="d-md-flex d-lg-flex justify-content-between gap-4 my-4">
                 <button
-                  className={`text-center my-2  borderCustom w-50 animate    btn `}
+                  className={`text-center my-2  borderCustom w-100 animate    btn `}
                   onClick={generatePDF}
                 >
                   تحميل
                   <FaRegFilePdf className="text-center  mx-3 fs-5" />
                 </button>
-                {/* <div className=" fw-bold"> العوده الي الصفحة الرئيسية ...</div> */}
 
-                {/* <div className="pointer fs-5  "> */}
                 <button
-                  className={`text-center text-black my-2 borderCustom w-50 animate    btn `}
+                  className={`text-center text-black my-2 borderCustom w-100 animate    btn `}
                 >
-                  <Link to="/" className="nonLine">
-                    <p className=" text-black mt-3">
-                      الصفحة الرئيسية
-                      <IoArrowRedoCircleOutline className="text-center mx-3  text-black fs-5" />
-                    </p>
+                  <Link to="/" className="nonLine text-black align-self-center">
+                    الصفحة الرئيسية
+                    <IoArrowRedoCircleOutline className="text-center mx-3  text-black fs-5" />
                   </Link>
                 </button>
-                {/* <IoArrowRedoCircleOutline className="text-black" /> */}
-                {/* </div> */}
               </div>
 
               <div className={`card text-center borderCustom p-2 mb-5`}>
-                <div className="row mx-5 p-3">
+                <div className="row justify-content-center my-4">
                   <div
                     id="carouselExampleRide"
-                    className="carousel slide f"
+                    className="carousel slide px-2 col-11 col-md-10"
                     data-bs-ride="true"
                   >
                     <div className="carousel-inner">
@@ -138,7 +132,7 @@ const ParkDetials = () => {
                           >
                             <img
                               src={`${axiosInstanceParking.defaults.baseURL}/img/parkings/${photo}`}
-                              style={{ height: "50vh", width: "30vh" }}
+                              style={{ height: "40vh", width: "30vh" }}
                               className="d-block w-100"
                               alt="..."
                             />
@@ -212,8 +206,9 @@ const ParkDetials = () => {
                   </div>
                 </div>
 
-                <div className="row m-3 px-5 justify-content-center">
+                <div className="row  justify-content-center">
                   <ParkLocation
+                    className="col-11 col-md-10"
                     location={parkreserved.location}
                     title={parkreserved.title}
                   />
