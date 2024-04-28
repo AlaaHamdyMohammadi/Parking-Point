@@ -108,11 +108,11 @@ const ParkDetials = () => {
                 <button
                   className={`text-center text-black my-2 borderCustom w-100 animate    btn `}
                 >
-                  <Link to="/" className="nonLine">
-                    <p className=" text-black align-self-center">
-                      الصفحة الرئيسية
-                      <IoArrowRedoCircleOutline className="text-center mx-3  text-black fs-5" />
-                    </p>
+                  <Link to="/" className="nonLine text-black align-self-center">
+                    {/* <p className=" text-black align-self-center"> */}
+                    الصفحة الرئيسية
+                    <IoArrowRedoCircleOutline className="text-center mx-3  text-black fs-5" />
+                    {/* </p> */}
                   </Link>
                 </button>
                 {/* <IoArrowRedoCircleOutline className="text-black" /> */}
@@ -212,7 +212,7 @@ const ParkDetials = () => {
                   </div>
                 </div>
 
-                <div className="row m-3 px-5 justify-content-center">
+                <div className="row  justify-content-center">
                   <ParkLocation
                     location={parkreserved.location}
                     title={parkreserved.title}
