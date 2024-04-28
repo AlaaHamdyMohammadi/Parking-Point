@@ -57,7 +57,7 @@ const ParkLocation = ({ location, title, address }) => {
 
   return (
     <div
-      // style={{ width: "100vw", height: "45vh" }}
+      style={{ width: "100vw", height: "45vh" }}
       className="col-12 col-md-10"
     >
       <ReactMapGL
