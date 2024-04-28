@@ -10,7 +10,7 @@ export default function EmailInput({
   disabled,
 }) {
   const token = useSelector((state) => state.loggedIn.token);
-  let emailRegx = /^[a-zA-Z0-9]{4,15}(@)(gmail|yahoo|outlook)(.com)$/;
+  let emailRegx = /^[a-zA-Z0-9]{4,}(@)(gmail|yahoo|outlook)(.com)$/;
   const emailValidation = (event) => {
     const { name, value } = event.target;
     setErrors({
