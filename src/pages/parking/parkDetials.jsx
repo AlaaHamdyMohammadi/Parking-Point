@@ -117,7 +117,7 @@ const ParkDetials = () => {
                 <div className="row ">
                   <div
                     id="carouselExampleRide"
-                    className="carousel slide col-12"
+                    className="carousel slide px-2 col-12 col-md-10"
                     data-bs-ride="true"
                   >
                     <div className="carousel-inner">
