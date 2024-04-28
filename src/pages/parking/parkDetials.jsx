@@ -132,7 +132,7 @@ const ParkDetials = () => {
                           >
                             <img
                               src={`${axiosInstanceParking.defaults.baseURL}/img/parkings/${photo}`}
-                              style={{ height: "50vh", width: "30vh" }}
+                              style={{ height: "40vh", width: "30vh" }}
                               className="d-block w-100"
                               alt="..."
                             />
