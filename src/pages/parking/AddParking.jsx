@@ -141,10 +141,10 @@ export default function AddParking() {
         ...errors,
         capacityErrors:
           value.length === 0
-            ? "يجب ادخال السعة" 
+            ? "يجب ادخال السعة"
             : capacityemailRegx.test(value)
             ? ""
-            :"سعة الموقف من 1 الي 10 فقط",
+            : "سعة الموقف من 1 الي 10 فقط",
       });
     }
     setParking({ ...parking, [name]: value });
@@ -351,7 +351,7 @@ export default function AddParking() {
                   <label htmlFor="location" className="mb-1 fs-5">
                     الموقع{" "}
                   </label>
-                  <div style={{ width: "100vw", height: "35vh" }}>
+                  <div style={{ width: "100vw", height: "45vh" }}>
                     <ReactMapGL
                       {...parking}
                       mapStyle={mapStyle}
