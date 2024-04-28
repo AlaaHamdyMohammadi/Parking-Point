@@ -114,7 +114,7 @@ const ParkDetials = () => {
               </div>
 
               <div className={`card text-center borderCustom p-2 mb-5`}>
-                <div className="row justify-content-center">
+                <div className="row justify-content-center my-2">
                   <div
                     id="carouselExampleRide"
                     className="carousel slide px-2 col-12 col-md-10"
@@ -206,7 +206,7 @@ const ParkDetials = () => {
                   </div>
                 </div>
 
-                <div className="row px-3 justify-content-center">
+                <div className="row  justify-content-center">
                   <ParkLocation
                     location={parkreserved.location}
                     title={parkreserved.title}
