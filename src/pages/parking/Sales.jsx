@@ -277,7 +277,7 @@ export default function Sales() {
       ) : (
         <div
           className="fs-3 fw-bold text-center "
-          style={{ minHeight: "175vw" }}
+          style={{ minHeight: "100vw" }}
         >
           <p className="my-5 py-5">لا يوجد حجوزات حتى الان </p>
         </div>
