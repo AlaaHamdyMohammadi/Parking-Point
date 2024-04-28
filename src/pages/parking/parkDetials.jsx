@@ -94,7 +94,7 @@ const ParkDetials = () => {
         ) : (
           <div className="d-flex justify-content-center ">
             <div className="w-75 my-5">
-              <div className="d-flex justify-content-between gap-4 my-4">
+              <div className="d-md-flex justify-content-between gap-4 my-4">
                 <button
                   className={`text-center my-2  borderCustom w-50 animate    btn `}
                   onClick={generatePDF}
