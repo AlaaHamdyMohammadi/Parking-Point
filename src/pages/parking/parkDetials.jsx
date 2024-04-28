@@ -114,7 +114,7 @@ const ParkDetials = () => {
               </div>
 
               <div className={`card text-center borderCustom p-2 mb-5`}>
-                <div className="row ">
+                <div className="row justify-content-center">
                   <div
                     id="carouselExampleRide"
                     className="carousel slide px-2 col-12 col-md-10"
