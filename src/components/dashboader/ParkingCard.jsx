@@ -221,7 +221,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
           ) : (
             <div
               className="fs-3 fw-semibold text-center"
-              style={{ minHeight: "100vw" }}
+              style={{ minHeight: "95vw" }}
             >
               <p className="my-5 py-5">لا يوجد مواقف حتى الان</p>
             </div>
