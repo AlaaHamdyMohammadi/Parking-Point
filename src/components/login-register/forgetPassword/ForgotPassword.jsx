@@ -53,9 +53,9 @@ const ForgotPassword = () => {
         confirmPasswordErrors:
           value.length === 0
             ? "يجب تاكيد الرقم السري"
-            : value == registeUser.password
-            ? ""
-            : "الرقم غير صحيح",
+            : value == password
+              ? ""
+              : "الرقم غير صحيح",
       });
       setConfirmPassword(value);
     }
