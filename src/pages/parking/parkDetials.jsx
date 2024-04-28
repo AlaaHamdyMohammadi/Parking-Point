@@ -94,9 +94,9 @@ const ParkDetials = () => {
         ) : (
           <div className="d-flex justify-content-center ">
             <div className="w-75 my-5">
-              <div className="d-md-flex justify-content-between gap-4 my-4">
+              <div className="d-md-flex d-lg-flex justify-content-between gap-4 my-4">
                 <button
-                  className={`text-center my-2  borderCustom w-50 animate    btn `}
+                  className={`text-center my-2  borderCustom w-100 animate    btn `}
                   onClick={generatePDF}
                 >
                   تحميل
@@ -106,11 +106,11 @@ const ParkDetials = () => {
 
                 {/* <div className="pointer fs-5  "> */}
                 <button
-                  className={`text-center text-black my-2 borderCustom w-50 animate    btn `}
+                  className={`text-center text-black my-2 borderCustom w-100 animate    btn `}
                 >
                   <Link to="/" className="nonLine">
                     <p className=" text-black mt-3">
-                      الصفحة الرئيسية
+                      الرئيسية
                       <IoArrowRedoCircleOutline className="text-center mx-3  text-black fs-5" />
                     </p>
                   </Link>
