@@ -10,20 +10,20 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { I18nextProvider } from "react-i18next";
 import i18next from "i18next";
-// import enTranslation from "./components/locales/en/tranlation.json";
-// import arTranslation from "./components/locales/ar/tranlation.json";
+import enTranslation from "./../src/components/locales/en/translation.json";
+import arTranslation from "./../src/components/locales/ar/translation.json";
 
 i18next.init({
   interpolation: { escapeValue: false },
   lng: "ar", // Default language
-  // resources: {
-  //   ar: {
-  //     translation: arTranslation,
-  //   },
-  //   en: {
-  //     translation: enTranslation,
-  //   },
-  // },
+  resources: {
+    ar: {
+      translation: arTranslation,
+    },
+    en: {
+      translation: enTranslation,
+    },
+  },
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
