@@ -13,11 +13,9 @@ import useLogInUserData from "../../../hook/useLogInUserData";
 import { LiaMoneyCheckAltSolid } from "react-icons/lia";
 import ConfimEmailPop from "../login-register/confirmEmailpop";
 import useSendCode from "../../../hook/useSendCode";
-import { useTranslation } from "react-i18next";
+import LangaugeSwitch from "./LangaugeSwitch";
 
 export default function Header() {
-  const { t, i18n } = useTranslation();
-    const [selectedLanguage, setSelectedLanguage] = useState("ar");
   const user = useLogInUserData();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -34,16 +32,7 @@ export default function Header() {
   };
   const handleChange = useSendCode();
 
-  const handleChangeLanguage = (newLanguage) => {
-    i18n.changeLanguage(newLanguage);
-    setSelectedLanguage(newLanguage);
-    console.log(newLanguage)
-    if (newLanguage === "en") {
-      document.documentElement.classList.add("ltr");
-    } else {
-      document.documentElement.classList.remove("ltr");
-    }
-  };
+  
   return (
     <main>
       <div className="navColor p-1 shadow">
@@ -178,33 +167,7 @@ export default function Header() {
                     التسجيل
                   </Link>
                 </div>
-                { selectedLanguage === 'ar' ?
-                  <div className="nav-item fw-bold">
-                  <div
-                    className="nav-link active ms-4  text-white"
-                    aria-current="page"
-                    onClick={() => {
-                      handleChangeLanguage('en');
-                    }}
-                    style={{cursor: 'pointer'}}
-                  >
-                    English
-                  </div>
-                </div>
-                :
-                <div className="nav-item fw-bold">
-                  <div
-                    className="nav-link active ms-4  text-white"
-                    aria-current="page"
-                    onClick={() => {
-                      handleChangeLanguage('ar');
-                    }}
-                    style={{cursor: 'pointer'}}
-                  >
-                    العربية
-                  </div>
-                </div>
-                }
+                <LangaugeSwitch />
               </div>
             </div>
           )}
