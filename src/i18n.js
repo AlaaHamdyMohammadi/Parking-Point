@@ -1,85 +1,60 @@
-// // /* eslint-disable no-unused-vars */
-// // import React, { useEffect } from "react";
-// // import i18n from "i18next";
-// // import { useTranslation, initReactI18next } from "react-i18next";
-// // import LanguageDetector from "i18next-browser-languagedetector";
-// // import HttpApi from "i18next-http-backend";
-// // import cookies from "js-cookie";
-
-// // i18n
-// //   .use(initReactI18next)
-// //   .use(LanguageDetector)
-// //   .use(HttpApi)
-// //   .init({
-// //     fallbackLng: "ar",
-// //     detection: {
-// //       order: [
-// //         "navigator",
-// //         "cookie",
-// //         "htmlTag",
-// //         "path",
-// //         "subdomain",
-// //         "localStorage",
-// //         "sessionStorage",
-// //       ],
-// //       caches: ["cookie"],
-// //     },
-// //     backend: {
-// //       loadPath: "/locale/{{lng}}/translation.json",
-// //     },
-// //   });
-
+// /* eslint-disable no-unused-vars */
+// import React, { useEffect } from "react";
 // import i18n from "i18next";
-// import { initReactI18next } from "react-i18next";
-
-// import Backend from "i18next-http-backend";
+// import { useTranslation, initReactI18next } from "react-i18next";
 // import LanguageDetector from "i18next-browser-languagedetector";
-// const availableLanguages = ["en", "ar"];
+// import HttpApi from "i18next-http-backend";
+// import cookies from "js-cookie";
 
-// const option = {
-//   order: ["navigator", "htmlTag", "path", "subdomail"],
-//   checkWhitelist: true,
-// };
 // i18n
-// .use(LanguageDetector)
-// .use(initReactI18next)
-//   .use(Backend)
+//   .use(initReactI18next)
+//   .use(LanguageDetector)
+//   .use(HttpApi)
 //   .init({
 //     fallbackLng: "ar",
-//     debug: true,
-//     whitelist: availableLanguages,
-//     detection: option,
-//     interpolation: {
-//       escapeValue: false, // not needed for react as it escapes by default
+//     detection: {
+//       order: [
+//         "navigator",
+//         "cookie",
+//         "htmlTag",
+//         "path",
+//         "subdomain",
+//         "localStorage",
+//         "sessionStorage",
+//       ],
+//       caches: ["cookie"],
 //     },
-//     // backend: {
-//     //   loadPath: "locales/{{lng}}/translation.json",
-//     // },
+//     backend: {
+//       loadPath: "/locale/{{lng}}/translation.json",
+//     },
 //   });
 
-// export default i18n;
-// i18n.js
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
-import translationEN from "../locales/en/translation.json";
-import translationAr from "../locales/ar/translation.json";
+import Backend from "i18next-http-backend";
+import LanguageDetector from "i18next-browser-languagedetector";
+const availableLanguages = ["en", "ar"];
 
-
-i18n.use(initReactI18next).init({
-  resources: {
-    en: {
-      translation: translationEN,
+const option = {
+  order: ["navigator", "htmlTag", "path", "subdomail"],
+  checkWhitelist: true,
+};
+i18n
+.use(LanguageDetector)
+.use(initReactI18next)
+  .use(Backend)
+  .init({
+    fallbackLng: "ar",
+    debug: true,
+    whitelist: availableLanguages,
+    detection: option,
+    interpolation: {
+      escapeValue: false, // not needed for react as it escapes by default
     },
-    ar: {
-      translation: translationAr,
-    },
-  },
-  lng: "ar", // Default language
-  fallbackLng: "ar", // Fallback language if a translation is missing
-  interpolation: {
-    escapeValue: true, // React already escapes by default
-  },
-});
+    // backend: {
+    //   loadPath: "locales/{{lng}}/translation.json",
+    // },
+  });
 
 export default i18n;

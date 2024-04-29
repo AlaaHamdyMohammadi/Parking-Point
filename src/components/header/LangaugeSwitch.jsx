@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeLanguage } from "../../store/slices/language";
 
 const LangaugeSwitch = () => {
-  const { t, i18n } = useTranslation();
+  const {t, i18n } = useTranslation();
+  console.log(t('parking'));
   const [selectedLanguage, setSelectedLanguage] = React.useState("ar");
   const dispatch = useDispatch();
   const language = useSelector((state) => state.language.language);
@@ -17,10 +18,10 @@ const LangaugeSwitch = () => {
     // console.log(newLanguage);
     if (newLanguage === "en") {
       document.documentElement.classList.add("ltr");
-      dispatch(changeLanguage('en'))
+      dispatch(changeLanguage(newLanguage))
     } else {
       document.documentElement.classList.remove("ltr");
-      dispatch(changeLanguage('ar'))
+      dispatch(changeLanguage(newLanguage))
     }
   };
   
