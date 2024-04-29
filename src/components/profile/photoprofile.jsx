@@ -5,8 +5,10 @@ import { TbCameraPlus } from "react-icons/tb";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";
 import useLogInUserData from "../../../hook/useLogInUserData";
+import { useTranslation } from "react-i18next";
 
 export default function Photoprofile() {
+  const { t } = useTranslation();
   const user = useLogInUserData();
   const token = useSelector((state) => state.loggedIn.token);
   const [image, setImage] = useState(null);
@@ -82,8 +84,7 @@ export default function Photoprofile() {
           <p className="mt-2 Gray">
             <BsPersonFillCheck className="editIcon2" />
             <span className="">
-              {" "}
-              {`عضو منذ ${new Date(user.createdAt).toLocaleDateString()}`}
+              {`${t('editProfile.since')} ${new Date(user.createdAt).toLocaleDateString()}`}
             </span>
           </p>
         </div>

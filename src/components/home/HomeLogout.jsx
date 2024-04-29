@@ -31,7 +31,7 @@ export default function HomeLogout() {
             >
               <div className={`w-75`}>
                 <div className={`fs-3 my-5 text-light`}>
-                 {t('parking')}
+                {t('parking')}
                 </div>
                 <Link to={`/register`}>
                   <SearchInput />
