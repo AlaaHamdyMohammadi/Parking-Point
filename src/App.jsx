@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
 import NotFound from "./pages/NotFound";
@@ -21,6 +22,8 @@ import CancelPayment from "./pages/CanclePayment";
 import ParkDetials from "./pages/parking/parkDetials";
 import SuccessPayment from "./pages/SuccessPayment";
 import HandelErorr from "./pages/HandelErorr";
+
+
 
 const router = createBrowserRouter([
   {
@@ -139,6 +142,9 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+
+  
+
   return (
     <div dir="rtl">
       <RouterProvider router={router} />
