@@ -1,19 +1,26 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { changeLanguage } from "../../store/slices/language";
 
 const LangaugeSwitch = () => {
   const { t, i18n } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = React.useState("ar");
-
+  const dispatch = useDispatch();
+  const language = useSelector((state) => state.language.language);
+  console.log(language);
+  
   const handleChangeLanguage = (newLanguage) => {
     i18n.changeLanguage(newLanguage);
     setSelectedLanguage(newLanguage);
-    console.log(newLanguage);
+    // console.log(newLanguage);
     if (newLanguage === "en") {
       document.documentElement.classList.add("ltr");
+      dispatch(changeLanguage('en'))
     } else {
       document.documentElement.classList.remove("ltr");
+      dispatch(changeLanguage('ar'))
     }
   };
   
@@ -29,7 +36,7 @@ const LangaugeSwitch = () => {
             }}
             style={{ cursor: "pointer" }}
           >
-            <p style={{ marginLeft: "5px" }}>En</p>
+            <p style={{ marginLeft: "5px" }}>English</p>
             <img
               style={{
                 width: "24px",

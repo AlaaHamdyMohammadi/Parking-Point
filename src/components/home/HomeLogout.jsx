@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SpinnerLoad from "../spinner/Spinner";
 import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
 
 export default function HomeLogout() {
   const [isLoading, setIsLoading] = useState(true);
-
+  const { t } = useTranslation();
   useEffect(function () {
     setTimeout(() => {
       setIsLoading(false);

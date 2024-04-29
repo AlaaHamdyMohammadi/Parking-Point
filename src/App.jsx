@@ -22,6 +22,7 @@ import CancelPayment from "./pages/CanclePayment";
 import ParkDetials from "./pages/parking/parkDetials";
 import SuccessPayment from "./pages/SuccessPayment";
 import HandelErorr from "./pages/HandelErorr";
+import { useSelector } from "react-redux";
 
 
 
@@ -142,11 +143,9 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-
-  
-
+  const language = useSelector((state) => state.language.language);
   return (
-    <div dir="rtl">
+    <div dir={`${language=='ar'?'rtl':'ltr'}`}>
       <RouterProvider router={router} />
     </div>
   );
