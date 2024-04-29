@@ -2,6 +2,8 @@ import axios from "axios"
 const axiosInstanceParking= axios.create({
 baseURL:'https://e-parking-backend.onrender.com',
 withCredentials: true,
+headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+credentials: 'include',
 })
 
 axiosInstanceParking.interceptors.request.use((req)=>{
