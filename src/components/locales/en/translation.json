@@ -85,7 +85,40 @@
     "successToastRate":"Your rating has been added successfully! Thank you",
     "errorToastRate":"I have already evaluated the situation"
   },
-  "parkingHome": {},
-  "parkLocation": {},
-  "sales": {}
+  "parkingHome": {
+    "support":"Please contact support",
+    "addNew":"Add a new position",
+    "all":"All",
+    "approved":"Approved",
+    "pending":"Pending",
+    "rejected":"Rejected",
+    "successToastCard":"The position has been successfully reactivated! Waiting for review...",
+    "errorToastCard":"The position has been successfully deactivated! Waiting for review...",
+    "addingDate":"Adding date:",
+    "capacity":"Capacity:",
+    "disabled":"Disabled",
+    "procedures":"Procedures",
+    "edit":"Edit",
+    "activate":"Activate",
+    "deactivate":"Deactivate",
+    "noParking ":"There are no parking spots yet",
+    "address":"Address:",
+    "more":"Show more",
+    "less":"Show less"
+  },
+  "sales": {
+    "documentTitle":"Reservations",
+    "successToastPDF":"pdf file saved",
+    "pageTitle":"Reservations",
+    "download":"Download",
+    "placeholderSearch":"Search by plate number",
+    "reservations": "Reservations",
+    "parking": "Parking",
+    "plateNumber": "Plate Number",
+    "Bookingduration:":"Booking duration:",
+    "startAndEndDate:":"Start of reservation: End of reservation",
+    "cost":"Cost:",
+    "unknown": "Unknown",
+    "noReservations": "There are no reservations yet"
+  }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import classes from "./../../styles/parkingFilter.module.css";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useSelector } from "react-redux";

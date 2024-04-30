@@ -8,7 +8,9 @@ import { useSelector } from "react-redux";
 import SpinnerLoad from "../../components/spinner/Spinner";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from "react-i18next";
 export default function ParkingCard({ userParkings, setUserParkings }) {
+  const { t } = useTranslation();
   const token = useSelector((state) => state.loggedIn.token);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -37,9 +39,9 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
       .then((res) => {
         getMyParkings();
         if (disabled == false) {
-          toast.success("تم إعادة تنشيط الموقف بنجاح! في انتظار المراجعة...");
+          toast.success(t('parkingHome.successToastCard'));
         } else if (disabled == true) {
-          toast.success(" تم إلغاء تنشيط الموقف بنجاح! في انتظار المراجعة...");
+          toast.success(t('parkingHome.errorToastCard'));
         }
       })
       .catch((err) => {
@@ -62,9 +64,8 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
             userParkings.map((parking, index) => (
               <div
                 key={parking._id}
-                className={`pt-3 px-3 rounded w-100 d-flex ${
-                  parking.disabled == true ? "bg-secondary bg-opacity-25" : ""
-                }`}
+                className={`pt-3 px-3 rounded w-100 d-flex ${parking.disabled == true ? "bg-secondary bg-opacity-25" : ""
+                  }`}
               >
                 <div className="d-md-flex w-100 pb-2 border-bottom justify-content-between">
                   <div className="d-none d-md-block fw-bold mt-5">
@@ -80,9 +81,8 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                         {parking.photos.map((photo, index) => {
                           return (
                             <div
-                              className={`carousel-item ${
-                                index === 0 ? "active" : ""
-                              }`}
+                              className={`carousel-item ${index === 0 ? "active" : ""
+                                }`}
                               data-bs-interval="10000"
                               key={index}
                             >
@@ -131,13 +131,13 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                         <ParkingAddress address={parking.address} />
                       </p>
                       <p className="mb-0 customfs  ">
-                        <span className=" fw-semibold"> السعة: </span>
+                        <span className=" fw-semibold">{t('parkingHome.capacity')}</span>
                         {parking.capacity}
                       </p>
 
                       <p className="">
                         <small className="text-body-secondary">
-                          الإضافة:{" "}
+                          {t('parkingHome.addingDate')}
                           {new Date(parking.createdAt).toLocaleDateString()}
                         </small>
                       </p>
@@ -145,23 +145,22 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                     <div className=" d-flex gap-2  py-2 w-100 justify-content-between ">
                       <div className=" d-lg-flex gap-3 flex-lg-column  text-center ">
                         <div
-                          className={`badge px-4 rounded-pill ${
-                            parking.disabled == true
+                          className={`badge px-4 rounded-pill ${parking.disabled == true
                               ? "bg-secondary bg-opacity-50"
                               : parking.status === "approved"
-                              ? "bgColor bg-opacity-75"
-                              : parking.status === "pending"
-                              ? " bg-secondary bg-opacity-50"
-                              : "bg-danger bg-opacity-75"
-                          }`}
+                                ? "bgColor bg-opacity-75"
+                                : parking.status === "pending"
+                                  ? " bg-secondary bg-opacity-50"
+                                  : "bg-danger bg-opacity-75"
+                            }`}
                         >
                           {parking.disabled == true
-                            ? "غير نشط"
+                            ? t('parkingHome.disabled')
                             : parking.status == "pending"
-                            ? "قيد الانتظار"
-                            : parking.status == "approved"
-                            ? "نشط"
-                            : "مرفوض"}
+                              ? t('parkingHome.pending')
+                              : parking.status == "approved"
+                                ? t('parkingHome.approved')
+                                : t('parkingHome.rejected')}
                         </div>
                         <div className="d-flex flex-row  justify-content-center ">
                           <RatingComponent rating={parking.rate} />
@@ -175,7 +174,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                           data-bs-toggle="dropdown"
                           aria-expanded="false"
                         >
-                          أجراءات
+                          {t('parkingHome.procedures')}
                         </Link>
                         <ul className="dropdown-menu">
                           <li>
@@ -183,7 +182,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                               className="dropdown-item"
                               to={`/Profile/parking/${parking._id}`}
                             >
-                              تعديل
+                              {t('parkingHome.edit')}
                             </Link>
                           </li>
                           {parking.status == "approved" && (
@@ -196,7 +195,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                                     isDisabled(parking._id, false);
                                   }}
                                 >
-                                  إعادة تنشيط
+                                  {t('parkingHome.activate')}
                                 </li>
                               ) : (
                                 <li
@@ -206,7 +205,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
                                     isDisabled(parking._id, true);
                                   }}
                                 >
-                                  إلغاء تنشيط
+                                  {t('parkingHome.deactivate')}
                                 </li>
                               )}
                             </>
@@ -223,7 +222,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
               className="fs-3 fw-semibold text-center"
               style={{ minHeight: "95vw" }}
             >
-              <p className="my-5 py-5">لا يوجد مواقف حتى الان</p>
+              <p className="my-5 py-5">{t ('parkingHome.noParking')}</p>
             </div>
           )}
         </>
@@ -234,11 +233,11 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
 
 function ParkingAddress({ address }) {
   const [seeMore, setSeeMore] = useState(false);
-
+  const { t } = useTranslation();
   return (
     <p className="mb-0 customfs">
       <div style={{}}>
-        <span className="fw-semibold">العنوان: </span>
+        <span className="fw-semibold">{t('parkingHome.address')}</span>
         {seeMore
           ? address
           : `${address.slice(0, 30)}${address.length > 30 ? "..." : ""}`}
@@ -256,7 +255,7 @@ function ParkingAddress({ address }) {
             fontWeight: "bold",
           }}
         >
-          {seeMore ? "عرض الأقل" : "عرض المزيد"}
+          {seeMore ? t('parkingHome.less') : t('parkingHome.more')}
         </button>
       )}
     </p>

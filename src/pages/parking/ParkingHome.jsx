@@ -4,8 +4,10 @@ import ParkingFilter from "../../components/dashboader/ParkingFilter";
 import { useState } from "react";
 import useLogInUserData from "../../../hook/useLogInUserData";
 import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
 
 export default function ParkingHome() {
+  const { t } = useTranslation();
   const [userParkings, setUserParkings] = useState([]);
   const user = useLogInUserData();
 
@@ -13,7 +15,7 @@ export default function ParkingHome() {
     <>
  
     <Helmet>
-    <title>Parking Point | الصفحة الرئيسية</title>
+    <title>Parking Point | {t('home')}</title>
   </Helmet>
     <div className={`d-flex flex-column m-md-5 m-2`}>
       <div className={`d-md-flex w-md-75 mb-5 pb-md-4 pb-1 border-bottom`}>
@@ -28,17 +30,17 @@ export default function ParkingHome() {
             {...((!user.isActivated || !user.isEmailConfirmed ) &&{
               "data-bs-toggle": "tooltip",
               "data-bs-placement": "top",
-              title: "يرجى التواصل مع الدعم   ",
+              title: t('parkingHome.support'),
             })}
           >
-            اضافة موقف جديد
+            {t('parkingHome.addNew')}
           </Link>
         </div>
         <div className={`d-flex w-75`}>
-          <ParkingFilter value={""} text="الجميع" setUserParkings={setUserParkings} />
-          <ParkingFilter value={"?status=approved"} text="نشط" setUserParkings={setUserParkings} />
-          <ParkingFilter value={"?status=pending"} text="قيد الانتظار" setUserParkings={setUserParkings} />
-          <ParkingFilter value={"?status=rejected"} text="مرفوض" setUserParkings={setUserParkings} />
+          <ParkingFilter value={""} text={t('parkingHome.all')} setUserParkings={setUserParkings} />
+          <ParkingFilter value={"?status=approved"} text={t('parkingHome.approved')} setUserParkings={setUserParkings} />
+          <ParkingFilter value={"?status=pending"} text={t('parkingHome.pending')} setUserParkings={setUserParkings} />
+          <ParkingFilter value={"?status=rejected"} text={t('parkingHome.rejected')} setUserParkings={setUserParkings} />
         </div>
       </div>
       <div className={`align-self-center w-75`}>

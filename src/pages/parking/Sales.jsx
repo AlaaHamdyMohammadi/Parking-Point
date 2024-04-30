@@ -16,6 +16,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SimplePagination from "../../components/pagination/SimplePagination";
 import useLogInUserData from "../../../hook/useLogInUserData";
+import { useTranslation } from "react-i18next";
 const calculateTimeDifference = (fromDate, toDate) => {
   const from = new Date(fromDate);
   const to = new Date(toDate);
@@ -33,6 +34,7 @@ const calculateTimeDifference = (fromDate, toDate) => {
 };
 
 export default function Sales() {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [responseLength, setResponseLength] = useState(0);
   const [data, setData] = useState(null);
@@ -106,10 +108,10 @@ export default function Sales() {
               className={`text-center my-2 btnDownload w-100 animate    btn `}
               onClick={generatePDF}
             >
-              <FaRegFilePdf className="text-center   fs-5" /> تحميل
+              <FaRegFilePdf className="text-center fs-5" /> {t('sales.download')}
             </button>
             <button className={`text-center my-2 btnDownload w-100     btn `}>
-              {responseLength}حجوزات
+              {responseLength} {t('sales.reservations')}
             </button>
 
             {user.role == "driver" && (
@@ -117,7 +119,7 @@ export default function Sales() {
                 <input
                   className="form-control  fs-6 btnDownload  opacity-50 text-body-secondary "
                   type="search"
-                  placeholder="ابحث برقم اللوحة"
+                  placeholder={t('sales.placeholderSearch')}
                   value={reserveSearch}
                   onChange={handleSearch}
                   aria-label="Search"
@@ -141,23 +143,23 @@ export default function Sales() {
                 <thead className="bgColor border rounded-2 fs-6 text-white fw-bolder py-3">
                   <th className="p-1 px-2 ">
                     <LuParkingCircle className="me-1 mb-1  text-white fs-1 bgColor" />
-                    الموقف
+                    {t('sales.parking')}
                   </th>
                   <th className="p-1 px-2 ">
                     <LiaCarSideSolid className="me-1 mb-1 text-center text-white fs-1 bgColor" />
-                    رقم اللوحة
+                    {t('sales.plateNumber')}
                   </th>
                   <th className="p-1 px-2 ">
                     <PiCalendarCheckBold className="me-1 mb-1 text-center text-white fs-1 bgColor" />
-                    مدة الحجز
+                    {t('sales.Bookingduration')}
                   </th>
                   <th className="p-1 px-2 ">
                     <LuCalendarClock className="me-1 mb-1 text-center text-white fs-1 bgColor" />
-                    بداية الحجز : نهاية الحجز
+                    {t('sales.startAndEndDate')}
                   </th>
                   <th className="p-1 px-2 ">
                     <MdPriceCheck className="mb-1 text-center text-white fs-1 bgColor" />
-                    التكلفة
+                    {t('sales.cost')}
                   </th>
                 </thead>
                 {user.role == "driver" ? (
@@ -167,7 +169,7 @@ export default function Sales() {
                         <td className="p-4">
                           {item.park && item.park.title
                             ? item.park.title
-                            : "غير معروف"}
+                            : t('sales.unknown')}
                         </td>
                         <td className="p-4 yellowcolor">
                           <span>{item.plateNumber}</span>
@@ -279,7 +281,7 @@ export default function Sales() {
           className="fs-3 fw-bold text-center "
           style={{ minHeight: "95vw" }}
         >
-          <p className="my-5 py-5">لا يوجد حجوزات حتى الان </p>
+          <p className="my-5 py-5">{t('sales.noReservations')}</p>
         </div>
       )}
       <SimplePagination
