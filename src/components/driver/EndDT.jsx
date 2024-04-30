@@ -119,25 +119,25 @@ export default function EndDateTime({
               value={searchData.city}
             >
               <option value="" hidden className="text-danger">
-                اختر الولاية
+              {t('addParking.SelectState')}
               </option>
               <option className="text-black" value="مسقط">
-                مسقط
+              {t('addParking.city1')}
               </option>
               <option className="text-black" value="مطرح">
-                مطرح
+              {t('addParking.city2')}
               </option>
               <option className="text-black" value="السيب">
-                السيب
+              {t('addParking.city3')}
               </option>
               <option className="text-black" value="بوشر">
-                بوشر
+              {t('addParking.city4')}
               </option>
               <option className="text-black" value="العامرات">
-                العامرات
+              {t('addParking.city5')}
               </option>
               <option className="text-black" value="قريات">
-                قريات
+              {t('addParking.city6')}
               </option>
             </select>
           </div>
