@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import useSendCode from "../../../hook/useSendCode";
 import ConfimEmailPop from "../login-register/confirmEmailpop";
 import useLogInUserData from "../../../hook/useLogInUserData";
+import { useTranslation } from "react-i18next";
 
 export default function EndDateTime({
   BookNow,
@@ -26,7 +27,7 @@ export default function EndDateTime({
     hours: 0,
     minutes: 0,
   });
-
+  const { t } = useTranslation();
   const [searchData, setSearchData] = useState({
     city: "",
     from: BookNow ? new Date(Date.now()) : "",
@@ -52,7 +53,7 @@ export default function EndDateTime({
     const endTime = new Date(searchData.to).getTime();
 
     if (startTime >= endTime) {
-      toast.error("يجب أن يكون تاريخ انتهاء الحجز  بعد تاريخ البدء.");
+      toast.error(t('reservationDate.errorToast1'));
       return;
     }
 
@@ -72,7 +73,7 @@ export default function EndDateTime({
     const startTime = new Date(searchData.from).getTime();
     const endTime = new Date(searchData.to).getTime();
     if (startTime >= endTime) {
-      toast.error("يجب أن يكون تاريخ انتهاء الحجز  بعد تاريخ البدء.");
+      toast.error(t('reservationDate.errorToast1'));
       return;
     }
     if (user.isEmailConfirmed == false) {
@@ -94,7 +95,7 @@ export default function EndDateTime({
         })
         .catch((error) => {
           console.error("Error", error);
-          toast.error("حدث خطأ!يرجى إدخال بينات صحيحة وإعادة المحاولة");
+          toast.error(t('reservationDate.errorToast2'));
         });
     }
   };
