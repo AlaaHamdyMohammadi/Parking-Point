@@ -5,7 +5,9 @@ import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useDispatch, useSelector } from "react-redux";
 import { loggedInState, login } from "../../store/slices/authSlice";
 import { ToastContainer, toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
+  const { t } = useTranslation();
   const [confirmationCode, setConfirmationCode] = useState(
     new Array(length).fill("")
   );
@@ -31,16 +33,16 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
         );
         dispatch(login(res.data.token));
         dispatch(loggedInState());
-        toast.success(" لقد تم تأكيد الأيميل بنجاح! شكرا لك", {
+        toast.success(t('ConfirmationCodeInput.successToast1'), {
           onClose: () => {
             window.location.reload();
           },
         });
       } catch (error) {
-        toast.error("حدث خطأ اثناء تأكيد الايميل");
+        toast.error(t('ConfirmationCodeInput.errorToast1'));
         console.error("Error occurred while confirming email:", error);
         if (error.response) {
-          toast.error("رمز التحقق غير صحيح");
+          toast.error(t('ConfirmationCodeInput.errorToast2'));
 
           console.error("Response data:", error.response.data);
         }
@@ -76,7 +78,7 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
 
         dispatch(login(res.data.token));
         dispatch(loggedInState());
-        toast.success("لقد تم تأكيد الأيميل بنجاح", {
+        toast.success(t('ConfirmationCodeInput.successToast2'), {
           onClose: () => {
             window.location.reload();
           },
@@ -84,7 +86,7 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
       } catch (error) {
         console.error("Error occurred while confirming email:", error);
         if (error.response) {
-          toast.error("رمز التحقق غير صحيح");
+          toast.error(t('ConfirmationCodeInput.errorToast2'));
 
           console.error("Response data:", error.response.data);
         }

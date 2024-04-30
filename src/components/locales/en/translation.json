@@ -282,6 +282,12 @@
     "showParking":"Show parking",
     "confirmEmail":"*For reservations, please confirm your email first",
     "click":"-Click here to confirm"
+  },
+  "ConfirmationCodeInput":{
+    "successToast1":"Your email has been confirmed successfully! Thank you",
+    "successToast2":"The email has been confirmed successfully",
+    "errorToast1":"An error occurred while confirming the email",
+    "errorToast2":"The verification code is invalid"
   }
 }
 

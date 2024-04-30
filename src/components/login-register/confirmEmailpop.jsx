@@ -54,7 +54,7 @@ export default function ConfimEmailPop({ userEmail }) {
                 {t("confirmEmailPop1")}
                 <span className={`${classes.resendcode} px-1`}>
                   {userEmail}
-                </span>{" "}
+                </span>
                 {t("confirmEmailPop2")}
               </p>
             </div>
@@ -69,8 +69,8 @@ export default function ConfimEmailPop({ userEmail }) {
                 {t("confirmEmailPop3")}
               </div>
               <span className="text-secondary fs-6 ">
-                {t("confirmEmailPop4")}{" "}
-                <CountdownTimer resetTimer={resetTimer} />{" "}
+                {t("confirmEmailPop4")}
+                <CountdownTimer resetTimer={resetTimer} />
               </span>
             </div>
           </div>
