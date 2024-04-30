@@ -102,6 +102,7 @@ export default function EndDateTime({
     }
   };
   const handleChange = useSendCode();
+  console.log(user);
   return (
     <>
       <form method="post" onSubmit={sendQuery}>
@@ -112,7 +113,7 @@ export default function EndDateTime({
             <select
               id="cars"
               name="city"
-              className={`w-100 Gray focus border border-0 rounded-2  p-1  pointer shadow-none customRange  `}
+              className={`w-100 Gray focus border-0 rounded-2  p-1  pointer shadow-none customRange  `}
               onChange={handleInputChange}
               value={searchData.city}
             >
@@ -183,7 +184,7 @@ export default function EndDateTime({
             >
               اعرض المواقف
             </button>
-            {user.isEmailConfirmed == false && (
+            {user.isEmailConfirmed == true && (
               <div className="text-danger">
                 <div>* للحجز يرجي تاكيد البريد الاليكتروني اولا</div>
                 <div

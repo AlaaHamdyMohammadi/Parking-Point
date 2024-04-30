@@ -9,7 +9,6 @@ import { useTranslation } from "react-i18next";
 export default function HomeLogout() {
   const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
-  console.log(t("parking"));
   useEffect(function () {
     setTimeout(() => {
       setIsLoading(false);

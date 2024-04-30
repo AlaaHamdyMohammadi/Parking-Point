@@ -17,10 +17,10 @@ const LangaugeSwitch = () => {
     setSelectedLanguage(newLanguage);
     // console.log(newLanguage);
     if (newLanguage === "en") {
-      document.documentElement.classList.add("ltr");
+      // document.documentElement.classList.add("ltr");
       dispatch(changeLanguage(newLanguage))
     } else {
-      document.documentElement.classList.remove("ltr");
+      // document.documentElement.classList.remove("ltr");
       dispatch(changeLanguage(newLanguage))
     }
   };

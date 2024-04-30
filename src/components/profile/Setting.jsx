@@ -15,7 +15,9 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import NameInputs from "../FormsValidations/formFun/NameInputs";
+import { useTranslation } from "react-i18next";
 export default function Setting() {
+  const { t } = useTranslation();
   const token = useSelector((state) => state.loggedIn.token);
   const user = useLogInUserData();
   const navigate = useNavigate();
@@ -55,15 +57,12 @@ export default function Setting() {
         await axiosInstanceParking.patch(`/users/me`, userInfo, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        toast.success("تم تحديث بيناتك بنجاح");
+        toast.success(t('editProfile.successToastUser'));
         setTimeout(() => {
           navigate(`/`);
         }, 2000);
-        // location.reload();
       } catch (error) {
-        toast.error("حدث خطأ ! يرجى إعاده المحاولة");
-
-        console.error("not login", error);
+        toast.error(t('editProfile.errorToastUser'));
       }
     }
   };
@@ -162,7 +161,7 @@ export default function Setting() {
                 </div>
                 <div className={`col-md-6 col-12`}>
                   <label className="fs-5 mb-1" htmlFor="nationaleId">
-                    رقم الهوية
+                  {t('editProfile.id')} 
                   </label>
                   <input
                     type="text"

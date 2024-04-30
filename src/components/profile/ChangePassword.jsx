@@ -6,7 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa6";
+import { useTranslation } from "react-i18next";
 export default function ChangePassword() {
+  const { t } = useTranslation();
   const token = useSelector((state) => state.loggedIn.token);
   const navigate = useNavigate();
   const [currentPassword, setCurrentPassword] = useState("");
@@ -31,20 +33,28 @@ export default function ChangePassword() {
   const togglePasswordVisibilityConfirm = () => {
     setShowPasswordConfirm(!showPasswordConfirm);
   };
+  let passwordRegx = /^[a-zA-Z0-9]{8,}$/;
   const changPasswordValidation = (event) => {
     const { name, value } = event.target;
     if (name === "currentPassword") {
       setErrors({
         ...errors,
         currentPasswordErrors:
-          value.length === 0 ? "ادخل رقمك السري القديم" : "",
+          value.length === 0 ? t('editProfile.oldPasswordErr') : "",
       });
       setCurrentPassword(value);
     }
     if (name === "password") {
       setErrors({
         ...errors,
-        passwordErrors: value.length === 0 ? "ادخل رقمك السري الجديد" : "",
+        passwordErrors:
+          value.length === 0
+            ? t('editProfile.newPasswordErr1')
+            : value.length <= 7
+            ? t('editProfile.newPasswordErr2')
+            : passwordRegx.test(value)
+            ? ""
+            : t('editProfile.newPasswordErr3'),
       });
       setpassword(value);
     }
@@ -53,10 +63,10 @@ export default function ChangePassword() {
         ...errors,
         confirmPasswordErrors:
           value.length === 0
-            ? "يجب تاكيد الرقم السري"
+            ? t('editProfile.confirmPasswordErr1')
             : value == password
             ? ""
-            : "الرقم غير صحيح",
+            : t('editProfile.confirmPasswordErr2'),
       });
       setConfirmPassword(value);
     }
@@ -76,14 +86,12 @@ export default function ChangePassword() {
         await axiosInstanceParking.patch(`/users/me/change-password`, obj, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        toast.success("لقد تم تغيير كلمة السر بنجاح  !");
-
+        toast.success(t('editProfile.successToastPass'));
         setTimeout(() => {
           navigate(`/`);
         }, 3000);
       } catch (error) {
-        toast.error("كلمة السر الحالية غير صحيحة");
-        console.error("not login", error);
+        toast.error(t('editProfile.errorToastPass'));
       }
     }
   };
@@ -94,7 +102,7 @@ export default function ChangePassword() {
           <div className="col-12 col-md-6">
             <div className=" ">
               <label className="fs-5 py-1" htmlFor="currentPassword">
-                كلمة السر القديمة
+                {t('editProfile.oldPassword')}
               </label>
               <div className="d-flex justify-content-end">
                 <div className="d-flex flex-column w-100">
@@ -112,7 +120,7 @@ export default function ChangePassword() {
                 </div>
                 <button
                   type="button"
-                  className="btn Gray border border-0"
+                  className="btn Gray border-0"
                   style={{ position: "absolute", zIndex: "1" }}
                   onClick={togglePasswordVisibilityCurrent}
                 >
@@ -122,7 +130,7 @@ export default function ChangePassword() {
             </div>
             <div className="">
               <label className="fs-5  py-1" htmlFor="password">
-                كلمة السر الجديدة
+              {t('editProfile.newPassword')}
               </label>
               <div className="d-flex justify-content-end">
                 <div className="d-flex flex-column w-100">
@@ -140,7 +148,7 @@ export default function ChangePassword() {
                 </div>
                 <button
                   type="button"
-                  className="btn Gray border border-0"
+                  className="btn Gray border-0"
                   style={{ position: "absolute", zIndex: "1" }}
                   onClick={togglePasswordVisibilityNew}
                 >
@@ -150,7 +158,7 @@ export default function ChangePassword() {
             </div>
             <div className="">
               <label className="fs-5  py-1" htmlFor="confirmPassword">
-                تأكيد كلمه السر
+              {t('editProfile.confirmPassword')}
               </label>
               <div className="d-flex justify-content-end">
                 <div className="d-flex flex-column w-100">
@@ -169,7 +177,7 @@ export default function ChangePassword() {
 
                 <button
                   type="button"
-                  className="btn Gray border border-0"
+                  className="btn Gray border-0"
                   style={{ position: "absolute", zIndex: "1" }}
                   onClick={togglePasswordVisibilityConfirm}
                 >
@@ -190,7 +198,7 @@ export default function ChangePassword() {
 
         <input
           type="submit"
-          value="تاكيد"
+          value={t('editProfile.submitPass')}
           className={`text-center bgColor w-25 text-white btn my-3 ${classes.formBtn}`}
           disabled={Object.values(errors).some((error) => error !== "")}
         />

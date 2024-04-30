@@ -3,12 +3,12 @@ import SidebarDashboard from "../../components/parking/SidebarDashboard";
 import { useEffect, useState } from "react";
 import SpinnerLoad from "../../components/spinner/Spinner";
 import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
 
 export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
-
+  const { t } = useTranslation();
   useEffect(function () {
-    //console.log("work");
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
@@ -16,7 +16,7 @@ export default function Dashboard() {
   return (
     <>
       <Helmet>
-        <title>Parking Point | البيانات الشخصية</title>
+        <title>Parking Point | {t('dashboard.userData')}</title>
       </Helmet>
       {isLoading ? (
         <SpinnerLoad />

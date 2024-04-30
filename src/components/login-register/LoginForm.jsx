@@ -61,6 +61,7 @@ export default function LoginForm() {
         const res = await axiosInstanceParking.post(`/users/signin`, logInUser);
         dispatch(login(res.data.token));
         dispatch(loggedInState());
+        console.log(res);
         navigate("/");
       } catch (error) {
         toast.error(t("loginMess"));

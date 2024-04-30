@@ -9,27 +9,39 @@ import isLog from "./slices/login";
 import loggedIn from "./slices/authSlice";
 import logInUser from "./slices/logInUser";
 
-const persistConfig = {
-  key: 'root',
-  storage,
-};
+// const persistConfig = {
+//   key: 'root',
+//   storage,
+// };
 
-const persistedReducer = persistReducer(
-  persistConfig,
-  combineReducers({
-    isLog,
-    loggedIn,
-    logInUser,
-    spinner: spinnerReducer,
-    language: languageReducer,
-  })
-);
+// const persistedReducer = persistReducer(
+//   persistConfig,
+//   combineReducers({
+//     isLog,
+//     loggedIn,
+//     logInUser,
+//     spinner: spinnerReducer,
+//     language: languageReducer,
+//   })
+// );
+
+// const store = configureStore({
+//   reducer: persistedReducer,
+  
+// });
 
 const store = configureStore({
-  reducer: persistedReducer,
-  
+  reducer: {
+    isLog:isLog,
+    loggedIn:loggedIn,
+    logInUser:logInUser,
+    spinner: spinnerReducer,
+    language: languageReducer,
+  },
 });
 
-export const persistor = persistStore(store);
+
+
+// export const persistor = persistStore(store);
 
 export default store;

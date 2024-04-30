@@ -1,5 +1,9 @@
-.bg {
+.bgAr {
   background-image: linear-gradient(to right, #331c41 0%, #dcace2 90%);
+  min-height: 48vw;
+}
+.bgEn {
+  background-image: linear-gradient(to left, #331c41 0%, #dcace2 90%);
   min-height: 48vw;
 }
 

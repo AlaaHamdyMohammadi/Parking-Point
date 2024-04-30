@@ -26,8 +26,10 @@ export default function Header() {
   const displayLogin = () => {
     dispatch(changLog(false));
   };
-  const logdedout = () => {
+  const logdedout = async() => {
     dispatch(logout());
+    const res = await axiosInstanceParking.post(`/users/logout`);
+    console.log(res);
     navigate("/");
   };
   const handleChange = useSendCode();

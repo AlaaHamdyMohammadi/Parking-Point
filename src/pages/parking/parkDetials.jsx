@@ -15,11 +15,13 @@ import { FaRegFilePdf } from "react-icons/fa6";
 import { useReactToPrint } from "react-to-print";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from 'react-i18next';
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
 const ParkDetials = () => {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [parkreserved, setParkreserved] = useState({});
   const token = useSelector((state) => state.loggedIn.token);
@@ -80,14 +82,14 @@ const ParkDetials = () => {
   const ComponentPDF = useRef();
   const generatePDF = useReactToPrint({
     content: () => ComponentPDF.current,
-    documentTitle: "الحجوزات",
-    onAfterPrint: () => toast.success(" pdf تم الحفظ الملف "),
+    documentTitle: t('parkDetials.documentTitle'),
+    onAfterPrint: () => toast.success(t('parkDetials.successToastPDF')),
   });
   return (
     <div>
       <>
         <Helmet>
-          <title>Parking Point | تفاصيل الحجز</title>
+          <title>Parking Point | {t('parkDetials.pageTitle')}</title>
         </Helmet>
         {isLoading ? (
           <SpinnerLoad />
@@ -96,18 +98,18 @@ const ParkDetials = () => {
             <div className="w-75 my-5">
               <div className="d-md-flex d-lg-flex justify-content-between gap-4 my-4">
                 <button
-                  className={`text-center my-2  borderCustom w-100 animate    btn `}
+                  className={`text-center my-2 borderCustom w-100 animate btn `}
                   onClick={generatePDF}
                 >
-                  تحميل
+                  {t('parkDetials.download')}
                   <FaRegFilePdf className="text-center  mx-3 fs-5" />
                 </button>
 
                 <button
-                  className={`text-center text-black my-2 borderCustom w-100 animate    btn `}
+                  className={`text-center text-black my-2 borderCustom w-100 animate btn `}
                 >
                   <Link to="/" className="nonLine text-black align-self-center">
-                    الصفحة الرئيسية
+                    {t('home')}
                     <IoArrowRedoCircleOutline className="text-center mx-3  text-black fs-5" />
                   </Link>
                 </button>
@@ -166,27 +168,28 @@ const ParkDetials = () => {
                   </div>
                 </div>
                 <div ref={ComponentPDF}>
-                  <h4 className={`text-center`}>بيانات الحجز:</h4>
+                  <h4 className={`text-center`}>{t('parkDetials.reservationInfo')}</h4>
                   <div className="row  m-2  justify-content-center">
                     <div className=" col-12 col-md-5  m-2 customRange text-center p-2 fw-semibold rounded-2">
-                      من: {from ? new Date(from).toLocaleString() : ""}
+                    {t('parkDetials.from')} {from ? new Date(from).toLocaleString() : ""}
                     </div>
                     <div className=" col-12 col-md-5 m-2 customRange align-self-center text-center p-2 fw-semibold rounded-2">
-                      إلي: {to ? new Date(to).toLocaleString() : ""}
+                    {t('parkDetials.to')} {to ? new Date(to).toLocaleString() : ""}
                     </div>
 
                     <div className="col-12 col-md-5 m-2 customRange text-center p-2 fw-semibold rounded-2">
                       {timeDifference.minutes > 0 ||
                       timeDifference.hours > 0 ||
                       timeDifference.days > 0
-                        ? `مدة الحجز: ${timeDifference.days} يوم, ${timeDifference.hours} ساعة, ${timeDifference.minutes} دقيقة`
-                        : " مدة الركن"}
+                        ? `${t('parkDetials.Bookingduration')} ${timeDifference.days} ${t('parkDetials.day')}, 
+                        ${timeDifference.hours} ${t('parkDetials.hour')}, ${timeDifference.minutes} ${t('parkDetials.minute')}`
+                        : t('parkDetials.parkingduration')}
                     </div>
                     <div className=" col-12 col-md-5 m-2 customRange     text-center   p-2 fw-semibold   rounded-2">
-                      التكلفة: {price} $
+                    {t('parkDetials.cost')} {price} $
                     </div>
                   </div>
-                  <h4 className={`text-center`}>بيانات الموقف:</h4>
+                  <h4 className={`text-center`}>{t('parkDetials.parkingInfo')}</h4>
                   <div className="row  m-2  justify-content-center">
                     <div className=" col-12 col-md-5  m-2 customRange     text-center   p-2 fw-semibold   rounded-2">
                       {parkreserved.title}
@@ -199,14 +202,13 @@ const ParkDetials = () => {
                     </div>
                     <div className=" col-12 col-md-5 m-2 customRange border-none text-center   p-2 fw-semibold   rounded-2">
                       <div className="d-flex justify-content-evenly align-items-center">
-                        <h5 className="fs-5">أضف تقييمك ؟</h5>
+                        <h5 className="fs-5">{t('parkDetials.rate')}</h5>
                         <ParkRating parkId={parkreserved._id} />
                       </div>
                     </div>
                   </div>
                 </div>
-
-                <div className="row  justify-content-center">
+                <div className="row justify-content-center">
                   <ParkLocation
                     className="col-11 col-md-10"
                     location={parkreserved.location}

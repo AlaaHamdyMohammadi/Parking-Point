@@ -7,7 +7,7 @@ import { LuParkingSquareOff } from "react-icons/lu";
 import { MdOutlineAddHomeWork } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import SideBareLink from "../profile/SideBareLink";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/slices/authSlice";
 import useLogInUserData from "../../../hook/useLogInUserData";
 import axiosInstanceParking from "./../../axiosConfig/instanc";
@@ -19,11 +19,14 @@ import { MdVerified } from "react-icons/md";
 import { MdOutlineAdsClick } from "react-icons/md";
 import useSendCode from "../../../hook/useSendCode";
 import ConfimEmailPop from "../login-register/confirmEmailpop";
+import { useTranslation } from "react-i18next";
 
 export default function SidebarProfile() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const logdedout = () => {
+  const logdedout = async() => {
+    const res = await axiosInstanceParking.post(`/users/logout`);
     dispatch(logout());
     navigate("/");
   };
@@ -40,9 +43,10 @@ export default function SidebarProfile() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   const handleUnactive = () => {
-    toast.error("يرجى التواصل مع الدعم  ");
+    toast.error(t('dashboard.support'));
   };
   const handleChange = useSendCode();
+  const language = useSelector((state) => state.language.language);
   return (
     <>
       {isSmallScreen && (
@@ -106,20 +110,20 @@ export default function SidebarProfile() {
                       data-bs-toggle="tooltip"
                       data-bs-placement="top"
                       data-bs-custom-class={`${classes.customTooltip}`}
-                      title="يرجى التواصل مع الدعم"
+                      title={t('dashboard.support')}
                     >
                       <span>
                         <HiLockClosed className="  editIcon p-2" />
                       </span>
                       <span className="icon-text ps-2  ">
-                        {isWide ? "إضافة موقف" : ""}
+                        {isWide ? t('dashboard.addParking') : ""}
                       </span>
                     </div>
                   ) : (
                     <SideBareLink
                       href={`/Profile/parking`}
                       icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
-                      text="إضافة موقف"
+                      text="{t('dashboard.addParking')}"
                     />
                   )}
                   <ToastContainer position="top-right" autoClose={10000} />
@@ -127,25 +131,25 @@ export default function SidebarProfile() {
                   <SideBareLink
                     href={`/`}
                     icon={<LuParkingSquareOff className="  editIcon p-2" />}
-                    text="المواقف"
+                    text={t('dashboard.parking')}
                   />
                 </>
               )}
               <SideBareLink
                 href={`/Profile/sales`}
                 icon={<LiaMoneyCheckAltSolid className=" editIcon p-1" />}
-                text="حجوزاتي"
+                text={t('dashboard.reservations')}
               />
               <SideBareLink
                 href={`/Profile/editOwnerProfile`}
                 icon={<MdEditNote className=" editIcon p-1" />}
-                text="تعديل حسابي"
+                text={t('dashboard.editAccount')}
               />
               <div onClick={logdedout} className="sidebar fs-5" role="button">
                 <span>
                   <IoIosLogOut className=" editIcon p-1" />
                 </span>
-                <span className="icon-text pe-1">تسجيل الخروج</span>
+                <span className="icon-text pe-1">{t('dashboard.logout')}</span>
               </div>
             </div>
           </div>
@@ -159,7 +163,7 @@ export default function SidebarProfile() {
           onMouseOver={() => {
             setWide(true);
           }}
-          className={`${classes.sidebar} pe-2 position-fixed pt-2 top-0 end-0 z-1 transition whiteSpace h-100 overflow-x-hidden bgColor 
+          className={`${classes.sidebar} pe-2 position-fixed pt-2 top-0 ${language=='ar'?'end-0':'start-0'} z-1 transition whiteSpace h-100 overflow-x-hidden bgColor 
           `}
         >
           <div className={`d-flex mt-md-2 fs-5 fw-bold gap-2 `}>
@@ -203,20 +207,20 @@ export default function SidebarProfile() {
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
                     data-bs-custom-class={`${classes.customTooltip}`}
-                    title="يرجى التواصل مع الدعم   "
+                    title={t('dashboard.support')}
                   >
                     <span>
                       <HiLockClosed className="  editIcon p-2" />
                     </span>
                     <span className="icon-text ps-2  ">
-                      {isWide ? "إضافة موقف" : ""}
+                      {isWide ? t('dashboard.addParking') : ""}
                     </span>
                   </div>
                 ) : (
                   <SideBareLink
                     href={`/Profile/parking`}
                     icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
-                    text={isWide ? "إضافة موقف" : ""}
+                    text={isWide ? t('dashboard.addParking') : ""}
                   />
                 )}
                 <ToastContainer position="top-right" autoClose={10000} />
@@ -224,25 +228,25 @@ export default function SidebarProfile() {
                 <SideBareLink
                   href={`/`}
                   icon={<LuParkingSquareOff className="editIcon p-2" />}
-                  text={isWide ? "المواقف" : ""}
+                  text={isWide ? t('dashboard.parking') : ""}
                 />
               </>
             )}
             <SideBareLink
               href={`/Profile/sales`}
               icon={<LiaMoneyCheckAltSolid className=" editIcon p-1" />}
-              text={isWide ? "حجوزاتي" : ""}
+              text={isWide ? t('dashboard.reservations') : ""}
             />
             <SideBareLink
               href={`/Profile/editOwnerProfile`}
               icon={<MdEditNote className=" editIcon " />}
-              text={isWide ? "تعديل حسابي" : ""}
+              text={isWide ? t('dashboard.editAccount') : ""}
             />
             <div onClick={logdedout} className="sidebar fs-5" role="button">
               <span>
                 <IoIosLogOut className=" editIcon p-1 " />
               </span>
-              {isWide && <span className="icon-text pe-2"> تسجيل الخروج</span>}
+              {isWide && <span className="icon-text pe-2">{t('dashboard.logout')}</span>}
             </div>
           </div>
         </div>
