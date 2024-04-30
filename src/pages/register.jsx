@@ -9,7 +9,6 @@ import { Helmet } from "react-helmet";
 function Register() {
   const [showFormStatus, setShowFormStatus] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
   const isLog = useSelector((state) => state.isLog.isLog);
   useEffect(() => {
     setShowFormStatus(isLog);
@@ -26,6 +25,7 @@ function Register() {
       setIsLoading(false);
     }, 1000);
   }, []);
+  const language = useSelector((state) => state.language.language);
   return (
     <>
       <Helmet>
@@ -34,7 +34,7 @@ function Register() {
       {isLoading ? (
         <SpinnerLoad />
       ) : (
-        <div  className={`${classes.bg}`}>
+        <div className={`${language == "ar" ? classes.bgAr : classes.bgEn}`}>
           <div className={`container pt-2`}>
             <div className={`row`}>
               <div className={`col-9 col-md-11`}></div>

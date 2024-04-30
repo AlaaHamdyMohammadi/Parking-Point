@@ -242,7 +242,7 @@ export default function RegisterForm({ setShowFormStatus }) {
               />
               <button
                 type="button"
-                className="btn Gray border border-0"
+                className="btn Gray border-0"
                 style={{ position: "absolute", zIndex: "1" }}
                 onClick={togglePasswordVisibility}
               >

@@ -24,8 +24,6 @@ import SuccessPayment from "./pages/SuccessPayment";
 import HandelErorr from "./pages/HandelErorr";
 import { useSelector } from "react-redux";
 
-
-
 const router = createBrowserRouter([
   {
     path: "/",

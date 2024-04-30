@@ -6,6 +6,5 @@ import { useSelector } from "react-redux";
 
 export default function Home() {
   const isLoggedIn = useSelector((state) => state.loggedIn.loggedIn);
-
   return <>{isLoggedIn ? <HomeLogin /> : <HomeLogout />}</>;
 }

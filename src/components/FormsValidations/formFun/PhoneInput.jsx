@@ -7,7 +7,7 @@ export default function PhoneInput({
   errors,
   setErrors,
 }) {
-  let phoneRegx = /^(?:(?:\+|00)968)?(9[1-9]\d{6})$/;
+  let phoneRegx = /^(?:(?:\+|00)968)?(9|7[1-9]\d{6})$/;
   const phoneNumberValidation = (event) => {
     const { name, value } = event.target;
     setErrors({
