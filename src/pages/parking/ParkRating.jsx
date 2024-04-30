@@ -7,8 +7,10 @@ import { FaStar } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { toast, ToastContainer } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const ParkRating = ({ parkId }) => {
+  const { t } = useTranslation();
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const token = useSelector((state) => state.loggedIn.token);
@@ -27,10 +29,9 @@ const ParkRating = ({ parkId }) => {
           },
         }
       );
-      toast.success("تم إضافة تقييمك بنجاح!شكرا لك");
-      //console.log("response:", response);
+      toast.success(t('parkDetials.successToastRate'));
     } catch (error) {
-      toast.error("لقد قمت بتقييم الموقف سابقأ");
+      toast.error(t('parkDetials.errorToastRate'));
       console.error("Error occurred :", error);
       if (error.response) {
         console.error("Response data:", error.response.data);

@@ -1,5 +1,6 @@
 {
   "parking": "Park in the nearest available spot.",
+  "home":"Home Page",
   "addParking": {
     "addParking": "Add parking",
     "imgErr": "You must add a minimum of one photo",
@@ -53,11 +54,38 @@
     "confirmPassword": "password confirmation",
     "submitPass": "submit"
   },
-  "ownerProfile": {},
-  "parkDetials": {},
+  "ownerProfile": {
+    "userInfo":"Personal data",
+    "name":"Name",
+    "email":"Email",
+    "phone":"Phone Number",
+    "region":"Region",
+    "state":"Governorate",
+    "city":"The State",
+    "plateNumber":"Plate Number",
+    "carType":"The type of the vehicle",
+    "car":"Car"
+  },
+  "parkDetials": {
+    "documentTitle":"Reservations",
+    "successToastPDF":"pdf file saved",
+    "pageTitle":"Booking details",
+    "download":"Download",
+    "reservationInfo":"Booking information:",
+    "from":"from:",
+    "to":"to:",
+    "Bookingduration:":"Booking duration:",
+    "day":"day",
+    "hour":"hour",
+    "minute":"minute",
+    "parkingduration":"Parking duration",
+    "cost":"Cost:",
+    "parkingInfo":"Parking information",
+    "rate":"Add your rating",
+    "successToastRate":"Your rating has been added successfully! Thank you",
+    "errorToastRate":"I have already evaluated the situation"
+  },
   "parkingHome": {},
   "parkLocation": {},
-  "parkRating": {},
-  "sales": {},
-  "viewProfile": {}
+  "sales": {}
 }

@@ -1,5 +1,6 @@
 {
   "parking": "اركن في أقرب موقف لك",
+  "home":"الصفحة الرئيسية",
   "addParking": {
     "addParking": "إضافة موقف",
     "imgErr": "يجب إضافة صورة بحد ادنى",
@@ -52,8 +53,37 @@
     "confirmPassword": "تأكيد كلمه السر",
     "submitPass": "تاكيد"
   },
-  "ownerProfile": {},
-  "parkDetials": {},
+  "ownerProfile": {
+    "userInfo":"البيانات الشخصية",
+    "name":"الاسم",
+    "email":"الايميل",
+    "phone":"الهاتف",
+    "region":"المنطقه",
+    "state":"المحافظه",
+    "city":"الولاية",
+    "plateNumber":"رقم اللوحة ",
+    "carType":"نوع المركبة",
+    "car":"سيارة"
+  },
+  "parkDetials": {
+    "documentTitle":"الحجوزات",
+    "successToastPDF":"pdf تم الحفظ الملف ",
+    "pageTitle":"تفاصيل الحجز",
+    "download":"تحميل",
+    "reservationInfo":"بيانات الحجز:",
+    "from":"من:",
+    "to":"الي:",
+    "Bookingduration:":"مدة الحجز:",
+    "day":"يوم",
+    "hour":"ساعة",
+    "minute":"دقيقة",
+    "parkingduration":"مدة الركن",
+    "cost":"التكلفة:",
+    "parkingInfo":"بيانات الموقف:",
+    "rate":"أضف تقييمك",
+    "successToastRate":"تم إضافة تقييمك بنجاح!شكرا لك",
+    "errorToastRate":"لقد قمت بتقييم الموقف سابقأ"
+  },
   "parkingHome": {},
   "parkLocation": {},
   "parkRating": {},
