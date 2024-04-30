@@ -274,7 +274,14 @@
   "terms46": "Choice of Law and Judicial Authority Your use of the site and its terms and conditions are subject to the laws of the State of the Sultanate of Oman and you agree to submit to the judicial authority of the Muscat courts. However, the parking point platform reserves the right to conduct a trial in the location of the country in which you are located. Notice It is possible for the parking point platform to provide you with notices and contact information via By e-mail, regular mail, through the website or by any other means, except as stipulated in contravention of this law, notices must be sent to the parking point platform via e-mail.",
   "reservationDate":{
     "errorToast1":"The end date of your reservation must be after the start date.",
-    "errorToast2":"An error occurred! Please enter valid information and try again"
+    "errorToast2":"An error occurred! Please enter valid information and try again",
+    "startingFrom":"Starting from :",
+    "to":"to:",
+    "reservationEnd":"Reservation end date",
+    "parkingDuration":"Know the parking duration",
+    "showParking":"Show parking",
+    "confirmEmail":"*For reservations, please confirm your email first",
+    "click":"-Click here to confirm"
   }
 }
 

@@ -142,7 +142,7 @@ export default function EndDateTime({
             </select>
           </div>
           <div className={BookNow ? "  d-none text-end  " : " text-end "}>
-            <label className=" p-2 ">بداية من :</label>
+            <label className=" p-2">{t('reservationDate.startingFrom')}</label>
             {/* m-2 ms-3 p-1  */}
             <input
               icon={<FcOvertime />}
@@ -156,7 +156,7 @@ export default function EndDateTime({
           </div>
           <div className="text-end ">
             <label className=" p-2">
-              {BookNow ? "موعد نهاية الحجز :" : "إلي :"}
+              {BookNow ? t('reservationDate.reservationEnd') : t('reservationDate.to')}
             </label>
             <input
               className=" customRange Gray  focus border-0 pointer text-center w-100  p-2  rounded-2"
@@ -174,8 +174,8 @@ export default function EndDateTime({
             {timeDifference.minutes > 0 ||
             timeDifference.hours > 0 ||
             timeDifference.days > 0
-              ? ` ${timeDifference.days} يوم, ${timeDifference.hours}  ساعة, ${timeDifference.minutes} دقيقة`
-              : " معرفة مدة الركن "}
+              ? ` ${timeDifference.days} ${t('parkDetials.day')}, ${timeDifference.hours} ${t('parkDetials.hour')}, ${timeDifference.minutes} ${t('parkDetials.minute')}`
+              : t('reservationDate.parkingDuration')}
           </div>
           <div className={`text-end`}>
             <button
@@ -183,18 +183,18 @@ export default function EndDateTime({
               className={`text-center bgColor text-white btn  my-3 ${classes.formBtn}`}
               disabled={user.isEmailConfirmed == false && true}
             >
-              اعرض المواقف
+              {t('reservationDate.showParking')}
             </button>
             {user.isEmailConfirmed == true && (
               <div className="text-danger">
-                <div>* للحجز يرجي تاكيد البريد الاليكتروني اولا</div>
+                <div>{t('reservationDate.confirmEmail')}</div>
                 <div
                   className={`${classes.resendcode} pointer fs-6 fw-bold mt-md-1`}
                   data-bs-toggle="modal"
                   data-bs-target="#staticBackdrop"
                   onClick={handleChange}
                 >
-                  - اضغط هنا للتاكيد
+                  {t('reservationDate.click')}
                 </div>
               </div>
             )}
