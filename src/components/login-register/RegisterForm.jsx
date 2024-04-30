@@ -4,7 +4,6 @@ import { useState } from "react";
 import classes from "./../../styles/formStyles.module.css";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 
-import ConfirmationCodeInput from "./confirmEmail";
 import { login } from "../../store/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ConfimEmailPop from "./confirmEmailpop";
@@ -21,7 +20,10 @@ import CitySelect from "../FormsValidations/formFun/CitySelect";
 import RegionInput from "../FormsValidations/formFun/RegionInput";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from "react-i18next";
+
 export default function RegisterForm({ setShowFormStatus }) {
+  const { t } = useTranslation();
   const [showEmailModal, setShowEmailModal] = useState(false);
   const dispatch = useDispatch();
   const [registeUser, setRegisteUser] = useState({
@@ -64,12 +66,12 @@ export default function RegisterForm({ setShowFormStatus }) {
         ...errors,
         passwordErrors:
           value.length === 0
-            ? "يجب ادخال رقم سري"
+            ? t("registerPass1")
             : value.length <= 7
-            ? "يحب ادخال 8 احرف بحد ادني"
+            ? t("registerPass2")
             : passwordRegx.test(value)
             ? ""
-            : "يجب ادخال حرف كبير وحرف صغير ورقم بحد ادني",
+            : t("registerPass3"),
       });
     }
     if (name === "confirmPassword") {
@@ -77,10 +79,10 @@ export default function RegisterForm({ setShowFormStatus }) {
         ...errors,
         confirmPasswordErrors:
           value.length === 0
-            ? "يجب تاكيد الرقم السري"
+            ? t("registerConfirmPass1")
             : value == registeUser.password
             ? ""
-            : "الرقم غير صحيح",
+            : t("registerConfirmPass2"),
       });
     }
     if (name === "role") {
@@ -88,10 +90,10 @@ export default function RegisterForm({ setShowFormStatus }) {
         ...errors,
         roleErrors:
           value.length === 0
-            ? "يجب اختيار النوع"
+            ? t("registerRole1")
             : roleRegx.test(value)
             ? ""
-            : "يجب اختيار من واحد من الاختيارات المقدمة",
+            : t("registerRole2"),
       });
     }
     if (registeUser.role === "renter") {
@@ -100,10 +102,10 @@ export default function RegisterForm({ setShowFormStatus }) {
           ...errors,
           nationalIdErrors:
             value.length === 0
-              ? "يجب ادخال رقم الهوية"
+              ? t("registerErr1")
               : regionRegx.test(value)
               ? ""
-              : "يجب ادخال ثلاثة احرف بحد ادني",
+              : t("registerErr2"),
         });
       }
     }
@@ -136,7 +138,7 @@ export default function RegisterForm({ setShowFormStatus }) {
           formData.append("plateNumber", registeUser.plateNumber);
         }
         const res = await axiosInstanceParking.post(`/users/signup`, formData);
-        toast.success("تم التسجيل بنجاح !شكرا لك");
+        toast.success(t('successRegistration'));
         setTimeout(() => {
           setShowEmailModal(true);
           setShowFormStatus(false);
@@ -146,28 +148,28 @@ export default function RegisterForm({ setShowFormStatus }) {
         if (error.response.request.response.includes(registeUser.email)) {
           setErrors({
             ...errors,
-            emailErrors: "البريد الاليكتروني مستخدم من قبل",
+            emailErrors: t("registerEmailErr1"),
           });
         } else if (
           error.response.request.response.includes(registeUser.phoneNumber)
         ) {
           setErrors({
             ...errors,
-            phoneNumberErrors: "رقم الجوال مستخدم من قبل",
+            phoneNumberErrors: t("registerMobileErr1"),
           });
         } else if (
           error.response.request.response.includes(registeUser.plateNumber)
         ) {
           setErrors({
             ...errors,
-            plateNumberErrors: "رقم اللوحة مستخدم من قيل",
+            plateNumberErrors: t("registerPlateErr1"),
           });
         } else if (
           error.response.request.response.includes(registeUser.nationalId)
         ) {
           setErrors({
             ...errors,
-            nationalIdErrors: "رقم الهوية مستخدم من قبل",
+            nationalIdErrors: t("registerIDErr1"),
           });
         } else {
           //console.log("signup request not successful", error.response.request);
@@ -229,7 +231,7 @@ export default function RegisterForm({ setShowFormStatus }) {
           </div>
           <div className="mt-4">
             <label className="fs-5" htmlFor="password">
-              كلمة السر
+              {t("password")}
             </label>
             <div className="d-flex  w-100 justify-content-end">
               <input
@@ -255,7 +257,7 @@ export default function RegisterForm({ setShowFormStatus }) {
           </div>
           <div className="mt-4">
             <label className="fs-5" htmlFor="confirmPassword">
-              تأكيد كلمه السر
+              {t("confirmPassword")}
             </label>
             <input
               type="password"
@@ -278,7 +280,9 @@ export default function RegisterForm({ setShowFormStatus }) {
               setErrors={setErrors}
             />
           </div>
-          <label className="mt-4 fs-5 col-md-4 col-12"> نوع الحساب</label>
+          <label className="mt-4 fs-5 col-md-4 col-12">
+            {t("registerAccontType")}
+          </label>
           <div className="mt-2 row">
             <div className="col-md-6 col-12 mt-3 mt-md-0">
               <input
@@ -292,7 +296,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                 onBlur={registeValidation}
               />
               <label className="fs-5 ms-md-1" htmlFor="driver">
-                مُستأجر
+                {t("registerAccontType1")}
               </label>
             </div>
             <div className="col-md-6 col-12 mt-3 mt-md-0">
@@ -307,7 +311,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                 onBlur={registeValidation}
               />
               <label className="fs-5" htmlFor="renter">
-                مُؤجر
+                {t("registerAccontType2")}
               </label>
             </div>
           </div>
@@ -336,7 +340,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                 type="submit"
                 data-bs-toggle={showEmailModal ? "modal" : ""}
                 data-bs-target={showEmailModal ? "#staticBackdrop" : ""}
-                value="إنشاء حساب"
+                value={t("createAccout")}
                 className={
                   Object.values(errors).some((error) => error !== "")
                     ? `btn bgColor text-white col-4 disabled`
@@ -382,7 +386,7 @@ export default function RegisterForm({ setShowFormStatus }) {
               </div>
               <div className="mt-4">
                 <label className="fs-5" htmlFor="nationalId">
-                  رقم الهوية
+                  {t("nationalId")}
                 </label>
                 <input
                   type="text"
@@ -399,7 +403,7 @@ export default function RegisterForm({ setShowFormStatus }) {
               <div>
                 <input
                   type="submit"
-                  value="إنشاء حساب"
+                  value={t("createAccout")}
                   data-bs-toggle={showEmailModal ? "modal" : ""}
                   data-bs-target={showEmailModal ? "#staticBackdrop" : ""}
                   className={

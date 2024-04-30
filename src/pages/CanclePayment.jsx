@@ -1,9 +1,13 @@
 import { useEffect } from "react";
 import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function CancelPayment() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
+
   useEffect(() => {
     setTimeout(() => {
       navigate("/");
@@ -34,9 +38,9 @@ export default function CancelPayment() {
             </div>
             <div className="text-center ">
               {/* <h1>شكرًا لك!</h1> */}
-              <p>لقد تم إلغاء عمليه الدفع...</p>
+              <p>{t('cancel')}</p>
               {/* <button className="btn btn-outline-success">Back Home</button> */}
-              <p> الرئيسية...</p>
+              <p>{t('main')}</p>
               <Spinner animation="border" variant="danger" size="lg" />;
             </div>
           </div>

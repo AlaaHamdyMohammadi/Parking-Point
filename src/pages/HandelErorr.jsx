@@ -1,16 +1,17 @@
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function HandelErorr() {
   let navigate = useNavigate();
+  const { t } = useTranslation();
+
   let goBack = () => {
     navigate(-1);
   };
   return (
     <main className="pb-3">
-      <h2 className="text-center">للأسف حدث خطا</h2>
-      <h5 className="text-center mt-md-4">
-        يرجي العودة في وقت اخر او التواصل مع فريق الدعم
-      </h5>
+      <h2 className="text-center">{t("handleErrorh2")}</h2>
+      <h5 className="text-center mt-md-4">{t("handleErrorh5")}</h5>
       <div className="d-flex justify-content-center">
         <img
           src="/images/error-Service-Unavailable.png"
@@ -25,7 +26,7 @@ export default function HandelErorr() {
               to={`/`}
               className="text-decoration-none btn btn-outline-warning text-dark"
             >
-              الصفحة الرئيسية
+              {t("hendleErrorHome")}
             </Link>
           </div>
           <div>
@@ -33,7 +34,7 @@ export default function HandelErorr() {
               onClick={goBack}
               className="text-decoration-none btn btn-outline-warning text-dark"
             >
-              الرجوع
+              {t("handleErrorBack")}
             </button>
           </div>
         </div>

@@ -10,9 +10,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import ForgotPassword from "./forgetPassword/ForgotPassword";
+import { useTranslation } from "react-i18next";
+
+
 export default function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+    const { t } = useTranslation();
+
   const [isTrueErrors, setIsTrueErrors] = useState("");
   const [logInUser, setLogInUser] = useState({
     email: "",
@@ -32,13 +37,13 @@ export default function LoginForm() {
     if (name === "email") {
       setErrors({
         ...errors,
-        emailErrors: value.length === 0 ? "ادخل البريد الاليكتروني" : "",
+        emailErrors: value.length === 0 ? t("emailInp1") : "",
       });
     }
     if (name === "password") {
       setErrors({
         ...errors,
-        passwordErrors: value.length === 0 ? "ادخل رقمك السري" : "",
+        passwordErrors: value.length === 0 ? t("registerPass1") : "",
       });
     }
     setLogInUser({ ...logInUser, [name]: value });
@@ -58,7 +63,7 @@ export default function LoginForm() {
         dispatch(loggedInState());
         navigate("/");
       } catch (error) {
-        toast.error("من فضلك ادخل بيانات صحيحة");
+        toast.error(t("loginMess"));
         console.error(error);
       }
     }
@@ -69,7 +74,7 @@ export default function LoginForm() {
         <p className={`text-danger`}>{isTrueErrors}</p>
         <div>
           <label htmlFor="email" className="fs-5">
-            البريد الالكتروني
+            {t("registerEmail")}
           </label>
           <input
             type="email"
@@ -84,7 +89,7 @@ export default function LoginForm() {
         <div>
           <div className="mt-4">
             <label htmlFor="password" className="fs-5">
-              كلمة السر
+              {t("password")}
             </label>
             <div className="input-group">
               <div className="d-flex w-100 justify-content-end">
@@ -117,7 +122,7 @@ export default function LoginForm() {
         </div>
         <input
           type="submit"
-          value="تسجيل الدخول"
+          value={t("login")}
           className={
             Object.values(errors).some((error) => error !== "")
               ? "btn bgColor text-white col-4 disabled"
@@ -135,7 +140,7 @@ export default function LoginForm() {
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
       >
-        نسيت كلمه السر ؟
+        {t("forgetPass")}
       </div>
       <ForgotPassword />
     </main>

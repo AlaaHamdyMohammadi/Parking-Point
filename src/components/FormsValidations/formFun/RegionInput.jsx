@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 
+import { useTranslation } from "react-i18next";
+
 export default function RegionInput({
   classes,
   setRegionInfo,
@@ -8,6 +10,7 @@ export default function RegionInput({
   setErrors,
 }) {
   let regionRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;
+  const { t } = useTranslation();
   const regionValidation = (event) => {
     const { name, value } = event.target;
     // if (role === "renter") {
@@ -15,10 +18,10 @@ export default function RegionInput({
       ...errors,
       regionErrors:
         value.length === 0
-          ? "يجب ادخال المنطقه"
+          ? t("regionInp1")
           : regionRegx.test(value)
           ? ""
-          : "يجب ادخال ثلاثة احرف بحد ادني",
+          : t("registerErr2"),
     });
     // }
     setRegionInfo({ ...regionInfo, [name]: value });
@@ -26,7 +29,7 @@ export default function RegionInput({
   return (
     <>
       <label className="fs-5 mb-1" htmlFor="region">
-        المنطقه
+        {t('registerRegion')}
       </label>
       <input
         type="text"

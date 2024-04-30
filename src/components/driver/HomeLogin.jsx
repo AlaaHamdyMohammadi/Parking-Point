@@ -1,23 +1,20 @@
 import Map from "./Map";
-// import ParkingCard from "./ParkingCard";
 import { IoArrowRedoCircleOutline } from "react-icons/io5";
-// import classes from "./../../styles/formStyles.module.css";
 import { useEffect, useState } from "react";
 import EndDateTime from "./EndDT";
-// import StarRating from "./StarRating";
 import ParkingCard from "./ParkingCard";
 import useLogInUserData from "../../../hook/useLogInUserData";
 import ParkingHome from "../../pages/parking/ParkingHome";
 import SpinnerLoad from "../spinner/Spinner";
+import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet";
 
 export default function HomeLogin() {
   const user = useLogInUserData();
+  const { t } = useTranslation();
   const [isSearch, setIsSearch] = useState(false);
-  // const [SearchParks, setSearchParks] = useState([]);
   const [AvaliableParksFilter, setAvaliableParksFilter] = useState([]);
   const [ReserveTime, setReserveTime] = useState({});
-
   const [isLoading, setIsLoading] = useState(true);
   function handlesetIsSearch() {
     setIsSearch(!isSearch);
@@ -29,10 +26,6 @@ export default function HomeLogin() {
   }
   function handelBookLater() {
     setBookNow(!BookNow);
-    // setsearchData({
-    //   city: "",
-    // from: BookNow ? new Date().toISOString().slice(0, 16) : null,
-    // to: null})
   }
   const handleReserveChange = (AvaliableParks) => {
     setAvaliableParksFilter(AvaliableParks);
@@ -75,7 +68,7 @@ export default function HomeLogin() {
                       }
                     >
                       {" "}
-                      حجز الآن
+                      {t("BookNow")}
                     </div>
                     <div
                       onClick={handelBookLater}
@@ -86,7 +79,7 @@ export default function HomeLogin() {
                       }
                     >
                       {" "}
-                      احجز لآحقا
+                      {t("BookLater")}
                     </div>
                   </div>
                   <div className={`card border-0  my-3`}>
@@ -94,7 +87,7 @@ export default function HomeLogin() {
                       className={` shadow height text-center p-2 border-secondary-subtlepx-2 rounded-2 w-100 height`}
                     >
                       <div className={` fs-5 pe-4 my-4  text-end  fw-bolder`}>
-                        ابحث عن اقرب موقف
+                        {t("searchForBarking")}
                       </div>
                       <div className={``}>{/* <SelectLocation /> */}</div>
                       <div className={`mb-2`}>
@@ -118,7 +111,7 @@ export default function HomeLogin() {
                 >
                   <div className="d-flex justify-content-between  my-4">
                     {/* <div className="fs-5 fw-bolder">اختر الموقف المناسب</div> */}
-                    <div className=" fw-bold">المواقف الأقرب لك ....</div>
+                    <div className=" fw-bold">{t("nearstParking")}</div>
                     <div className="pointer fs-5  " onClick={handlesetIsSearch}>
                       <IoArrowRedoCircleOutline />
                     </div>
@@ -139,7 +132,7 @@ export default function HomeLogin() {
                       />
                     ) : (
                       <div className="fs-3 fw-semibold text-center ">
-                        <p className="my-5 py-5"> لا يوجد مواقف متاحة</p>
+                        <p className="my-5 py-5">{t('noParkings')}</p>
                       </div>
                     )}
                   </div>

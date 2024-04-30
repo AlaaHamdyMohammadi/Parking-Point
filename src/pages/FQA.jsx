@@ -1,10 +1,14 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/no-unescaped-entities */
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import "./../styles/FQA.css";
 import { CgArrowUpR } from "react-icons/cg";
 import { BsArrowDownSquare } from "react-icons/bs";
-import { useState } from "react";
 
 export default function Fqa() {
+    const { t } = useTranslation();
+
   const [show, setShow] = useState(false);
   const handlesetshow = () => {
     setShow(!show);
