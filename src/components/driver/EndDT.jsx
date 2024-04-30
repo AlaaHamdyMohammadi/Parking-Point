@@ -99,6 +99,7 @@ export default function EndDateTime({
     }
   };
   const handleChange = useSendCode();
+  console.log(user);
   return (
     <>
       <form method="post" onSubmit={sendQuery}>
