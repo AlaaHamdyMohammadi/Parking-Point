@@ -45,7 +45,7 @@ export default function HomeLogin() {
   return (
     <>
       <Helmet>
-        <title>Parking Point | احجز الآن</title>
+        <title>Parking Point | {t("BookNow")}</title>
       </Helmet>
       {isLoading ? (
         <SpinnerLoad />
@@ -67,7 +67,7 @@ export default function HomeLogin() {
                           : "p-2 fw-bold pointer text-secondary text-opacity-50  border-0"
                       }
                     >
-                      {" "}
+                      
                       {t("BookNow")}
                     </div>
                     <div
@@ -78,7 +78,7 @@ export default function HomeLogin() {
                           : "p-2 fw-bold pointer  text-secondary text-opacity-50 border-0"
                       }
                     >
-                      {" "}
+                      
                       {t("BookLater")}
                     </div>
                   </div>
