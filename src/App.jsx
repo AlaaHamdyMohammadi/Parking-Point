@@ -141,13 +141,31 @@ const router = createBrowserRouter([
   },
   { path: "/map", element: <LiveLocation /> },
 ]);
+import { I18nextProvider } from "react-i18next";
+import i18next from "i18next";
+import enTranslation from "./../src/components/locales/en/translation.json";
+import arTranslation from "./../src/components/locales/ar/translation.json";
 
 function App() {
   const language = useSelector((state) => state.language.language);
+i18next.init({
+  interpolation: { escapeValue: false },
+  lng: language, // Default language
+  resources: {
+    ar: {
+      translation: arTranslation,
+    },
+    en: {
+      translation: enTranslation,
+    },
+  },
+});
   return (
+    <I18nextProvider i18n={i18next}>
     <div dir={`${language=='ar'?'rtl':'ltr'}`}>
       <RouterProvider router={router} />
     </div>
+    </I18nextProvider>
   );
 }
 

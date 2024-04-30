@@ -19,14 +19,14 @@ import { MdVerified } from "react-icons/md";
 import { MdOutlineAdsClick } from "react-icons/md";
 import useSendCode from "../../../hook/useSendCode";
 import ConfimEmailPop from "../login-register/confirmEmailpop";
-import LangaugeSwitch from "../header/LangaugeSwitch";
 import { useTranslation } from "react-i18next";
 
 export default function SidebarProfile() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const logdedout = () => {
+  const logdedout = async() => {
+    const res = await axiosInstanceParking.post(`/users/logout`);
     dispatch(logout());
     navigate("/");
   };
