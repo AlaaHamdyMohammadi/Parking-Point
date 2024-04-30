@@ -22,6 +22,8 @@ export default function EndDateTime({
 }) {
   const user = useLogInUserData();
   const token = useSelector((state) => state.loggedIn.token);
+  const todayDate = new Date().toISOString().slice(0, 16);
+  console.log("today date", todayDate)
   const [timeDifference, setTimeDifference] = useState({
     days: 0,
     hours: 0,
@@ -30,7 +32,8 @@ export default function EndDateTime({
   const { t } = useTranslation();
   const [searchData, setSearchData] = useState({
     city: "",
-    from: BookNow ? new Date(Date.now()) : "",
+    // from: BookNow ? new Date(Date.now()) : "",
+    from: BookNow ? todayDate : "",
     // Set default value to current date and time if BookNow is true
     to: null,
   });
@@ -146,6 +149,7 @@ export default function EndDateTime({
               className=" customRange Gray focus  border-0 pointer text-center w-100  p-2 rounded-2"
               type="datetime-local"
               name="from"
+              min={todayDate}
               value={searchData.from}
               onChange={handleInputChange}
             />
@@ -159,6 +163,7 @@ export default function EndDateTime({
               type="datetime-local"
               name="to"
               value={searchData.to}
+              min={searchData.from || todayDate}
               onChange={handleInputChange}
             />
           </div>
