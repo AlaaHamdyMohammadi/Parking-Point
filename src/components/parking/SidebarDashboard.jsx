@@ -7,7 +7,7 @@ import { LuParkingSquareOff } from "react-icons/lu";
 import { MdOutlineAddHomeWork } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import SideBareLink from "../profile/SideBareLink";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/slices/authSlice";
 import useLogInUserData from "../../../hook/useLogInUserData";
 import axiosInstanceParking from "./../../axiosConfig/instanc";
@@ -46,6 +46,7 @@ export default function SidebarProfile() {
     toast.error(t('dashboard.support'));
   };
   const handleChange = useSendCode();
+  const language = useSelector((state) => state.language.language);
   return (
     <>
       {isSmallScreen && (
@@ -162,7 +163,7 @@ export default function SidebarProfile() {
           onMouseOver={() => {
             setWide(true);
           }}
-          className={`${classes.sidebar} pe-2 position-fixed pt-2 top-0 end-0 z-1 transition whiteSpace h-100 overflow-x-hidden bgColor 
+          className={`${classes.sidebar} pe-2 position-fixed pt-2 top-0 ${language=='ar'?'end-0':'start-0'} z-1 transition whiteSpace h-100 overflow-x-hidden bgColor 
           `}
         >
           <div className={`d-flex mt-md-2 fs-5 fw-bold gap-2 `}>
@@ -247,7 +248,6 @@ export default function SidebarProfile() {
               </span>
               {isWide && <span className="icon-text pe-2">{t('dashboard.logout')}</span>}
             </div>
-            <LangaugeSwitch />
           </div>
         </div>
       )}
