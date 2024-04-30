@@ -6,8 +6,10 @@ import classes from "./../../styles/formStyles.module.css";
 import "react-toastify/dist/ReactToastify.css";
 import useSendCode from "../../../hook/useSendCode";
 import CountdownTimer from "./CountdownTimer";
+import { useTranslation } from "react-i18next";
 
 export default function ConfimEmailPop({ userEmail }) {
+  const { t } = useTranslation();
   const [resetTimer, setResetTimer] = useState(false); // State to trigger timer reset
   const handleChange = useSendCode();
 
@@ -49,12 +51,11 @@ export default function ConfimEmailPop({ userEmail }) {
                 <ConfirmationCodeInput length={6} onConfirm={(code) => code} />
               </div>
               <p className="fs-6 pt-2 px-2 text-justify">
-                شكرا لتسجيلك معنا! لقد تم إرسال رمز التحقق إلى عنوان بريدك
-                الإلكتروني المُسجّل
+                {t("confirmEmailPop1")}
                 <span className={`${classes.resendcode} px-1`}>
                   {userEmail}
                 </span>{" "}
-                يُرجى فتح بريدك الإلكتروني ونسخ الرمز المُرسل
+                {t("confirmEmailPop2")}
               </p>
             </div>
             <div className="modal-footer d-flex  justify-content-between">
@@ -65,11 +66,11 @@ export default function ConfimEmailPop({ userEmail }) {
                   handleResetTimer();
                 }}
               >
-                إعادة إرسال رمز التأكيد
+                {t("confirmEmailPop3")}
               </div>
               <span className="text-secondary fs-6 ">
-                إرسال الرمز خلال <CountdownTimer resetTimer={resetTimer} />{" "}
-                دقائق
+                {t("confirmEmailPop4")}{" "}
+                <CountdownTimer resetTimer={resetTimer} />{" "}
               </span>
             </div>
           </div>

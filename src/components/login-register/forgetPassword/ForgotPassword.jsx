@@ -8,6 +8,9 @@ import { FaRegEyeSlash } from "react-icons/fa6";
 import axiosInstanceParking from "../../../axiosConfig/instanc";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from "react-i18next";
+
+
 const ForgotPassword = () => {
   const [registeUser, setRegisteUser] = React.useState({ email: "" });
   const [codeconfirmed, setCodeconfirmed] = useState(false);
@@ -27,7 +30,7 @@ const ForgotPassword = () => {
     tokenErrors: "*",
     emailErrors: "*",
   });
-
+  const { t } = useTranslation();
   let passwordRegx = /^[a-zA-Z0-9]{8,}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -38,12 +41,12 @@ const ForgotPassword = () => {
         ...errors,
         passwordErrors:
           value.length === 0
-            ? "يجب ادخال رقم سري"
+            ? t("registerPass1")
             : value.length <= 7
-            ? "يحب ادخال 8 احرف بحد ادني"
+            ? t("registerPass2")
             : passwordRegx.test(value)
             ? ""
-            : "يجب ادخال حرف كبير وحرف صغير ورقم بحد ادني",
+            : t("registerPass3"),
       });
       setPassword(value);
     }
@@ -52,10 +55,10 @@ const ForgotPassword = () => {
         ...errors,
         confirmPasswordErrors:
           value.length === 0
-            ? "يجب تاكيد الرقم السري"
+            ? t("registerConfirmPass1")
             : value == password
-              ? ""
-              : "الرقم غير صحيح",
+            ? ""
+            : t("registerConfirmPass2"),
       });
       setConfirmPassword(value);
     }
@@ -64,10 +67,10 @@ const ForgotPassword = () => {
         ...errors,
         emailErrors:
           value.length === 0
-            ? "يرجى إدخال بريد إلكتروني صحيح"
+            ? t("emailInp2")
             : emailRegex.test(value)
             ? ""
-            : "من فضلك ادخل بريدك الاليكتروني",
+            : t('emailInp1'),
       });
       setEmail(value);
     }
@@ -76,9 +79,9 @@ const ForgotPassword = () => {
         ...errors,
         tokenErrors:
           value.length === 0
-            ? "يجب  ادخال رمز التحقق"
+            ? t("forgetPass1")
             : value.length !== 6
-            ? "يجب ان إدخال رمز التحقق المرسل"
+            ? t("forgetPass2")
             : "",
       });
       setToken(value);
@@ -101,7 +104,7 @@ const ForgotPassword = () => {
       // toast.error("لا يوجد حساب مسجل علي هذا البريد الالكتروني");
       setErrors({
         ...errors,
-        emailErrors: "لا يوجد حساب مسجل علي هذا البريد الالكتروني",
+        emailErrors: t("forgetPassErr1"),
       });
       console.log("Error: ", error);
     }
@@ -118,7 +121,7 @@ const ForgotPassword = () => {
       if (error.response) {
         setErrors({
           ...errors,
-          tokenErrors: "الرمز غير صحيح او منتهي الصلاحية",
+          tokenErrors: t("forgetPassErr2"),
         });
         console.log("Error data:", error.response.data);
         // toast.error("رمز التحقق غير صحيح");
@@ -138,19 +141,19 @@ const ForgotPassword = () => {
       setTimeout(() => {
         window.location.reload();
       }, 3000);
-      toast.success("تم تفعيل كلمة السر بنجاح");
+      toast.success(t("forgetPassSccess1"));
     } catch (error) {
       if (error.response) {
-        toast.error("حدث خطأ! يرجى المحاولة مرة أخرى");
-        console.log("Error data:", error.response.data);
+        toast.error(t("forgetPassErr3"));
+        //console.log("Error data:", error.response.data);
       } else if (error.request) {
-        toast.error("حدث خطأ! يرجى المحاولة مرة أخرى");
+        toast.error(t("forgetPassErr3"));
 
-        console.log("No response received from server:", error.request);
+        //console.log("No response received from server:", error.request);
       } else {
-        toast.error("حدث خطأ! يرجى المحاولة مرة أخرى");
+        toast.error(t("forgetPassErr3"));
 
-        console.log("Error while setting up request:", error.message);
+        //console.log("Error while setting up request:", error.message);
       }
     }
   }
@@ -180,9 +183,7 @@ const ForgotPassword = () => {
               <div className="modal-body  p-0 px-4">
                 <div className=" d-flex ">
                   <div className="d-flex flex-column  ">
-                    <label className=" pt-2">
-                      الرجاء إدخال عنوان بريدك الإلكتروني للبحث عن حسابك:
-                    </label>
+                    <label className=" pt-2">{t("forgetPass3")}</label>
                     <input
                       type="email"
                       name="email"
@@ -210,7 +211,7 @@ const ForgotPassword = () => {
                 <div className="modal-footer p-0 m-0 d-flex justify-content-start">
                   <input
                     type="submit"
-                    value="بحث"
+                    value={t("search")}
                     onClick={() => {
                       handleForgotPassword();
                     }}
@@ -227,7 +228,7 @@ const ForgotPassword = () => {
                     className="text-center  bgColor text-white btn"
                     data-bs-dismiss="modal"
                   >
-                    إلغاء
+                    {t("cancelProcess")}
                   </button>
                 </div>
               </div>
@@ -258,7 +259,7 @@ const ForgotPassword = () => {
               <div className="modal-body p-0">
                 <div className="d-flex">
                   <div className="text-end pe-3 align-self-center ">
-                    <label className=" pt-2">رمز التحقق:</label>
+                    <label className=" pt-2">{t("verificationCode")}</label>
 
                     <input
                       type="text"
@@ -290,14 +291,14 @@ const ForgotPassword = () => {
                 </div>
 
                 <p className="fs-6  px-4 text-justify-center">
-                  لقد تم إرسال رمز التحقق إلى عنوان بريدك الإلكتروني المُسجّل
+                  {t("forgetPass4")}
                   <span className={`${classes.resendcode} mx-1`}>{email}</span>
-                  يُرجى فتح بريدك الإلكتروني و نسخ الرمز المُرسل.
+                  {t("forgetPass5")}
                 </p>
                 <div className="modal-footer p-0 px-3 m-0 justify-content-start">
                   <input
                     type="submit"
-                    value="تأكيد"
+                    value={t("send")}
                     onClick={() => {
                       handleToken();
                     }}
@@ -349,7 +350,7 @@ const ForgotPassword = () => {
                 <div className="d-flex">
                   <div>
                     <div className="text-end pe-3 align-self-center ">
-                      <label className=" pb-2">كلمة السر الجديده:</label>
+                      <label className=" pb-2">{t("forgetPass6")}</label>
 
                       <div className="input-group">
                         <div className="d-flex  w-100 justify-content-end">
@@ -391,7 +392,7 @@ const ForgotPassword = () => {
                       </p>
                     </div>
                     <div className="text-end pe-3 align-self-center ">
-                      <label className=" pb-2">تأكيد كلمة السر:</label>
+                      <label className=" pb-2">{t("confirmPassword")}</label>
 
                       <div className="input-group">
                         <div className="d-flex  w-100 justify-content-end">
@@ -437,7 +438,7 @@ const ForgotPassword = () => {
                 <div className="modal-footer p-0 px-3 m-0 justify-content-start">
                   <input
                     type="submit"
-                    value="تأكيد"
+                    value={t('send')}
                     onClick={handleResetPassword}
                     className="text-center bgColor text-white btn"
                     data-bs-dismiss={esc ? "modal" : ""}
@@ -450,7 +451,7 @@ const ForgotPassword = () => {
                     className="text-center  bgColor text-white btn"
                     data-bs-dismiss="modal"
                   >
-                    إلغاء
+                    {t('cancelProcess')}
                   </button>
                 </div>
               </div>

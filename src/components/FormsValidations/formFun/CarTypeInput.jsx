@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useTranslation } from "react-i18next";
 
 export default function CarTypeInput({
   classes,
@@ -8,6 +9,8 @@ export default function CarTypeInput({
   setErrors,
 }) {
   let carTypeRegx = /^(سيارة)$/;
+    const { t } = useTranslation();
+
   const plateNumberValidation = (event) => {
     const { name, value } = event.target;
     // if (role === "driver") {
@@ -15,10 +18,10 @@ export default function CarTypeInput({
       ...errors,
       carTypeErrors:
         value === ""
-          ? "يجب اختيار نوع السيارة"
+          ? t("carInp1")
           : carTypeRegx.test(value)
           ? ""
-          : "النوع سيارة فقط",
+          : t("carInp2"),
     });
     // }
     setCarTypeInfo({ ...carTypeInfo, [name]: value });
@@ -26,13 +29,13 @@ export default function CarTypeInput({
   return (
     <>
       <label className="fs-5 mb-1" htmlFor="plateNumber">
-        نوع المركبة
+        {t("registerCar")}
       </label>
       <input
         type="text"
         name="plateNumber"
         id="plateNumber"
-        value={`سيارة`}
+        value={t("registerCar1")}
         className={`${classes.input}  form-control border border-secondary shadow-none`}
         onChange={plateNumberValidation}
         onBlur={plateNumberValidation}

@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 
+import { useTranslation } from "react-i18next";
+
 export default function PhoneInput({
   classes,
   setPhoneNumberInfo,
@@ -7,17 +9,19 @@ export default function PhoneInput({
   errors,
   setErrors,
 }) {
-  let phoneRegx = /^(?:(?:\+|00)968)?(9|7[1-9]\d{6})$/;
+  let phoneRegx = /^(?:(?:\+|00)968)?(9[1-9]\d{6})$/;
+    const { t } = useTranslation();
+
   const phoneNumberValidation = (event) => {
     const { name, value } = event.target;
     setErrors({
       ...errors,
       phoneNumberErrors:
         value.length === 0
-          ? "يجب ادخال رقم الجوال"
+          ? t("phoneInp1")
           : phoneRegx.test(value)
           ? ""
-          : "يجب ادخال رقم جوال صحيح",
+          : t("phoneInp2"),
     });
     setPhoneNumberInfo({ ...phoneNumberInfo, [name]: value });
   };
@@ -25,7 +29,7 @@ export default function PhoneInput({
     <>
       <div className="form-group mb-3 w-100 ">
         <label htmlFor="email" className="mb-1 fs-5">
-          رقم الهاتف
+          {t("registerMobile")}
         </label>
         <input
           type={`text`}

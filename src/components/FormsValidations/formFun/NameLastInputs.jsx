@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
 
+import { useTranslation } from "react-i18next";
+
+
 export default function NameLastInputs({
   classes,
   setLastNameInfo,
@@ -8,6 +11,8 @@ export default function NameLastInputs({
   setErrors,
 }) {
   let nameRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;
+    const { t } = useTranslation();
+
   const lastNameValidation = (event) => {
     const { name, value } = event.target;
     // if (name === "firstName") {
@@ -22,10 +27,10 @@ export default function NameLastInputs({
         ...errors,
         lastNameErrors:
           value.length === 0
-            ? "يجب ادخال الاسم الاخير"
+            ? t("LastName1")
             : nameRegx.test(value)
             ? ""
-            : "يجب ادخال ثلاثة احرف بحد ادني",
+            : t("registerErr2"),
       });
     }
     setLastNameInfo({ ...lastNameInfo, [name]: value });
@@ -34,7 +39,7 @@ export default function NameLastInputs({
     <>
       <div className="form-group mb-3 w-100">
         <label className="fs-5 mb-1" htmlFor="lastName">
-          الأسم الاخير
+          {t("LastName2")}
         </label>
         <input
           className={`${classes.input}  form-control border-secondary shadow-none`}

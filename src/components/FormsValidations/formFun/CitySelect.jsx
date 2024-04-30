@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 
+import { useTranslation } from "react-i18next";
+
 export default function CitySelect({
   cityInfo,
   classes,
@@ -8,6 +10,8 @@ export default function CitySelect({
   setErrors,
 }) {
   let cityRegx = /^(مسقط|مطرح|السيب|بوشر|العامرات|قريات)$/;
+    const { t } = useTranslation();
+
   const cityValidation = (event) => {
     const { name, value } = event.target;
     // if (role === "renter") {
@@ -15,10 +19,10 @@ export default function CitySelect({
       ...errors,
       cityErrors:
         value.length === 0
-          ? "يجب اختيار الولاية"
+          ? t("cityInp1")
           : cityRegx.test(value)
           ? ""
-          : "يجب اختيار من واحد من الاختيارات المقدمة",
+          : t("cityInp2"),
     });
     // }
     setCityInfo({ ...cityInfo, [name]: value });
@@ -26,7 +30,7 @@ export default function CitySelect({
   return (
     <>
       <label className="fs-5 mb-1" htmlFor="city">
-        الولاية
+        {t("registerCity")}
       </label>
       <select
         id="city"
@@ -37,25 +41,25 @@ export default function CitySelect({
         onBlur={cityValidation}
       >
         <option className="" value={` `} selected hidden>
-          حدد الولاية
+          {t("registerCity1")}
         </option>
         <option className="text-black" value="مسقط">
-          مسقط
+          {t("city1")}
         </option>
         <option className="text-black" value="مطرح">
-          مطرح
+          {t("city2")}
         </option>
         <option className="text-black" value="السيب">
-          السيب
+          {t("city3")}
         </option>
         <option className="text-black" value="بوشر">
-          بوشر
+          {t("city4")}
         </option>
         <option className="text-black" value="العامرات">
-          العامرات
+          {t("city5")}
         </option>
         <option className="text-black" value="قريات">
-          قريات
+          {t("city6")}
         </option>
       </select>
       <p className={`${classes.error} text-danger`}>{errors.cityErrors}</p>

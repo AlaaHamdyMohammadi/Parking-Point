@@ -6,7 +6,10 @@ import LoginForm from "../components/login-register/LoginForm";
 import RegisterForm from "../components/login-register/RegisterForm";
 import SpinnerLoad from "../components/spinner/Spinner";
 import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
+
 function Register() {
+  const { t } = useTranslation();
   const [showFormStatus, setShowFormStatus] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const isLog = useSelector((state) => state.isLog.isLog);
@@ -29,7 +32,7 @@ function Register() {
   return (
     <>
       <Helmet>
-        <title>Parking Point |  تسجيل الدخول</title>
+        <title>Parking Point | تسجيل الدخول</title>
       </Helmet>
       {isLoading ? (
         <SpinnerLoad />
@@ -51,13 +54,13 @@ function Register() {
                     className={`${classes.loginBtn} bgColor text-white btn ms-5`}
                     onClick={registerClicked}
                   >
-                    إنشاء حساب
+                    {t("createAccout")}
                   </div>
                   <div
                     className={`${classes.loginBtn} bgColor text-white btn`}
                     onClick={loginClicked}
                   >
-                    تسجيل الدخول
+                    {t("login")}
                   </div>
                 </div>
                 <div className="col-md-7 col-12">

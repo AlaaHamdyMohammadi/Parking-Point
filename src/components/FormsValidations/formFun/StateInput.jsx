@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useTranslation } from "react-i18next";
 
 export default function StateInput({
   classes,
@@ -8,6 +9,7 @@ export default function StateInput({
   setErrors,
 }) {
   let stateRegx = /^(مسقط)$/;
+  const { t } = useTranslation();
   const stateValidation = (event) => {
     const { name, value } = event.target;
     // if (role === "renter") {
@@ -15,10 +17,10 @@ export default function StateInput({
       ...errors,
       stateErrors:
         value.length === 0
-          ? "يجب ادخال المحافظه"
+          ? t("stateInp1")
           : stateRegx.test(value)
           ? ""
-          : "المحافظه المتاحة مسقط قفط",
+          : t('stateInp2'),
     });
     setStateInfo({ ...stateInfo, [name]: value });
   };
@@ -26,7 +28,7 @@ export default function StateInput({
   return (
     <>
       <label className="fs-5 mb-1" htmlFor="state">
-        المحافظه
+        {t("registerState")}
       </label>
       <input
         type="text"

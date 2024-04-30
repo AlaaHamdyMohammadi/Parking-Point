@@ -4,10 +4,12 @@ import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axiosInstanceParking from "../axiosConfig/instanc";
+import { useTranslation } from "react-i18next";
 
 const SuccessPayment = () => {
-  const token = useSelector((state) => state.loggedIn.token);
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const token = useSelector((state) => state.loggedIn.token);
   const [parkId, setParkId] = useState("");
   useEffect(() => {
     const handlePayment = async () => {
@@ -68,12 +70,9 @@ const SuccessPayment = () => {
               </svg>
             </div>
             <div className="text-center ">
-              <h1>شكرًا لك!</h1>
-              <p>
-                تم إتمام عملية الدفع بنجاح،يمكنك الآن الذهاب الي الموقف و
-                الاستمتاع بخدماتنا.
-              </p>
-              <p> تفاصيل الحجز...</p>
+              <h1>{t("successPayment1")}</h1>
+              <p>{t("successPayment2")}</p>
+              <p>{t("successPayment3")}</p>
               <Spinner animation="border" variant="success" size="lg" />
             </div>
           </div>

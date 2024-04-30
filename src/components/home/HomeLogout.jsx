@@ -1,4 +1,4 @@
-import classes from "./../../styles/header.module.css";
+/* eslint-disable react/no-unknown-property */
 import SearchInput from "../driver/SearchInput";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -29,9 +29,7 @@ export default function HomeLogout() {
               className={`col-12 col-md-6 d-flex align-items-center bgColor justify-content-center`}
             >
               <div className={`w-75`}>
-                <div className={`fs-3 my-5 text-light`}>
-                {t('parking')}
-                </div>
+                <div className={`fs-3 my-5 text-light`}>{t("parking")}</div>
                 <Link to={`/register`}>
                   <SearchInput />
                 </Link>
@@ -57,7 +55,7 @@ export default function HomeLogout() {
               className={`col-12 col-md-6 d-flex align-items-center justify-content-center`}
             >
               <div className={`col-md-7 col-10`}>
-                <div className={`fs-1 fw-bold mb-3`}>نبذه عنا</div>
+                <div className={`fs-1 fw-bold mb-3`}>{t("aboutUs")}</div>
                 {/* <div className={`${classes.font} mb-3`} align="justify">
                   موقع الكتروني لحجز مواقف للسيارات هو نظام يستخدم لحجز المواقف
                   المتاحة من قبل المنازل و المباني وتيسير عملية حجزها. يهدف
@@ -72,28 +70,11 @@ export default function HomeLogout() {
                 </div> */}
 
                 <ul className="p-3 m-0">
-                  <li align="justify">
-                    وقع الكتروني لحجز مواقف للسيارات هو نظام يستخدم لحجز المواقف
-                    المتاحة من قبل المنازل و المباني وتيسير عملية حجزها
-                  </li>
-                  <li>
-                    يهدف المشروع إلى تحسين تجربة مستخدمي السيارات في العثور على
-                    مواقف بشكل أكثر فعالية.
-                  </li>
-                  <li align="justify">
-                    يسمح للمستخدمين برؤية المواقف الشاغرة وحجزها عبر هواتفهم.
-                  </li>
-                  <li align="justify">
-                    المشروع يعتمد على موقع الكتروني للكشف عن توفرها، مما يتيح
-                    للسائقين معرفة المواقف الفارغة قبل وصولهم إلى المكان. ويظهر
-                    لهم المواقف الشاغرة بشكل فعال.
-                  </li>
-                  <li align="justify">
-                    تتضمن الخدمة أيضًا نظام دفع آمن يتيح للمستخدمين دفع رسوم
-                    الاستخدام أو حجز المواقف عبر الموقع الالكتروني. يعمل المشروع
-                    على توفير مواقف للسيارات بشكل أمن وتجنب الوقوف العشوائي في
-                    المناطق.المزدحمة
-                  </li>
+                  <li align="justify">{t("aboutUs1")}</li>
+                  <li>{t("aboutUs2")}</li>
+                  <li align="justify">{t("aboutUs3")}</li>
+                  <li align="justify">{t("aboutUs4")}</li>
+                  <li align="justify">{t("aboutUs5")}</li>
                 </ul>
               </div>
             </div>

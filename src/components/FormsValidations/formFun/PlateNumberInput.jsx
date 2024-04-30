@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 
+import { useTranslation } from "react-i18next";
+
 export default function PlateNumberInput({
   classes,
   setPlateNumberInfo,
@@ -8,6 +10,7 @@ export default function PlateNumberInput({
   setErrors,
 }) {
   let plateNumberRegx = /^[0-9\u0600-\u06FF]{1,5}[a-z\u0600-\u06FF]{1,2}$/;
+  const { t } = useTranslation();
   const plateNumberValidation = (event) => {
     const { name, value } = event.target;
     // if (role === "driver") {
@@ -15,10 +18,10 @@ export default function PlateNumberInput({
       ...errors,
       plateNumberErrors:
         value.length === 0
-          ? "يجب رقم لوحة السيارة"
+          ? t("plateInp1")
           : plateNumberRegx.test(value)
           ? ""
-          : "يجب ادخال رقم لوحة صحيح",
+          : t("plateInp2"),
     });
     // }
     setPlateNumberInfo({ ...plateNumberInfo, [name]: value });
@@ -26,7 +29,7 @@ export default function PlateNumberInput({
   return (
     <>
       <label className="fs-5 mb-1" htmlFor="plateNumber">
-        رقم اللوحة
+        {t("registerPlate")}
       </label>
       <input
         type="text"

@@ -1,4 +1,7 @@
 /* eslint-disable react/prop-types */
+import { useTranslation } from "react-i18next";
+
+
 export default function NameInputs({
   classes,
   setNameInfo,
@@ -7,16 +10,17 @@ export default function NameInputs({
   setErrors,
 }) {
   let nameRegx = /^[A-Za-z0-9\u0600-\u06FF]{3,}$/;
+  const { t } = useTranslation();
   const nameValidation = (event) => {
     const { name, value } = event.target;
     setErrors({
       ...errors,
       fristNameErrors:
         value.length === 0
-          ? "يجب ادخال الاسم الاول"
+          ? t("NameInp1")
           : nameRegx.test(value)
           ? ""
-          : "يجب ادخال ثلاثة احرف بحد ادني",
+          : t("registerErr2"),
     });
     setNameInfo({ ...nameInfo, [name]: value });
   };
@@ -24,7 +28,7 @@ export default function NameInputs({
     <>
       <div className="form-group mb-3 w-100">
         <label className="fs-5 mb-1" htmlFor="firstName">
-          الأسم الاول
+          {t("NameInp2")}
         </label>
         <input
           type="text"
