@@ -10,7 +10,7 @@ export default function Header_2() {
       <div className="">
         <Link to={`/`}>
           <img
-            src="/parkingpointlogo2.png"
+            src="/images/logo3.png"
             className={`${classes.logo} mt-1  p-1 mx-4`}
           />
         </Link>

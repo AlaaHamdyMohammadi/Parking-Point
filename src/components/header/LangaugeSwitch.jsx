@@ -27,15 +27,15 @@ const LangaugeSwitch = () => {
       {selectedLanguage === "ar" ? (
         <div className="nav-item fw-bold">
           <div
-            className="nav-link d-flex active ms-4  text-white"
+            className="nav-link active text-white"
             aria-current="page"
             onClick={() => {
               handleChangeLanguage("en");
             }}
             style={{ cursor: "pointer" }}
           >
-            <p style={{ marginLeft: "5px" }}>English</p>
-            <img
+            <p>English</p>
+            {/* <img
               style={{
                 width: "24px",
                 height: "24px",
@@ -43,21 +43,21 @@ const LangaugeSwitch = () => {
               }}
               src="EnglandFlag.png"
               alt="EnglandFlag"
-            />
+            /> */}
           </div>
         </div>
       ) : (
         <div className="nav-item fw-bold">
           <div
-            className="nav-link d-flex g-1 active ms-4  text-white"
+            className="nav-link active text-white"
             aria-current="page"
             onClick={() => {
               handleChangeLanguage("ar");
             }}
             style={{ cursor: "pointer" }}
           >
-            <p style={{ marginLeft: "5px" }}>العربية</p>
-            <img
+            <p>العربية</p>
+            {/* <img
               style={{
                 width: "24px",
                 height: "24px",
@@ -65,7 +65,7 @@ const LangaugeSwitch = () => {
               }}
               src="OmanFlag.png"
               alt="OmanFlag"
-            />
+            /> */}
           </div>
         </div>
       )}
