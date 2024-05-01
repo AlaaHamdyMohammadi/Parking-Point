@@ -80,7 +80,7 @@ export default function Header() {
                       <span className="ps-2">
                         <LiaMoneyCheckAltSolid />
                       </span>
-                      {t('header.reservations')}
+                      {('hteader.reservations')}
                     </Link></li>
                     <li><Link
                       to={`/Profile/editOwnerProfile`}
