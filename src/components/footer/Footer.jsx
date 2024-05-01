@@ -3,22 +3,23 @@ import { TfiEmail } from "react-icons/tfi";
 import { Link } from "react-router-dom";
 import { BsTwitterX } from "react-icons/bs";
 import { FaWhatsapp } from "react-icons/fa6";
+import { useTranslation } from "react-i18next";
 
 const whatsappNumber = "+96877344277";
 
 export default function Footer() {
   const whatsappUrl = `https://wa.me/${whatsappNumber}`;
-
+  const { t } = useTranslation();
   return (
     <footer className=" bgColor mb-0 z-3 end-0 position-absolute w-100 ">
       <ul className="nav justify-content-center   py-3 mb-1">
         <li className="nav-item">
-          <Link className=" px-2 hoverColor animate transition">الرئيسية</Link>
+          <Link className=" px-2 hoverColor animate transition">{t('home')}</Link>
         </li>
 
         <li className="nav-item">
           <Link to={"/Terms"} className=" px-2 hoverColor animate transition">
-            الشروط والأحكام
+            {t('footer.terms')}
           </Link>
         </li>
         <li className="nav-item">
@@ -26,7 +27,7 @@ export default function Footer() {
             className=" px-2 hoverColor animate transition"
             href="mailto:parkingpoint@outlook.com"
           >
-            الدعم الفني
+            {t('header.support')}
           </a>
         </li>
       </ul>

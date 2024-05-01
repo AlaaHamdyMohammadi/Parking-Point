@@ -14,8 +14,10 @@ import { LiaMoneyCheckAltSolid } from "react-icons/lia";
 import ConfimEmailPop from "../login-register/confirmEmailpop";
 import useSendCode from "../../../hook/useSendCode";
 import LangaugeSwitch from "./LangaugeSwitch";
+import { useTranslation } from "react-i18next";
 
 export default function Header() {
+  const { t } = useTranslation();
   const user = useLogInUserData();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -61,7 +63,7 @@ export default function Header() {
                         <span className="ps-2">
                           <LiaMoneyCheckAltSolid />
                         </span>
-                        حجوزاتي
+                        {t('header.reservations')}
                       </Link>
                     </li>
                     <li>
@@ -72,7 +74,7 @@ export default function Header() {
                         <span className="ps-2">
                           <IoPerson />
                         </span>
-                        إدارة حسابي
+                        {t('header.myaccount')}
                       </Link>
                     </li>
                     <li>
@@ -83,7 +85,7 @@ export default function Header() {
                         <span className="ps-2">
                           <MdContactSupport />
                         </span>
-                        الدعم الفني
+                        {t('header.support')}
                       </a>
                     </li>
                     <li>
@@ -95,7 +97,7 @@ export default function Header() {
                         <span className="ps-2 text-danger">
                           <IoIosLogOut />
                         </span>
-                        تسجيل الخروج
+                        {t('header.logout')}
                       </div>
                     </li>
                   </div>
@@ -158,7 +160,7 @@ export default function Header() {
                       displayLogin();
                     }}
                   >
-                    تسجيل الدخول
+                    {t('header.login')}
                   </Link>
                 </div>
                 <div className="nav-item fw-bold">
@@ -170,7 +172,7 @@ export default function Header() {
                       displayRegester();
                     }}
                   >
-                    التسجيل
+                    {t('header.register')}
                   </Link>
                 </div>
                 <LangaugeSwitch />
@@ -185,21 +187,21 @@ export default function Header() {
             {(!user.isActivated || !user.isEmailConfirmed) && (
               <>
                 <div className="alert alert-danger" role="alert">
-                  <div>لكي تتمكن من اضافة موقف</div>
+                  <div>{t('header.toAdd1')}</div>
                   <ul>
                     {user.isActivated === false && (
-                      <li>يرجى التواصل مع الدعم لتأكيد الهوية</li>
+                      <li>{t('header.toAdd2')}</li>
                     )}
                     {user.isEmailConfirmed === false && (
                       <>
-                        <li>يرجى تأكيد البريد الالكتروني</li>
+                        <li>{t('header.toAdd3')}</li>
                         <div
                           className={`${classes.resendcode} pointer fs-6 fw-bold mt-md-1`}
                           data-bs-toggle="modal"
                           data-bs-target="#staticBackdrop"
                           onClick={handleChange}
                         >
-                          - اضغط هنا للتأكيد
+                          {t('header.toAdd4')}
                         </div>
                         <ConfimEmailPop userEmail={user.email} />
                       </>

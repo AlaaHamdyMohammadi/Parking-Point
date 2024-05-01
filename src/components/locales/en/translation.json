@@ -288,6 +288,21 @@
     "successToast2":"The email has been confirmed successfully",
     "errorToast1":"An error occurred while confirming the email",
     "errorToast2":"The verification code is invalid"
+  },
+  "header":{
+    "reservations":"my Reservations",
+    "myaccount":"My account",
+    "support":"Support",
+    "logout":"Logout",
+    "login":"Login",
+    "register":"Register",
+    "toAdd1":"In order to be able to add a position",
+    "toAdd2":"Please contact support to confirm your identity",
+    "toAdd3":"Please confirm your email",
+    "toAdd4":"-Click here to confirm"
+  },
+  "footer":{
+    "terms":"Terms and Conditions"
   }
 }
 
