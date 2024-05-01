@@ -32,7 +32,7 @@ function Register() {
   return (
     <>
       <Helmet>
-        <title>Parking Point | تسجيل الدخول</title>
+        <title>Parking Point | {t('login')}</title>
       </Helmet>
       {isLoading ? (
         <SpinnerLoad />
@@ -49,9 +49,9 @@ function Register() {
             </div>
             <div className={`row`}>
               <div className={`col-12 col-md-7`}>
-                <div className="mb-5 d-flex">
+                <div className="my-4 d-flex">
                   <div
-                    className={`${classes.loginBtn} bgColor text-white btn ms-5`}
+                    className={`${classes.loginBtn} bgColor text-white btn mx-md-5 mx-4`}
                     onClick={registerClicked}
                   >
                     {t("createAccout")}
