@@ -87,7 +87,6 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
         console.error("Error occurred while confirming email:", error);
         if (error.response) {
           toast.error(t('ConfirmationCodeInput.errorToast2'));
-
           console.error("Response data:", error.response.data);
         }
       }

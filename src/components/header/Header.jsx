@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Link, useNavigate } from "react-router-dom";
-import {useState} from "react";
+import { useState } from "react";
 import classes from "./../../styles/header.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { changLog } from "../../store/slices/login";
@@ -26,7 +26,7 @@ export default function Header() {
   const displayLogin = () => {
     dispatch(changLog(false));
   };
-  const logdedout = async() => {
+  const logdedout = async () => {
     dispatch(logout());
     const res = await axiosInstanceParking.post(`/users/logout`);
     console.log(res);
@@ -34,15 +34,19 @@ export default function Header() {
   };
   const handleChange = useSendCode();
 
-  
+
   return (
     <main>
       <div className="navColor p-1 shadow">
         <nav
-          className={`container d-flex navbar-expand-lg justify-content-between`}
-        >
+          className={`container d-flex navbar navbar-expand-lg justify-content-between `}>
+          <button className="navbar-toggler navbar-dark text-body-tertiary"
+            type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
           {isLoggedIn ? (
-            <div className="position-relative d-flex justify-content-center align-items-center   col-1">
+            <div className="position-relative d-flex justify-content-center align-items-center col-1">
               <div className="btn-group border-0">
                 <button
                   type="button"
@@ -143,8 +147,8 @@ export default function Header() {
               </div>
             </div>
           ) : (
-            <div className="" id="navbarSupportedContent">
-              <div className="navbar-nav pt-2 justify-content mb-lg-0 w-100 d-flex flex-row gap-3">
+            <div className="collapse navbar-collapse" id="navbarNavDropdown">
+              <div className="navbar-nav pt-2 justify-content-end mb-lg-0 w-100 d-flex flex-row gap-4">
                 <div className="nav-item fw-bold">
                   <Link
                     to={`/register`}
