@@ -56,7 +56,7 @@ const Map = ({ AvaliableParksFilter }) => {
   };
 
   return (
-    <div style={{ width: "74.8vw", height: "100vh" }}>
+    <div style={{ width: "74vw", height: "100vh" }}>
       <ReactMapGL
         {...viewport}
         mapStyle={mapStyle}
