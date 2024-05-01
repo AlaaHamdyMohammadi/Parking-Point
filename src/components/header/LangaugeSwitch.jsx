@@ -6,16 +6,13 @@ import { changeLanguage } from "../../store/slices/language";
 
 const LangaugeSwitch = () => {
   const {t, i18n } = useTranslation();
-  console.log(t('parking'));
   const [selectedLanguage, setSelectedLanguage] = React.useState("ar");
   const dispatch = useDispatch();
   const language = useSelector((state) => state.language.language);
-  console.log(language);
   
   const handleChangeLanguage = (newLanguage) => {
     i18n.changeLanguage(newLanguage);
     setSelectedLanguage(newLanguage);
-    // console.log(newLanguage);
     if (newLanguage === "en") {
       // document.documentElement.classList.add("ltr");
       dispatch(changeLanguage(newLanguage))
