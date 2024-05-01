@@ -27,7 +27,7 @@ const LangaugeSwitch = () => {
       {selectedLanguage === "ar" ? (
         <div className="nav-item fw-bold">
           <div
-            className="nav-link active text-white"
+            className="nav-link active mx-md-5 text-white"
             aria-current="page"
             onClick={() => {
               handleChangeLanguage("en");
@@ -49,7 +49,7 @@ const LangaugeSwitch = () => {
       ) : (
         <div className="nav-item fw-bold">
           <div
-            className="nav-link active text-white"
+            className="nav-link active mx-md-5 text-white"
             aria-current="page"
             onClick={() => {
               handleChangeLanguage("ar");

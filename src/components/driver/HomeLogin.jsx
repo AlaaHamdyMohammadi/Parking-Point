@@ -57,7 +57,7 @@ export default function HomeLogin() {
             <div className={`d-lg-flex flex-row gap-1`}>
               {/* sec1 */}
               {!isSearch && (
-                <div className="  col-lg-3  px-3 col-md-12 col-sm-12">
+                <div className="col-lg-3 px-3 col-md-12 col-sm-12">
                   <div className="d-flex mt-4 gap-4 ">
                     <div
                       onClick={handelBookNow}

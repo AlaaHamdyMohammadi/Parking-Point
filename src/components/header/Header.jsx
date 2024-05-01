@@ -36,7 +36,6 @@ export default function Header() {
   };
   const handleChange = useSendCode();
 
-
   return (
     <main>
       <nav className="navbar navbar-expand-lg navColor p-1 shadow">
