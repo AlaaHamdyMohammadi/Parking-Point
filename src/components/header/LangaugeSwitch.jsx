@@ -35,15 +35,6 @@ const LangaugeSwitch = () => {
             style={{ cursor: "pointer" }}
           >
             <p>English</p>
-            {/* <img
-              style={{
-                width: "24px",
-                height: "24px",
-                borderRadius: "50%",
-              }}
-              src="EnglandFlag.png"
-              alt="EnglandFlag"
-            /> */}
           </div>
         </div>
       ) : (
@@ -57,15 +48,6 @@ const LangaugeSwitch = () => {
             style={{ cursor: "pointer" }}
           >
             <p>العربية</p>
-            {/* <img
-              style={{
-                width: "24px",
-                height: "24px",
-                borderRadius: "50%",
-              }}
-              src="OmanFlag.png"
-              alt="OmanFlag"
-            /> */}
           </div>
         </div>
       )}

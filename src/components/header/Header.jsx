@@ -35,7 +35,7 @@ export default function Header() {
     navigate("/");
   };
   const handleChange = useSendCode();
-
+  const language = useSelector((state) => state.language.language);
   return (
     <main>
       <nav className="navbar navbar-expand-lg navColor p-1 shadow">
@@ -76,7 +76,7 @@ export default function Header() {
                     />
                   </Link>
                   <ul className="dropdown-menu">
-                    <li><Link to={`/Profile/sales`} className="dropdown-item">
+                    <li><Link to={`/Profile/sales`} className={`dropdown-item ${language=='ar'?'ps-md-5':''}`}>
                       <span className="ps-2">
                         <LiaMoneyCheckAltSolid />
                       </span>
@@ -84,7 +84,7 @@ export default function Header() {
                     </Link></li>
                     <li><Link
                       to={`/Profile/editOwnerProfile`}
-                      className="dropdown-item"
+                      className={`dropdown-item ${language=='ar'?'ps-md-5':''}`}
                     >
                       <span className="ps-2">
                         <IoPerson />
@@ -92,7 +92,7 @@ export default function Header() {
                       {t('header.myaccount')}
                     </Link></li>
                     <li> <a
-                      className="dropdown-item"
+                      className={`dropdown-item ${language=='ar'?'ps-md-5':''}`}
                       href="mailto:parkingpoint@outlook.com"
                     >
                       <span className="ps-2">
@@ -102,7 +102,7 @@ export default function Header() {
                     </a></li>
                     <li><div
                       role="button"
-                      className="dropdown-item  text-danger border-top"
+                      className="dropdown-item ps-md-5 text-danger border-top"
                       onClick={logdedout}
                     >
                       <span className="ps-2 text-danger">
