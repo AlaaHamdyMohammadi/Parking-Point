@@ -138,7 +138,7 @@ export default function RegisterForm({ setShowFormStatus }) {
           formData.append("plateNumber", registeUser.plateNumber);
         }
         const res = await axiosInstanceParking.post(`/users/signup`, formData);
-        toast.success(t('successRegistration'));
+        toast.success(t("successRegistration"));
         setTimeout(() => {
           setShowEmailModal(true);
           setShowFormStatus(false);
@@ -280,8 +280,8 @@ export default function RegisterForm({ setShowFormStatus }) {
               setErrors={setErrors}
             />
           </div>
-          <label className="mt-4 fs-5 col-md-4 col-12">
-            {t("registerAccontType")}
+          <label className="mt-4 fs-5 col-md-4  col-12">
+            <div className="">{t("registerAccontType")}</div>
           </label>
           <div className="mt-2 row">
             <div className="col-md-6 col-12 mt-3 mt-md-0">
@@ -295,7 +295,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                 onChange={registeValidation}
                 onBlur={registeValidation}
               />
-              <label className="fs-5 ms-md-1" htmlFor="driver">
+              <label className="fs-5 ms-md-1 m-2 " htmlFor="driver">
                 {t("registerAccontType1")}
               </label>
             </div>

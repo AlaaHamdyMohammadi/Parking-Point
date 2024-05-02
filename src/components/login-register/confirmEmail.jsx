@@ -24,25 +24,21 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
     if (newConfirmationCode.every((code) => code !== "")) {
       onConfirm(newConfirmationCode.join(""));
       try {
-        const res = await axiosInstanceParking.post(
-          `/users/me/confirm-email`,
-          { token: newConfirmationCode.join("") },
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        const res = await axiosInstanceParking.post(`/users/me/confirm-email`, {
+          token: newConfirmationCode.join(""),
+        });
         dispatch(login(res.data.token));
         dispatch(loggedInState());
-        toast.success(t('ConfirmationCodeInput.successToast1'), {
+        toast.success(t("ConfirmationCodeInput.successToast1"), {
           onClose: () => {
             window.location.reload();
           },
         });
       } catch (error) {
-        toast.error(t('ConfirmationCodeInput.errorToast1'));
+        toast.error(t("ConfirmationCodeInput.errorToast1"));
         console.error("Error occurred while confirming email:", error);
         if (error.response) {
-          toast.error(t('ConfirmationCodeInput.errorToast2'));
+          toast.error(t("ConfirmationCodeInput.errorToast2"));
 
           console.error("Response data:", error.response.data);
         }
@@ -78,7 +74,7 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
 
         dispatch(login(res.data.token));
         dispatch(loggedInState());
-        toast.success(t('ConfirmationCodeInput.successToast2'), {
+        toast.success(t("ConfirmationCodeInput.successToast2"), {
           onClose: () => {
             window.location.reload();
           },
@@ -86,7 +82,7 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
       } catch (error) {
         console.error("Error occurred while confirming email:", error);
         if (error.response) {
-          toast.error(t('ConfirmationCodeInput.errorToast2'));
+          toast.error(t("ConfirmationCodeInput.errorToast2"));
           console.error("Response data:", error.response.data);
         }
       }
