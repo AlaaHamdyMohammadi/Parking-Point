@@ -29,7 +29,9 @@ export default function HomeLogout() {
               className={`col-12 col-md-6 d-flex align-items-center bgColor justify-content-center`}
             >
               <div className={`w-75`}>
-                <div className={`fs-3 my-5 text-light`}>{t("parking")}</div>
+                <div className={`fs-3 my-5 px-1 text-light`}>
+                  {t("parking")}
+                </div>
                 <Link to={`/register`}>
                   <SearchInput />
                 </Link>
