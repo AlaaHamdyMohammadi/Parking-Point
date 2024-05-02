@@ -16,7 +16,7 @@ export default function CancelPayment() {
     <>
       <div
         className="vh-75 d-flex justify-content-center align-items-center my-5"
-        style={{ minHeight: "150vw" }}
+        style={{ minHeight: "100vw" }}
       >
         <div className="col-md-4">
           <div className="border border-3 border-danger"></div>
