@@ -7,7 +7,6 @@ export default function CancelPayment() {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-
   useEffect(() => {
     setTimeout(() => {
       navigate("/");
@@ -15,7 +14,10 @@ export default function CancelPayment() {
   }, []);
   return (
     <>
-      <div className="vh-75 d-flex justify-content-center align-items-center my-5">
+      <div
+        className="vh-75 d-flex justify-content-center align-items-center my-5"
+        style={{ minHeight: "150vw" }}
+      >
         <div className="col-md-4">
           <div className="border border-3 border-danger"></div>
           <div className="card  bg-white shadow p-5">
@@ -38,9 +40,9 @@ export default function CancelPayment() {
             </div>
             <div className="text-center ">
               {/* <h1>شكرًا لك!</h1> */}
-              <p>{t('cancel')}</p>
+              <p>{t("cancel")}</p>
               {/* <button className="btn btn-outline-success">Back Home</button> */}
-              <p>{t('main')}</p>
+              <p>{t("main")}</p>
               <Spinner animation="border" variant="danger" size="lg" />;
             </div>
           </div>

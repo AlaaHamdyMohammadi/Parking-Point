@@ -51,7 +51,10 @@ const SuccessPayment = () => {
 
   return (
     <>
-      <div className="vh-75 d-flex justify-content-center align-items-center my-5">
+      <div
+        className="vh-75 d-flex justify-content-center align-items-center my-5"
+        style={{ minHeight: "95vw" }}
+      >
         <div className="col-md-4">
           <div className="border border-3 border-success"></div>
           <div className="card  bg-white shadow p-5">
