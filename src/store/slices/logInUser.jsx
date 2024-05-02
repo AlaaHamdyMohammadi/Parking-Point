@@ -2,10 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axiosInstanceParking from '../../axiosConfig/instanc';
 export const getLogInUser = createAsyncThunk('user', async (token) => {
   const response = await axiosInstanceParking.get('/users/me'
-  , {
-    headers: { 'Authorization': `Bearer ${token}` }
-  }
+  // , {
+  //   headers: { 'Authorization': `Bearer ${token}` }
+  // }
 );
+console.log(response);
   return response.data.doc;
 });
 const userSlice = createSlice({
