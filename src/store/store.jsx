@@ -7,7 +7,7 @@ import spinnerReducer from "./slices/spinner";
 import languageReducer from "./slices/language";
 import isLog from "./slices/login";
 import loggedIn from "./slices/authSlice";
-import logInUser from "./slices/logInUser";
+// import logInUser from "./slices/logInUser";
 
 // const persistConfig = {
 //   key: 'root',
@@ -34,7 +34,7 @@ const store = configureStore({
   reducer: {
     isLog:isLog,
     loggedIn:loggedIn,
-    logInUser:logInUser,
+    // logInUser:logInUser,
     spinner: spinnerReducer,
     language: languageReducer,
   },
