@@ -1,15 +1,21 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getLogInUser } from "../src/store/slices/logInUser";
+import { useEffect, useState } from "react";
+import axiosInstanceParking from "../src/axiosConfig/instanc";
 
 export default function useLogInUserData() {
-    const dispatch = useDispatch();
-    const token = useSelector((state) => state.loggedIn.token)
+    const [user, setuser] = useState({})
     useEffect(() => {
-        if (token) {
-            dispatch(getLogInUser(token));
-        }
+        const getLogInUser = async () => {
+            try {
+                const response = await axiosInstanceParking.get('/users/me'
+                );
+                console.log(response.data.doc);
+                setuser(response.data.doc);
+                return response.data.doc;
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getLogInUser()
     }, []);
-    const user = useSelector((state) => state.logInUser.logInUser)
-  return user;
+    return user;
 }

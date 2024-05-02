@@ -6,11 +6,29 @@ import useLogInUserData from "../../../hook/useLogInUserData";
 import { LiaCarSideSolid } from "react-icons/lia";
 import { FaCity } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import axiosInstanceParking from "../../axiosConfig/instanc";
+import { useEffect, useState } from "react";
 
 export default function ViewProfile() {
   const { t } = useTranslation();
   const user = useLogInUserData();
   console.log(user);
+  // console.log(user);
+  // const [user, setuser]=useState({})
+  useEffect(() => {
+    const getLogInUser =  async () => {
+     try {
+       const response = await axiosInstanceParking.get('/users/me'
+     );
+    // console.log(response.data.doc);
+    // setuser(response.data.doc);
+       return response.data.doc;
+     } catch (error) {
+       console.log(error);
+     }
+   }; 
+  //  getLogInUser()
+ }, []);
   return (
     <div className="row w-100 ">
       <p className="fs-3 fw-bold m-md-3 py-2 ">{t('ownerProfile.userInfo')}</p>

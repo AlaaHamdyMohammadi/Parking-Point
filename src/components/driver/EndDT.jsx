@@ -103,7 +103,6 @@ export default function EndDateTime({
     }
   };
   const handleChange = useSendCode();
-  console.log(user);
   return (
     <>
       <form method="post" onSubmit={sendQuery}>
@@ -185,7 +184,7 @@ export default function EndDateTime({
             >
               {t('reservationDate.showParking')}
             </button>
-            {user.isEmailConfirmed == true && (
+            {user.isEmailConfirmed == false && (
               <div className="text-danger">
                 <div>{t('reservationDate.confirmEmail')}</div>
                 <div
