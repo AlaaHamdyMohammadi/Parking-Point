@@ -20,10 +20,19 @@ export default function Setting() {
   const { t } = useTranslation();
   const token = useSelector((state) => state.loggedIn.token);
   const user = useLogInUserData();
-  console.log(user);
   const navigate = useNavigate();
 
-  const [userInfo, setUserInfo] = useState(user);
+  const [userInfo, setUserInfo] = useState({
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    phoneNumber: user.phoneNumber,
+    city: user.city,
+    state: user.state,
+    region: user.region,
+    plateNumber: user.plateNumber,
+    carType: user.carType,
+  });
   useEffect(() => {
     setUserInfo({
     firstName: user.firstName,
@@ -63,7 +72,7 @@ export default function Setting() {
         });
         toast.success(t("editProfile.successToastUser"));
         setTimeout(() => {
-          navigate(`/`);
+          navigate(`/Profile`);
         }, 2000);
       } catch (error) {
         toast.error(t("editProfile.errorToastUser"));
@@ -138,7 +147,7 @@ export default function Setting() {
               <>
                 <div className="col-md-6 col-12">
                   <CitySelect
-                    cityInfo={userInfo.city}
+                    cityInfo={userInfo}
                     classes={classes}
                     setCityInfo={setUserInfo}
                     errors={errors}
