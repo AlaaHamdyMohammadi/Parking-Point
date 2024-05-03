@@ -42,7 +42,7 @@ export default function Sales() {
   const [isLoading, setIsLoading] = useState(true);
   const [reserveSearch, setReserveSearch] = useState("");
   const user = useLogInUserData();
-
+  console.log(user);
   const fetchData = async () => {
     try {
       let params = {};
@@ -53,7 +53,6 @@ export default function Sales() {
         const response = await axiosInstanceParking.get(
           `/reserve/me?page=${currentPage}`,
           {
-            headers: { Authorization: `Bearer ${token}` },
             params: params,
           }
         );
@@ -64,7 +63,6 @@ export default function Sales() {
         const response = await axiosInstanceParking.get(
           `/parkings/myparks-reservations?page=${currentPage}`,
           {
-            headers: { Authorization: `Bearer ${token}` },
             params: params,
           }
         );
@@ -86,7 +84,7 @@ export default function Sales() {
   useEffect(() => {
     fetchData();
   }, [token, reserveSearch, currentPage]);
-  console.log(data, "dataaaaaaaaaaaa");
+  // console.log(data, "dataaaaaaaaaaaa");
   const ComponentPDF = useRef();
   const generatePDF = useReactToPrint({
     content: () => ComponentPDF.current,
@@ -108,10 +106,11 @@ export default function Sales() {
               className={`text-center my-2 btnDownload w-100 animate    btn `}
               onClick={generatePDF}
             >
-              <FaRegFilePdf className="text-center fs-5" /> {t('sales.download')}
+              <FaRegFilePdf className="text-center fs-5" />{" "}
+              {t("sales.download")}
             </button>
             <button className={`text-center my-2 btnDownload w-100     btn `}>
-              {responseLength} {t('sales.reservations')}
+              {responseLength} {t("sales.reservations")}
             </button>
 
             {user.role == "driver" && (
@@ -119,7 +118,7 @@ export default function Sales() {
                 <input
                   className="form-control  fs-6 btnDownload  opacity-50 text-body-secondary "
                   type="search"
-                  placeholder={t('sales.placeholderSearch')}
+                  placeholder={t("sales.placeholderSearch")}
                   value={reserveSearch}
                   onChange={handleSearch}
                   aria-label="Search"
@@ -143,23 +142,23 @@ export default function Sales() {
                 <thead className="bgColor border rounded-2 fs-6 text-white fw-bolder py-3">
                   <th className="p-1 px-2 ">
                     <LuParkingCircle className="me-1 mb-1  text-white fs-1 bgColor" />
-                    {t('sales.parking')}
+                    {t("sales.parking")}
                   </th>
                   <th className="p-1 px-2 ">
                     <LiaCarSideSolid className="me-1 mb-1 text-center text-white fs-1 bgColor" />
-                    {t('sales.plateNumber')}
+                    {t("sales.plateNumber")}
                   </th>
                   <th className="p-1 px-2 ">
                     <PiCalendarCheckBold className="me-1 mb-1 text-center text-white fs-1 bgColor" />
-                    {t('sales.Bookingduration')}
+                    {t("sales.Bookingduration")}
                   </th>
                   <th className="p-1 px-2 ">
                     <LuCalendarClock className="me-1 mb-1 text-center text-white fs-1 bgColor" />
-                    {t('sales.startAndEndDate')}
+                    {t("sales.startAndEndDate")}
                   </th>
                   <th className="p-1 px-2 ">
                     <MdPriceCheck className="mb-1 text-center text-white fs-1 bgColor" />
-                    {t('sales.cost')}
+                    {t("sales.cost")}
                   </th>
                 </thead>
                 {user.role == "driver" ? (
@@ -169,7 +168,7 @@ export default function Sales() {
                         <td className="p-4">
                           {item.park && item.park.title
                             ? item.park.title
-                            : t('sales.unknown')}
+                            : t("sales.unknown")}
                         </td>
                         <td className="p-4 yellowcolor">
                           <span>{item.plateNumber}</span>
@@ -281,7 +280,7 @@ export default function Sales() {
           className="fs-3 fw-bold text-center "
           style={{ minHeight: "95vw" }}
         >
-          <p className="my-5 py-5">{t('sales.noReservations')}</p>
+          <p className="my-5 py-5">{t("sales.noReservations")}</p>
         </div>
       )}
       <SimplePagination
