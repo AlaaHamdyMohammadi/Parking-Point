@@ -187,7 +187,11 @@ export default function EndDateTime({
               {t("reservationDate.showParking")}
             </button>
             {user.isEmailConfirmed == false && (
-              <div className="text-danger">
+              <div
+                className={`text-danger ${
+                  language == "ar" ? "text-end" : "text-start"
+                }`}
+              >
                 <div>{t("reservationDate.confirmEmail")}</div>
                 <div
                   className={`${classes.resendcode} pointer fs-6 fw-bold mt-md-1`}
