@@ -62,7 +62,7 @@ export default function Footer() {
       <p className="text-center p-2 Gray mb-0 transition navcolor">
         {` < Developed by < `}
         <small className="">
-          &copy; 2023 <a href="https://www.facebook.com/profile.php?id=61555179886514"
+          &copy; 2024 <a href="https://www.facebook.com/profile.php?id=61555179886514"
           target="_blank" rel="noreferrer" className="Gray"> Promisify Company </a> </small>
       </p>
     </footer>
