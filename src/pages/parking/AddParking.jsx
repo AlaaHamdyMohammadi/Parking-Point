@@ -107,7 +107,7 @@ export default function AddParking() {
     if (name === "photos") {
       setErrors({
         ...errors,
-        photosErrors: value.length === 0 ? t('addParking.imgErr') : "",
+        photosErrors: value.length === 0 ? t("addParking.imgErr") : "",
       });
     }
     if (name === "title") {
@@ -115,7 +115,7 @@ export default function AddParking() {
         ...errors,
         titleErrors:
           value.length === 0
-            ? t('addParking.titleErr')
+            ? t("addParking.titleErr")
             : // : /^[A-Za-z0-9\u0600-\u06FF]{3,}$/.test(value)
               // ? ""
               // : "يجب ادخال ثلاثة احرف بحد ادني",
@@ -125,13 +125,13 @@ export default function AddParking() {
     if (name === "address") {
       setErrors({
         ...errors,
-        addressErrors: value.length === 0 ? t('addParking.addressErr') : "",
+        addressErrors: value.length === 0 ? t("addParking.addressErr") : "",
       });
     }
     if (name === "location") {
       setErrors({
         ...errors,
-        locationErrors: value.length === 0 ? t('addParking.locationErr') : "",
+        locationErrors: value.length === 0 ? t("addParking.locationErr") : "",
       });
     }
     if (name === "capacity") {
@@ -143,10 +143,10 @@ export default function AddParking() {
         ...errors,
         capacityErrors:
           value.length === 0
-            ? t('addParking.capacityErr1')
+            ? t("addParking.capacityErr1")
             : capacityemailRegx.test(value)
             ? ""
-            : t('addParking.capacityErr2'),
+            : t("addParking.capacityErr2"),
       });
     }
     setParking({ ...parking, [name]: value });
@@ -186,7 +186,7 @@ export default function AddParking() {
       if (ParkingId) {
         axiosInstanceParking
           .patch(`/parkings/${ParkingId}`, formData, {
-            headers: { Authorization: `Bearer ${token}` },
+            // headers: { Authorization: `Bearer ${token}` },
           })
 
           .then((res) => {
@@ -222,17 +222,15 @@ export default function AddParking() {
   return (
     <>
       <Helmet>
-        <title>Parking Point | {t('addParking.addParking')}</title>
+        <title>Parking Point | {t("addParking.addParking")}</title>
       </Helmet>
       <h3 className={`mt-4 text-center`}>
-        {!ParkingId
-          ? t('addParking.addTitle')
-          : t('addParking.editTitle')}
+        {!ParkingId ? t("addParking.addTitle") : t("addParking.editTitle")}
       </h3>
       <div className={`card w-md-75 w-100 align-self-center p-2 mb-5`}>
         <div className={`p-5`}>
           <h5 className={`text-secondary text-center`}>
-            {t('addParking.img')}
+            {t("addParking.img")}
           </h5>
           <form
             encType="multipart/form-data"
@@ -286,7 +284,7 @@ export default function AddParking() {
             <div className="row">
               <div className="form-group mb-3 col-12 col-md-6 ">
                 <label htmlFor="title" className="mb-1 fs-5">
-                {t('addParking.parkingName')}
+                  {t("addParking.parkingName")}
                 </label>
                 <input
                   onChange={validation}
@@ -304,7 +302,7 @@ export default function AddParking() {
               </div>
               <div className="form-group mb-3 col-12 col-md-6 ">
                 <label htmlFor="address" className="mb-1 fs-5">
-                  {t('addParking.address')}
+                  {t("addParking.address")}
                 </label>
                 <input
                   type="text"
@@ -330,7 +328,7 @@ export default function AddParking() {
               </div>
               <div className="form-group mb-3 col-12 col-md-6 ">
                 <label htmlFor="capacity" className="mb-1 fs-5">
-                {t('addParking.capacity')}
+                  {t("addParking.capacity")}
                 </label>
                 <input
                   type="number"
@@ -351,7 +349,7 @@ export default function AddParking() {
               {!ParkingId ? (
                 <>
                   <label htmlFor="location" className="mb-1 fs-5">
-                  {t('addParking.location')}
+                    {t("addParking.location")}
                   </label>
                   <div style={{ width: "100vw", height: "45vh" }}>
                     <ReactMapGL
@@ -386,7 +384,7 @@ export default function AddParking() {
               {ParkingId ? (
                 <input
                   type="submit"
-                  value={t('addParking.editBtn')}
+                  value={t("addParking.editBtn")}
                   className={
                     Object.values(errors).some((error) => error !== "")
                       ? "btn bgColor text-white col-md-4 col-10 my-3 disabled"
@@ -399,7 +397,7 @@ export default function AddParking() {
               ) : (
                 <input
                   type="submit"
-                  value={t('addParking.addBtn')}
+                  value={t("addParking.addBtn")}
                   className={
                     Object.values(errors).some((error) => error !== "")
                       ? "btn bgColor text-white col-md-4 col-10 my-3 disabled"

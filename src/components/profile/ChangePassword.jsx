@@ -99,14 +99,16 @@ export default function ChangePassword() {
 
   return (
     <main>
-      <form method="post" className="pe-5" onSubmit={handleSubmit}>
+      <form
+        method="post"
+        className="pe-5"
+        onSubmit={handleSubmit}
+        style={{
+          ...(language === "ar" ? "" : { paddingLeft: "40px" }),
+        }}
+      >
         <div className="d-md-flex">
-          <div
-            className="col-12 col-md-6"
-            style={{
-              ...(language === "ar" ? "" : { paddingLeft: "40px" }),
-            }}
-          >
+          <div className="col-12 col-md-6">
             <div>
               <label className="fs-5 py-1" htmlFor="currentPassword">
                 {t("editProfile.oldPassword")}
@@ -202,15 +204,14 @@ export default function ChangePassword() {
             />
           </div>
         </div>
-
         <input
           type="submit"
           value={t("editProfile.submitPass")}
-          className={`text-center bgColor w-25 text-white btn my-3 ${classes.formBtn}`}
+          className={`text-center bgColor w-25 text-white btn my-3  ${classes.formBtn}`}
           disabled={Object.values(errors).some((error) => error !== "")}
-          style={{
-            ...(language === "ar" ? "" : { paddingLeft: "40px" }),
-          }}
+          // style={{
+          //   ...(language === "ar" ? "" : { paddingLeft: "40px" }),
+          // }}
         />
       </form>
     </main>
