@@ -18,12 +18,12 @@ const SuccessPayment = () => {
           `/reserve/confirm-reservation`,
           {
             sessionId: localStorage.getItem("sessionID"),
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
           }
+          // {
+          //   headers: {
+          //     Authorization: `Bearer ${token}`,
+          //   },
+          // }
         );
         localStorage.removeItem("sessionID");
 
