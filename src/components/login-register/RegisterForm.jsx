@@ -291,7 +291,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                 id="driver"
                 value="driver"
                 onClick={displayIsDriver}
-                className={`${classes.inputFilter} ms-2`}
+                className={`${classes.inputFilter} mx-2`}
                 onChange={registeValidation}
                 onBlur={registeValidation}
               />
@@ -306,7 +306,7 @@ export default function RegisterForm({ setShowFormStatus }) {
                 name="role"
                 value="renter"
                 onClick={displayIsOwner}
-                className={`ms-1 ${classes.inputFilter}`}
+                className={`mx-2 ${classes.inputFilter}`}
                 onChange={registeValidation}
                 onBlur={registeValidation}
               />
