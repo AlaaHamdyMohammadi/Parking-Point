@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { changeLanguage } from "../../store/slices/language";
 
-const LangaugeSwitch = () => {
+const LangaugeSwitch = ({textColor}) => {
   const {t, i18n } = useTranslation();
   // const [selectedLanguage, setSelectedLanguage] = React.useState("ar");
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const LangaugeSwitch = () => {
       {language === "ar" ? (
         <div className="nav-item fw-bold">
           <div
-            className="nav-link active mx-md-5 text-white"
+            className={`nav-link active mx-md-5 ${textColor}`}
             aria-current="page"
             onClick={() => {
               handleChangeLanguage("en");
@@ -40,7 +40,7 @@ const LangaugeSwitch = () => {
       ) : (
         <div className="nav-item fw-bold">
           <div
-            className="nav-link active mx-md-5 text-white"
+            className={`nav-link active mx-md-5 ${textColor}`}
             aria-current="page"
             onClick={() => {
               handleChangeLanguage("ar");

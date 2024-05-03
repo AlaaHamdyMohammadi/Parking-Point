@@ -54,7 +54,7 @@ export default function Header() {
 
             <ul className="navbar-nav me-md-auto my-lg-0 navbar-nav-scroll">
               <li className="nav-item mt-md-2">
-                <LangaugeSwitch />
+                <LangaugeSwitch   textColor="text-white"/>
               </li>
               {isLoggedIn &&
                 <li className="nav-item dropdown">
@@ -262,7 +262,7 @@ export default function Header() {
                     />
                   </Link>
                 </div>
-                <LangaugeSwitch />
+                <LangaugeSwitch   textColor="text-white"/>
               </div>
             </div>
           ) : (
@@ -292,7 +292,7 @@ export default function Header() {
                     {t('header.register')}
                   </Link>
                 </div>
-                <LangaugeSwitch />
+                <LangaugeSwitch   textColor="text-white"/>
               </div>
             </div>
           )}
