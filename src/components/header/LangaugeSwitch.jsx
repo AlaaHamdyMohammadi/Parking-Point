@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -27,7 +28,7 @@ const LangaugeSwitch = ({textColor}) => {
       {language === "ar" ? (
         <div className="nav-item fw-bold">
           <div
-            className={`nav-link active mx-md-5 ${textColor}`}
+            className={`d-flex align-items-center gap-2 nav-link active mx-md-5 ${textColor}`}
             aria-current="page"
             onClick={() => {
               handleChangeLanguage("en");
@@ -35,12 +36,16 @@ const LangaugeSwitch = ({textColor}) => {
             style={{ cursor: "pointer" }}
           >
             <p>English</p>
+            <img
+              src="EnglandFlag.png"
+              style={{ width: "20px", height: "20px", marginTop: "-15px" }}
+            />
           </div>
         </div>
       ) : (
         <div className="nav-item fw-bold">
           <div
-            className={`nav-link active mx-md-5 ${textColor}`}
+            className={`d-flex align-items-center gap-2 nav-link active mx-md-5 ${textColor}`}
             aria-current="page"
             onClick={() => {
               handleChangeLanguage("ar");
@@ -48,6 +53,15 @@ const LangaugeSwitch = ({textColor}) => {
             style={{ cursor: "pointer" }}
           >
             <p>العربية</p>
+            <img
+              src="OmanFlag.png"
+              style={{
+                width: "20px",
+                height: "20px",
+                marginTop: "-15px",
+                borderRadius: "50%",
+              }}
+            />
           </div>
         </div>
       )}

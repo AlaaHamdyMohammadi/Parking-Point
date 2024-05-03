@@ -47,19 +47,28 @@ export default function Header() {
               className={`${classes.logo} me-5`}
             />
           </Link>
-          <button className="navbar-toggler navbar-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+          <button
+            className="navbar-toggler navbar-dark"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarScroll"
+            aria-controls="navbarScroll"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarScroll">
-
             <ul className="navbar-nav me-md-auto my-lg-0 navbar-nav-scroll">
-              <li className="nav-item mt-md-2">
-                <LangaugeSwitch   textColor="text-white"/>
-              </li>
-              {isLoggedIn &&
+              {isLoggedIn && (
                 <li className="nav-item dropdown">
-                  <Link to={`profile`}
-                    className="nav-link fs-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <Link
+                    to={`profile`}
+                    className="nav-link fs-4"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
                     <button
                       type="button"
                       className="navcolor fs-5 border-0 text-white dropdown-toggle dropdown-toggle-split"
@@ -76,44 +85,65 @@ export default function Header() {
                     />
                   </Link>
                   <ul className="dropdown-menu">
-                    <li><Link to={`/Profile/sales`} className={`dropdown-item ${language=='ar'?'ps-md-5':''}`}>
-                      <span className="ps-2">
-                        <LiaMoneyCheckAltSolid />
-                      </span>
-                      {t('header.reservations')}
-                    </Link></li>
-                    <li><Link
-                      to={`/Profile/editOwnerProfile`}
-                      className={`dropdown-item ${language=='ar'?'ps-md-5':''}`}
-                    >
-                      <span className="ps-2">
-                        <IoPerson />
-                      </span>
-                      {t('header.myaccount')}
-                    </Link></li>
-                    <li> <a
-                      className={`dropdown-item ${language=='ar'?'ps-md-5':''}`}
-                      href="mailto:parkingpoint@outlook.com"
-                    >
-                      <span className="ps-2">
-                        <MdContactSupport />
-                      </span>
-                      {t('header.support')}
-                    </a></li>
-                    <li><div
-                      role="button"
-                      className="dropdown-item ps-md-5 text-danger border-top"
-                      onClick={logdedout}
-                    >
-                      <span className="ps-2 text-danger">
-                        <IoIosLogOut />
-                      </span>
-                      {t('header.logout')}
-                    </div></li>
+                    <li>
+                      <Link
+                        to={`/Profile/sales`}
+                        className={`dropdown-item  ${
+                          language == "ar" ? "ps-md-5" : ""
+                        }`}
+                      >
+                        <span className="ps-2" >
+                          <LiaMoneyCheckAltSolid />
+                        </span>
+                        {t("header.reservations")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to={`/Profile/editOwnerProfile`}
+                        className={`dropdown-item ${
+                          language == "ar" ? "ps-md-5" : ""
+                        }`}
+                      >
+                        <span className="ps-2">
+                          <IoPerson />
+                        </span>
+                        {t("header.myaccount")}
+                      </Link>
+                    </li>
+                    <li>
+                      <a
+                        className={`dropdown-item ${
+                          language == "ar" ? "ps-md-5" : ""
+                        }`}
+                        href="mailto:parkingpoint@outlook.com"
+                      >
+                        <span className="ps-2">
+                          <MdContactSupport />
+                        </span>
+                        {t("header.support")}
+                      </a>
+                    </li>
+                    <li>
+                      <LangaugeSwitch />
+                      
+                    </li>
+                    <li>
+                      <div
+                        role="button"
+                        className="dropdown-item ps-md-5 text-danger border-top"
+                        onClick={logdedout}
+                      >
+                        <span className="ps-2 text-danger">
+                          <IoIosLogOut />
+                        </span>
+                        {t("header.logout")}
+                      </div>
+                    </li>
                   </ul>
                 </li>
-              }
-              {!isLoggedIn &&
+              )}
+              {!isLoggedIn && (
                 <>
                   <li className="nav-item mt-md-2 fw-bold">
                     <Link
@@ -124,7 +154,7 @@ export default function Header() {
                         displayLogin();
                       }}
                     >
-                      {t('header.login')}
+                      {t("header.login")}
                     </Link>
                   </li>
                   <li className="nav-item mt-md-2 fw-bold">
@@ -136,21 +166,20 @@ export default function Header() {
                         displayRegester();
                       }}
                     >
-                      {t('header.register')}
+                      {t("header.register")}
                     </Link>
                   </li>
+                  <li className="nav-item mt-md-2">
+                    <LangaugeSwitch textColor="text-white" />
+                  </li>
                 </>
-              }
+              )}
             </ul>
           </div>
         </div>
       </nav>
 
-
-
-
-
-{/* 
+      {/* 
       <div className="navColor p-1 shadow">
         <nav
           className={`container d-flex navbar navbar-expand-lg justify-content-between `}>
@@ -304,21 +333,21 @@ export default function Header() {
             {(!user.isActivated || !user.isEmailConfirmed) && (
               <>
                 <div className="alert alert-danger" role="alert">
-                  <div>{t('header.toAdd1')}</div>
+                  <div>{t("header.toAdd1")}</div>
                   <ul>
                     {user.isActivated === false && (
-                      <li>{t('header.toAdd2')}</li>
+                      <li>{t("header.toAdd2")}</li>
                     )}
                     {user.isEmailConfirmed === false && (
                       <>
-                        <li>{t('header.toAdd3')}</li>
+                        <li>{t("header.toAdd3")}</li>
                         <div
                           className={`${classes.resendcode} pointer fs-6 fw-bold mt-md-1`}
                           data-bs-toggle="modal"
                           data-bs-target="#staticBackdrop"
                           onClick={handleChange}
                         >
-                          {t('header.toAdd4')}
+                          {t("header.toAdd4")}
                         </div>
                         <ConfimEmailPop userEmail={user.email} />
                       </>
