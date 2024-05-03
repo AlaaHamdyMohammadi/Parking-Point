@@ -207,7 +207,7 @@ export default function ChangePassword() {
         <input
           type="submit"
           value={t("editProfile.submitPass")}
-          className={`text-center bgColor w-25 text-white btn my-3  ${classes.formBtn}`}
+          className={`text-center bgColor w-75 w-md-25 text-white btn my-3  ${classes.formBtn}`}
           disabled={Object.values(errors).some((error) => error !== "")}
           // style={{
           //   ...(language === "ar" ? "" : { paddingLeft: "40px" }),
