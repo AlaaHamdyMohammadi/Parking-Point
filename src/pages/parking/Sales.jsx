@@ -17,21 +17,6 @@ import "react-toastify/dist/ReactToastify.css";
 import SimplePagination from "../../components/pagination/SimplePagination";
 import useLogInUserData from "../../../hook/useLogInUserData";
 import { useTranslation } from "react-i18next";
-const calculateTimeDifference = (fromDate, toDate) => {
-  const from = new Date(fromDate);
-  const to = new Date(toDate);
-  const differenceInMilliseconds = Math.abs(to - from);
-
-  const days = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
-  const hours = Math.floor(
-    (differenceInMilliseconds % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-  );
-  const minutes = Math.floor(
-    (differenceInMilliseconds % (1000 * 60 * 60)) / (1000 * 60)
-  );
-
-  return `${days} يوم ${hours} ساعة ${minutes} دقيقة`;
-};
 
 export default function Sales() {
   const { t } = useTranslation();
@@ -85,6 +70,24 @@ export default function Sales() {
     fetchData();
   }, [reserveSearch, currentPage, user]);
   // console.log(data, "dataaaaaaaaaaaa");
+  const calculateTimeDifference = (fromDate, toDate) => {
+    const from = new Date(fromDate);
+    const to = new Date(toDate);
+    const differenceInMilliseconds = Math.abs(to - from);
+
+    const days = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (differenceInMilliseconds % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor(
+      (differenceInMilliseconds % (1000 * 60 * 60)) / (1000 * 60)
+    );
+
+    return `${days}${t("sales.days")}  ${hours}${t(
+      "sales.hours"
+    )} ${minutes} ${t("sales.minutes")}`;
+  };
+
   const ComponentPDF = useRef();
   const generatePDF = useReactToPrint({
     content: () => ComponentPDF.current,

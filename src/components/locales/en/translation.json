@@ -127,6 +127,9 @@
     "Bookingduration:":"Booking duration:",
     "startAndEndDate:":"Start of reservation: End of reservation",
     "cost":"Cost:",
+    "days":"day",
+      "hours":"hour",
+        "minutes":"min",
     "unknown": "Unknown",
     "noReservations": "There are no reservations yet"
   },

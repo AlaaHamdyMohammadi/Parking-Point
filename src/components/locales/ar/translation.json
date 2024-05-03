@@ -127,6 +127,10 @@
     "Bookingduration:": "مدة الحجز:",
     "startAndEndDate:": "بداية الحجز : نهاية الحجز",
     "cost": "التكلفة:",
+        "days":"يوم",
+        "hours":"ساعة",
+        "minutes":"دقيقة",
+
     "unknown": "غير معروف",
     "noReservations": "لا يوجد حجوزات حتى الان "
   },
