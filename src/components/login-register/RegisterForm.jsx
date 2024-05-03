@@ -111,7 +111,6 @@ export default function RegisterForm({ setShowFormStatus }) {
     }
     setRegisteUser({ ...registeUser, [name]: value });
   };
-  console.log(errors);
   const handleSubmit = async (event) => {
     const hasErrors = Object.values(errors).some((error) => error !== "");
     const formData = new FormData();

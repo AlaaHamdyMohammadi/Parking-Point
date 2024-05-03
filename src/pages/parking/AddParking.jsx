@@ -44,21 +44,22 @@ export default function AddParking() {
 
   useEffect(() => {
     const editParking = async () => {
-      const res = await axiosInstanceParking.get(`/parkings/${ParkingId}`);
+      const res = await axiosInstanceParking.get(`/parkings/myparks/${ParkingId}`);
+      console.log(res);
       setParking({
-        city: res.data.park.city,
-        title: res.data.park.title,
-        address: res.data.park.address,
-        user: res.data.park.user,
-        photos: res.data.park.photos,
-        capacity: res.data.park.capacity,
+        city: res.data.doc.city,
+        title: res.data.doc.title,
+        address: res.data.doc.address,
+        user: res.data.doc.user,
+        photos: res.data.doc.photos,
+        capacity: res.data.doc.capacity,
         location: {
-          longitude: res.data.park.longitude,
-          latitude: res.data.park.latitude,
+          longitude: res.data.doc.longitude,
+          latitude: res.data.doc.latitude,
         },
       });
 
-      setImgArr(res.data.park.photos);
+      setImgArr(res.data.doc.photos);
     };
     if (ParkingId) {
       editParking();
