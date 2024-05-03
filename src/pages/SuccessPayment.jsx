@@ -9,7 +9,6 @@ import { useTranslation } from "react-i18next";
 const SuccessPayment = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const token = useSelector((state) => state.loggedIn.token);
   const [parkId, setParkId] = useState("");
   useEffect(() => {
     const handlePayment = async () => {
@@ -19,11 +18,6 @@ const SuccessPayment = () => {
           {
             sessionId: localStorage.getItem("sessionID"),
           }
-          // {
-          //   headers: {
-          //     Authorization: `Bearer ${token}`,
-          //   },
-          // }
         );
         localStorage.removeItem("sessionID");
 
@@ -47,7 +41,7 @@ const SuccessPayment = () => {
     };
 
     handlePayment();
-  }, [navigate, token]);
+  }, [navigate]);
 
   return (
     <>

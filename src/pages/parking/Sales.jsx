@@ -6,7 +6,6 @@ import { FaRegFilePdf } from "react-icons/fa6";
 import { useReactToPrint } from "react-to-print";
 import { useCallback, useEffect, useRef, useState } from "react";
 import axiosInstanceParking from "../../axiosConfig/instanc";
-import { useSelector } from "react-redux";
 import { LuCalendarClock } from "react-icons/lu";
 import { PiCalendarCheckBold } from "react-icons/pi";
 import SpinnerLoad from "../../components/spinner/Spinner";
@@ -23,7 +22,6 @@ export default function Sales() {
   const [currentPage, setCurrentPage] = useState(1);
   const [responseLength, setResponseLength] = useState(0);
   const [data, setData] = useState(null);
-  // const token = useSelector((state) => state.loggedIn.token);
   const [isLoading, setIsLoading] = useState(true);
   const [reserveSearch, setReserveSearch] = useState("");
   const user = useLogInUserData();

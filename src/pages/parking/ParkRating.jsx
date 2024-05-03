@@ -13,7 +13,6 @@ const ParkRating = ({ parkId }) => {
   const { t } = useTranslation();
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
-  const token = useSelector((state) => state.loggedIn.token);
 
   const handleRating = async (rating) => {
     try {
@@ -23,11 +22,6 @@ const ParkRating = ({ parkId }) => {
           park: parkId,
           rate: rating,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
       );
       toast.success(t('parkDetials.successToastRate'));
     } catch (error) {

@@ -8,7 +8,6 @@ export default function useLogInUserData() {
             try {
                 const response = await axiosInstanceParking.get('/users/me'
                 );
-                console.log(response.data.doc);
                 setuser(response.data.doc);
                 return response.data.doc;
             } catch (error) {

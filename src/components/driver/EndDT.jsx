@@ -21,7 +21,6 @@ export default function EndDateTime({
   onTimeChange,
 }) {
   const user = useLogInUserData();
-  const token = useSelector((state) => state.loggedIn.token);
   const todayDate = new Date().toISOString().slice(0, 16);
   console.log("today date", todayDate);
   const [timeDifference, setTimeDifference] = useState({
@@ -84,12 +83,7 @@ export default function EndDateTime({
     } else {
       axiosInstanceParking
         .get(
-          `/parkings/?city=${searchData.city}&from=${searchData.from}&to=${searchData.to}`,
-          {
-            // headers: {
-            //   Authorization: `Bearer ${token}`,
-            // },
-          }
+          `/parkings/?city=${searchData.city}&from=${searchData.from}&to=${searchData.to}`
         )
         .then((response) => {
           onReserveChange(response.data.parks);

@@ -258,9 +258,8 @@ const ForgotPassword = () => {
               </div>
               <div className="modal-body p-0">
                 <div className="d-flex">
-                  <div className="text-end pe-3 align-self-center ">
+                  <div className="text-end px-3 align-self-center ">
                     <label className=" pt-2">{t("verificationCode")}</label>
-
                     <input
                       type="text"
                       name="otp"

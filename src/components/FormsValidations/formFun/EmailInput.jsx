@@ -10,7 +10,7 @@ export default function EmailInput({
   setErrors,
   disabled,
 }) {
-  const token = useSelector((state) => state.loggedIn.token);
+  const isLoggedIn = useSelector((state) => state.loggedIn.loggedIn);
   const { t } = useTranslation();
 
   let emailRegx = /^[a-zA-Z0-9]{4,}(@)(gmail|yahoo|outlook)(.com)$/;
@@ -25,7 +25,7 @@ export default function EmailInput({
           ? ""
           : t("emailInp2"),
     });
-    if (!token) {
+    if (!isLoggedIn) {
       setEmailInfo({ ...emailInfo, [name]: value });
     }
   };

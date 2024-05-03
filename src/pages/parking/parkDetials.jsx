@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useLocation } from "react-router-dom";
 import axiosInstanceParking from "../../axiosConfig/instanc";
-import { useSelector } from "react-redux";
 import { IoArrowRedoCircleOutline } from "react-icons/io5";
 import SpinnerLoad from "../../components/spinner/Spinner";
 import ParkLocation from "./ParkLocation";
@@ -24,7 +23,6 @@ const ParkDetials = () => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [parkreserved, setParkreserved] = useState({});
-  const token = useSelector((state) => state.loggedIn.token);
 
   let query = useQuery();
   let from = query.get("from");
@@ -34,9 +32,7 @@ const ParkDetials = () => {
   useEffect(() => {
     const getReservedPark = async () => {
       try {
-        const res = await axiosInstanceParking.get(`/parkings/${newParkId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await axiosInstanceParking.get(`/parkings/${newParkId}`);
         setParkreserved(res.data.park);
       } catch (err) {
         console.error("Error :", err);
@@ -52,7 +48,7 @@ const ParkDetials = () => {
     setTimeout(() => {
       setIsLoading(false);
     }, 1500);
-  }, [newParkId, token]);
+  }, [newParkId]);
 
   const [timeDifference, setTimeDifference] = useState({
     days: 0,

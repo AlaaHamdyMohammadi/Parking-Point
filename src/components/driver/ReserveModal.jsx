@@ -4,12 +4,10 @@ import { useState } from "react";
 import classes from "./../../styles/formStyles.module.css";
 import useLogInUserData from "../../../hook/useLogInUserData";
 import axiosInstanceParking from "../../axiosConfig/instanc";
-import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 export default function ModalReserve({ ReserveTime, ParkId }) {
   const user = useLogInUserData();
-  const token = useSelector((state) => state.loggedIn.token);
   const [registeUser, setRegisteUser] = useState({
     plateNumber: user.plateNumber, // Set default value to user's plateNumber
   });
@@ -48,11 +46,6 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
           to: ReserveTime.to,
           plateNumber: registeUser.plateNumber, // Use updated plateNumber from state
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
       );
       //console.log("ReserveTime", ReserveTime);
       const sessionID = response.data.sessionId;

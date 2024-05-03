@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import useLogInUserData from "../../../hook/useLogInUserData";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import PhoneInput from "../FormsValidations/formFun/PhoneInput";
@@ -18,7 +17,6 @@ import NameInputs from "../FormsValidations/formFun/NameInputs";
 import { useTranslation } from "react-i18next";
 export default function Setting() {
   const { t } = useTranslation();
-  const token = useSelector((state) => state.loggedIn.token);
   const user = useLogInUserData();
   const navigate = useNavigate();
 
@@ -33,7 +31,19 @@ export default function Setting() {
     plateNumber: user.plateNumber,
     carType: user.carType,
   });
-  //console.log(userInfo);
+  useEffect(() => {
+    setUserInfo({
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    phoneNumber: user.phoneNumber,
+    city: user.city,
+    state: user.state,
+    region: user.region,
+    plateNumber: user.plateNumber,
+    carType: user.carType,
+    })
+  }, [user]);
   const [errors, setErrors] = useState({
     fristNameErrors: "",
     lastNameErrors: "",
@@ -54,12 +64,10 @@ export default function Setting() {
     } else {
       event.preventDefault();
       try {
-        await axiosInstanceParking.patch(`/users/me`, userInfo, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await axiosInstanceParking.patch(`/users/me`, userInfo);
         toast.success(t("editProfile.successToastUser"));
         setTimeout(() => {
-          navigate(`/`);
+          navigate(`/Profile`);
         }, 2000);
       } catch (error) {
         toast.error(t("editProfile.errorToastUser"));

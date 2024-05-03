@@ -10,7 +10,6 @@ import { useTranslation } from "react-i18next";
 export default function Photoprofile() {
   const { t } = useTranslation();
   const user = useLogInUserData();
-  const token = useSelector((state) => state.loggedIn.token);
   const [image, setImage] = useState(null);
   const profileImgRef = useRef(null);
   useEffect(() => {

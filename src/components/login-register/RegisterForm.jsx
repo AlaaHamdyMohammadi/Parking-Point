@@ -143,7 +143,7 @@ export default function RegisterForm({ setShowFormStatus }) {
           setShowEmailModal(true);
           setShowFormStatus(false);
         }, 2000);
-        dispatch(login(res.data.token));
+        // dispatch(login(res.data.token));
       } catch (error) {
         if (error.response.request.response.includes(registeUser.email)) {
           setErrors({
@@ -193,7 +193,6 @@ export default function RegisterForm({ setShowFormStatus }) {
       setIsOwner(true);
     }
   };
-  const token = useSelector((state) => state.loggedIn.token);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };

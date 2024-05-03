@@ -9,7 +9,6 @@ import { FaRegEyeSlash } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
 export default function ChangePassword() {
   const { t } = useTranslation();
-  const token = useSelector((state) => state.loggedIn.token);
   const navigate = useNavigate();
   const [currentPassword, setCurrentPassword] = useState("");
   const [password, setpassword] = useState("");
@@ -83,9 +82,7 @@ export default function ChangePassword() {
         confirmPassword: confirmPassword,
       };
       try {
-        await axiosInstanceParking.patch(`/users/me/change-password`, obj, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await axiosInstanceParking.patch(`/users/me/change-password`, obj);
         toast.success(t("editProfile.successToastPass"));
         setTimeout(() => {
           navigate(`/`);

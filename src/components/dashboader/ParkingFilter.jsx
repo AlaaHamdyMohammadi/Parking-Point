@@ -1,14 +1,10 @@
 /* eslint-disable react/prop-types */
 import classes from "./../../styles/parkingFilter.module.css";
 import axiosInstanceParking from "../../axiosConfig/instanc";
-import { useSelector } from "react-redux";
 export default function ParkingFilter({ value, text, setUserParkings }) {
-  const token = useSelector((state) => state.loggedIn.token);
   const filterParkings = async () => {
     axiosInstanceParking
-      .get(`/parkings/myparks/${value}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get(`/parkings/myparks/${value}`)
       .then((res) => {
         setUserParkings(res.data.doc);
       })

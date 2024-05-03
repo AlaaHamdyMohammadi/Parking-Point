@@ -11,14 +11,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { useTranslation } from "react-i18next";
 export default function ParkingCard({ userParkings, setUserParkings }) {
   const { t } = useTranslation();
-  const token = useSelector((state) => state.loggedIn.token);
   const [isLoading, setIsLoading] = useState(true);
 
   function getMyParkings() {
     axiosInstanceParking
-      .get(`/parkings/myparks`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get(`/parkings/myparks`)
       .then((res) => {
         setUserParkings(res.data.doc);
       })
@@ -33,9 +30,7 @@ export default function ParkingCard({ userParkings, setUserParkings }) {
     const formData = new FormData();
     formData.append("disabled", disabled);
     axiosInstanceParking
-      .patch(`/parkings/${ParkingId}`, formData, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .patch(`/parkings/${ParkingId}`, formData)
       .then((res) => {
         getMyParkings();
         if (disabled == false) {

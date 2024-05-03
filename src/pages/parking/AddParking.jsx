@@ -9,7 +9,6 @@ import ReactMapGL, {
 import "mapbox-gl/dist/mapbox-gl.css";
 import { MdClose } from "react-icons/md";
 import axiosInstanceParking from "../../axiosConfig/instanc";
-import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -24,7 +23,6 @@ const mapStyle = "mapbox://styles/alaahamdy2/clsp701hd005a01pkhrmygybf";
 export default function AddParking() {
   const { t } = useTranslation();
   const profileImgRef = useRef(null);
-  const token = useSelector((state) => state.loggedIn.token);
   let { ParkingId } = useParams();
   const navigate = useNavigate();
   function clickImgInput() {
@@ -46,9 +44,7 @@ export default function AddParking() {
 
   useEffect(() => {
     const editParking = async () => {
-      const res = await axiosInstanceParking.get(`/parkings/${ParkingId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axiosInstanceParking.get(`/parkings/${ParkingId}`);
       setParking({
         city: res.data.park.city,
         title: res.data.park.title,
@@ -67,7 +63,7 @@ export default function AddParking() {
     if (ParkingId) {
       editParking();
     }
-  }, [ParkingId, token]);
+  }, [ParkingId]);
   const [errors, setErrors] = useState({
     photosErrors: "",
     cityErrors: "",
@@ -185,9 +181,7 @@ export default function AddParking() {
       uploadFile(imgArr, formData);
       if (ParkingId) {
         axiosInstanceParking
-          .patch(`/parkings/${ParkingId}`, formData, {
-            // headers: { Authorization: `Bearer ${token}` },
-          })
+          .patch(`/parkings/${ParkingId}`, formData)
 
           .then((res) => {
             toast.success("تم تحديث الموقف بنجاح ! في انتظار المراجعة...");
@@ -201,9 +195,7 @@ export default function AddParking() {
           });
       } else if (!ParkingId) {
         axiosInstanceParking
-          .post(`/parkings`, formData, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
+          .post(`/parkings`, formData)
           .then((res) => {
             toast.success("تم إضافة الموقف بنجاح ! في انتظار المراجعة...");
             setTimeout(() => {

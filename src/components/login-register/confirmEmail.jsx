@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 import classes from "./../../styles/formStyles.module.css";
 import axiosInstanceParking from "../../axiosConfig/instanc";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loggedInState, login } from "../../store/slices/authSlice";
 import { ToastContainer, toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
@@ -13,7 +13,6 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
   );
   const inputRefs = useRef(new Array(length).fill(null));
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.loggedIn.token);
   // console.log(token);
   const handleChange = async (index, value) => {
     const newConfirmationCode = [...confirmationCode];
@@ -67,9 +66,6 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
         const res = await axiosInstanceParking.post(
           `/users/me/confirm-email`,
           { token: newConfirmationCode.join("") },
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
         );
 
         dispatch(login(res.data.token));

@@ -7,11 +7,5 @@ import useLogInUserData from "../../hook/useLogInUserData";
 
 export default function Home() {
   const isLoggedIn = useSelector((state) => state.loggedIn.loggedIn);
-  const user = useLogInUserData();
-  useEffect(() => {
-    if(isLoggedIn){
-      console.log(user);
-    }
-  }, []);
   return <>{isLoggedIn ? <HomeLogin /> : <HomeLogout />}</>;
 }
