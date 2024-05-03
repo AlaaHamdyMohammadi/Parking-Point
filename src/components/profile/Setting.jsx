@@ -57,12 +57,12 @@ export default function Setting() {
         await axiosInstanceParking.patch(`/users/me`, userInfo, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        toast.success(t('editProfile.successToastUser'));
+        toast.success(t("editProfile.successToastUser"));
         setTimeout(() => {
           navigate(`/`);
         }, 2000);
       } catch (error) {
-        toast.error(t('editProfile.errorToastUser'));
+        toast.error(t("editProfile.errorToastUser"));
       }
     }
   };
@@ -161,7 +161,7 @@ export default function Setting() {
                 </div>
                 <div className={`col-md-6 col-12`}>
                   <label className="fs-5 mb-1" htmlFor="nationaleId">
-                  {t('editProfile.id')} 
+                    {t("editProfile.id")}
                   </label>
                   <input
                     type="text"
@@ -181,7 +181,8 @@ export default function Setting() {
           <div className="row d-flex justify-content-center">
             <input
               type="submit"
-              value="تحديث"
+              value={t("editProfile.submitPass")}
+              // value="تحديث"
               className={
                 Object.values(errors).some((error) => error !== "")
                   ? `text-center bgColor w-50 text-white btn my-3 ${classes.formBtn} disabled`

@@ -36,9 +36,7 @@ export default function Photoprofile() {
     const formData = new FormData();
     uploadFile(file, formData);
     axiosInstanceParking
-      .patch(`/users/me/photo`, formData, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .patch(`/users/me/photo`, formData)
       .then((res) => {
         setImage(file);
       })
@@ -84,7 +82,9 @@ export default function Photoprofile() {
           <p className="mt-2 Gray">
             <BsPersonFillCheck className="editIcon2" />
             <span className="">
-              {`${t('editProfile.since')} ${new Date(user.createdAt).toLocaleDateString()}`}
+              {`${t("editProfile.since")} ${new Date(
+                user.createdAt
+              ).toLocaleDateString()}`}
             </span>
           </p>
         </div>
