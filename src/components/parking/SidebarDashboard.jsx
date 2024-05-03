@@ -58,7 +58,7 @@ export default function SidebarProfile() {
           />
 
           <div
-            className={`offcanvas offcanvas-end bgColor  w-75`}
+            className={`offcanvas offcanvas-end bgColor w-75`}
             data-bs-scroll="true"
             tabIndex="-1"
             id="offcanvasWithBothOptions"

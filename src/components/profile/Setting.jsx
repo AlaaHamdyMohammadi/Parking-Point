@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import useLogInUserData from "../../../hook/useLogInUserData";
 import axiosInstanceParking from "../../axiosConfig/instanc";
@@ -20,9 +20,12 @@ export default function Setting() {
   const { t } = useTranslation();
   const token = useSelector((state) => state.loggedIn.token);
   const user = useLogInUserData();
+  console.log(user);
   const navigate = useNavigate();
 
-  const [userInfo, setUserInfo] = useState({
+  const [userInfo, setUserInfo] = useState(user);
+  useEffect(() => {
+    setUserInfo({
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
@@ -32,8 +35,9 @@ export default function Setting() {
     region: user.region,
     plateNumber: user.plateNumber,
     carType: user.carType,
-  });
-  //console.log(userInfo);
+    })
+  }, [user]);
+  console.log(userInfo);
   const [errors, setErrors] = useState({
     fristNameErrors: "",
     lastNameErrors: "",
@@ -134,7 +138,7 @@ export default function Setting() {
               <>
                 <div className="col-md-6 col-12">
                   <CitySelect
-                    cityInfo={userInfo}
+                    cityInfo={userInfo.city}
                     classes={classes}
                     setCityInfo={setUserInfo}
                     errors={errors}
