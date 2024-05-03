@@ -3,7 +3,7 @@ const axiosInstanceParking= axios.create({
 // baseURL:'http://localhost:3000',
 baseURL:'https://e-parking-backend.onrender.com',
 withCredentials: true,
-headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'multipart/form-data'},
 credentials: 'include',
 })
 
