@@ -20,7 +20,6 @@ export default function useLogInUserData() {
                     dispatch(logout());
                     await axiosInstanceParking.post(`/users/logout`);
                     navigate("/");
-                    console.log(error);
                 }
             }
         };
