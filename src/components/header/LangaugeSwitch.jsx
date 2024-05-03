@@ -6,13 +6,13 @@ import { changeLanguage } from "../../store/slices/language";
 
 const LangaugeSwitch = () => {
   const {t, i18n } = useTranslation();
-  const [selectedLanguage, setSelectedLanguage] = React.useState("ar");
+  // const [selectedLanguage, setSelectedLanguage] = React.useState("ar");
   const dispatch = useDispatch();
   const language = useSelector((state) => state.language.language);
   
   const handleChangeLanguage = (newLanguage) => {
     i18n.changeLanguage(newLanguage);
-    setSelectedLanguage(newLanguage);
+    // setSelectedLanguage(newLanguage);
     if (newLanguage === "en") {
       // document.documentElement.classList.add("ltr");
       dispatch(changeLanguage(newLanguage))
@@ -24,7 +24,7 @@ const LangaugeSwitch = () => {
   
   return (
     <>
-      {selectedLanguage === "ar" ? (
+      {language === "ar" ? (
         <div className="nav-item fw-bold">
           <div
             className="nav-link active mx-md-5 text-white"
