@@ -15,7 +15,7 @@ export default function Header_2() {
           />
         </Link>
       </div>
-      <div className="mt-2">
+      <div className="mt-2 mx-5">
         <LangaugeSwitch  textColor=""/>
       </div>
     </nav>
