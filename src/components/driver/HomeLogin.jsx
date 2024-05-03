@@ -8,6 +8,7 @@ import ParkingHome from "../../pages/parking/ParkingHome";
 import SpinnerLoad from "../spinner/Spinner";
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet";
+import { useSelector } from "react-redux";
 
 export default function HomeLogin() {
   const user = useLogInUserData();
@@ -41,6 +42,7 @@ export default function HomeLogin() {
       setIsLoading(false);
     }, 1500);
   }, []);
+  const language = useSelector((state) => state.language.language);
 
   return (
     <>
@@ -67,7 +69,6 @@ export default function HomeLogin() {
                           : "p-2 fw-bold pointer text-secondary text-opacity-50  border-0"
                       }
                     >
-                      
                       {t("BookNow")}
                     </div>
                     <div
@@ -78,7 +79,6 @@ export default function HomeLogin() {
                           : "p-2 fw-bold pointer  text-secondary text-opacity-50 border-0"
                       }
                     >
-                      
                       {t("BookLater")}
                     </div>
                   </div>
@@ -86,7 +86,11 @@ export default function HomeLogin() {
                     <div
                       className={` shadow height text-center p-2 border-secondary-subtlepx-2 rounded-2 w-100 height`}
                     >
-                      <div className={` fs-5 pe-4 my-4  text-end  fw-bolder`}>
+                      <div
+                        className={` fs-5 pe-4 my-4 ${
+                          language == "ar" ? "text-end" : "text-start"
+                        } fw-bolder`}
+                      >
                         {t("searchForBarking")}
                       </div>
                       <div className={``}>{/* <SelectLocation /> */}</div>
@@ -132,7 +136,7 @@ export default function HomeLogin() {
                       />
                     ) : (
                       <div className="fs-3 fw-semibold text-center ">
-                        <p className="my-5 py-5">{t('noParkings')}</p>
+                        <p className="my-5 py-5">{t("noParkings")}</p>
                       </div>
                     )}
                   </div>

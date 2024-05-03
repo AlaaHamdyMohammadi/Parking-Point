@@ -23,7 +23,7 @@ export default function EndDateTime({
   const user = useLogInUserData();
   const token = useSelector((state) => state.loggedIn.token);
   const todayDate = new Date().toISOString().slice(0, 16);
-  console.log("today date", todayDate)
+  console.log("today date", todayDate);
   const [timeDifference, setTimeDifference] = useState({
     days: 0,
     hours: 0,
@@ -56,7 +56,7 @@ export default function EndDateTime({
     const endTime = new Date(searchData.to).getTime();
 
     if (startTime >= endTime) {
-      toast.error(t('reservationDate.errorToast1'));
+      toast.error(t("reservationDate.errorToast1"));
       return;
     }
 
@@ -76,7 +76,7 @@ export default function EndDateTime({
     const startTime = new Date(searchData.from).getTime();
     const endTime = new Date(searchData.to).getTime();
     if (startTime >= endTime) {
-      toast.error(t('reservationDate.errorToast1'));
+      toast.error(t("reservationDate.errorToast1"));
       return;
     }
     if (user.isEmailConfirmed == false) {
@@ -86,9 +86,9 @@ export default function EndDateTime({
         .get(
           `/parkings/?city=${searchData.city}&from=${searchData.from}&to=${searchData.to}`,
           {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            // headers: {
+            //   Authorization: `Bearer ${token}`,
+            // },
           }
         )
         .then((response) => {
@@ -98,10 +98,12 @@ export default function EndDateTime({
         })
         .catch((error) => {
           console.error("Error", error);
-          toast.error(t('reservationDate.errorToast2'));
+          toast.error(t("reservationDate.errorToast2"));
         });
     }
   };
+  const language = useSelector((state) => state.language.language);
+
   const handleChange = useSendCode();
   return (
     <>
@@ -118,30 +120,30 @@ export default function EndDateTime({
               value={searchData.city}
             >
               <option value="" hidden className="text-danger">
-              {t('addParking.SelectState')}
+                {t("addParking.SelectState")}
               </option>
               <option className="text-black" value="مسقط">
-              {t('addParking.city1')}
+                {t("addParking.city1")}
               </option>
               <option className="text-black" value="مطرح">
-              {t('addParking.city2')}
+                {t("addParking.city2")}
               </option>
               <option className="text-black" value="السيب">
-              {t('addParking.city3')}
+                {t("addParking.city3")}
               </option>
               <option className="text-black" value="بوشر">
-              {t('addParking.city4')}
+                {t("addParking.city4")}
               </option>
               <option className="text-black" value="العامرات">
-              {t('addParking.city5')}
+                {t("addParking.city5")}
               </option>
               <option className="text-black" value="قريات">
-              {t('addParking.city6')}
+                {t("addParking.city6")}
               </option>
             </select>
           </div>
-          <div className={BookNow ? "  d-none text-end  " : " text-end "}>
-            <label className=" p-2">{t('reservationDate.startingFrom')}</label>
+          <div className={BookNow ? "  d-none text-end  " : " text-start "}>
+            <label className=" p-2">{t("reservationDate.startingFrom")}</label>
             {/* m-2 ms-3 p-1  */}
             <input
               icon={<FcOvertime />}
@@ -153,9 +155,11 @@ export default function EndDateTime({
               onChange={handleInputChange}
             />
           </div>
-          <div className="text-end ">
+          <div className={` ${language == "ar" ? "text-end" : "text-start"}`}>
             <label className=" p-2">
-              {BookNow ? t('reservationDate.reservationEnd') : t('reservationDate.to')}
+              {BookNow
+                ? t("reservationDate.reservationEnd")
+                : t("reservationDate.to")}
             </label>
             <input
               className=" customRange Gray  focus border-0 pointer text-center w-100  p-2  rounded-2"
@@ -173,8 +177,12 @@ export default function EndDateTime({
             {timeDifference.minutes > 0 ||
             timeDifference.hours > 0 ||
             timeDifference.days > 0
-              ? ` ${timeDifference.days} ${t('parkDetials.day')}, ${timeDifference.hours} ${t('parkDetials.hour')}, ${timeDifference.minutes} ${t('parkDetials.minute')}`
-              : t('reservationDate.parkingDuration')}
+              ? ` ${timeDifference.days} ${t("parkDetials.day")}, ${
+                  timeDifference.hours
+                } ${t("parkDetials.hour")}, ${timeDifference.minutes} ${t(
+                  "parkDetials.minute"
+                )}`
+              : t("reservationDate.parkingDuration")}
           </div>
           <div className={`text-end`}>
             <button
@@ -182,18 +190,18 @@ export default function EndDateTime({
               className={`text-center bgColor text-white btn  my-3 ${classes.formBtn}`}
               disabled={user.isEmailConfirmed == false && true}
             >
-              {t('reservationDate.showParking')}
+              {t("reservationDate.showParking")}
             </button>
             {user.isEmailConfirmed == false && (
               <div className="text-danger">
-                <div>{t('reservationDate.confirmEmail')}</div>
+                <div>{t("reservationDate.confirmEmail")}</div>
                 <div
                   className={`${classes.resendcode} pointer fs-6 fw-bold mt-md-1`}
                   data-bs-toggle="modal"
                   data-bs-target="#staticBackdrop"
                   onClick={handleChange}
                 >
-                  {t('reservationDate.click')}
+                  {t("reservationDate.click")}
                 </div>
               </div>
             )}
