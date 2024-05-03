@@ -15,10 +15,7 @@ import { HiLockClosed } from "react-icons/hi2";
 import { LiaMoneyCheckAltSolid } from "react-icons/lia";
 import { toast, ToastContainer } from "react-toastify";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { MdVerified } from "react-icons/md";
-import { MdOutlineAdsClick } from "react-icons/md";
 import useSendCode from "../../../hook/useSendCode";
-import ConfimEmailPop from "../login-register/confirmEmailpop";
 import { useTranslation } from "react-i18next";
 
 export default function SidebarProfile() {
@@ -54,14 +51,14 @@ export default function SidebarProfile() {
           className={`${classes.sidebar} position-fixed top-0 start-0 z-1 transition`}
         >
           <GiHamburgerMenu
-            className="position-fixed fs-1 p-1 pointer mx-2 mt-2  end-0 z-1 transition  dropdown-toggle"
+            className="position-fixed fs-1 p-1 pointer mx-2 mt-2 end-0 z-1 transition dropdown-toggle"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasWithBothOptions"
             aria-controls="offcanvasWithBothOptions"
           />
 
           <div
-            className={`offcanvas offcanvas-end bgColor pe- ${classes.customW}`}
+            className={`offcanvas offcanvas-end bgColor w-75`}
             data-bs-scroll="true"
             tabIndex="-1"
             id="offcanvasWithBothOptions"

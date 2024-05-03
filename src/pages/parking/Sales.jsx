@@ -100,17 +100,19 @@ export default function Sales() {
       </Helmet>
       {isLoading ? (
         <SpinnerLoad />
-      ) : data && data.length > 0 ? (
-        <div className="  w-100 align-self-center">
+      ) : data 
+      // && data.length > 0 
+      ? (
+        <div className="w-100 align-self-center" style={{ minHeight: "27.8vw" }}>
           <div className="d-lg-flex d-md-flex m-2 gap-5 justify-content-between">
             <button
-              className={`text-center my-2 btnDownload w-100 animate    btn `}
+              className={`text-center my-2 btnDownload w-100 animate btn `}
               onClick={generatePDF}
             >
-              <FaRegFilePdf className="text-center fs-5" />{" "}
+              <FaRegFilePdf className="text-center fs-5" />
               {t("sales.download")}
             </button>
-            <button className={`text-center my-2 btnDownload w-100     btn `}>
+            <button className={`text-center my-2 btnDownload w-100 btn `}>
               {responseLength} {t("sales.reservations")}
             </button>
 
@@ -229,7 +231,7 @@ export default function Sales() {
                         </td>
 
                         <td className="p-1">
-                          {/* {formatDateString(item.reservation.time.from)} :{" "} */}
+                          {/* {formatDateString(item.reservation.time.from)} : */}
                           {item.reservation.time.from
                             ? new Date(
                                 item.reservation.time.from
@@ -279,7 +281,7 @@ export default function Sales() {
       ) : (
         <div
           className="fs-3 fw-bold text-center "
-          style={{ minHeight: "95vw" }}
+          style={{ minHeight: "27.8vw" }}
         >
           <p className="my-5 py-5">{t("sales.noReservations")}</p>
         </div>
