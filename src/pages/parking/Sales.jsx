@@ -69,7 +69,7 @@ export default function Sales() {
         setData(response.data.data);
         setResponseLength(response.data.total);
         console.log(response.data.total);
-        console.log(response, "res");
+        // console.log(response, "res");
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -83,7 +83,7 @@ export default function Sales() {
 
   useEffect(() => {
     fetchData();
-  }, [reserveSearch, currentPage]);
+  }, [reserveSearch, currentPage, user]);
   // console.log(data, "dataaaaaaaaaaaa");
   const ComponentPDF = useRef();
   const generatePDF = useReactToPrint({
