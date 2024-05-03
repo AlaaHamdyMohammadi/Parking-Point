@@ -38,7 +38,7 @@ export default function Sales() {
   const [currentPage, setCurrentPage] = useState(1);
   const [responseLength, setResponseLength] = useState(0);
   const [data, setData] = useState(null);
-  const token = useSelector((state) => state.loggedIn.token);
+  // const token = useSelector((state) => state.loggedIn.token);
   const [isLoading, setIsLoading] = useState(true);
   const [reserveSearch, setReserveSearch] = useState("");
   const user = useLogInUserData();
@@ -83,7 +83,7 @@ export default function Sales() {
 
   useEffect(() => {
     fetchData();
-  }, [token, reserveSearch, currentPage]);
+  }, [reserveSearch, currentPage]);
   // console.log(data, "dataaaaaaaaaaaa");
   const ComponentPDF = useRef();
   const generatePDF = useReactToPrint({
