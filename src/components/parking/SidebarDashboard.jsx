@@ -25,7 +25,7 @@ export default function SidebarProfile() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const logdedout = async() => {
+  const logdedout = async () => {
     const res = await axiosInstanceParking.post(`/users/logout`);
     dispatch(logout());
     navigate("/");
@@ -43,7 +43,7 @@ export default function SidebarProfile() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   const handleUnactive = () => {
-    toast.error(t('dashboard.support'));
+    toast.error(t("dashboard.support"));
   };
   const handleChange = useSendCode();
   const language = useSelector((state) => state.language.language);
@@ -110,20 +110,20 @@ export default function SidebarProfile() {
                       data-bs-toggle="tooltip"
                       data-bs-placement="top"
                       data-bs-custom-class={`${classes.customTooltip}`}
-                      title={t('dashboard.support')}
+                      title={t("dashboard.support")}
                     >
                       <span>
                         <HiLockClosed className="  editIcon p-2" />
                       </span>
                       <span className="icon-text ps-2  ">
-                        {isWide ? t('dashboard.addParking') : ""}
+                        {isWide ? t("dashboard.addParking") : ""}
                       </span>
                     </div>
                   ) : (
                     <SideBareLink
                       href={`/Profile/parking`}
                       icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
-                      text="{t('dashboard.addParking')}"
+                      text={t("dashboard.addParking")}
                     />
                   )}
                   <ToastContainer position="top-right" autoClose={10000} />
@@ -131,25 +131,25 @@ export default function SidebarProfile() {
                   <SideBareLink
                     href={`/`}
                     icon={<LuParkingSquareOff className="  editIcon p-2" />}
-                    text={t('dashboard.parking')}
+                    text={t("dashboard.parking")}
                   />
                 </>
               )}
               <SideBareLink
                 href={`/Profile/sales`}
                 icon={<LiaMoneyCheckAltSolid className=" editIcon p-1" />}
-                text={t('dashboard.reservations')}
+                text={t("dashboard.reservations")}
               />
               <SideBareLink
                 href={`/Profile/editOwnerProfile`}
                 icon={<MdEditNote className=" editIcon p-1" />}
-                text={t('dashboard.editAccount')}
+                text={t("dashboard.editAccount")}
               />
               <div onClick={logdedout} className="sidebar fs-5" role="button">
                 <span>
                   <IoIosLogOut className=" editIcon p-1" />
                 </span>
-                <span className="icon-text pe-1">{t('dashboard.logout')}</span>
+                <span className="icon-text pe-1">{t("dashboard.logout")}</span>
               </div>
             </div>
           </div>
@@ -163,7 +163,9 @@ export default function SidebarProfile() {
           onMouseOver={() => {
             setWide(true);
           }}
-          className={`${classes.sidebar} pe-2 position-fixed pt-2 top-0 ${language=='ar'?'end-0':'start-0'} z-1 transition whiteSpace h-100 overflow-x-hidden bgColor 
+          className={`${classes.sidebar} pe-2 position-fixed pt-2 top-0 ${
+            language == "ar" ? "end-0" : "start-0"
+          } z-1 transition whiteSpace h-100 overflow-x-hidden bgColor 
           `}
         >
           <div className={`d-flex mt-md-2 fs-5 fw-bold gap-2 `}>
@@ -207,20 +209,20 @@ export default function SidebarProfile() {
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
                     data-bs-custom-class={`${classes.customTooltip}`}
-                    title={t('dashboard.support')}
+                    title={t("dashboard.support")}
                   >
                     <span>
                       <HiLockClosed className="  editIcon p-2" />
                     </span>
                     <span className="icon-text ps-2  ">
-                      {isWide ? t('dashboard.addParking') : ""}
+                      {isWide ? t("dashboard.addParking") : ""}
                     </span>
                   </div>
                 ) : (
                   <SideBareLink
                     href={`/Profile/parking`}
                     icon={<MdOutlineAddHomeWork className=" editIcon p-1" />}
-                    text={isWide ? t('dashboard.addParking') : ""}
+                    text={isWide ? t("dashboard.addParking") : ""}
                   />
                 )}
                 <ToastContainer position="top-right" autoClose={10000} />
@@ -228,25 +230,27 @@ export default function SidebarProfile() {
                 <SideBareLink
                   href={`/`}
                   icon={<LuParkingSquareOff className="editIcon p-2" />}
-                  text={isWide ? t('dashboard.parking') : ""}
+                  text={isWide ? t("dashboard.parking") : ""}
                 />
               </>
             )}
             <SideBareLink
               href={`/Profile/sales`}
               icon={<LiaMoneyCheckAltSolid className=" editIcon p-1" />}
-              text={isWide ? t('dashboard.reservations') : ""}
+              text={isWide ? t("dashboard.reservations") : ""}
             />
             <SideBareLink
               href={`/Profile/editOwnerProfile`}
               icon={<MdEditNote className=" editIcon " />}
-              text={isWide ? t('dashboard.editAccount') : ""}
+              text={isWide ? t("dashboard.editAccount") : ""}
             />
             <div onClick={logdedout} className="sidebar fs-5" role="button">
               <span>
                 <IoIosLogOut className=" editIcon p-1 " />
               </span>
-              {isWide && <span className="icon-text pe-2">{t('dashboard.logout')}</span>}
+              {isWide && (
+                <span className="icon-text pe-2">{t("dashboard.logout")}</span>
+              )}
             </div>
           </div>
         </div>
