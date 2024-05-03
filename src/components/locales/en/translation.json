@@ -286,7 +286,7 @@
     "errorToast2":"The verification code is invalid"
   },
   "header":{
-    "reservations":"my Reservations",
+    "reservations":"Reservations",
     "myaccount":"My account",
     "support":"Support",
     "logout":"Logout",
