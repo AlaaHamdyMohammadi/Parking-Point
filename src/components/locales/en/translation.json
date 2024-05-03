@@ -60,7 +60,7 @@
     "errorToastPass": "The current password is incorrect",
     "oldPassword": "Old password",
     "newPassword": "New password",
-    "confirmPassword": "password confirmation",
+    "confirmPassword": "confirm password ",
     "submitPass": "submit"
   },
   "ownerProfile": {

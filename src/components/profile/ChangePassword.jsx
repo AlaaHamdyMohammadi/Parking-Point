@@ -40,7 +40,7 @@ export default function ChangePassword() {
       setErrors({
         ...errors,
         currentPasswordErrors:
-          value.length === 0 ? t('editProfile.oldPasswordErr') : "",
+          value.length === 0 ? t("editProfile.oldPasswordErr") : "",
       });
       setCurrentPassword(value);
     }
@@ -49,12 +49,12 @@ export default function ChangePassword() {
         ...errors,
         passwordErrors:
           value.length === 0
-            ? t('editProfile.newPasswordErr1')
+            ? t("editProfile.newPasswordErr1")
             : value.length <= 7
-            ? t('editProfile.newPasswordErr2')
+            ? t("editProfile.newPasswordErr2")
             : passwordRegx.test(value)
             ? ""
-            : t('editProfile.newPasswordErr3'),
+            : t("editProfile.newPasswordErr3"),
       });
       setpassword(value);
     }
@@ -63,10 +63,10 @@ export default function ChangePassword() {
         ...errors,
         confirmPasswordErrors:
           value.length === 0
-            ? t('editProfile.confirmPasswordErr1')
+            ? t("editProfile.confirmPasswordErr1")
             : value == password
             ? ""
-            : t('editProfile.confirmPasswordErr2'),
+            : t("editProfile.confirmPasswordErr2"),
       });
       setConfirmPassword(value);
     }
@@ -86,23 +86,30 @@ export default function ChangePassword() {
         await axiosInstanceParking.patch(`/users/me/change-password`, obj, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        toast.success(t('editProfile.successToastPass'));
+        toast.success(t("editProfile.successToastPass"));
         setTimeout(() => {
           navigate(`/`);
         }, 3000);
       } catch (error) {
-        toast.error(t('editProfile.errorToastPass'));
+        toast.error(t("editProfile.errorToastPass"));
       }
     }
   };
+  const language = useSelector((state) => state.language.language);
+
   return (
     <main>
       <form method="post" className="pe-5" onSubmit={handleSubmit}>
         <div className="d-md-flex">
-          <div className="col-12 col-md-6">
-            <div className=" ">
+          <div
+            className="col-12 col-md-6"
+            style={{
+              ...(language === "ar" ? "" : { paddingLeft: "40px" }),
+            }}
+          >
+            <div>
               <label className="fs-5 py-1" htmlFor="currentPassword">
-                {t('editProfile.oldPassword')}
+                {t("editProfile.oldPassword")}
               </label>
               <div className="d-flex justify-content-end">
                 <div className="d-flex flex-column w-100">
@@ -128,9 +135,9 @@ export default function ChangePassword() {
                 </button>
               </div>
             </div>
-            <div className="">
+            <div>
               <label className="fs-5  py-1" htmlFor="password">
-              {t('editProfile.newPassword')}
+                {t("editProfile.newPassword")}
               </label>
               <div className="d-flex justify-content-end">
                 <div className="d-flex flex-column w-100">
@@ -156,9 +163,9 @@ export default function ChangePassword() {
                 </button>
               </div>
             </div>
-            <div className="">
+            <div>
               <label className="fs-5  py-1" htmlFor="confirmPassword">
-              {t('editProfile.confirmPassword')}
+                {t("editProfile.confirmPassword")}
               </label>
               <div className="d-flex justify-content-end">
                 <div className="d-flex flex-column w-100">
@@ -198,9 +205,12 @@ export default function ChangePassword() {
 
         <input
           type="submit"
-          value={t('editProfile.submitPass')}
+          value={t("editProfile.submitPass")}
           className={`text-center bgColor w-25 text-white btn my-3 ${classes.formBtn}`}
           disabled={Object.values(errors).some((error) => error !== "")}
+          style={{
+            ...(language === "ar" ? "" : { paddingLeft: "40px" }),
+          }}
         />
       </form>
     </main>
