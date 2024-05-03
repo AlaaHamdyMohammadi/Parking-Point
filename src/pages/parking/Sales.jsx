@@ -42,7 +42,7 @@ export default function Sales() {
   const [isLoading, setIsLoading] = useState(true);
   const [reserveSearch, setReserveSearch] = useState("");
   const user = useLogInUserData();
-  console.log(user);
+  console.log("user: ", user);
   const fetchData = async () => {
     try {
       let params = {};
