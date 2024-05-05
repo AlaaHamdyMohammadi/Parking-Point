@@ -13,7 +13,7 @@ export default function EmailInput({
   const isLoggedIn = useSelector((state) => state.loggedIn.loggedIn);
   const { t } = useTranslation();
 
-  let emailRegx = /^[a-zA-Z0-9]{4,}(@)[a-z](.com)$/;
+  let emailRegx = /^[a-zA-Z0-9._%+-]{4,}(@)[a-zA-z]{1,}(.com)$/;
   const emailValidation = (event) => {
     const { name, value } = event.target;
     setErrors({
