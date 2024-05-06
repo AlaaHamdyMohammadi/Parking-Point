@@ -143,7 +143,7 @@ export default function EndDateTime({
               icon={<FcOvertime />}
               className=" customRange Gray focus border-0 pointer text-center w-100  p-2 rounded-2"
               type="datetime-local"
-              name={`time`}
+              name={`from`}
               min={todayDate}
               value={searchData.from}
               onChange={handleInputChange}
