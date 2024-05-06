@@ -22,7 +22,7 @@ export default function EndDateTime({
 }) {
   const user = useLogInUserData();
   const todayDate = new Date().toISOString().slice(0, 16);
-  console.log("today date", todayDate);
+  // console.log("today date", todayDate);
   const [timeDifference, setTimeDifference] = useState({
     days: 0,
     hours: 0,
