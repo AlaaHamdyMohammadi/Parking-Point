@@ -7,6 +7,7 @@ export const loginSlice = createSlice({
   },
   reducers: {
     login: (state) => {
+      state.loggedIn = true;
       localStorage.setItem("loggedIn", state.language);
     },
     loggedInState: (state) => {
