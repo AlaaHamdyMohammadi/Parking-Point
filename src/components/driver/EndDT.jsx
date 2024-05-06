@@ -104,12 +104,12 @@ export default function EndDateTime({
       <form method="post" onSubmit={sendQuery}>
         <div className="container">
           <div
-            className={`${classes.customSelectWrapper} Gray   text-center w-100  mb-2  `}
+            className={`${classes.customSelectWrapper} Gray text-center w-100  mb-2  `}
           >
             <select
               id="cars"
               name="city"
-              className={`w-100 Gray focus border-0 rounded-2  p-1  pointer shadow-none customRange  `}
+              className={`w-100 Gray focus border-0 rounded-2 p-1 pointer shadow-none customRange  `}
               onChange={handleInputChange}
               value={searchData.city}
             >
@@ -141,9 +141,9 @@ export default function EndDateTime({
             {/* m-2 ms-3 p-1  */}
             <input
               icon={<FcOvertime />}
-              className=" customRange Gray focus  border-0 pointer text-center w-100  p-2 rounded-2"
+              className=" customRange Gray focus border-0 pointer text-center w-100  p-2 rounded-2"
               type="datetime-local"
-              name="from"
+              name={`from`}
               min={todayDate}
               value={searchData.from}
               onChange={handleInputChange}
