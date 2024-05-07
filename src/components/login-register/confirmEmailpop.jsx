@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
@@ -7,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import useSendCode from "../../../hook/useSendCode";
 import CountdownTimer from "./CountdownTimer";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 export default function ConfimEmailPop({ userEmail }) {
   const { t } = useTranslation();
@@ -17,6 +19,7 @@ export default function ConfimEmailPop({ userEmail }) {
   const handleResetTimer = () => {
     setResetTimer((prev) => !prev);
   };
+  const language = useSelector((state) => state.language.language);
 
   return (
     <>
@@ -50,7 +53,12 @@ export default function ConfimEmailPop({ userEmail }) {
               <div className="text-center">
                 <ConfirmationCodeInput length={6} onConfirm={(code) => code} />
               </div>
-              <p className="fs-6 pt-2 px-2 text-justify">
+              <p
+                align="justify"
+                className={`fs-6 pt-2 px-2 ${
+                  language == "ar" ? "text-end" : "text-start"
+                }`}
+              >
                 {t("confirmEmailPop1")}
                 <span className={`${classes.resendcode} px-1`}>
                   {userEmail}
@@ -58,7 +66,7 @@ export default function ConfimEmailPop({ userEmail }) {
                 {t("confirmEmailPop2")}
               </p>
             </div>
-            <div className="modal-footer d-flex  justify-content-between">
+            <div className="modal-footer d-flex mx-2 justify-content-between">
               <div
                 className={`${classes.resendcode} pointer fs-6 fw-semibold`}
                 onClick={() => {
