@@ -221,7 +221,7 @@ export default function AddParking() {
         {!ParkingId ? t("addParking.addTitle") : t("addParking.editTitle")}
       </h3>
       <div className={`card w-md-75 w-100 align-self-center p-2 mb-5`}>
-        <div className={`p-5`}>
+        <div className={`p-md-5`}>
           <h5 className={`text-secondary text-center`}>
             {t("addParking.img")}
           </h5>
