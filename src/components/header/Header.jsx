@@ -47,19 +47,8 @@ export default function Header() {
               className={`${classes.logo} me-5`}
             />
           </Link>
-          <button
-            className="navbar-toggler navbar-dark"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarScroll"
-            aria-controls="navbarScroll"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarScroll">
-            <ul className="navbar-nav me-md-auto my-lg-0 navbar-nav-scroll">
+         
+          <ul>
               {isLoggedIn && (
                 <li className="nav-item dropdown">
                   <Link
@@ -143,7 +132,23 @@ export default function Header() {
                   </ul>
                 </li>
               )}
+
+          </ul>
               {!isLoggedIn && (
+                <>
+                 <button
+                 className="navbar-toggler navbar-dark"
+                 type="button"
+                 data-bs-toggle="collapse"
+                 data-bs-target="#navbarScroll"
+                 aria-controls="navbarScroll"
+                 aria-expanded="false"
+                 aria-label="Toggle navigation"
+               >
+                 <span className="navbar-toggler-icon"></span>
+               </button>
+          <div className={`collapse navbar-collapse`} id="navbarScroll">
+            <ul className="navbar-nav me-md-auto my-lg-0 navbar-nav-scroll">
                 <>
                   <li className="nav-item mt-md-2 fw-bold">
                     <Link
@@ -173,9 +178,10 @@ export default function Header() {
                     <LangaugeSwitch textColor="text-white" />
                   </li>
                 </>
-              )}
             </ul>
           </div>
+                </>
+              )}
         </div>
       </nav>
 
