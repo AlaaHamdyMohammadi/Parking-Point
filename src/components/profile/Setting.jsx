@@ -77,7 +77,7 @@ export default function Setting() {
   return (
     <main>
       <form method="post" onSubmit={handleSubmit}>
-        <div className="d-flex flex-column mx-5 align-self-center align-self-start w-md-75">
+        <div className="d-flex flex-column mx-md-5 align-self-center align-self-start w-100 w-md-75">
           <div className="row flex-column flex-sm-row ">
             <div className="col-md-6 col-12">
               <NameInputs

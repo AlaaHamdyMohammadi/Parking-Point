@@ -168,13 +168,12 @@ export default function EndDateTime({
             className=" customRange mt-4  border-0 pointer text-center w-100 my- p-2 fw-semibold animate  rounded-2"
           >
             {timeDifference.minutes > 0 ||
-            timeDifference.hours > 0 ||
-            timeDifference.days > 0
-              ? ` ${timeDifference.days} ${t("parkDetials.day")}, ${
-                  timeDifference.hours
-                } ${t("parkDetials.hour")}, ${timeDifference.minutes} ${t(
-                  "parkDetials.minute"
-                )}`
+              timeDifference.hours > 0 ||
+              timeDifference.days > 0
+              ? ` ${timeDifference.days} ${t("parkDetials.day")}, ${timeDifference.hours
+              } ${t("parkDetials.hour")}, ${timeDifference.minutes} ${t(
+                "parkDetials.minute"
+              )}`
               : t("reservationDate.parkingDuration")}
           </div>
           <div className={`text-end`}>
@@ -187,9 +186,8 @@ export default function EndDateTime({
             </button>
             {user.isEmailConfirmed == false && (
               <div
-                className={`text-danger ${
-                  language == "ar" ? "text-end" : "text-start"
-                }`}
+                className={`text-danger ${language == "ar" ? "text-end" : "text-start"
+                  }`}
               >
                 <div>{t("reservationDate.confirmEmail")}</div>
                 <div
