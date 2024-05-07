@@ -141,7 +141,9 @@ export default function EndDateTime({
             {/* m-2 ms-3 p-1  */}
             <input
               icon={<FcOvertime />}
-              className=" customRange Gray focus border-0 pointer text-center w-100  p-2 rounded-2"
+              className={`${
+                language == "ar" ? "text-end" : "text-start"
+              } customRange Gray focus border-0 pointer text-center w-100  p-2 rounded-2`}
               type="datetime-local"
               name={`time`}
               min={todayDate}
