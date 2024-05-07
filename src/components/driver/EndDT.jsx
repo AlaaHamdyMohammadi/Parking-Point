@@ -21,8 +21,9 @@ export default function EndDateTime({
   onTimeChange,
 }) {
   const user = useLogInUserData();
-  const todayDate = new Date().toISOString().slice(0, 16);
-  // console.log("today date", todayDate);
+  const todayDate = new Date(Date.now());
+  // .toISOString().slice(0, 16);
+  console.log("today date", todayDate);
   const [timeDifference, setTimeDifference] = useState({
     days: 0,
     hours: 0,
@@ -31,7 +32,6 @@ export default function EndDateTime({
   const { t } = useTranslation();
   const [searchData, setSearchData] = useState({
     city: "",
-    // from: BookNow ? new Date(Date.now()) : "",
     from: BookNow ? todayDate : "",
     // Set default value to current date and time if BookNow is true
     to: null,
@@ -50,28 +50,69 @@ export default function EndDateTime({
     onTimeChange(updatedData);
   };
 
+  // const calculateTimeDifference = () => {
+  //   const startTime = new Date(searchData.from).getTime();
+  //   const endTime = new Date(searchData.to).getTime();
+
+  //   if (startTime >= endTime) {
+  //     toast.error("يجب أن يكون تاريخ انتهاء الحجز  بعد تاريخ البدء.");
+  //     return;
+  //   }
+
+  //   const timeDifference = Math.abs(endTime - startTime);
+  //   const days = Math.floor(
+  //     (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  //   );
+  //   const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+  //   const minutes = Math.floor(
+  //     (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+  //   );
+
+  //   setTimeDifference({ hours, minutes, days });
+  // };
+
   const calculateTimeDifference = () => {
     const startTime = new Date(searchData.from).getTime();
     const endTime = new Date(searchData.to).getTime();
 
     if (startTime >= endTime) {
-      toast.error(t("reservationDate.errorToast1"));
+      toast.error("يجب أن يكون تاريخ انتهاء الحجز بعد تاريخ البدء.");
       return;
     }
 
     const timeDifference = Math.abs(endTime - startTime);
     const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor(timeDifference / (1000 * 60 * 60));
-    const minutes = Math.floor(
+    const remainingHours = Math.floor(
+      (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const remainingMinutes = Math.floor(
       (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
     );
 
-    setTimeDifference({ hours, minutes, days });
+    let adjustedDays = days;
+    let adjustedHours = remainingHours;
+    let adjustedMinutes = remainingMinutes;
+
+    if (adjustedMinutes >= 60) {
+      adjustedHours++;
+      adjustedMinutes = 0;
+    }
+
+    if (adjustedHours >= 24) {
+      adjustedDays++;
+      adjustedHours = 0;
+    }
+
+    setTimeDifference({
+      days: adjustedDays,
+      hours: adjustedHours,
+      minutes: adjustedMinutes,
+    });
   };
 
   const sendQuery = (e) => {
     e.preventDefault();
-    //console.log(searchData);
+    console.log(searchData);
     const startTime = new Date(searchData.from).getTime();
     const endTime = new Date(searchData.to).getTime();
     if (startTime >= endTime) {
@@ -148,19 +189,28 @@ export default function EndDateTime({
             }
           >
             <label
-              className={`p-2  
-               ${language == "ar" ? "text-end" : "text-start"} 
-              `}
+              className={`p-2
+                ${language == "ar" ? "text-end" : "text-start"}
+               `}
             >
               {t("reservationDate.startingFrom")}
             </label>
+            {/* <input
+               icon={<FcOvertime />}
+               className={`
+
+               customRange Gray focus border-0 pointer text-center w-100  p-2 rounded-2`}
+               type="datetime-local"
+               name={`time`}
+               min={todayDate}
+               value={searchData.from}
+               onChange={handleInputChange}
+             /> */}
             <input
               icon={<FcOvertime />}
-              className={`
-            
-              customRange Gray focus border-0 pointer text-center w-100  p-2 rounded-2`}
+              className=" customRange Gray focus  border-0 pointer text-center w-100  p-2 rounded-2"
               type="datetime-local"
-              name={`time`}
+              name="from"
               min={todayDate}
               value={searchData.from}
               onChange={handleInputChange}
@@ -195,7 +245,7 @@ export default function EndDateTime({
                 )}`
               : t("reservationDate.parkingDuration")}
           </div>
-          <div className={`text-end`}>
+          <div className={` ${language == "ar" ? "text-end" : "text-start"}`}>
             <button
               type="submit"
               className={`text-center bgColor text-white btn  my-3 ${classes.formBtn}`}
