@@ -50,24 +50,41 @@ export default function EndDateTime({
     onTimeChange(updatedData);
   };
 
+  // const calculateTimeDifference = () => {
+  //   const startTime = new Date(searchData.from).getTime();
+  //   const endTime = new Date(searchData.to).getTime();
+
+  //   if (startTime >= endTime) {
+  //     toast.error(t("reservationDate.errorToast1"));
+  //     return;
+  //   }
+
+  //   const timeDifference = Math.abs(endTime - startTime);
+  //   const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  //   const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+  //   const minutes = Math.floor(
+  //     (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+  //   );
+
+  //   setTimeDifference({ hours, minutes, days });
+  // };
   const calculateTimeDifference = () => {
     const startTime = new Date(searchData.from).getTime();
     const endTime = new Date(searchData.to).getTime();
 
     if (startTime >= endTime) {
-      toast.error(t("reservationDate.errorToast1"));
-      return;
+        toast.error(t("reservationDate.errorToast1"));
+        return;
     }
 
     const timeDifference = Math.abs(endTime - startTime);
     const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor(timeDifference / (1000 * 60 * 60));
-    const minutes = Math.floor(
-      (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-    );
+    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
 
     setTimeDifference({ hours, minutes, days });
-  };
+};
+
 
   const sendQuery = (e) => {
     e.preventDefault();
