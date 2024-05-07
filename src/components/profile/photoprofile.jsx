@@ -78,7 +78,7 @@ export default function Photoprofile() {
               </div>
             </div>
           </div>
-          <p className="mt-2 Gray">
+          <p className="mt-2 w-100 Gray">
             <BsPersonFillCheck className="editIcon2" />
             <span className="">
               {`${t("editProfile.since")} ${new Date(
