@@ -28,7 +28,7 @@ const LangaugeSwitch = ({textColor}) => {
       {language === "ar" ? (
         <div className="nav-item fw-bold">
           <div
-            className={`d-flex align-items-center gap-2 nav-link active mx-md-5 ${textColor}`}
+            className={`d-flex align-items-center gap-2 nav-link active mx-md-5 me-5 ${textColor}`}
             aria-current="page"
             onClick={() => {
               handleChangeLanguage("en");
@@ -37,7 +37,7 @@ const LangaugeSwitch = ({textColor}) => {
           >
             <p>English</p>
             <img
-              src="EnglandFlag.png"
+              src="../EnglandFlag.png"
               style={{ width: "20px", height: "20px", marginTop: "-15px" }}
             />
           </div>
@@ -45,7 +45,7 @@ const LangaugeSwitch = ({textColor}) => {
       ) : (
         <div className="nav-item fw-bold">
           <div
-            className={`d-flex align-items-center gap-2 nav-link active mx-md-5 ${textColor}`}
+            className={`d-flex align-items-center gap-2 nav-link active mx-md-5 ms-5 ${textColor}`}
             aria-current="page"
             onClick={() => {
               handleChangeLanguage("ar");
@@ -54,7 +54,7 @@ const LangaugeSwitch = ({textColor}) => {
           >
             <p>العربية</p>
             <img
-              src="OmanFlag.png"
+              src="../OmanFlag.png"
               style={{
                 width: "20px",
                 height: "20px",
