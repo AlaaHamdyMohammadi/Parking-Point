@@ -5,6 +5,8 @@ import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useDispatch } from "react-redux";
 import { loggedInState, login } from "../../store/slices/authSlice";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { useTranslation } from "react-i18next";
 const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
   const { t } = useTranslation();
@@ -63,10 +65,9 @@ const ConfirmationCodeInput = ({ length = 6, onConfirm }) => {
     if (newConfirmationCode.every((code) => code !== "")) {
       onConfirm(newConfirmationCode.join(""));
       try {
-        const res = await axiosInstanceParking.post(
-          `/users/me/confirm-email`,
-          { token: newConfirmationCode.join("") },
-        );
+        const res = await axiosInstanceParking.post(`/users/me/confirm-email`, {
+          token: newConfirmationCode.join(""),
+        });
 
         dispatch(login(res.data.token));
         dispatch(loggedInState());

@@ -221,8 +221,11 @@
   "forgetPass5": "Please open your email and copy the code sent.",
   "send": "Send",
   "forgetPass6": "New password",
+    "successPaymentError": "sorry!Reservation failed",
   "successPayment1": "Thank you!",
-  "successPayment2": "The payment process has been completed successfully. You can now go to the parking lot and enjoy our services.",
+      "successPayment11": "waiting!The payment process is being verified..",
+
+  "successPayment2": "When the payment process has been completed successfully. You can  go to the parking lot and enjoy our services.",
   "successPayment3": "Booking details...",
   "terms": "Terms and Conditions:",
   "terms1": "Terms of Agreement",
