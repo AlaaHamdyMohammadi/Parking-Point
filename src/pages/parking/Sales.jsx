@@ -67,7 +67,7 @@ export default function Sales() {
 
   useEffect(() => {
     fetchData();
-  }, [reserveSearch, currentPage, user]);
+  }, [reserveSearch, currentPage, user, data]);
   // console.log(data, "dataaaaaaaaaaaa");
   const calculateTimeDifference = (fromDate, toDate) => {
     const from = new Date(fromDate);
