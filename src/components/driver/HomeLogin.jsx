@@ -87,7 +87,7 @@ export default function HomeLogin() {
                       className={` shadow height text-center p-2 border-secondary-subtlepx-2 rounded-2 w-100 height`}
                     >
                       <div
-                        className={` fs-5 pe-4 my-4 ${
+                        className={` fs-5 px-4 my-4 ${
                           language == "ar" ? "text-end" : "text-start"
                         } fw-bolder`}
                       >
