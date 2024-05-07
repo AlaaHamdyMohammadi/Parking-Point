@@ -40,11 +40,11 @@ const SuccessPayment = () => {
           );
         }, 2000);
       } catch (err) {
-        toast.error(t("successPaymentError"));
-        setTimeout(() => {
-          navigate(`/`);
-        }, 2000);
-        // console.error("Error :", err);
+        // toast.error(t("successPaymentError"));
+        // setTimeout(() => {
+        //   navigate(`/`);
+        // }, 2000);
+        console.error("Error :", err);
         // if (err.response) {
         //   toast.error(t("successPaymentError"));
         //   setTimeout(() => {
@@ -89,8 +89,12 @@ const SuccessPayment = () => {
               <h2>{t("successPayment1")}</h2>
               <p>{t("successPayment11")}</p>
               <p>{t("successPayment2")}</p>
-              <p>{t("successPayment3")}</p>
-              <Spinner animation="border" variant="success" size="lg" />
+              {paymentsuccess && (
+                <>
+                  <p>{t("successPayment3")}</p>
+                  <Spinner animation="border" variant="success" size="lg" />
+                </>
+              )}
             </div>
           </div>
         </div>

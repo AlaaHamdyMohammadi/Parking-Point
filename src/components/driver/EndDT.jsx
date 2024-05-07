@@ -22,8 +22,8 @@ export default function EndDateTime({
 }) {
   const user = useLogInUserData();
   const todayDate = new Date(Date.now());
-  // .toISOString().slice(0, 16);
-  console.log("today date", todayDate);
+
+  // console.log("today date", todayDate);
   const [timeDifference, setTimeDifference] = useState({
     days: 0,
     hours: 0,
@@ -36,7 +36,6 @@ export default function EndDateTime({
     // Set default value to current date and time if BookNow is true
     to: null,
   });
-  // .toISOString().slice(0, 16)
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     let updatedData = { ...searchData };
@@ -49,27 +48,6 @@ export default function EndDateTime({
     setSearchData(updatedData);
     onTimeChange(updatedData);
   };
-
-  // const calculateTimeDifference = () => {
-  //   const startTime = new Date(searchData.from).getTime();
-  //   const endTime = new Date(searchData.to).getTime();
-
-  //   if (startTime >= endTime) {
-  //     toast.error("يجب أن يكون تاريخ انتهاء الحجز  بعد تاريخ البدء.");
-  //     return;
-  //   }
-
-  //   const timeDifference = Math.abs(endTime - startTime);
-  //   const days = Math.floor(
-  //     (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-  //   );
-  //   const hours = Math.floor(timeDifference / (1000 * 60 * 60));
-  //   const minutes = Math.floor(
-  //     (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-  //   );
-
-  //   setTimeDifference({ hours, minutes, days });
-  // };
 
   const calculateTimeDifference = () => {
     const startTime = new Date(searchData.from).getTime();
