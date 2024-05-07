@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import SimplePagination from "../../components/pagination/SimplePagination";
 import useLogInUserData from "../../../hook/useLogInUserData";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 export default function Sales() {
   const { t } = useTranslation();
@@ -92,6 +93,7 @@ export default function Sales() {
     documentTitle: "الحجوزات",
     onAfterPrint: () => toast.success(" pdf تم الحفظ الملف "),
   });
+  const language = useSelector((state) => state.language.language);
 
   return (
     <>
@@ -100,10 +102,12 @@ export default function Sales() {
       </Helmet>
       {isLoading ? (
         <SpinnerLoad />
-      ) : data 
-      // && data.length > 0 
-      ? (
-        <div className="w-100 align-self-center" style={{ minHeight: "27.8vw" }}>
+      ) : data ? (
+        // && data.length > 0
+        <div
+          className="w-100 align-self-center"
+          style={{ minHeight: "27.8vw" }}
+        >
           <div className="d-lg-flex d-md-flex m-2 gap-5 justify-content-between">
             <button
               className={`text-center my-2 btnDownload w-100 animate btn `}
@@ -183,31 +187,66 @@ export default function Sales() {
                             item.time.to
                           )}
                         </td>
-                        <td className="p-1">
+                        {/* <td className="p-1">
                           {item.time.from
-                            ? new Date(item.time.from).toLocaleString("ar", {
-                                day: "numeric",
-                                month: "numeric",
-                                year: "numeric",
-                                hour: "numeric",
-                                minute: "numeric",
-                                // second: "numeric",
-                                hour12: true,
-                              })
+                            ? new Date(item.time.from).toLocaleString(
+                                `  ${language == "ar" ? "ar" : "en"}   `,
+                                {
+                                  day: "numeric",
+                                  month: "numeric",
+                                  year: "numeric",
+                                  hour: "numeric",
+                                  minute: "numeric",
+                                  hour12: true,
+                                }
+                              )
                             : ""}
                           <span className="text-warning fs-2 fw-semibold">
                             :
                           </span>
                           {item.time.to
-                            ? new Date(item.time.to).toLocaleString("ar", {
-                                day: "numeric",
-                                month: "numeric",
-                                year: "numeric",
-                                hour: "numeric",
-                                minute: "numeric",
-                                // second: "numeric",
-                                hour12: true,
-                              })
+                            ? new Date(item.time.to).toLocaleString(
+                                `  ${language == "ar" ? "ar" : "en"}   `,
+                                {
+                                  day: "numeric",
+                                  month: "numeric",
+                                  year: "numeric",
+                                  hour: "numeric",
+                                  minute: "numeric",
+                                  hour12: true,
+                                }
+                              )
+                            : ""}
+                        </td> */}
+                        <td className="p-1">
+                          {item.time.from
+                            ? new Date(item.time.from).toLocaleString(
+                                language === "ar" ? "ar" : "en",
+                                {
+                                  day: "numeric",
+                                  month: "numeric",
+                                  year: "numeric",
+                                  hour: "numeric",
+                                  minute: "numeric",
+                                  hour12: true,
+                                }
+                              )
+                            : ""}
+                          <span className="text-warning fs-2 fw-semibold">
+                            :
+                          </span>
+                          {item.time.to
+                            ? new Date(item.time.to).toLocaleString(
+                                language === "ar" ? "ar" : "en",
+                                {
+                                  day: "numeric",
+                                  month: "numeric",
+                                  year: "numeric",
+                                  hour: "numeric",
+                                  minute: "numeric",
+                                  hour12: true,
+                                }
+                              )
                             : ""}
                         </td>
 
