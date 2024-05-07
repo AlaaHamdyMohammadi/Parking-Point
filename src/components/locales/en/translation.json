@@ -222,6 +222,8 @@
   "send": "Send",
   "forgetPass6": "New password",
     "successPaymentError": "sorry!Reservation failed",
+        "successPaymentSuccess": "Reservation has been completed successfully",
+
   "successPayment1": "Thank you!",
       "successPayment11": "waiting!The payment process is being verified..",
 

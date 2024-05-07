@@ -224,6 +224,9 @@
   "send": "تأكيد",
   "forgetPass6": "كلمة السر الجديده:",
       "successPaymentError": " نأسف! لم تكتمل عملية الدفع لحدوث خطأ",
+     
+        "successPaymentSuccess": " لقد تم الحجز بنجاح",
+
   "successPayment1": "شكرًا لك!",
     "successPayment11": "جاري التحقق من عملية الدفع...",
 
