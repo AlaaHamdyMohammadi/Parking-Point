@@ -70,7 +70,7 @@ export default function Photoprofile() {
               style={{ display: "none" }}
             />
             <div role="button">
-              <div className="ms-5">
+              <div className="ms-md-5">
                 <TbCameraPlus
                   className="position-absolute top-50 start-0 fs-2 ms-1  btn-yellow text-light rounded-circle p-1"
                   onClick={clickImgInput}
