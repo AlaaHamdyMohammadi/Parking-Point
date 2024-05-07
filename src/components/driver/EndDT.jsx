@@ -136,14 +136,29 @@ export default function EndDateTime({
               </option>
             </select>
           </div>
-          <div className={BookNow ? "  d-none text-end  " : " text-start "}>
-            <label className=" p-2">{t("reservationDate.startingFrom")}</label>
-            {/* m-2 ms-3 p-1  */}
+          <div
+            className={
+              BookNow
+                ? `  ${
+                    language == "ar" ? "text-end" : "text-start"
+                  }   d-none text-end `
+                : `  ${
+                    language == "ar" ? "text-end" : "text-start"
+                  }  text-start `
+            }
+          >
+            <label
+              className={`p-2  
+               ${language == "ar" ? "text-end" : "text-start"} 
+              `}
+            >
+              {t("reservationDate.startingFrom")}
+            </label>
             <input
               icon={<FcOvertime />}
-              className={`${
-                language == "ar" ? "text-end" : "text-start"
-              } customRange Gray focus border-0 pointer text-center w-100  p-2 rounded-2`}
+              className={`
+            
+              customRange Gray focus border-0 pointer text-center w-100  p-2 rounded-2`}
               type="datetime-local"
               name={`time`}
               min={todayDate}
