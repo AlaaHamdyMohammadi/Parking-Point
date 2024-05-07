@@ -48,7 +48,7 @@ export default function Header() {
             />
           </Link>
          
-          <ul>
+          <ul className={language=='ar'?'ms-5':'me-5 pe-5'}>
               {isLoggedIn && (
                 <li className="nav-item dropdown">
                   <Link

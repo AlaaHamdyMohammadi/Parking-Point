@@ -75,8 +75,8 @@ export default function HomeLogin() {
                       onClick={handelBookLater}
                       className={
                         !BookNow
-                          ? "   p-2 fw-bold fs-5  customborder border-bottom pointer border-3 "
-                          : "p-2 fw-bold pointer  text-secondary text-opacity-50 border-0"
+                          ? "   p-2 fw-bold fs-5 customborder border-bottom pointer border-3 "
+                          : "p-2 fw-bold pointer text-secondary text-opacity-50 border-0"
                       }
                     >
                       {t("BookLater")}
