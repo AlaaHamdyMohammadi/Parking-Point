@@ -115,7 +115,7 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
                 disabled={Object.values(errors).some(
                   (userEmail) => userEmail !== "")}
               >
-                {this('sure')}
+                {t('sure')}
               </button>
             </div>
           </div>
