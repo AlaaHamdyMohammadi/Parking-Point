@@ -145,7 +145,7 @@ export default function HomeLogin() {
               {/* sec3 */}
               <div
                 // className={`col-lg-9 col-md-12 col-sm-9 mb-2 `}
-                style={{ width: "100vw", height: "100vh" }}
+                style={{ width: "100vw", height: "100vh", padding: "5px" }}
               >
                 <Map AvaliableParksFilter={AvaliableParksFilter} />
               </div>
