@@ -24,6 +24,6 @@ export default function useLogInUserData() {
             }
         };
         getLogInUser()
-    }, [user]);
+    }, [dispatch,navigate,user]);
     return user;
 }
