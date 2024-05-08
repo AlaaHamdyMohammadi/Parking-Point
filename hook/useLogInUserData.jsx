@@ -14,7 +14,6 @@ export default function useLogInUserData() {
                 const response = await axiosInstanceParking.get('/users/me'
                 );
                 setuser(response.data.doc);
-                console.log('user', response.data.doc);
                 return response.data.doc;
             } catch (error) {
                 if (error.response.data.error == 'the user isnt exist anymore') {
