@@ -312,5 +312,7 @@
   "address": "Address:",
   "book":"Book",
   "sure":"confirm",
-  "confirmPlate":"The parking vehicle's license plate number must be confirmed"
+  "confirmPlate":"The parking vehicle's license plate number must be confirmed",
+  "plateError1":"You must enter the car plate number",
+"plateError2":"You must enter a valid plate number"
 }
