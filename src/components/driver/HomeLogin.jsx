@@ -87,7 +87,7 @@ export default function HomeLogin() {
                       className={` shadow height text-center p-2 border-secondary-subtlepx-2 rounded-2 w-100 height`}
                     >
                       <div
-                        className={` fs-5 px-4 my-4 ${
+                        className={` fs-5 px-3 my-4 ${
                           language == "ar" ? "text-end" : "text-start"
                         } fw-bolder`}
                       >
@@ -143,7 +143,10 @@ export default function HomeLogin() {
                 </div>
               )}
               {/* sec3 */}
-              <div className={`col-lg-9 col-md-12 col-sm-9 mb-2 `}>
+              <div
+                // className={`col-lg-9 col-md-12 col-sm-9 mb-2 `}
+                style={{ width: "100vw", height: "100vh" }}
+              >
                 <Map AvaliableParksFilter={AvaliableParksFilter} />
               </div>
             </div>
