@@ -5,8 +5,10 @@ import ModalReserve from "./ReserveModal";
 
 import RatingComponent from "./RatingComponent";
 import axiosInstanceParking from "../../axiosConfig/instanc";
+import { useTranslation } from "react-i18next";
 
 export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
+  const { t } = useTranslation();
   //console.log(AvaliableParksFilter);
   return (
     <>
@@ -65,7 +67,7 @@ export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
               <div className="card-title fw-bolder mb-0">{item.title}</div>
               <div className="mb-0 customfs  ">
                 <div>
-                  <span className=" fw-semibold"> الأماكن المتاحه: </span>
+                  <span className=" fw-semibold">{t('Available')}</span>
                   {item.availableCapacity}
                 </div>
               </div>
@@ -91,11 +93,11 @@ export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
 }
 function ParkingAddress({ address }) {
   const [seeMore, setSeeMore] = useState(false);
-
+  const { t } = useTranslation();
   return (
     <p className="mb-0 customfs">
       <div style={{}}>
-        <span className="fw-semibold">العنوان: </span>
+        <span className="fw-semibold">{t('address')}</span>
         {seeMore
           ? address
           : `${address.slice(0, 20)}${address.length > 20 ? "..." : ""}`}
@@ -113,7 +115,7 @@ function ParkingAddress({ address }) {
             fontWeight: "bold",
           }}
         >
-          {seeMore ? "عرض الأقل" : "عرض المزيد"}
+          {seeMore ? t('less') : t('more')}
         </button>
       )}
     </p>

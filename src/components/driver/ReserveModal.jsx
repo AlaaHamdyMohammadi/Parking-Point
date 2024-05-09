@@ -5,8 +5,10 @@ import classes from "./../../styles/formStyles.module.css";
 import useLogInUserData from "../../../hook/useLogInUserData";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function ModalReserve({ ReserveTime, ParkId }) {
+  const { t } = useTranslation();
   const user = useLogInUserData();
   const [registeUser, setRegisteUser] = useState({
     plateNumber: user.plateNumber, // Set default value to user's plateNumber
@@ -89,7 +91,7 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
             <div className="modal-body p-2">
               <div className="">
                 <label className="fw-semibold pb-2" htmlFor="plateNumber">
-                  يجب تاكيد رقم اللوحة الخاصه بسيارة الركن
+                  {t('confirmPlate')}
                 </label>
                 <input
                   type="text"
@@ -113,7 +115,7 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
                 disabled={Object.values(errors).some(
                   (userEmail) => userEmail !== "")}
               >
-                تأكيد
+                {t('sure')}
               </button>
             </div>
           </div>
@@ -131,7 +133,8 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
         data-bs-target="#exampleModalToggle"
         data-bs-toggle="modal"
       >
-        احجز
+        
+        {t('book')}
       </button>
     </>
   );

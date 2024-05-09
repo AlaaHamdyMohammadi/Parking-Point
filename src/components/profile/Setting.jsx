@@ -21,15 +21,15 @@ export default function Setting() {
   const navigate = useNavigate();
 
   const [userInfo, setUserInfo] = useState({
-    firstName: user.firstName,
-    lastName: user.lastName,
-    email: user.email,
-    phoneNumber: user.phoneNumber,
-    city: user.city,
-    state: user.state,
-    region: user.region,
-    plateNumber: user.plateNumber,
-    carType: user.carType,
+    // firstName: user.firstName,
+    // lastName: user.lastName,
+    // email: user.email,
+    // phoneNumber: user.phoneNumber,
+    // city: user.city,
+    // state: user.state,
+    // region: user.region,
+    // plateNumber: user.plateNumber,
+    // carType: user.carType,
   });
   useEffect(() => {
     setUserInfo({
