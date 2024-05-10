@@ -16,7 +16,7 @@ export default function useLogInUserData() {
                 setuser(response.data.doc);
                 return response.data.doc;
             } catch (error) {
-                if (error.response.data.error == 'the user isnt exist anymore') {
+                if (error.response.data.error == 'the user isnt exist anymore' || error.response.status==401) {
                     dispatch(logout());
                     await axiosInstanceParking.post(`/users/logout`);
                     navigate("/");
