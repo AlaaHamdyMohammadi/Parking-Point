@@ -6,9 +6,12 @@ import ModalReserve from "./ReserveModal";
 import RatingComponent from "./RatingComponent";
 import axiosInstanceParking from "../../axiosConfig/instanc";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
   const { t } = useTranslation();
+  const language = useSelector((state) => state.language.language);
+
   //console.log(AvaliableParksFilter);
   return (
     <>
@@ -67,7 +70,7 @@ export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
               <div className="card-title fw-bolder mb-0">{item.title}</div>
               <div className="mb-0 customfs  ">
                 <div>
-                  <span className=" fw-semibold">{t('Available')}</span>
+                  <span className=" fw-semibold">{t("Available")}</span>
                   {item.availableCapacity}
                 </div>
               </div>
@@ -78,10 +81,14 @@ export default function ParkingCard({ AvaliableParksFilter, ReserveTime }) {
               </div>
             </div>
             <div className=" col-lg-3 col-md-12 d-lg-flex gap-1 flex-lg-column justify-content-start text-center ">
-              <div className="ps-2">
+              <div className={`${language == "ar" ? "ps-2" : "pe-2"}`}>
                 <ModalReserve ParkId={item._id} ReserveTime={ReserveTime} />
               </div>
-              <div className="d-flex flex-row text-center justify-content-evenly">
+              <div
+                className={`${
+                  language == "ar" ? "ps-2" : "pe-2"
+                } d-flex flex-row text-center justify-content-evenly`}
+              >
                 <RatingComponent rating={item.rate} />
               </div>
             </div>
@@ -97,7 +104,7 @@ function ParkingAddress({ address }) {
   return (
     <p className="mb-0 customfs">
       <div style={{}}>
-        <span className="fw-semibold">{t('address')}</span>
+        <span className="fw-semibold">{t("address")}</span>
         {seeMore
           ? address
           : `${address.slice(0, 20)}${address.length > 20 ? "..." : ""}`}
@@ -115,7 +122,7 @@ function ParkingAddress({ address }) {
             fontWeight: "bold",
           }}
         >
-          {seeMore ? t('less') : t('more')}
+          {seeMore ? t("less") : t("more")}
         </button>
       )}
     </p>

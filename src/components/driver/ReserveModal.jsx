@@ -40,15 +40,12 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
     try {
       //console.log("ReserveTime", ReserveTime);
 
-      const response = await axiosInstanceParking.post(
-        `/reserve`,
-        {
-          park: ParkId,
-          from: ReserveTime.from,
-          to: ReserveTime.to,
-          plateNumber: registeUser.plateNumber, // Use updated plateNumber from state
-        },
-      );
+      const response = await axiosInstanceParking.post(`/reserve`, {
+        park: ParkId,
+        from: ReserveTime.from,
+        to: ReserveTime.to,
+        plateNumber: registeUser.plateNumber, // Use updated plateNumber from state
+      });
       //console.log("ReserveTime", ReserveTime);
       const sessionID = response.data.sessionId;
       localStorage.setItem("sessionID", sessionID);
@@ -91,7 +88,7 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
             <div className="modal-body p-2">
               <div className="">
                 <label className="fw-semibold pb-2" htmlFor="plateNumber">
-                  {t('confirmPlate')}
+                  {t("confirmPlate")}
                 </label>
                 <input
                   type="text"
@@ -113,28 +110,28 @@ export default function ModalReserve({ ReserveTime, ParkId }) {
                 data-bs-target="#exampleModalToggle2"
                 data-bs-toggle="modal"
                 disabled={Object.values(errors).some(
-                  (userEmail) => userEmail !== "")}
+                  (userEmail) => userEmail !== ""
+                )}
               >
-                {t('sure')}
+                {t("sure")}
               </button>
             </div>
           </div>
         </div>
       </div>
-      <div
+      {/* <div
         className="modal fade"
         id="exampleModalToggle2"
         aria-hidden="true"
         aria-labelledby="exampleModalToggleLabel2"
         tabIndex="-1"
-      ></div>
+      ></div> */}
       <button
-        className="bgColor text-white w-100 p-0 btn"
+        className="bgColor text-white  w-100 p-0 btn"
         data-bs-target="#exampleModalToggle"
         data-bs-toggle="modal"
       >
-        
-        {t('book')}
+        {t("book")}
       </button>
     </>
   );
