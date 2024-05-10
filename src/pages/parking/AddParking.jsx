@@ -396,9 +396,9 @@ export default function AddParking() {
                       ? "btn bgColor text-white col-md-4 col-10 my-3 disabled"
                       : "btn bgColor text-white col-md-4 col-10 my-3 "
                   }
-                  disabled={Object.values(parking).some(
-                    (parking) => parking == ""
-                  )}
+                  // disabled={Object.values(parking).some(
+                  //   (parking) => parking == ""
+                  // )}
                 />
               )}
               <ToastContainer position="top-right" autoClose={2000} />
