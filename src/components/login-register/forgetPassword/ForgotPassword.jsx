@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
@@ -9,7 +10,7 @@ import axiosInstanceParking from "../../../axiosConfig/instanc";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useTranslation } from "react-i18next";
-
+import { useSelector } from "react-redux";
 
 const ForgotPassword = () => {
   const [registeUser, setRegisteUser] = React.useState({ email: "" });
@@ -70,7 +71,7 @@ const ForgotPassword = () => {
             ? t("emailInp2")
             : emailRegex.test(value)
             ? ""
-            : t('emailInp1'),
+            : t("emailInp1"),
       });
       setEmail(value);
     }
@@ -157,6 +158,7 @@ const ForgotPassword = () => {
       }
     }
   }
+  const language = useSelector((state) => state.language.language);
 
   return (
     <>
@@ -258,7 +260,11 @@ const ForgotPassword = () => {
               </div>
               <div className="modal-body p-0">
                 <div className="d-flex">
-                  <div className="text-end px-3 align-self-center ">
+                  <div
+                    className={`${
+                      language == "ar" ? "text-end" : "text-start"
+                    } px-3 align-self-center `}
+                  >
                     <label className=" pt-2">{t("verificationCode")}</label>
                     <input
                       type="text"
@@ -268,7 +274,6 @@ const ForgotPassword = () => {
                       onBlur={registeValidation}
                       onPaste={(e) => {
                         const pastedText = e.clipboardData.getData("text");
-                        // registeValidation;
                         setToken(pastedText);
                       }}
                       className={`${classes.input}  w-100 mt-2 form-control border-secondary shadow-none`}
@@ -289,7 +294,7 @@ const ForgotPassword = () => {
                   </div>
                 </div>
 
-                <p className="fs-6  px-4 text-justify-center">
+                <p align="justify" className="fs-6  px-4 text-justify-center">
                   {t("forgetPass4")}
                   <span className={`${classes.resendcode} mx-1`}>{email}</span>
                   {t("forgetPass5")}
@@ -308,16 +313,6 @@ const ForgotPassword = () => {
                       (token) => token !== ""
                     )}
                   />
-                  {/* <button
-                    className="text-center  bgColor text-white btn"
-                    data-bs-target="#staticBackdrop"
-                    data-bs-toggle="modal"
-                    onClick={() => {
-                      setShowEmailModal(true);
-                    }}
-                  >
-                    الرجوع
-                  </button> */}
                 </div>
               </div>
             </div>
@@ -437,7 +432,7 @@ const ForgotPassword = () => {
                 <div className="modal-footer p-0 px-3 m-0 justify-content-start">
                   <input
                     type="submit"
-                    value={t('send')}
+                    value={t("send")}
                     onClick={handleResetPassword}
                     className="text-center bgColor text-white btn"
                     data-bs-dismiss={esc ? "modal" : ""}
@@ -450,7 +445,7 @@ const ForgotPassword = () => {
                     className="text-center  bgColor text-white btn"
                     data-bs-dismiss="modal"
                   >
-                    {t('cancelProcess')}
+                    {t("cancelProcess")}
                   </button>
                 </div>
               </div>
