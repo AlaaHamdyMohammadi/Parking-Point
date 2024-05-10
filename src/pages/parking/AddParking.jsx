@@ -69,7 +69,7 @@ export default function AddParking() {
     photosErrors: "",
     cityErrors: "",
     titleErrors: "",
-    addressErrors: "",
+    // addressErrors: "",
     capacityErrors: "",
     locationErrors: "",
   });
@@ -120,10 +120,10 @@ export default function AddParking() {
       });
     }
     if (name === "address") {
-      setErrors({
-        ...errors,
-        addressErrors: value.length === 0 ? t("addParking.addressErr") : "",
-      });
+      // setErrors({
+      //   ...errors,
+      //   addressErrors: value.length === 0 ? t("addParking.addressErr") : "",
+      // });
     }
     if (name === "location") {
       setErrors({
@@ -173,7 +173,7 @@ export default function AddParking() {
       const formData = new FormData();
       formData.append("city", parking.city);
       formData.append("title", parking.title);
-      formData.append("address", parking.address);
+      // formData.append("address", parking.address);
       formData.append("capacity", parking.capacity);
 
       formData.append("latitude", parking.location.latitude);
