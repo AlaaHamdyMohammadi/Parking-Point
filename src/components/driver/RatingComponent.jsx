@@ -16,12 +16,12 @@ export default function RatingComponent({ rating }) {
           ))}
         </div>
       ) : (
-        <div style={{paddingLeft: "10px"}}> 
-          <FaStar size={"0.7em"} className="Gray"/>
-          <FaStar size={"0.7em"} className="Gray"/>
-          <FaStar size={"0.7em"} className="Gray"/>
-          <FaStar size={"0.7em"} className="Gray"/>
-          <FaStar size={"0.7em"} className="Gray"/>
+        <div>
+          <FaStar size={"0.7em"} className="Gray" />
+          <FaStar size={"0.7em"} className="Gray" />
+          <FaStar size={"0.7em"} className="Gray" />
+          <FaStar size={"0.7em"} className="Gray" />
+          <FaStar size={"0.7em"} className="Gray" />
         </div>
       )}
     </>
