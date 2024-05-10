@@ -11,11 +11,13 @@ export default function useLogInUserData() {
     useEffect(() => {
         const getLogInUser = async () => {
             try {
-                const response = await axiosInstanceParking.get('/users/me'
+                const response = await axiosInstanceParking.get('/users/'
                 );
                 setuser(response.data.doc);
+                console.log(response.data.doc);
                 return response.data.doc;
             } catch (error) {
+                console.log(error);
                 if (error.response.data.error == 'the user isnt exist anymore') {
                     dispatch(logout());
                     await axiosInstanceParking.post(`/users/logout`);

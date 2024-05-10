@@ -159,31 +159,29 @@ export default function EndDateTime({
           <div
             className={
               BookNow
-                ? `  ${
-                    language == "ar" ? "text-end" : "text-start"
-                  }   d-none text-end `
-                : `  ${
-                    language == "ar" ? "text-end" : "text-start"
-                  }  text-start `
+                ? `  ${language == "ar" ? "text-end" : "text-start"
+                }   d-none text-end `
+                : `  ${language == "ar" ? "text-end" : "text-start"
+                }  text-start `
             }
           >
             <label
               className={`p-2
                 ${language == "ar" ? "text-end" : "text-start"}
-               `}
+                `}
             >
               {t("reservationDate.startingFrom")}
             </label>
             {/* <input
-               icon={<FcOvertime />}
-               className={`
+                icon={<FcOvertime />}
+                className={`
 
-               customRange Gray focus border-0 pointer text-center w-100  p-2 rounded-2`}
-               type="datetime-local"
-               name={`time`}
-               min={todayDate}
-               value={searchData.from}
-               onChange={handleInputChange}
+                customRange Gray focus border-0 pointer text-center w-100  p-2 rounded-2`}
+                type="datetime-local"
+                name={`time`}
+                min={todayDate}
+                value={searchData.from}
+                onChange={handleInputChange}
              /> */}
             <input
               icon={<FcOvertime />}
@@ -215,28 +213,26 @@ export default function EndDateTime({
             className=" customRange mt-4  border-0 pointer text-center w-100 my- p-2 fw-semibold animate  rounded-2"
           >
             {timeDifference.minutes > 0 ||
-            timeDifference.hours > 0 ||
-            timeDifference.days > 0
-              ? ` ${timeDifference.days} ${t("parkDetials.day")}, ${
-                  timeDifference.hours
-                } ${t("parkDetials.hour")}, ${timeDifference.minutes} ${t(
-                  "parkDetials.minute"
-                )}`
+              timeDifference.hours > 0 ||
+              timeDifference.days > 0
+              ? ` ${timeDifference.days} ${t("parkDetials.day")}, ${timeDifference.hours
+              } ${t("parkDetials.hour")}, ${timeDifference.minutes} ${t(
+                "parkDetials.minute"
+              )}`
               : t("reservationDate.parkingDuration")}
           </div>
           <div className={` ${language == "ar" ? "text-end" : "text-start"}`}>
             <button
               type="submit"
               className={`text-center bgColor text-white btn  my-3 ${classes.formBtn}`}
-              disabled={user.isEmailConfirmed == false ? true:''}
+              disabled={user.isEmailConfirmed == false ? true : ''}
             >
               {t("reservationDate.showParking")}
             </button>
             {user.isEmailConfirmed == false && (
               <div
-                className={`text-danger ${
-                  language == "ar" ? "text-end" : "text-start"
-                }`}
+                className={`text-danger ${language == "ar" ? "text-end" : "text-start"
+                  }`}
               >
                 <div>{t("reservationDate.confirmEmail")}</div>
                 <div
