@@ -206,6 +206,7 @@ export default function AddParking() {
           .catch((err) => {
             toast.error("حدث خطأ ! يرجى المحاولة مرة أخرى");
             console.error("Error during parking request:", err);
+            console.error("Error during parking request:", err.response.status);
           });
       }
     }
