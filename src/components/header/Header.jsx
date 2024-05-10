@@ -47,140 +47,139 @@ export default function Header() {
               className={`${classes.logo} me-5`}
             />
           </Link>
-         
-          <ul className={language=='ar'?'ms-5':'me-5 pe-5'}>
-              {isLoggedIn && (
-                <li className="nav-item dropdown">
-                  <Link
-                    to={`profile`}
-                    className="nav-link fs-4"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <button
-                      type="button"
-                      className="navcolor fs-5 border-0 text-white dropdown-toggle dropdown-toggle-split"
-                    ></button>
-                    <img
-                      src={
-                        user.photo
-                          ? `${axiosInstanceParking.defaults.baseURL}/img/users/${user.photo}`
-                          : "/images/defaultpersonjpg.jpg"
-                      }
-                      className="rounded-circle"
-                      style={{ height: "4vh", width: "4vh", marginTop: "5px" }}
-                      alt="..."
-                    />
-                  </Link>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <Link
-                        to={`/Profile/sales`}
-                        className={`dropdown-item  ${
-                          language == "ar" ? "ps-md-5" : ""
-                        }`}
-                      >
-                        <span className="ps-2" >
-                          <LiaMoneyCheckAltSolid />
-                        </span>
-                        {t("header.reservations")}
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to={`/Profile/editOwnerProfile`}
-                        className={`dropdown-item ${
-                          language == "ar" ? "ps-md-5" : ""
-                        }`}
-                      >
-                        <span className="ps-2">
-                          <IoPerson />
-                        </span>
-                        {t("header.myaccount")}
-                      </Link>
-                    </li>
-                    <li>
-                      <a
-                        className={`dropdown-item ${
-                          language == "ar" ? "ps-md-5" : ""
-                        }`}
-                        href="mailto:parkingpoint@outlook.com"
-                      >
-                        <span className="ps-2">
-                          <MdContactSupport />
-                        </span>
-                        {t("header.support")}
-                      </a>
-                    </li>
-                    <li>
-                      <LangaugeSwitch />
-                    </li>
-                    <li>
-                      <div
-                        role="button"
-                        className="dropdown-item ps-md-5 text-danger border-top"
-                        onClick={logdedout}
-                      >
-                        <span className="ps-2 text-danger">
-                          <IoIosLogOut />
-                        </span>
-                        {t("header.logout")}
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-              )}
 
+          <ul className={language == "ar" ? "ms-5" : "me-5 pe-5"}>
+            {isLoggedIn && (
+              <li className="nav-item dropdown">
+                <Link
+                  to={`profile`}
+                  className="nav-link fs-4"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <button
+                    type="button"
+                    className="navcolor fs-5 border-0 text-white dropdown-toggle dropdown-toggle-split"
+                  ></button>
+                  <img
+                    src={
+                      user.photo
+                        ? `${axiosInstanceParking.defaults.baseURL}/img/users/${user.photo}`
+                        : "/images/defaultpersonjpg.jpg"
+                    }
+                    className="rounded-circle"
+                    style={{ height: "4vh", width: "4vh", marginTop: "5px" }}
+                    alt="..."
+                  />
+                </Link>
+                <ul className="dropdown-menu">
+                  <li>
+                    <Link
+                      to={`/Profile/sales`}
+                      className={`dropdown-item  ${
+                        language == "ar" ? "text-end pe-4" : "ps-4"
+                      }`}
+                    >
+                      <span className={`${language == "ar" ? "ps-2" : "pe-1"}`}>
+                        <LiaMoneyCheckAltSolid />
+                      </span>
+                      {t("header.reservations")}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to={`/Profile/editOwnerProfile`}
+                      className={`dropdown-item ${
+                        language == "ar" ? "ps-md-5" : ""
+                      }`}
+                    >
+                      <span className="ps-2">
+                        <IoPerson />
+                      </span>
+                      {t("header.myaccount")}
+                    </Link>
+                  </li>
+                  <li>
+                    <a
+                      className={`dropdown-item ${
+                        language == "ar" ? "ps-md-5" : ""
+                      }`}
+                      href="mailto:parkingpoint@outlook.com"
+                    >
+                      <span className="ps-2">
+                        <MdContactSupport />
+                      </span>
+                      {t("header.support")}
+                    </a>
+                  </li>
+                  <li>
+                    <LangaugeSwitch />
+                  </li>
+                  <li>
+                    <div
+                      role="button"
+                      className="dropdown-item ps-md-5 text-danger border-top"
+                      onClick={logdedout}
+                    >
+                      <span className="ps-2 text-danger">
+                        <IoIosLogOut />
+                      </span>
+                      {t("header.logout")}
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            )}
           </ul>
-              {!isLoggedIn && (
-                <>
-                 <button
-                 className="navbar-toggler navbar-dark"
-                 type="button"
-                 data-bs-toggle="collapse"
-                 data-bs-target="#navbarScroll"
-                 aria-controls="navbarScroll"
-                 aria-expanded="false"
-                 aria-label="Toggle navigation"
-               >
-                 <span className="navbar-toggler-icon"></span>
-               </button>
-          <div className={`collapse navbar-collapse`} id="navbarScroll">
-            <ul className="navbar-nav me-md-auto my-lg-0 navbar-nav-scroll">
-                <>
-                  <li className="nav-item mt-md-2 fw-bold">
-                    <Link
-                      to={`/register`}
-                      className="nav-link active text-white"
-                      aria-current="page"
-                      onClick={() => {
-                        displayLogin();
-                      }}
-                    >
-                      {t("header.login")}
-                    </Link>
-                  </li>
-                  <li className="nav-item mt-md-2 fw-bold">
-                    <Link
-                      to={`/register`}
-                      className="nav-link active ms-md-4 text-white"
-                      aria-current="page"
-                      onClick={() => {
-                        displayRegester();
-                      }}
-                    >
-                      {t("header.register")}
-                    </Link>
-                  </li>
-                  <li className="nav-item mt-md-2">
-                    <LangaugeSwitch textColor="text-white" />
-                  </li>
-                </>
-            </ul>
-          </div>
-                </>
-              )}
+          {!isLoggedIn && (
+            <>
+              <button
+                className="navbar-toggler navbar-dark"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
+              <div className={`collapse navbar-collapse`} id="navbarScroll">
+                <ul className="navbar-nav me-md-auto my-lg-0 navbar-nav-scroll">
+                  <>
+                    <li className="nav-item mt-md-2 fw-bold">
+                      <Link
+                        to={`/register`}
+                        className="nav-link active text-white"
+                        aria-current="page"
+                        onClick={() => {
+                          displayLogin();
+                        }}
+                      >
+                        {t("header.login")}
+                      </Link>
+                    </li>
+                    <li className="nav-item mt-md-2 fw-bold">
+                      <Link
+                        to={`/register`}
+                        className="nav-link active ms-md-4 text-white"
+                        aria-current="page"
+                        onClick={() => {
+                          displayRegester();
+                        }}
+                      >
+                        {t("header.register")}
+                      </Link>
+                    </li>
+                    <li className="nav-item mt-md-2">
+                      <LangaugeSwitch textColor="text-white" />
+                    </li>
+                  </>
+                </ul>
+              </div>
+            </>
+          )}
         </div>
       </nav>
 
