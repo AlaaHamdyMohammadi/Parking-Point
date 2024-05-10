@@ -227,7 +227,7 @@ export default function EndDateTime({
             <button
               type="submit"
               className={`text-center bgColor text-white btn  my-3 ${classes.formBtn}`}
-              disabled={user.isEmailConfirmed == false && true}
+              disabled={user.isEmailConfirmed == false ? true:''}
             >
               {t("reservationDate.showParking")}
             </button>
