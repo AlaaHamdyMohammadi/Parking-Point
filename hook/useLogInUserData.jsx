@@ -43,6 +43,6 @@ export default function useLogInUserData() {
             console.log("notToken");
             // logOut()
         }
-    }, [token]);
+    }, []);
     return user;
 }
