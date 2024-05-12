@@ -41,7 +41,7 @@ export default function useLogInUserData() {
         console.log(token);
         if (!token) {
             console.log("notToken");
-            logOut()
+            // logOut()
         }
     }, [token]);
     return user;
