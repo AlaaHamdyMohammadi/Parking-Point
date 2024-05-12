@@ -3,8 +3,10 @@ import axiosInstanceParking from "../src/axiosConfig/instanc";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../src/store/slices/authSlice";
-
+import Cookies from 'js-cookie';
 export default function useLogInUserData() {
+    const token = Cookies.get('token');
+    console.log(token);
     const [user, setuser] = useState({})
     const navigate = useNavigate();
     const dispatch = useDispatch();
