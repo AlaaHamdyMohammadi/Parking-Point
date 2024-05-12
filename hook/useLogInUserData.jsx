@@ -50,8 +50,8 @@ export default function useLogInUserData() {
             console.log(token);
         } else {
             // If there's no token, logout the user
-            dispatch(logout());
-            navigate("/");
+            // dispatch(logout());
+            // navigate("/");
             console.log('token');
         }
     }, [dispatch, navigate, token]);
