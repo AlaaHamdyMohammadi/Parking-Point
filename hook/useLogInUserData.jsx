@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../src/store/slices/authSlice";
 import Cookies from "js-cookie";
 export default function useLogInUserData() {
-    const token = Cookies.get("token");
+    const token = Cookies.get('token');
     const [user, setuser] = useState({});
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -43,6 +43,6 @@ export default function useLogInUserData() {
             console.log("notToken");
             logOut()
         }
-    }, [token,logOut]);
+    }, [token]);
     return user;
 }
